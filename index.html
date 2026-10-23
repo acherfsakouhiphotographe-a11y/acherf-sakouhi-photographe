@@ -1,0 +1,2175 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Achref Sakouhi — Photographe</title>
+  <meta name="description" content="Achref Sakouhi, photographe de mariage : portfolio, réservation et livraison de vos photos et vidéos.">
+  <meta name="theme-color" content="#2A0E17">
+  <meta name="color-scheme" content="dark">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preload" href="fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bodoni-moda-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+/* =====================================================================
+   ACHREF SAKOUHI — PHOTOGRAPHE
+   Direction artistique : « l'album de velours ».
+   Fond bordeaux profond (velours d'album, kesswa de mariée), texte ivoire,
+   fil d'or réservé au monogramme, aux repères du viseur et aux actions
+   principales. Les livraisons ressemblent à des pochettes de labo photo.
+   ===================================================================== */
+@font-face{font-family:"Bodoni Moda";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/bodoni-moda-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Bodoni Moda";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/bodoni-moda-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Bodoni Moda";font-style:italic;font-weight:400;font-display:swap;src:url(fonts/bodoni-moda-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Bodoni Moda";font-style:italic;font-weight:500;font-display:swap;src:url(fonts/bodoni-moda-latin-500-italic.woff2) format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jost-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/jost-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/jost-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Tajawal";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/tajawal-arabic-400-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-08FF,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Tajawal";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/tajawal-arabic-500-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-08FF,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Tajawal";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/tajawal-arabic-700-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-08FF,U+FB50-FDFF,U+FE70-FEFF}
+
+:root{
+  color-scheme: dark;
+  --velours:#2A0E17;      /* fond de page */
+  --velours-2:#351421;    /* surfaces */
+  --velours-3:#43192A;    /* surfaces relevées, champs */
+  --encre:#1B080E;        /* barre du bas, ombres */
+  --ivoire:#F3EADB;       /* texte principal */
+  --ivoire-2:#CDBDAA;     /* texte secondaire */
+  --sourdine:#9E8783;     /* texte discret */
+  --or:#C9A45C;           /* fil d'or : actions principales */
+  --or-clair:#E9D3A2;
+  --ligne:rgba(243,234,219,.12);
+  --ligne-2:rgba(243,234,219,.2);
+  --papier:#EFE4D1;       /* pochette de labo */
+  --papier-2:#E4D5BD;
+  --papier-encre:#3B2417;
+  --ok:#A7C38C; --alerte:#E9B95F; --danger:#E7826F;
+  --f-titre:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --f-texte:"Jost","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --t-xs:.8rem; --t-s:.9rem; --t-m:1rem; --t-l:1.25rem; --t-xl:1.563rem; --t-2xl:1.953rem; --t-3xl:2.441rem;
+  --r-champ:10px; --r-carte:18px; --r-pochette:5px;
+  --maxw:560px;
+  --barre:64px;
+  --sur-haut:env(safe-area-inset-top,0px); --sur-bas:env(safe-area-inset-bottom,0px);
+}
+html[lang="ar"]{--f-texte:"Tajawal","Jost",system-ui,sans-serif;--f-titre:"Tajawal","Bodoni Moda",serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--velours);color:var(--ivoire)}
+body{font-family:var(--f-texte);font-size:var(--t-m);line-height:1.55;min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:var(--or-clair)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:2px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+
+/* ---------- typographie ---------- */
+h1,h2,h3{font-family:var(--f-titre);font-weight:400;margin:0;letter-spacing:-.01em;line-height:1.15}
+h1{font-size:var(--t-3xl)} h2{font-size:var(--t-2xl)} h3{font-size:var(--t-l)}
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{font-weight:700;letter-spacing:0;line-height:1.3}
+.ital{font-style:italic}
+html[lang="ar"] .ital{font-style:normal}
+p{margin:0 0 .8em}
+.doux{color:var(--ivoire-2)} .discret{color:var(--sourdine);font-size:var(--t-s)}
+.petit{font-size:var(--t-s)}
+
+/* ---------- démarrage : diaphragme ---------- */
+#boot{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--velours);transition:opacity .5s ease}
+#boot.fini{opacity:0;pointer-events:none}
+.iris{width:112px;height:112px}
+.iris .lame{transform-origin:50px 50px;animation:iris 1.6s cubic-bezier(.6,0,.2,1) infinite alternate}
+@keyframes iris{from{transform:rotate(0deg) scale(1)}to{transform:rotate(38deg) scale(.86)}}
+
+/* ---------- coque de l'app ---------- */
+.ecran{min-height:100vh}
+.entete{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;
+  padding:calc(10px + var(--sur-haut)) 16px 10px;background:linear-gradient(var(--velours) 70%,rgba(42,14,23,0));}
+.entete .marque{display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit}
+.entete .marque img{width:38px;height:38px}
+.entete .nom{font-family:var(--f-titre);font-style:italic;font-size:1.15rem;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[lang="ar"] .entete .nom{font-style:normal;font-weight:700}
+.entete .metier{display:block;font-family:var(--f-texte);font-style:normal;font-size:.78rem;color:var(--sourdine);letter-spacing:.02em}
+.btn-icone{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--ligne);background:var(--velours-2);
+  display:grid;place-items:center;cursor:pointer;color:var(--ivoire);padding:0}
+.btn-icone svg{width:20px;height:20px}
+.btn-langue{width:auto;padding:0 14px;border-radius:21px;font-size:.88rem;font-weight:500}
+.pastille{position:absolute;top:-3px;inset-inline-end:-3px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;
+  background:var(--or);color:var(--encre);font-size:.72rem;font-weight:600;display:grid;place-items:center;border:2px solid var(--velours)}
+.contenu{max-width:var(--maxw);margin:0 auto;padding:6px 16px calc(var(--barre) + 28px + var(--sur-bas))}
+
+/* barre d'onglets */
+.onglets{position:fixed;inset-inline:0;bottom:0;z-index:30;display:flex;justify-content:space-around;
+  padding:6px 6px calc(6px + var(--sur-bas));background:rgba(27,8,14,.96);border-top:1px solid var(--ligne);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.onglets button{flex:1;max-width:110px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;
+  background:none;border:0;color:var(--sourdine);font-size:.72rem;cursor:pointer;position:relative;border-radius:12px}
+.onglets button svg{width:22px;height:22px}
+.onglets button.actif{color:var(--or-clair)}
+.onglets button.actif::before{content:"";position:absolute;top:-7px;width:26px;height:2px;background:var(--or);border-radius:2px}
+.onglets .pastille{top:0;inset-inline-end:calc(50% - 22px)}
+
+/* ---------- boutons et champs ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:23px;
+  border:1px solid var(--ligne-2);background:var(--velours-3);color:var(--ivoire);font-weight:500;font-size:.98rem;
+  cursor:pointer;text-decoration:none;transition:background .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:19px;height:19px}
+.btn-or{background:var(--or);border-color:var(--or);color:var(--encre);font-weight:600}
+.btn-or:hover{background:#D3B06B}
+.btn-clair{background:transparent}
+.btn-danger{background:transparent;border-color:rgba(231,130,111,.5);color:var(--danger)}
+.btn-bloc{display:flex;width:100%}
+.btn-petit{min-height:36px;padding:0 14px;font-size:.88rem;border-radius:18px}
+.btn[disabled]{opacity:.55;pointer-events:none}
+.lien{background:none;border:0;padding:4px 0;color:var(--or-clair);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:.92rem}
+.rangee{display:flex;gap:10px;flex-wrap:wrap}
+.rangee>.btn{flex:1}
+
+.champ{margin-bottom:14px}
+.champ>label,.etiquette{display:block;font-size:.86rem;color:var(--ivoire-2);margin-bottom:6px}
+.saisie,textarea.saisie,select.saisie{width:100%;min-height:48px;padding:12px 14px;border-radius:var(--r-champ);border:1px solid var(--ligne-2);
+  background:var(--velours-3);color:var(--ivoire);font-size:1rem;outline:none;transition:border-color .15s}
+textarea.saisie{min-height:96px;resize:vertical;line-height:1.5}
+.saisie::placeholder{color:var(--sourdine)}
+.saisie:focus{border-color:var(--or)}
+select.saisie{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ivoire-2) 50%),linear-gradient(135deg,var(--ivoire-2) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 21px,calc(100% - 15px) 21px;background-size:5px 5px;background-repeat:no-repeat;padding-inline-end:36px}
+html[lang="ar"] select.saisie{background-position:15px 21px,20px 21px}
+input[type="date"].saisie{color-scheme:dark}
+.aide{font-size:.84rem;color:var(--sourdine);margin-top:6px}
+html[lang="ar"] input[type="tel"],html[lang="ar"] input[type="email"],html[lang="ar"] #co-id,html[lang="ar"] #mo-id,html[lang="ar"] input[type="url"]{direction:ltr;text-align:right}
+html[lang="ar"] input[type="tel"]:placeholder-shown,html[lang="ar"] input[type="email"]:placeholder-shown,html[lang="ar"] #co-id:placeholder-shown,html[lang="ar"] #mo-id:placeholder-shown,html[lang="ar"] input[type="url"]:placeholder-shown{direction:rtl}
+.mdp{position:relative}
+.mdp .saisie{padding-inline-end:52px}
+.oeil{position:absolute;top:50%;inset-inline-end:5px;transform:translateY(-50%);width:42px;height:42px;border:0;background:none;color:var(--sourdine);
+  display:grid;place-items:center;cursor:pointer;border-radius:10px}
+.oeil.on{color:var(--or-clair)} .oeil svg{width:20px;height:20px}
+.case{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.95rem}
+.case input{width:20px;height:20px;accent-color:var(--or)}
+
+/* ---------- blocs ---------- */
+.bloc{background:var(--velours-2);border:1px solid var(--ligne);border-radius:var(--r-carte);padding:18px;margin-bottom:14px}
+.bloc>h3{margin-bottom:12px}
+.titre-section{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:26px 0 12px}
+.titre-section h2{font-size:var(--t-xl)}
+.vide{text-align:center;padding:34px 18px;border:1px dashed var(--ligne-2);border-radius:var(--r-carte);color:var(--ivoire-2)}
+.vide svg{width:34px;height:34px;color:var(--or);margin-bottom:8px}
+.vide h3{margin-bottom:6px}
+.liste{display:flex;flex-direction:column}
+.ligne{display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid var(--ligne);background:none;border-inline:0;border-top:0;
+  width:100%;text-align:start;cursor:pointer;color:inherit}
+.ligne:last-child{border-bottom:0}
+.ligne .corps{flex:1;min-width:0}
+.ligne .t{font-weight:500}
+.ligne .s{font-size:.86rem;color:var(--sourdine);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ligne .t,.ligne .s,.ligne .corps>.discret{display:block}
+.chev{color:var(--sourdine);width:18px;height:18px;flex:none}
+html[lang="ar"] .chev{transform:scaleX(-1)}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--velours-3);display:grid;place-items:center;flex:none;
+  font-family:var(--f-titre);font-style:italic;color:var(--or-clair);font-size:1.05rem;border:1px solid var(--ligne)}
+.etat{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:12px;font-size:.78rem;font-weight:500;white-space:nowrap;
+  border:1px solid var(--ligne-2);color:var(--ivoire-2)}
+.etat.ok{color:var(--ok);border-color:rgba(167,195,140,.45)}
+.etat.alerte{color:var(--alerte);border-color:rgba(233,185,95,.45)}
+.etat.danger{color:var(--danger);border-color:rgba(231,130,111,.45)}
+.etat.or{color:var(--or-clair);border-color:rgba(201,164,92,.5)}
+.puces{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;margin:0 -16px;padding-inline:16px}
+.puces::-webkit-scrollbar{display:none}
+.puce{flex:none;padding:7px 15px;border-radius:18px;border:1px solid var(--ligne-2);background:none;color:var(--ivoire-2);cursor:pointer;font-size:.9rem}
+.puce.on{background:var(--ivoire);color:var(--encre);border-color:var(--ivoire)}
+
+/* ---------- écran de connexion ---------- */
+.accueil-auth{min-height:100vh;display:flex;flex-direction:column}
+.viseur{position:relative;display:grid;place-items:center;padding:calc(48px + var(--sur-haut)) 24px 30px;text-align:center}
+.viseur .cadre{position:relative;width:min(78vw,320px);aspect-ratio:1/1;display:grid;place-items:center}
+.coin{position:absolute;width:34px;height:34px;border-color:var(--or);border-style:solid;border-width:0}
+.coin.hg{top:0;left:0;border-top-width:2px;border-left-width:2px}
+.coin.hd{top:0;right:0;border-top-width:2px;border-right-width:2px}
+.coin.bg{bottom:0;left:0;border-bottom-width:2px;border-left-width:2px}
+.coin.bd{bottom:0;right:0;border-bottom-width:2px;border-right-width:2px}
+.mise-au-point .coin{animation:map-coin 1.4s cubic-bezier(.2,.7,.1,1) both}
+.mise-au-point .coin.hg{--dx:-26px;--dy:-26px}.mise-au-point .coin.hd{--dx:26px;--dy:-26px}
+.mise-au-point .coin.bg{--dx:-26px;--dy:26px}.mise-au-point .coin.bd{--dx:26px;--dy:26px}
+@keyframes map-coin{0%{transform:translate(var(--dx),var(--dy));opacity:0}40%{opacity:1}70%{transform:translate(calc(var(--dx)*-.12),calc(var(--dy)*-.12))}100%{transform:none}}
+.mise-au-point .net{animation:map-net 1.4s cubic-bezier(.2,.7,.1,1) both}
+@keyframes map-net{0%{filter:blur(14px);opacity:.25;transform:scale(1.06)}100%{filter:none;opacity:1;transform:none}}
+.point{width:6px;height:6px;border-radius:50%;background:var(--or);position:absolute;bottom:22%;left:50%;margin-left:-3px}
+.mise-au-point .point{animation:map-point 1.4s steps(1) both}
+@keyframes map-point{0%,62%{opacity:0}63%,75%{opacity:1}76%,85%{opacity:0}86%,100%{opacity:1}}
+.viseur .monogramme{font-family:"Bodoni Moda",serif;font-style:italic;font-size:clamp(5rem,24vw,7.5rem);color:var(--or-clair);line-height:1;letter-spacing:-.05em;margin-top:-6%}
+.viseur h1{margin-top:22px;font-style:italic;font-size:clamp(2rem,9vw,2.6rem)}
+html[lang="ar"] .viseur h1{font-style:normal}
+.viseur .sous{color:var(--ivoire-2);margin-top:6px}
+.carte-auth{width:100%;max-width:440px;margin:0 auto;padding:0 18px 30px}
+.bascule{display:flex;padding:4px;border-radius:24px;background:var(--velours-2);border:1px solid var(--ligne);margin-bottom:18px}
+.bascule button{flex:1;min-height:40px;border:0;border-radius:20px;background:none;color:var(--ivoire-2);cursor:pointer;font-weight:500}
+.bascule button.on{background:var(--ivoire);color:var(--encre)}
+.oubli{display:flex;justify-content:flex-end;margin:-4px 0 14px}
+.legal{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:.86rem}
+.legal a{color:var(--ivoire-2)}
+.coin-langue{position:absolute;top:calc(14px + var(--sur-haut));inset-inline-end:14px}
+
+/* ---------- accueil client : héros ---------- */
+.heros{position:relative;margin:0 -16px 8px;aspect-ratio:4/5;max-height:72vh;overflow:hidden;background:
+  radial-gradient(120% 80% at 50% 30%,#4A1B29 0%,var(--velours) 70%)}
+.heros .diapo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease}
+.heros .diapo.on{opacity:1;animation:lent 14s linear both}
+@keyframes lent{from{transform:scale(1.08)}to{transform:scale(1)}}
+.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,14,23,.1) 30%,rgba(42,14,23,.94) 100%)}
+.heros .cadre{position:absolute;inset:22px 22px 232px;z-index:2;pointer-events:none}
+.heros .texte{position:absolute;inset-inline:22px;bottom:22px;z-index:3}
+.heros h1{font-style:italic;font-size:clamp(2.1rem,9vw,2.9rem);max-width:13ch}
+html[lang="ar"] .heros h1{font-style:normal}
+.heros .rangee{margin-top:16px}
+.heros .rangee .btn{flex:1 1 auto;white-space:nowrap;padding:0 16px}
+.heros.sans-photo .monogramme-fond{position:absolute;inset:0;display:grid;place-items:center;font-family:"Bodoni Moda",serif;font-style:italic;
+  font-size:min(52vw,260px);color:rgba(201,164,92,.13);letter-spacing:-.05em;padding-bottom:30%}
+
+/* ---------- pochette de labo (livraison) ---------- */
+.pochette{position:relative;background:var(--papier);color:var(--papier-encre);border-radius:var(--r-pochette);padding:26px 18px 18px;
+  margin-bottom:16px;box-shadow:0 14px 30px rgba(10,2,5,.45);overflow:hidden}
+.pochette::before{content:"";position:absolute;top:9px;inset-inline:12px;height:6px;
+  background:radial-gradient(circle,rgba(59,36,23,.28) 2.2px,transparent 2.6px) 0 0/14px 6px repeat-x}
+.pochette .labo{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pochette h3{font-family:var(--f-titre);font-style:italic;font-size:1.45rem;color:var(--papier-encre)}
+html[lang="ar"] .pochette h3{font-style:normal}
+.pochette .meta{font-size:.9rem;color:#6B5242;margin-top:4px}
+.pochette .mot{margin:12px 0 0;padding:10px 12px;border-inline-start:2px solid #B89A6A;background:rgba(59,36,23,.05);font-size:.95rem}
+.pochette .liens{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.pochette .btn{background:var(--papier-encre);color:var(--papier);border-color:var(--papier-encre)}
+.pochette .btn.btn-clair{background:transparent;color:var(--papier-encre);border-color:rgba(59,36,23,.35)}
+.pochette .pied{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed rgba(59,36,23,.3);font-size:.88rem}
+.tampon{flex:none;width:88px;height:88px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;text-align:center;
+  transform:rotate(-9deg);color:#8B2E2E;font-size:.7rem;line-height:1.15;padding:6px;opacity:.85}
+.tampon b{display:block;font-family:"Bodoni Moda",serif;font-size:1.25rem;font-weight:500;margin:1px 0}
+html[lang="ar"] .tampon b{font-family:var(--f-texte)}
+.tampon.ok{color:#4E6B3A}.tampon.fin{color:#7C6A5C}
+.pochette.nouvelle{animation:arrivee .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes arrivee{from{transform:translateY(18px) rotate(-1.5deg);opacity:0}to{transform:none;opacity:1}}
+.pochette.fermee{background:var(--papier-2)}
+.conseils{margin-top:10px}
+.conseils summary{cursor:pointer;color:var(--or-clair);font-size:.95rem;padding:6px 0}
+.conseils ol{margin:8px 0 0;padding-inline-start:20px;color:var(--ivoire-2)}
+.conseils li{margin-bottom:6px}
+
+/* ---------- étapes, avis, forfaits ---------- */
+.etapes{counter-reset:e;list-style:none;margin:0;padding:0}
+.etapes li{counter-increment:e;display:grid;grid-template-columns:44px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--ligne)}
+.etapes li:last-child{border-bottom:0}
+.etapes li::before{content:counter(e);font-family:"Bodoni Moda",serif;font-style:italic;font-size:1.9rem;color:var(--or);line-height:1}
+.etapes b{display:block;font-weight:500;margin-bottom:2px}
+.avis-carte{padding:16px 0;border-bottom:1px solid var(--ligne)}
+.avis-carte:last-child{border-bottom:0}
+.avis-carte blockquote{margin:0 0 8px;font-family:var(--f-titre);font-style:italic;font-size:1.12rem;line-height:1.45}
+html[lang="ar"] .avis-carte blockquote{font-style:normal}
+.etoiles{color:var(--or);letter-spacing:2px;font-size:.95rem}
+.choix-etoiles{display:flex;gap:6px;direction:ltr;justify-content:center;margin:6px 0 14px}
+.choix-etoiles button{width:46px;height:46px;border:0;background:none;color:var(--sourdine);font-size:2rem;cursor:pointer;line-height:1}
+.choix-etoiles button.on{color:var(--or)}
+.forfait{padding:16px 0;border-bottom:1px solid var(--ligne)}
+.forfait:last-child{border-bottom:0}
+.forfait .haut{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.forfait h3{font-style:italic}
+html[lang="ar"] .forfait h3{font-style:normal}
+.forfait .prix{color:var(--or-clair);font-weight:500;white-space:nowrap}
+.forfait ul{margin:8px 0 0;padding-inline-start:18px;color:var(--ivoire-2);font-size:.94rem}
+
+/* ---------- portfolio ---------- */
+.mosaique{columns:2;column-gap:8px}
+.mosaique button{display:block;width:100%;margin:0 0 8px;padding:0;border:0;background:var(--velours-3);border-radius:4px;overflow:hidden;cursor:zoom-in;break-inside:avoid}
+.mosaique img{width:100%;height:auto}
+.visionneuse{position:fixed;inset:0;z-index:80;background:rgba(14,4,8,.97);display:flex;flex-direction:column}
+.visionneuse .barre{display:flex;justify-content:space-between;align-items:center;padding:calc(10px + var(--sur-haut)) 12px 10px}
+.visionneuse .scene{flex:1;display:grid;place-items:center;overflow:hidden;touch-action:pan-y;position:relative}
+.visionneuse .scene img{max-width:100%;max-height:100%;object-fit:contain;transition:filter .4s}
+.visionneuse .scene img.flou{filter:blur(10px)}
+.visionneuse .legende{padding:10px 18px calc(16px + var(--sur-bas));text-align:center;color:var(--ivoire-2);min-height:48px}
+.visionneuse .nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2}
+.visionneuse .nav.prec{inset-inline-start:8px}.visionneuse .nav.suiv{inset-inline-end:8px}
+html[lang="ar"] .visionneuse .nav svg{transform:scaleX(-1)}
+
+/* ---------- feuille (fenêtre du bas) ---------- */
+.voile{position:fixed;inset:0;z-index:60;background:rgba(14,4,8,.62);display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s}
+.voile.ouvert{opacity:1;pointer-events:auto}
+.feuille{width:100%;max-width:var(--maxw);max-height:90vh;display:flex;flex-direction:column;background:var(--velours-2);
+  border:1px solid var(--ligne);border-bottom:0;border-radius:22px 22px 0 0;transform:translateY(24px);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.voile.ouvert .feuille{transform:none}
+.feuille .tete{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px 10px}
+.feuille .tete h2{font-size:var(--t-xl);font-style:italic}
+html[lang="ar"] .feuille .tete h2{font-style:normal}
+.feuille .corps{padding:4px 18px 18px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.feuille .pied{padding:12px 18px calc(14px + var(--sur-bas));border-top:1px solid var(--ligne)}
+.feuille .pied:empty{display:none}
+
+/* ---------- message bref ---------- */
+#toast{position:fixed;left:50%;bottom:calc(var(--barre) + 20px + var(--sur-bas));transform:translate(-50%,20px);z-index:90;max-width:min(92vw,460px);
+  padding:12px 18px;border-radius:14px;background:var(--ivoire);color:var(--encre);font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.4);
+  opacity:0;pointer-events:none;transition:.25s;text-align:center}
+#toast.voir{opacity:1;transform:translate(-50%,0)}
+#toast.err{background:#F6D2C9;color:#5A1B10}
+#toast.ok{background:#E3EED7;color:#21361A}
+
+/* ---------- divers ---------- */
+.encart{padding:14px 16px;border-radius:14px;border:1px solid rgba(201,164,92,.35);background:rgba(201,164,92,.08);margin-bottom:14px}
+.encart.alerte{border-color:rgba(233,185,95,.45);background:rgba(233,185,95,.08)}
+.encart b{font-weight:500}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.95rem}
+.kv dt{color:var(--sourdine)} .kv dd{margin:0}
+.qr{width:168px;height:168px;background:#fff;border-radius:12px;padding:10px;display:grid;place-items:center;color:#333;font-size:.8rem;text-align:center}
+.qr svg,.qr img{width:100%;height:100%}
+.credit{text-align:center;color:var(--sourdine);font-size:.85rem;margin-top:8px}
+.credit a{color:var(--ivoire-2)}
+.lien-ligne{display:flex;gap:8px;margin-bottom:8px}
+.lien-ligne .saisie:first-child{flex:0 0 36%}
+.miniature{width:52px;height:52px;border-radius:6px;object-fit:cover;flex:none;background:var(--velours-3)}
+.grille-admin{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.grille-admin button{position:relative;padding:0;border:0;background:var(--velours-3);aspect-ratio:1/1;border-radius:4px;overflow:hidden;cursor:pointer}
+.grille-admin img{width:100%;height:100%;object-fit:cover}
+.grille-admin .vedette{position:absolute;top:5px;inset-inline-start:5px;width:22px;height:22px;border-radius:50%;background:var(--or);color:var(--encre);display:grid;place-items:center;font-size:.75rem}
+.compteur{display:flex;align-items:center;gap:14px;padding:13px 2px;border-bottom:1px solid var(--ligne);width:100%;background:none;border-inline:0;border-top:0;color:inherit;cursor:pointer;text-align:start}
+.compteur .n{font-family:"Bodoni Moda",serif;font-size:1.8rem;min-width:42px;color:var(--or-clair);line-height:1}
+.compteur .l{flex:1}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.85rem}
+.cal .j{padding:8px 0;border-radius:8px}
+.cal .pris{background:rgba(231,130,111,.18);color:var(--danger);text-decoration:line-through}
+.cal .entete-j{color:var(--sourdine);font-size:.75rem}
+.cal .puce{padding:8px 0;border-radius:8px;font-size:.88rem}
+.cal .puce.pris{background:rgba(231,130,111,.14);border-color:transparent}
+.bandeau-config{max-width:520px;margin:40px auto;padding:22px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (min-width:700px){.mosaique{columns:3}}
+
+  </style>
+</head>
+<body>
+  <div id="boot" aria-label="Chargement">
+    <svg class="iris" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#C9A45C" stroke-width="1.5"/>
+      <g fill="none" stroke="#C9A45C" stroke-width="1.5" stroke-linejoin="round">
+        <path class="lame" d="M50 14 L71 26 L58 46 Z"/><path class="lame" d="M81 32 L81 56 L58 50 Z" />
+        <path class="lame" d="M77 68 L56 80 L50 58 Z"/><path class="lame" d="M50 86 L29 74 L42 54 Z"/>
+        <path class="lame" d="M19 68 L19 44 L42 50 Z"/><path class="lame" d="M23 32 L44 20 L50 42 Z"/>
+      </g>
+    </svg>
+  </div>
+  <div id="app"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><p style="padding:24px">Cette application a besoin de JavaScript.</p></noscript>
+
+  <script src="config.js"></script>
+  <script src="qrcode.js" defer></script>
+  <script>
+/* =====================================================================
+   TRADUCTIONS — arabe. Clé = texte français affiché dans l'app.
+   ===================================================================== */
+const AR = {
+  "Afficher le mot de passe":"إظهار كلمة المرور","Masquer le mot de passe":"إخفاء كلمة المرور",
+  "Connexion instable : réessayez dans un instant.":"الاتصال غير مستقر: أعد المحاولة بعد قليل.",
+  "Espace photographe":"فضاء المصوّر","Changer de langue":"تغيير اللغة","Notifications":"الإشعارات",
+  "Configuration à terminer":"إعداد غير مكتمل",
+  "L'application n'est pas encore reliée à Firebase. Remplissez le fichier config.js avec les clés de votre projet, puis rechargez la page.":"التطبيق غير مربوط بعد بـ Firebase. املأ ملف config.js بمفاتيح مشروعك ثم أعد تحميل الصفحة.",
+  "Les étapes détaillées sont dans le fichier LISEZ-MOI.md.":"الخطوات المفصّلة موجودة في ملف LISEZ-MOI.md.",
+  "Pas de connexion":"لا يوجد اتصال","Vérifiez votre connexion Internet, puis réessayez.":"تحقّق من اتصالك بالإنترنت ثم أعد المحاولة.","Réessayer":"إعادة المحاولة",
+  "Connexion":"تسجيل الدخول","Créer un compte":"إنشاء حساب","Nom complet":"الاسم الكامل","Votre nom et prénom":"اسمك ولقبك",
+  "Numéro de téléphone":"رقم الهاتف","Votre numéro de téléphone":"رقم هاتفك","Adresse e-mail":"البريد الإلكتروني","Votre adresse e-mail":"بريدك الإلكتروني",
+  "Pour vous connecter et récupérer votre mot de passe si vous l'oubliez.":"لتسجيل الدخول واسترجاع كلمة المرور إذا نسيتها.",
+  "Mot de passe":"كلمة المرور","Au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un symbole.":"8 أحرف على الأقل، مع حرف كبير وحرف صغير ورقم ورمز.",
+  "Créer mon compte":"إنشاء حسابي","En créant un compte, vous acceptez la":"بإنشائك حسابًا، فإنك توافق على","politique de confidentialité":"سياسة الخصوصية",
+  "Téléphone ou e-mail":"الهاتف أو البريد الإلكتروني","Votre numéro ou votre e-mail":"رقمك أو بريدك الإلكتروني","Mot de passe oublié ?":"نسيت كلمة المرور؟",
+  "Se connecter":"دخول","Politique de confidentialité":"سياسة الخصوصية","Suppression de compte":"حذف الحساب",
+  "Mot de passe : au moins 8 caractères.":"كلمة المرور: 8 أحرف على الأقل.","Mot de passe : au moins une lettre majuscule.":"كلمة المرور: حرف كبير واحد على الأقل.",
+  "Mot de passe : au moins une lettre minuscule.":"كلمة المرور: حرف صغير واحد على الأقل.","Mot de passe : au moins un chiffre.":"كلمة المرور: رقم واحد على الأقل.",
+  "Mot de passe : au moins un symbole (! ? @ # …).":"كلمة المرور: رمز واحد على الأقل (! ? @ # …).",
+  "Cette adresse e-mail a déjà un compte. Connectez-vous ou utilisez « Mot de passe oublié ».":"هذا البريد الإلكتروني له حساب بالفعل. سجّل الدخول أو استعمل «نسيت كلمة المرور».",
+  "Identifiant ou mot de passe incorrect.":"المعرّف أو كلمة المرور غير صحيحة.","Adresse e-mail invalide.":"البريد الإلكتروني غير صالح.","Mot de passe trop faible.":"كلمة المرور ضعيفة جدًا.",
+  "Reconnectez-vous puis réessayez.":"أعد تسجيل الدخول ثم حاول مجددًا.","Trop de tentatives. Réessayez dans quelques minutes.":"محاولات كثيرة. أعد المحاولة بعد بضع دقائق.",
+  "Problème de connexion Internet.":"مشكلة في الاتصال بالإنترنت.","Une erreur s'est produite. Réessayez.":"حدث خطأ. أعد المحاولة.","Remplissez tous les champs.":"املأ كل الخانات.",
+  "Numéro de téléphone invalide.":"رقم الهاتف غير صالح.","Aucun compte avec ce numéro. Vérifiez-le ou connectez-vous avec votre e-mail.":"لا يوجد حساب بهذا الرقم. تحقّق منه أو سجّل الدخول ببريدك الإلكتروني.",
+  "Ce numéro a déjà un compte. Connectez-vous ou utilisez « Mot de passe oublié ».":"هذا الرقم له حساب بالفعل. سجّل الدخول أو استعمل «نسيت كلمة المرور».",
+  "Bienvenue ! Votre compte est créé.":"مرحبًا! تمّ إنشاء حسابك.","Mot de passe oublié":"نسيت كلمة المرور",
+  "Nous vous envoyons un lien par e-mail pour choisir un nouveau mot de passe.":"سنرسل لك رابطًا عبر البريد الإلكتروني لاختيار كلمة مرور جديدة.",
+  "E-mail ou numéro de téléphone":"البريد الإلكتروني أو رقم الهاتف","Envoyer le lien":"إرسال الرابط","Saisissez votre e-mail ou votre numéro.":"أدخل بريدك الإلكتروني أو رقمك.",
+  "Aucun compte avec ce numéro.":"لا يوجد حساب بهذا الرقم.","Vérifiez le numéro, ou saisissez votre adresse e-mail.":"تحقّق من الرقم، أو أدخل بريدك الإلكتروني.",
+  "E-mail envoyé":"تمّ إرسال البريد","Si un compte existe, un lien a été envoyé à :":"إذا كان هناك حساب، فقد أُرسل رابط إلى:",
+  "Ouvrez l'e-mail, touchez le lien et choisissez un nouveau mot de passe. Pensez à regarder dans les spams.":"افتح البريد، اضغط على الرابط واختر كلمة مرور جديدة. تحقّق أيضًا من البريد غير المرغوب فيه.",
+  "Retour à la connexion":"العودة إلى تسجيل الدخول","Fermer":"إغلاق","Annuler":"إلغاء",
+  "Rien de nouveau":"لا جديد","Vos notifications apparaîtront ici.":"ستظهر إشعاراتك هنا.","Tout marquer comme lu":"تعليم الكل كمقروء",
+  "Notifications activées.":"تمّ تفعيل الإشعارات.","Notifications refusées. Autorisez-les dans les réglages du téléphone.":"تمّ رفض الإشعارات. اسمح بها من إعدادات الهاتف.",
+  "Notifications indisponibles avec Samsung Internet : ouvrez l'app avec Chrome.":"الإشعارات غير متاحة مع Samsung Internet: افتح التطبيق بمتصفح Chrome.",
+  "Activation impossible. Vérifiez la connexion.":"تعذّر التفعيل. تحقّق من الاتصال.","Notifications désactivées sur cet appareil.":"تمّ إيقاف الإشعارات على هذا الجهاز.",
+  "Ce téléphone sera prévenu dès que vos photos sont prêtes.":"سيصلك تنبيه على هذا الهاتف فور جاهزية صورك.",
+  "Ce téléphone reçoit les nouvelles demandes et les messages des clients.":"يتلقّى هذا الهاتف الطلبات الجديدة ورسائل الحرفاء.",
+  "Désactiver sur cet appareil":"إيقاف على هذا الجهاز",
+  "Activez les notifications pour être prévenu(e) dès que vos photos et vidéos sont prêtes.":"فعّل الإشعارات ليصلك تنبيه فور جاهزية صورك وفيديوهاتك.",
+  "Activez les notifications pour être prévenu des nouvelles demandes.":"فعّل الإشعارات ليصلك تنبيه بالطلبات الجديدة.",
+  "Les notifications sont bloquées. Autorisez-les dans les réglages du téléphone, rubrique Applications.":"الإشعارات محظورة. اسمح بها من إعدادات الهاتف، قسم التطبيقات.",
+  "Sur iPhone : touchez Partager, puis « Sur l'écran d'accueil », et ouvrez l'app depuis son icône.":"على iPhone: اضغط على مشاركة، ثم «إضافة إلى الشاشة الرئيسية»، وافتح التطبيق من أيقونته.",
+  "Ce navigateur ne gère pas les notifications. Ouvrez l'app avec Chrome.":"هذا المتصفح لا يدعم الإشعارات. افتح التطبيق بمتصفح Chrome.",
+  "Activer les notifications":"تفعيل الإشعارات",
+  "Les notifications seront bientôt disponibles.":"ستتوفّر الإشعارات قريبًا.",
+  "Notifications pas encore configurées : ajoutez la clé vapidKey dans config.js (voir LISEZ-MOI, étape 1.5).":"الإشعارات غير مهيّأة بعد: أضف مفتاح vapidKey في ملف config.js (انظر LISEZ-MOI، الخطوة 1.5).","Bonjour":"مرحبًا","Réserver une date":"حجز موعد","Voir le portfolio":"مشاهدة الأعمال",
+  "Vos photos sont prêtes":"صوركم جاهزة","Votre date est confirmée":"تمّ تأكيد موعدكم","Demande envoyée":"تمّ إرسال الطلب",
+  "Achref vous répond très vite. Suivez-la dans l'onglet Réserver.":"سيردّ عليكم أشرف قريبًا. تابعوا الطلب في تبويب الحجز.",
+  "Ne ratez pas vos photos":"لا تفوّتوا صوركم","Comment ça se passe":"كيف تجري الأمور","Vous réservez votre date":"تحجزون موعدكم",
+  "Choisissez le jour et le forfait, Achref confirme la disponibilité.":"اختاروا اليوم والباقة، ويؤكّد أشرف التوفّر.","Le jour J":"يوم الحفل",
+  "Achref capture les préparatifs, la cérémonie et la fête, en photo et en vidéo.":"يوثّق أشرف التحضيرات والحفل والسهرة بالصور والفيديو.",
+  "Vous recevez vos fichiers":"تتسلّمون ملفاتكم","Un lien de téléchargement arrive dans « Mes photos », avec une notification.":"يصلكم رابط التحميل في «صوري» مع إشعار.",
+  "Forfaits":"الباقات","Ils en parlent":"قالوا عنّا","Restons en contact":"لنبقَ على تواصل","À propos de l'application":"حول التطبيق","Appeler":"اتصال","E-mail":"البريد",
+  "Portfolio":"الأعمال","Le portfolio arrive bientôt":"معرض الأعمال قريبًا","En attendant, retrouvez les derniers mariages sur Instagram.":"في الأثناء، شاهدوا آخر الأعراس على Instagram.",
+  "Précédente":"السابقة","Suivante":"التالية","Lien expiré":"انتهت صلاحية الرابط","Expire aujourd'hui":"ينتهي اليوم","Expire demain":"ينتهي غدًا","Encore {n} jours":"بقي {n} أيام",
+  "Mes photos et vidéos":"صوري وفيديوهاتي","Rien pour l'instant":"لا شيء حاليًا",
+  "Vos photos et vidéos apparaîtront ici dès qu'Achref vous les enverra. Vous recevrez une notification.":"ستظهر صوركم وفيديوهاتكم هنا فور إرسالها من أشرف، وسيصلكم إشعار.",
+  "Comment télécharger vos fichiers":"كيف تحمّلون ملفاتكم","Connectez-vous au Wi-Fi : les fichiers d'un mariage sont lourds.":"اتصلوا بشبكة Wi-Fi: ملفات العرس كبيرة الحجم.",
+  "Touchez le bouton Photos ou Vidéo : la page WeTransfer s'ouvre.":"اضغطوا على زر الصور أو الفيديو: تُفتح صفحة WeTransfer.",
+  "Touchez « Télécharger ». Sur téléphone, le fichier .zip arrive dans « Téléchargements ».":"اضغطوا على «Télécharger». على الهاتف، يصل ملف ‎.zip إلى «التنزيلات».",
+  "Ouvrez le .zip avec l'application Fichiers pour retrouver vos photos, puis gardez une copie sur un ordinateur ou un cloud.":"افتحوا ملف ‎.zip بتطبيق الملفات لإيجاد صوركم، واحتفظوا بنسخة على حاسوب أو في السحابة.",
+  "Les liens WeTransfer expirent : téléchargez avant la date indiquée sur la pochette.":"روابط WeTransfer تنتهي صلاحيتها: حمّلوا قبل التاريخ المكتوب على الظرف.",
+  "Téléchargé":"تمّ التحميل","Expiré le":"انتهى في","Valable jusqu'au":"صالح إلى","Télécharger":"تحميل",
+  "Nouveau lien demandé : Achref vous l'envoie bientôt.":"تمّ طلب رابط جديد: سيرسله أشرف قريبًا.","Ce lien a expiré. Demandez un nouveau lien à Achref.":"انتهت صلاحية هذا الرابط. اطلبوا رابطًا جديدًا من أشرف.",
+  "Demander un nouveau lien":"طلب رابط جديد","Merci ! Fichiers bien reçus.":"شكرًا! تمّ استلام الملفات.","Laisser un avis":"ترك رأي","J'ai tout téléchargé":"حمّلت كل شيء",
+  "Tout est enregistré ?":"هل حفظتم كل شيء؟","Vérifiez que vos photos et vidéos sont bien sur votre téléphone ou votre ordinateur : le lien peut expirer.":"تأكّدوا أنّ صوركم وفيديوهاتكم محفوظة على الهاتف أو الحاسوب: قد تنتهي صلاحية الرابط.",
+  "Oui, j'ai tout":"نعم، حفظت كل شيء","Un client":"أحد الحرفاء","Merci ! Achref est prévenu.":"شكرًا! تمّ إعلام أشرف.",
+  "Enregistrement impossible. Vérifiez la connexion.":"تعذّر الحفظ. تحقّق من الاتصال.","Demande envoyée à Achref.":"تمّ إرسال الطلب إلى أشرف.","Envoi impossible. Vérifiez la connexion.":"تعذّر الإرسال. تحقّق من الاتصال.",
+  "Choisissez une date libre dans le calendrier, puis envoyez votre demande. Achref vous répond dans l'app.":"اختاروا تاريخًا متاحًا في الرزنامة ثم أرسلوا طلبكم. يردّ أشرف داخل التطبيق.",
+  "Événement":"المناسبة","Date":"التاريخ","Ville ou salle":"المدينة أو القاعة","Par exemple : Sousse, salle des fêtes":"مثال: سوسة، قاعة الأفراح","Forfait":"الباقة",
+  "Je ne sais pas encore":"لم أحدّد بعد","Message (facultatif)":"رسالة (اختياري)","Horaires, nombre d'invités, vidéo souhaitée…":"التوقيت، عدد المدعوين، الفيديو المطلوب…",
+  "Envoyer la demande":"إرسال الطلب","Mes demandes":"طلباتي","Annuler la demande":"إلغاء الطلب","Date déjà réservée":"تاريخ محجوز","Mois précédent":"الشهر السابق","Mois suivant":"الشهر التالي",
+  "= date déjà réservée":"= تاريخ محجوز","Cette date est déjà réservée. Choisissez-en une autre ou écrivez à Achref.":"هذا التاريخ محجوز. اختاروا تاريخًا آخر أو راسلوا أشرف.",
+  "Date libre":"تاريخ متاح","Choisissez une date.":"اختاروا تاريخًا.","Cette date est passée.":"هذا التاريخ مضى.","Demande envoyée. Achref vous répond très vite.":"تمّ إرسال الطلب. سيردّ عليكم أشرف قريبًا.",
+  "Annuler la demande ?":"إلغاء الطلب؟","Achref sera prévenu que cette date ne vous intéresse plus.":"سيُعلَم أشرف أنّ هذا التاريخ لم يعد يهمّكم.","Annulation impossible. Vérifiez la connexion.":"تعذّر الإلغاء. تحقّق من الاتصال.",
+  "Votre avis":"رأيكم","Quelques mots sur votre expérience aideront les futurs mariés. Votre avis sera publié après validation.":"بضع كلمات عن تجربتكم تساعد العرسان القادمين. سيُنشر رأيكم بعد المراجعة.",
+  "Votre message":"رسالتكم","Ce que vous avez aimé…":"ما أعجبكم…","Envoyer mon avis":"إرسال رأيي","Écrivez au moins quelques mots.":"اكتبوا بضع كلمات على الأقل.",
+  "Merci ! Votre avis sera publié après validation.":"شكرًا! سيُنشر رأيكم بعد المراجعة.","Mon compte":"حسابي","Mes informations":"معلوماتي",
+  "Vous pouvez aussi vous connecter avec ce numéro.":"يمكنكم أيضًا تسجيل الدخول بهذا الرقم.","Enregistrer":"حفظ","Modifier mon e-mail":"تعديل بريدي الإلكتروني",
+  "Mot de passe actuel":"كلمة المرور الحالية","Nouveau mot de passe":"كلمة المرور الجديدة","Confirmer le nouveau mot de passe":"تأكيد كلمة المرور الجديدة","Modifier le mot de passe":"تغيير كلمة المرور",
+  "Mon avis":"رأيي","Publié":"منشور","En attente de validation":"في انتظار المراجعة","Partagez votre expérience avec les futurs mariés.":"شاركوا تجربتكم مع العرسان القادمين.",
+  "Mes données":"بياناتي","Supprimer mon compte":"حذف حسابي","Supprime définitivement votre compte, vos demandes, vos avis et vos liens de téléchargement.":"يحذف نهائيًا حسابك وطلباتك وآراءك وروابط التحميل.",
+  "À propos":"حول","Se déconnecter":"تسجيل الخروج","Nom et téléphone requis.":"الاسم والهاتف مطلوبان.","Aucune modification.":"لا يوجد أي تعديل.",
+  "Ce numéro est déjà utilisé par un autre compte.":"هذا الرقم مستعمل في حساب آخر.","Informations enregistrées.":"تمّ حفظ المعلومات.","La confirmation ne correspond pas.":"التأكيد لا يطابق كلمة المرور.",
+  "Le nouveau mot de passe doit être différent de l'ancien.":"يجب أن تختلف كلمة المرور الجديدة عن القديمة.","Mot de passe modifié.":"تمّ تغيير كلمة المرور.","Mot de passe actuel incorrect.":"كلمة المرور الحالية غير صحيحة.",
+  "Nouvelle adresse e-mail":"البريد الإلكتروني الجديد","Un e-mail de confirmation vous sera envoyé. L'adresse change dès que vous touchez le lien qu'il contient.":"ستصلك رسالة تأكيد. يتغيّر البريد بمجرّد الضغط على الرابط الموجود فيها.",
+  "Envoyer la confirmation":"إرسال التأكيد","C'est déjà votre adresse actuelle.":"هذا هو بريدك الحالي.","Cette adresse e-mail est déjà utilisée par un autre compte.":"هذا البريد الإلكتروني مستعمل في حساب آخر.",
+  "E-mail de confirmation envoyé":"تمّ إرسال بريد التأكيد","Ouvrez votre boîte :":"افتح بريدك:","Touchez le lien pour valider votre adresse (pensez aux spams).":"اضغط على الرابط لتأكيد بريدك (تحقّق من البريد غير المرغوب فيه).",
+  "Cette action est définitive.":"هذا الإجراء نهائي.",
+  "Seront effacés : votre compte, vos demandes de réservation, vos avis, vos notifications et vos liens de téléchargement. Pensez à télécharger vos photos avant.":"سيتمّ حذف: حسابك، طلبات الحجز، آرائك، إشعاراتك وروابط التحميل. حمّل صورك قبل ذلك.",
+  "Supprimer définitivement mon compte":"حذف حسابي نهائيًا","Saisissez votre mot de passe.":"أدخل كلمة المرور.","Suppression en cours…":"جارٍ الحذف…","Mot de passe incorrect.":"كلمة المرور غير صحيحة.",
+  "Votre compte a été supprimé.":"تمّ حذف حسابك.","Partager l'application":"مشاركة التطبيق","QR code indisponible hors ligne":"رمز QR غير متاح دون اتصال",
+  "Faites scanner ce code pour ouvrir l'application.":"امسحوا هذا الرمز لفتح التطبيق.","Copier le lien":"نسخ الرابط","Version":"الإصدار","Conception et développement":"التصميم والتطوير",
+  "Tous droits réservés.":"جميع الحقوق محفوظة.","Lien copié.":"تمّ نسخ الرابط.","Envoyer des photos à un client":"إرسال صور إلى حريف",
+  "demande de réservation en attente":"طلب حجز في الانتظار","demandes de réservation en attente":"طلبات حجز في الانتظار","client(s) demandent un nouveau lien":"حريف (حرفاء) يطلبون رابطًا جديدًا",
+  "lien(s) qui expirent dans moins de 24 h":"رابط (روابط) تنتهي خلال أقل من 24 ساعة","livraison(s) pas encore téléchargée(s)":"تسليم (تسليمات) لم تُحمَّل بعد","avis à valider":"آراء للمراجعة",
+  "clients inscrits":"حرفاء مسجّلون","Prochains événements":"المناسبات القادمة","Aucun événement confirmé pour l'instant.":"لا توجد مناسبة مؤكّدة حاليًا.",
+  "Téléchargée":"تمّ تحميلها","Nouveau lien demandé":"طلب رابط جديد","Expirée":"منتهية","Vue":"تمّت مشاهدتها","Envoyée":"مُرسلة","Livraisons":"التسليمات","Nouvelle":"جديدة",
+  "jusqu'au {d}":"إلى {d}","Aucune livraison ici":"لا يوجد تسليم هنا","Préparez votre lien WeTransfer, puis envoyez-le au client depuis ce bouton.":"حضّر رابط WeTransfer ثم أرسله إلى الحريف من هذا الزر.",
+  "Le client demande un nouveau lien.":"الحريف يطلب رابطًا جديدًا.","Collez le nouveau lien WeTransfer, changez la date d'expiration, puis enregistrez en prévenant le client.":"الصق رابط WeTransfer الجديد، غيّر تاريخ الانتهاء، ثم احفظ مع إعلام الحريف.",
+  "Envoyée le {d}":"أُرسلت في {d}","vue le {d}":"شوهدت في {d}","téléchargée le {d}":"حُمّلت في {d}","Client":"الحريف","Titre":"العنوان",
+  "Par exemple : Mariage de Sarra et Amine":"مثال: عرس سارة وأمين","Date de l'événement":"تاريخ المناسبة","Liens de téléchargement":"روابط التحميل","Ajouter un lien":"إضافة رابط",
+  "Collez les liens WeTransfer (ou Google Drive, Dropbox…). Ils doivent commencer par https://":"الصق روابط WeTransfer (أو Google Drive وDropbox…). يجب أن تبدأ بـ https://",
+  "Le lien expire le":"ينتهي الرابط في","Mettez la même date que sur WeTransfer (3 jours pour un compte gratuit). Le client est prévenu la veille.":"ضع نفس التاريخ الموجود في WeTransfer (3 أيام للحساب المجاني). يُنبَّه الحريف قبل يوم.",
+  "Message pour le client (facultatif)":"رسالة للحريف (اختياري)","Un petit mot avec la livraison…":"كلمة صغيرة مع التسليم…","Prévenir le client par notification":"إعلام الحريف بإشعار",
+  "Envoyer au client":"إرسال إلى الحريف","Renvoyer la notification":"إعادة إرسال الإشعار","Supprimer":"حذف","Livraison":"التسليم","Nouvelle livraison":"تسليم جديد","Changer":"تغيير",
+  "Rechercher un client (nom, numéro, e-mail)":"البحث عن حريف (الاسم، الرقم، البريد)","Aucun client trouvé.":"لم يُعثر على أي حريف.",
+  "Aucun client inscrit. Le client doit d'abord créer son compte dans l'app.":"لا يوجد حرفاء مسجّلون. يجب أن ينشئ الحريف حسابه أولًا في التطبيق.",
+  "Mariage de {nom}":"عرس {nom}","Photos":"الصور","Nom du lien":"اسم الرابط","Adresse du lien":"عنوان الرابط","Retirer ce lien":"حذف هذا الرابط","Choisissez le client.":"اختر الحريف.",
+  "Fichiers":"الملفات","Donnez un titre à la livraison.":"أعطِ عنوانًا للتسليم.","Ajoutez au moins un lien.":"أضف رابطًا واحدًا على الأقل.",
+  "Un lien n'est pas valide : il doit commencer par https://":"أحد الروابط غير صالح: يجب أن يبدأ بـ https://","Indiquez la date d'expiration du lien.":"حدّد تاريخ انتهاء الرابط.",
+  "Envoyé à {nom}.":"أُرسل إلى {nom}.","le client":"الحريف","Livraison enregistrée.":"تمّ حفظ التسليم.","Notification renvoyée.":"أُعيد إرسال الإشعار.",
+  "Supprimer cette livraison ?":"حذف هذا التسليم؟","Le client ne verra plus ces liens dans l'app. Les fichiers restent sur WeTransfer jusqu'à leur expiration.":"لن يرى الحريف هذه الروابط في التطبيق. تبقى الملفات على WeTransfer حتى انتهاء صلاحيتها.",
+  "Livraison supprimée.":"تمّ حذف التسليم.","Suppression impossible. Vérifiez la connexion.":"تعذّر الحذف. تحقّق من الاتصال.","Clients":"الحرفاء","{n} livraison(s)":"{n} تسليم",
+  "Les clients apparaîtront ici dès qu'ils auront créé leur compte dans l'app.":"سيظهر الحرفاء هنا فور إنشاء حساباتهم في التطبيق.","Aucune livraison.":"لا يوجد تسليم.","Demandes":"الطلبات",
+  "Aucune demande.":"لا يوجد طلب.","Envoyer des photos à ce client":"إرسال صور إلى هذا الحريف","Supprimer ce client":"حذف هذا الحريف","Supprimer ce client ?":"حذف هذا الحريف؟",
+  "Ses livraisons, demandes, avis et notifications seront effacés. Il pourra recréer un compte s'il le souhaite.":"ستُحذف تسليماته وطلباته وآراؤه وإشعاراته. يمكنه إنشاء حساب جديد إن أراد.",
+  "Client supprimé.":"تمّ حذف الحريف.","Suppression incomplète. Vérifiez la connexion et réessayez.":"حذف غير مكتمل. تحقّق من الاتصال وأعد المحاولة.","Aucune demande ici.":"لا يوجد طلب هنا.",
+  "Lieu":"المكان","Statut":"الحالة","Attention : cette date est déjà marquée comme prise.":"تنبيه: هذا التاريخ مسجّل كمحجوز.","Réponse au client (facultatif)":"ردّ على الحريف (اختياري)",
+  "Par exemple : je vous appelle demain pour le devis.":"مثال: سأتصل بكم غدًا بخصوص التسعيرة.","Le client a annulé cette demande.":"ألغى الحريف هذا الطلب.","Date indisponible":"التاريخ غير متاح",
+  "Confirmer":"تأكيد","Demande de réservation":"طلب حجز","Date confirmée. Le client est prévenu.":"تمّ تأكيد التاريخ وإعلام الحريف.","Réponse envoyée au client.":"تمّ إرسال الردّ إلى الحريف.",
+  "Plus":"المزيد","Catégorie des nouvelles photos":"صنف الصور الجديدة","Ajouter des photos":"إضافة صور",
+  "Les photos sont réduites automatiquement. Touchez une photo pour la mettre en avant sur l'accueil (étoile) ou la supprimer.":"تُصغَّر الصور تلقائيًا. اضغط على صورة لإبرازها في الصفحة الرئيسية (نجمة) أو حذفها.",
+  "Ajoutez vos plus belles photos : elles s'affichent dans le portfolio des clients.":"أضف أجمل صورك: تظهر في معرض الأعمال للحرفاء.","Envoi {i} / {n}…":"إرسال {i} / {n}…",
+  "{n} photo(s) ajoutée(s).":"تمّت إضافة {n} صورة.","Photo":"صورة","Catégorie":"الصنف","Légende (facultatif)":"تعليق (اختياري)","Par exemple : sortie de la mariée":"مثال: خروج العروس",
+  "Mettre en avant sur l'accueil":"إبراز في الصفحة الرئيسية","Photo enregistrée.":"تمّ حفظ الصورة.","Supprimer cette photo ?":"حذف هذه الصورة؟","Elle disparaîtra du portfolio.":"ستختفي من معرض الأعمال.",
+  "Photo supprimée.":"تمّ حذف الصورة.","Nouveau":"جديد","Ajoutez vos forfaits : ils s'affichent sur l'accueil et dans le formulaire de réservation.":"أضف باقاتك: تظهر في الصفحة الرئيسية وفي استمارة الحجز.",
+  "Modifier le forfait":"تعديل الباقة","Nouveau forfait":"باقة جديدة","Nom":"الاسم","Par exemple : Mariage complet":"مثال: عرس كامل","Prix":"السعر","Par exemple : à partir de 1 500 DT":"مثال: ابتداءً من 1500 د.ت",
+  "Description":"الوصف","Ce qui est inclus (une ligne par élément)":"ما تتضمّنه (سطر لكل عنصر)","Reportage photo de la journée\nFilm du mariage\nLivraison par lien WeTransfer":"تصوير اليوم كاملًا\nفيلم العرس\nالتسليم عبر رابط WeTransfer",
+  "Position dans la liste":"الترتيب في القائمة","Donnez un nom au forfait.":"أعطِ اسمًا للباقة.","Forfait enregistré.":"تمّ حفظ الباقة.","Supprimer ce forfait ?":"حذف هذه الباقة؟",
+  "Il ne sera plus proposé aux clients.":"لن تُعرض بعد الآن على الحرفاء.","Forfait supprimé.":"تمّ حذف الباقة.","Avis des clients":"آراء الحرفاء","Masquer":"إخفاء","Publier":"نشر",
+  "Les avis laissés par vos clients apparaîtront ici. Seuls ceux que vous publiez sont visibles.":"ستظهر هنا آراء حرفائك. وحدها الآراء التي تنشرها تكون مرئية.",
+  "Avis publié.":"تمّ نشر الرأي.","Avis masqué.":"تمّ إخفاء الرأي.","Supprimer cet avis ?":"حذف هذا الرأي؟","Il sera définitivement effacé.":"سيُحذف نهائيًا.","Réglages":"الإعدادات",
+  "Ce que voient les clients":"ما يراه الحرفاء","Présentation":"التعريف","Dates déjà prises":"التواريخ المحجوزة",
+  "Ces dates apparaissent barrées pour les clients. Les dates confirmées dans Demandes s'ajoutent toutes seules.":"تظهر هذه التواريخ مشطوبة للحرفاء. التواريخ المؤكّدة في الطلبات تُضاف تلقائيًا.",
+  "Ajouter":"إضافة","Libérer cette date":"تحرير هذا التاريخ","Aucune date prise.":"لا يوجد تاريخ محجوز.","Envoi immédiat des notifications":"الإرسال الفوري للإشعارات",
+  "Sans réglage, les notifications partent toutes les 5 à 15 minutes. Avec un jeton GitHub enregistré sur ce téléphone, elles partent en moins d'une minute.":"دون إعداد، تُرسل الإشعارات كل 5 إلى 15 دقيقة. مع رمز GitHub محفوظ على هذا الهاتف، تُرسل في أقل من دقيقة.",
+  "Jeton GitHub (facultatif)":"رمز GitHub (اختياري)","Gardé uniquement sur ce téléphone. Voir le fichier LISEZ-MOI.md pour le créer.":"يُحفظ على هذا الهاتف فقط. انظر ملف LISEZ-MOI.md لإنشائه.",
+  "Tester l'envoi":"تجربة الإرسال","Mon adresse e-mail":"بريدي الإلكتروني","Réglages enregistrés.":"تمّ حفظ الإعدادات.","Date ajoutée.":"تمّت إضافة التاريخ.",
+  "Jeton enregistré sur ce téléphone.":"تمّ حفظ الرمز على هذا الهاتف.","Jeton retiré.":"تمّ حذف الرمز.","C'est parti : le robot d'envoi démarre.":"انطلق: روبوت الإرسال يشتغل.",
+  "Le test marche seulement depuis l'adresse GitHub de l'app.":"التجربة تعمل فقط من عنوان GitHub الخاص بالتطبيق.",
+  "Jeton refusé par GitHub : vérifiez ses droits (Actions : lecture et écriture).":"رفض GitHub الرمز: تحقّق من صلاحياته (Actions: قراءة وكتابة).","Échec de l'envoi. Vérifiez la connexion.":"فشل الإرسال. تحقّق من الاتصال.",
+  "Fichiers téléchargés":"تمّ تحميل الملفات","{nom} a téléchargé « {titre} ».":"حمّل {nom} «{titre}».","{nom} n'a pas pu télécharger « {titre} » à temps.":"لم يتمكّن {nom} من تحميل «{titre}» في الوقت.",
+  "Nouvelle demande":"طلب جديد","{nom} : {type} le {date}.":"{nom}: {type} يوم {date}.","Demande annulée":"تمّ إلغاء الطلب","{nom} a annulé sa demande du {date}.":"ألغى {nom} طلبه ليوم {date}.",
+  "Nouvel avis à valider":"رأي جديد للمراجعة","{nom} a laissé {n} étoiles.":"ترك {nom} {n} نجوم.","« {titre} » : téléchargez vos fichiers avant le {date}.":"«{titre}»: حمّلوا ملفاتكم قبل {date}.",
+  "Date confirmée":"تمّ تأكيد التاريخ","Votre demande pour le {date} est confirmée.":"تمّ تأكيد طلبكم ليوم {date}.","Réponse à votre demande":"ردّ على طلبكم",
+  "Achref a répondu à votre demande pour le {date}.":"ردّ أشرف على طلبكم ليوم {date}.","Compte client supprimé":"تمّ حذف حساب حريف","{nom} ({tel}) a supprimé son compte.":"حذف {nom} ({tel}) حسابه.",
+  "Nom affiché":"الاسم المعروض","Métier":"المهنة","Phrase d'accueil":"جملة الترحيب","Ville ou région":"المدينة أو الجهة","Par exemple : Sousse et toute la Tunisie":"مثال: سوسة وكامل تراب الجمهورية",
+  "Téléphone":"الهاتف","WhatsApp (si différent)":"واتساب (إن كان مختلفًا)","Votre numéro WhatsApp":"رقم واتساب","Compte Instagram":"حساب Instagram","nom_du_compte":"اسم_الحساب",
+  "E-mail de contact":"بريد التواصل","Durée des liens WeTransfer (jours)":"مدة روابط WeTransfer (بالأيام)","Choisissez un mot de passe":"اختر كلمة مرور","Votre mot de passe":"كلمة المرور الخاصة بك",
+  "Retapez le mot de passe":"أعد كتابة كلمة المرور","Ajouter et trier vos photos":"إضافة صورك وترتيبها","Vos offres et leurs prix":"عروضك وأسعارها","Avis":"الآراء",
+  "Valider les avis des clients":"مراجعة آراء الحرفاء","Coordonnées, agenda, notifications, sécurité":"معلومات التواصل، الرزنامة، الإشعارات، الأمان",
+  "Tableau":"لوحة القيادة","Accueil":"الرئيسية","Mes photos":"صوري","Réserver":"الحجز","Compte":"الحساب",
+  "En attente":"في الانتظار","Confirmée":"مؤكّدة","Indisponible":"غير متاح","Annulée":"ملغاة","Refusée":"مرفوضة","En cours":"جارية","Téléchargées":"محمّلة","Expirées":"منتهية","Toutes":"الكل","Confirmées":"المؤكّدة",
+  "Mariage":"عرس","Fiançailles":"خطوبة","Henné":"حنّة","Séance couple":"جلسة تصوير للعروسين","Portrait":"بورتريه","Autre":"أخرى","Couple":"عروسان","Tout":"الكل","Vidéo":"الفيديو",
+  "Photographe de mariage":"مصوّر أعراس","Votre histoire, en images.":"قصّتكم بالصور.",
+  "Photographe et vidéaste de mariage. Je raconte votre journée, des préparatifs à la dernière danse, avec des images naturelles et soignées.":"مصوّر فوتوغرافي وفيديو للأعراس. أروي يومكم من التحضيرات إلى آخر رقصة، بصور طبيعية ومتقنة."
+};
+
+/* =====================================================================
+   ACHREF SAKOUHI — PHOTOGRAPHE · application (client + administrateur)
+   ---------------------------------------------------------------------
+   • Les clients créent un compte, regardent le portfolio, demandent une
+     date et reçoivent leurs photos et vidéos (liens WeTransfer).
+   • Achref (rôle « admin ») envoie les liens, répond aux demandes et
+     gère le portfolio, les forfaits, les avis et les réglages.
+   • Données : Firebase (voir cloud.js). Textes : français / arabe.
+   ===================================================================== */
+const APP_VERSION = "1.0.0";
+const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
+const STUDIO_DEFAUT = {
+  nom: "Achref Sakouhi", metier: "Photographe de mariage",
+  accroche: "Votre histoire, en images.",
+  bio: "Photographe et vidéaste de mariage. Je raconte votre journée, des préparatifs à la dernière danse, avec des images naturelles et soignées.",
+  tel: "", whatsapp: "", instagram: "achref_sakouhi_photographe", email: "", ville: "", dureeLien: 3
+};
+const TYPES_EVT = ["Mariage", "Fiançailles", "Henné", "Séance couple", "Portrait", "Événement", "Autre"];
+const CATS = ["Mariage", "Fiançailles", "Henné", "Couple", "Portrait", "Événement"];
+
+/* ---------------------------------------------------------------- outils */
+const esc = s => (s == null ? "" : String(s)).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+const nouvelId = p => (p || "x") + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const pad = n => String(n).padStart(2, "0");
+const isoDe = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+const aujourdHui = () => isoDe(new Date());
+const plusJours = (iso, n) => { const [y, m, d] = iso.split("-").map(Number); const x = new Date(y, m - 1, d + n); return isoDe(x); };
+const ecartJours = (de, a) => { const f = s => { const [y, m, d] = s.split("-").map(Number); return Date.UTC(y, m - 1, d); }; return Math.round((f(a) - f(de)) / 86400000); };
+const normTel = s => (s || "").replace(/\s+/g, "").trim();
+const cleTel = s => (s || "").replace(/\D/g, "").replace(/^216/, "");
+const telAffiche = s => { const d = cleTel(s); return d.length === 8 ? "+216 " + d.slice(0, 2) + " " + d.slice(2, 5) + " " + d.slice(5) : (s || ""); };
+const telLien = s => { const d = cleTel(s); return d ? "tel:+216" + d : ""; };
+const waLien = (s, texte) => { const d = cleTel(s); return d ? "https://wa.me/216" + d + (texte ? "?text=" + encodeURIComponent(texte) : "") : ""; };
+const estEmail = s => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(s || "").trim());
+const masquer = e => { const i = String(e || "").indexOf("@"); return i < 1 ? e : e.slice(0, Math.min(2, i)) + "•••" + e.slice(i); };
+const initiales = n => (n || "?").trim().split(/\s+/).slice(0, 2).map(x => x[0] || "").join("").toUpperCase() || "?";
+// Texte libre affiché (message, avis, bio) : espace insécable avant ! ? ; : » (jamais seuls en début de ligne).
+const txt = s => esc(s).replace(/ ([!?;:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0");
+const lienValide = u => /^https:\/\/[^\s]+\.[^\s]+/i.test(String(u || "").trim());
+const lsGet = (k, d) => { try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } };
+const lsSet = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+
+/* ---------------------------------------------------------------- langue */
+let LANG = (() => { try{ return localStorage.getItem("as_lang") === "ar" ? "ar" : "fr"; }catch(e){ return "fr"; } })();
+function tl(lang, s, v){
+  if(lang === "ar" && AR[s] == null && /[A-Za-zÀ-ÿ]{3}/.test(s || "")){ try{ (window.__arManquants = window.__arManquants || new Set()).add(s); }catch(e){} }
+  let out = (lang === "ar" && AR[s] != null) ? AR[s] : s;
+  if(lang === "fr") out = out.replace(/ ([!?;:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0");   // typographie française
+  if(v) out = out.replace(/\{(\w+)\}/g, (m, k) => { const x = v[k]; return x == null ? "" : (typeof x === "object" ? (x[lang] != null ? x[lang] : x.fr) : x); });
+  return out;
+}
+const t = (s, v) => tl(LANG, s, v);
+const loc = () => LANG === "ar" ? "ar-TN-u-nu-latn" : "fr-FR";
+function dateLongue(iso, lang){
+  if(!iso) return "";
+  const [y, m, d] = iso.split("-").map(Number);
+  try{ return new Intl.DateTimeFormat((lang || LANG) === "ar" ? "ar-TN-u-nu-latn" : "fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(new Date(y, m - 1, d)); }
+  catch(e){ return iso; }
+}
+function dateCourte(iso){
+  if(!iso) return "";
+  const [y, m, d] = iso.split("-").map(Number);
+  try{ return new Intl.DateTimeFormat(loc(), { day: "numeric", month: "short" }).format(new Date(y, m - 1, d)); }catch(e){ return iso; }
+}
+const moisCourt = iso => { const [y, m, d] = iso.split("-").map(Number); try{ return new Intl.DateTimeFormat(loc(), { month: "short" }).format(new Date(y, m - 1, d)); }catch(e){ return ""; } };
+const depuis = ts => { try{ return new Intl.DateTimeFormat(loc(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(ts)); }catch(e){ return ""; } };
+const deuxLangues = (fn) => ({ fr: fn("fr"), ar: fn("ar") });
+
+/* ---------------------------------------------------------------- icônes */
+const ICONES = {
+  accueil: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/>',
+  grille: '<rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/>',
+  image: '<rect x="3" y="4.5" width="18" height="15" rx="1.5"/><path d="M3 15.5l5-4 4 3 3-2 6 4.5"/><circle cx="15.5" cy="9" r="1.6"/>',
+  calendrier: '<rect x="3.5" y="5" width="17" height="15.5" rx="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  personne: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.4-3.8 4.2-5.6 7.5-5.6s6.1 1.8 7.5 5.6"/>',
+  cloche: '<path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.8 1.8H4.2z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>',
+  tableau: '<path d="M4 20V11M10 20V5M16 20v-6M2.5 20.5h19"/>',
+  envoyer: '<path d="M21.5 2.5 10.5 13.5"/><path d="M21.5 2.5 14.5 21.5l-4-8-8-4z"/>',
+  clients: '<circle cx="9" cy="8" r="3.4"/><path d="M2.8 20c1-3.4 3.4-5 6.2-5s5.2 1.6 6.2 5"/><path d="M16 4.6a3.4 3.4 0 0 1 0 6.8M18 15c1.9.7 3 2.2 3.6 5"/>',
+  boite: '<path d="M3 13.5 6 4.5h12l3 9v6.5H3z"/><path d="M3 13.5h5l1.5 3h5l1.5-3h5"/>',
+  plus3: '<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',
+  tel: '<path d="M5.2 3.5h3.6l1.8 4.6-2.3 1.4a11 11 0 0 0 6.2 6.2l1.4-2.3 4.6 1.8v3.6a1.9 1.9 0 0 1-2 1.9A16.9 16.9 0 0 1 3.3 5.5a1.9 1.9 0 0 1 1.9-2z"/>',
+  bulle: '<path d="M20.5 11.8a8.3 8.3 0 0 1-12.3 7.3L3.5 20.5l1.3-4.4a8.3 8.3 0 1 1 15.7-4.3z"/>',
+  insta: '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.2" cy="6.8" r=".9"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6.5 8.5 6 8.5-6"/>',
+  ajout: '<path d="M12 5v14M5 12h14"/>',
+  fermer: '<path d="M6 6l12 12M18 6 6 18"/>',
+  chevron: '<path d="m9 6 6 6-6 6"/>',
+  gauche: '<path d="m15 6-6 6 6 6"/>',
+  droite: '<path d="m9 6 6 6-6 6"/>',
+  lien: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  telecharger: '<path d="M12 3.5v11.5"/><path d="m7 10.5 5 5 5-5"/><path d="M4 19.5h16"/>',
+  oeil: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  oeilBarre: '<path d="M3 3l18 18"/><path d="M10.6 5.1A10.4 10.4 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.2M6.6 6.6C3.9 8.3 2 12 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+  partager: '<circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="m8.2 10.8 7.6-4.1M8.2 13.2l7.6 4.1"/>',
+  sortir: '<path d="M9 20.5H5a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 5 3.5h4"/><path d="m16 16.5 4.5-4.5L16 7.5M20.5 12H9"/>',
+  corbeille: '<path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/>',
+  crayon: '<path d="M15.5 4.5l4 4L8 20H4v-4z"/>',
+  coche: '<path d="m4.5 12.5 5 5 10-11"/>',
+  etoile: '<path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/>',
+  reglages: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',
+  etiquette: '<path d="M3.5 12.5V4.5h8l9 9-8 8z"/><circle cx="8" cy="9" r="1.4"/>',
+  info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.2"/>',
+  horloge: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  globe: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.5 3.5 5.3 3.5 8.5s-1.1 6-3.5 8.5c-2.4-2.5-3.5-5.3-3.5-8.5s1.1-6 3.5-8.5z"/>',
+  bouclier: '<path d="M12 3.5 19.5 6v6c0 4.5-3.2 7.6-7.5 9-4.3-1.4-7.5-4.5-7.5-9V6z"/>'
+};
+const ico = (n, cls) => `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[n] || ""}</svg>`;
+const champMdp = (id, ph, ac) => `<div class="mdp"><input class="saisie" id="${id}" type="password" placeholder="${esc(t(ph))}" autocomplete="${ac}">
+  <button type="button" class="oeil" onclick="App.oeil(this)" aria-label="${esc(t("Afficher le mot de passe"))}" title="${esc(t("Afficher le mot de passe"))}">${ico("oeil")}</button></div>`;
+
+/* ---------------------------------------------------------------- état */
+const S = {
+  user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [],
+  portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})), agenda: { datesPrises: [] },
+  route: "", param: "", filtrePortfolio: "Tout", filtreLivraisons: "encours", filtreDemandes: "attente", rechercheClients: "",
+  calMois: aujourdHui().slice(0, 7), dateChoisie: "", pleins: {}
+};
+
+/* ================================================================= APP */
+const App = {
+  _edition: false, _rendu: false, _demarre: false,
+
+  profil(){ return S.prof; },
+  estAdmin(){ return !!(S.prof && S.prof.role === "admin"); },
+  studio(){ return Object.assign({}, STUDIO_DEFAUT, S.studio || {}); },
+
+  /* ------------------------------------------------ démarrage */
+  async init(){
+    document.documentElement.lang = LANG; document.documentElement.dir = LANG === "ar" ? "rtl" : "ltr";
+    if("serviceWorker" in navigator){
+      navigator.serviceWorker.register("sw.js").catch(e => console.warn("sw", e));
+      navigator.serviceWorker.addEventListener("message", ev => {
+        const d = ev.data || {};
+        if(d.type === "notif-click" && d.route) this.aller(d.route);
+      });
+    }
+    window.addEventListener("hashchange", () => this.surRoute());
+    document.addEventListener("keydown", e => { if(e.key === "Escape"){ if(this._visio) this.fermerVisionneuse(); else this.fermer(); } });
+    document.getElementById("app").addEventListener("input", e => { if(e.target.closest("#contenu")) this._edition = true; });
+    // config.js rempli ?
+    const fb = (window.APP_CONFIG || {}).firebase || {};
+    if(!fb.apiKey || !fb.projectId || /REMPLIR/i.test(fb.apiKey + fb.projectId)){ this.finBoot(); return this.rendreConfig(); }
+    // Le module Firebase (cloud.js) se charge depuis Internet : on l'attend 10 secondes au plus.
+    for(let i = 0; i < 50 && !window.Cloud; i++) await new Promise(r => setTimeout(r, 200));
+    const C = window.Cloud;
+    const pret = C ? await Promise.race([C.ready, new Promise(r => setTimeout(() => r(false), 9000))]) : false;
+    if(!C || !pret){ this.finBoot(); return this.rendreErreurReseau(); }
+    C.onAuth(u => this.onAuth(u));
+  },
+  finBoot(){ const b = document.getElementById("boot"); if(b){ b.classList.add("fini"); setTimeout(() => b.remove(), 600); } },
+
+  async onAuth(user){
+    const C = window.Cloud;
+    if(!user){
+      C.stopAll(); S.user = null; S.prof = null;
+      Object.assign(S, { users: [], livraisons: [], demandes: [], avis: [], notifs: [] });
+      this.finBoot(); this.rendreAuth(); return;
+    }
+    S.user = user;
+    let prof = null, lu = false;
+    for(const attente of [0, 1200, 3000]){
+      if(attente) await new Promise(r => setTimeout(r, attente));
+      try{ prof = await C.getProfile(user.uid); lu = true; break; }catch(e){ console.warn("profil", e); }
+    }
+    if(lu && !prof){
+      const p = this._inscription || lsGet("as_inscription", {}) || {};
+      prof = { id: user.uid, role: "client", nom: p.nom || "", tel: p.tel || "", email: (user.email || "").toLowerCase(), createdAt: Date.now() };
+      try{ await C.put("users", prof); }catch(e){ console.warn("création du profil", e); }
+    }
+    this._inscription = null; try{ localStorage.removeItem("as_inscription"); }catch(e){}
+    if(!prof){ this.toast(t("Connexion instable : réessayez dans un instant."), "err"); try{ await C.signOut(); }catch(e){} return; }
+    S.prof = prof;
+    const mail = (user.email || "").toLowerCase();
+    if(mail && prof.email !== mail) C.patch("users", prof.id, { email: mail }).catch(() => {});
+    if(prof.tel) C.syncLoginIndex(cleTel(prof.tel));
+    this.demarrerEcoutes();
+    // Notifications déjà autorisées sur ce téléphone : on (ré)enregistre le jeton pour ce compte.
+    try{ const P = window.Push; if(P && P.supported && P.permission() === "granted") P.register().catch(() => {}); }catch(e){}
+    this.finBoot();
+    const voulu = (location.hash || "").replace(/^#/, "");
+    if(!voulu || !this.routeAutorisee(voulu.split("/")[0])) location.hash = this.estAdmin() ? "#tableau" : "#accueil";
+    this.rendre();
+  },
+
+  demarrerEcoutes(){
+    const uid = S.prof.id, admin = this.estAdmin();
+    const spec = admin ? [
+      { cle: "users", coll: "users" }, { cle: "livraisons", coll: "livraisons" }, { cle: "demandes", coll: "demandes" },
+      { cle: "avis", coll: "avis" }, { cle: "notifs", coll: "notifs", ou: ["target", "admin"] }
+    ] : [
+      { cle: "prof", doc: ["users", uid] },
+      { cle: "livraisons", coll: "livraisons", ou: ["clientId", uid] },
+      { cle: "demandes", coll: "demandes", ou: ["clientId", uid] },
+      { cle: "avis", coll: "avis", ou: ["publie", true] }, { cle: "avis", coll: "avis", ou: ["clientId", uid] },
+      { cle: "notifs", coll: "notifs", ou: ["target", uid] }
+    ];
+    spec.push({ cle: "portfolio", coll: "portfolio" }, { cle: "forfaits", coll: "forfaits" },
+              { cle: "studio", doc: ["_config", "studio"] }, { cle: "agenda", doc: ["_config", "agenda"] });
+    window.Cloud.watch(spec, (cle, data) => this.surDonnees(cle, data));
+  },
+  surDonnees(cle, data){
+    if(cle === "prof"){
+      if(!data) return;
+      if(S.prof && data.role !== S.prof.role){ location.reload(); return; }   // rôle changé dans la console
+      S.prof = data;
+    } else if(cle === "users"){
+      S.users = data || [];
+      const moi = S.users.find(u => u.id === (S.prof && S.prof.id));
+      if(moi) S.prof = moi;
+    } else if(cle === "studio"){
+      S.studio = Object.assign({}, STUDIO_DEFAUT, data || {}); lsSet("as_studio", data || {});
+    } else if(cle === "agenda"){
+      S.agenda = Object.assign({ datesPrises: [] }, data || {});
+    } else {
+      S[cle] = data || [];
+    }
+    if(cle === "notifs") this._sonnerSiNouveau();
+    this.planifier();
+  },
+  planifier(){
+    if(this._rendu) return; this._rendu = true;
+    requestAnimationFrame(() => { this._rendu = false; if(S.prof) this.rendre(true); });
+  },
+
+  /* ------------------------------------------------ navigation */
+  routeAutorisee(r){
+    const client = ["accueil", "portfolio", "photos", "reserver", "compte", "apropos"];
+    const admin = ["tableau", "livraisons", "clients", "demandes", "plus", "a-portfolio", "a-forfaits", "a-avis", "reglages", "apropos", "portfolio"];
+    return (this.estAdmin() ? admin : client).indexOf(r) >= 0;
+  },
+  aller(route){ if(("#" + route) === location.hash) this.surRoute(); else location.hash = "#" + route; },
+  surRoute(){
+    if(!S.prof) return;
+    const [r, p] = (location.hash || "").replace(/^#/, "").split("/");
+    if(!this.routeAutorisee(r)){ location.hash = this.estAdmin() ? "#tableau" : "#accueil"; return; }
+    this._edition = false; this.rendre(); window.scrollTo(0, 0);
+  },
+
+  /* ------------------------------------------------ rendu principal */
+  rendre(auto){
+    const app = document.getElementById("app");
+    const [r, p] = (location.hash || "").replace(/^#/, "").split("/");
+    S.route = r || (this.estAdmin() ? "tableau" : "accueil"); S.param = p || "";
+    if(!app.querySelector("#contenu")){
+      app.innerHTML = `<div class="ecran"><header class="entete" id="entete"></header><main class="contenu" id="contenu"></main></div><nav class="onglets" id="onglets"></nav>`;
+    }
+    document.getElementById("entete").innerHTML = this.vueEntete();
+    document.getElementById("onglets").innerHTML = this.vueOnglets();
+    if(auto && this._edition) return;          // ne pas effacer une saisie en cours
+    const page = {
+      accueil: () => this.pageAccueil(), portfolio: () => this.pagePortfolio(), photos: () => this.pagePhotos(),
+      reserver: () => this.pageReserver(), compte: () => this.pageCompte(), apropos: () => this.pageApropos(),
+      tableau: () => this.pageTableau(), livraisons: () => this.pageLivraisons(), clients: () => this.pageClients(),
+      demandes: () => this.pageDemandes(), plus: () => this.pagePlus(), "a-portfolio": () => this.pageAdminPortfolio(),
+      "a-forfaits": () => this.pageAdminForfaits(), "a-avis": () => this.pageAdminAvis(), reglages: () => this.pageReglages()
+    }[S.route];
+    const c = document.getElementById("contenu");
+    c.innerHTML = page ? page() : "";
+    const apres = this["apres_" + S.route.replace("-", "_")];
+    if(apres) apres.call(this);
+  },
+  vueEntete(){
+    const st = this.studio(), nonLues = S.notifs.filter(n => !n.lu).length;
+    return `<a class="marque" href="#${this.estAdmin() ? "tableau" : "accueil"}"><img src="logo-mark.png" alt="">
+        <span><span class="nom">${esc(st.nom)}</span><span class="metier">${esc(this.estAdmin() ? t("Espace photographe") : t(st.metier))}</span></span></a>
+      <button class="btn-icone btn-langue" onclick="App.changerLangue()" title="${esc(t("Changer de langue"))}">${LANG === "ar" ? "Français" : "العربية"}</button>
+      <button class="btn-icone" onclick="App.ouvrirCloche()" aria-label="${esc(t("Notifications"))}">${ico("cloche")}${nonLues ? `<span class="pastille">${nonLues > 9 ? "9+" : nonLues}</span>` : ""}</button>`;
+  },
+  vueOnglets(){
+    const actif = r => {
+      const groupe = { apropos: this.estAdmin() ? "plus" : "compte", "a-portfolio": "plus", "a-forfaits": "plus", "a-avis": "plus", reglages: "plus", portfolio: this.estAdmin() ? "plus" : "portfolio" };
+      return (groupe[S.route] || S.route) === r ? " actif" : "";
+    };
+    const pastille = n => n ? `<span class="pastille">${n > 9 ? "9+" : n}</span>` : "";
+    const items = this.estAdmin() ? [
+      ["tableau", "tableau", "Tableau", 0], ["livraisons", "envoyer", "Livraisons", 0], ["clients", "clients", "Clients", 0],
+      ["demandes", "boite", "Demandes", S.demandes.filter(d => d.statut === "attente").length], ["plus", "plus3", "Plus", S.avis.filter(a => !a.publie).length]
+    ] : [
+      ["accueil", "accueil", "Accueil", 0], ["portfolio", "grille", "Portfolio", 0],
+      ["photos", "image", "Mes photos", S.livraisons.filter(l => !l.vuAt).length], ["reserver", "calendrier", "Réserver", 0], ["compte", "personne", "Compte", 0]
+    ];
+    return items.map(([r, i, l, n]) => `<button class="${actif(r).trim()}" onclick="App.aller('${r}')">${ico(i)}<span>${esc(t(l))}</span>${pastille(n)}</button>`).join("");
+  },
+  retour(route, libelle){ return `<button class="lien" style="margin:6px 0 4px;text-decoration:none" onclick="App.aller('${route}')">${LANG === "ar" ? "→" : "←"} ${esc(t(libelle))}</button>`; },
+
+  /* ------------------------------------------------ écrans hors connexion */
+  rendreConfig(){
+    document.getElementById("app").innerHTML = `<div class="bandeau-config">
+      <div class="viseur mise-au-point" style="padding-top:20px"><div class="cadre" style="width:200px">
+        <span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span>
+        <div class="monogramme net" style="font-size:5rem">AS</div></div></div>
+      <div class="bloc"><h3>${esc(t("Configuration à terminer"))}</h3>
+        <p class="doux">${esc(t("L'application n'est pas encore reliée à Firebase. Remplissez le fichier config.js avec les clés de votre projet, puis rechargez la page."))}</p>
+        <p class="discret">${esc(t("Les étapes détaillées sont dans le fichier LISEZ-MOI.md."))}</p></div></div>`;
+  },
+  rendreErreurReseau(){
+    document.getElementById("app").innerHTML = `<div class="bandeau-config"><div class="bloc"><h3>${esc(t("Pas de connexion"))}</h3>
+      <p class="doux">${esc(t("Vérifiez votre connexion Internet, puis réessayez."))}</p>
+      <button class="btn btn-or btn-bloc" onclick="location.reload()">${esc(t("Réessayer"))}</button></div></div>`;
+  },
+  rendreAuth(mode){
+    this._modeAuth = mode || this._modeAuth || "connexion";
+    const st = this.studio(), ins = this._modeAuth === "inscription";
+    document.getElementById("app").innerHTML = `<div class="accueil-auth">
+      <button class="btn-icone btn-langue coin-langue" onclick="App.changerLangue()">${LANG === "ar" ? "Français" : "العربية"}</button>
+      <section class="viseur mise-au-point">
+        <div class="cadre"><span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span>
+          <div class="monogramme net" aria-hidden="true">AS</div><span class="point"></span></div>
+        <h1 class="net">${esc(st.nom)}</h1>
+        <p class="sous">${esc(t(st.metier))}${st.ville ? " — " + esc(st.ville) : ""}</p>
+      </section>
+      <section class="carte-auth">
+        <div class="bascule" role="tablist">
+          <button class="${ins ? "" : "on"}" onclick="App.rendreAuth('connexion')">${esc(t("Connexion"))}</button>
+          <button class="${ins ? "on" : ""}" onclick="App.rendreAuth('inscription')">${esc(t("Créer un compte"))}</button>
+        </div>
+        ${ins ? `
+        <form onsubmit="event.preventDefault();App.inscrire()">
+          <div class="champ"><label for="in-nom">${esc(t("Nom complet"))}</label><input class="saisie" id="in-nom" placeholder="${esc(t("Votre nom et prénom"))}" autocomplete="name"></div>
+          <div class="champ"><label for="in-tel">${esc(t("Numéro de téléphone"))}</label><input class="saisie" id="in-tel" type="tel" inputmode="tel" placeholder="${esc(t("Votre numéro de téléphone"))}" autocomplete="tel"></div>
+          <div class="champ"><label for="in-email">${esc(t("Adresse e-mail"))}</label><input class="saisie" id="in-email" type="email" inputmode="email" placeholder="${esc(t("Votre adresse e-mail"))}" autocomplete="email" autocapitalize="none" spellcheck="false">
+            <div class="aide">${esc(t("Pour vous connecter et récupérer votre mot de passe si vous l'oubliez."))}</div></div>
+          <div class="champ"><label for="in-pass">${esc(t("Mot de passe"))}</label>${champMdp("in-pass", "Choisissez un mot de passe", "new-password")}
+            <div class="aide">${esc(t("Au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un symbole."))}</div></div>
+          <button class="btn btn-or btn-bloc" id="in-go">${esc(t("Créer mon compte"))}</button>
+          <p class="discret" style="text-align:center;margin-top:12px">${esc(t("En créant un compte, vous acceptez la"))} <a href="confidentialite.html">${esc(t("politique de confidentialité"))}</a>.</p>
+        </form>` : `
+        <form onsubmit="event.preventDefault();App.connecter()">
+          <div class="champ"><label for="co-id">${esc(t("Téléphone ou e-mail"))}</label><input class="saisie" id="co-id" placeholder="${esc(t("Votre numéro ou votre e-mail"))}" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
+          <div class="champ" style="margin-bottom:8px"><label for="co-pass">${esc(t("Mot de passe"))}</label>${champMdp("co-pass", "Votre mot de passe", "current-password")}</div>
+          <div class="oubli"><button type="button" class="lien" onclick="App.ouvrirOubli()">${esc(t("Mot de passe oublié ?"))}</button></div>
+          <button class="btn btn-or btn-bloc" id="co-go">${esc(t("Se connecter"))}</button>
+        </form>
+        <div class="legal"><a href="confidentialite.html">${esc(t("Politique de confidentialité"))}</a><a href="suppression-compte.html">${esc(t("Suppression de compte"))}</a></div>`}
+      </section></div>`;
+  },
+
+  /* ------------------------------------------------ connexion / inscription */
+  verifMdp(p){
+    p = p || "";
+    if(p.length < 8) return t("Mot de passe : au moins 8 caractères.");
+    if(!/[A-Z]/.test(p)) return t("Mot de passe : au moins une lettre majuscule.");
+    if(!/[a-z]/.test(p)) return t("Mot de passe : au moins une lettre minuscule.");
+    if(!/[0-9]/.test(p)) return t("Mot de passe : au moins un chiffre.");
+    if(!/[^A-Za-z0-9]/.test(p)) return t("Mot de passe : au moins un symbole (! ? @ # …).");
+    return null;
+  },
+  erreurAuth(err){
+    const c = (err && err.code) || "";
+    if(/email-already-in-use/.test(c)) return t("Cette adresse e-mail a déjà un compte. Connectez-vous ou utilisez « Mot de passe oublié ».");
+    if(/invalid-credential|wrong-password|user-not-found|invalid-login/.test(c)) return t("Identifiant ou mot de passe incorrect.");
+    if(/invalid-email/.test(c)) return t("Adresse e-mail invalide.");
+    if(/weak-password/.test(c)) return t("Mot de passe trop faible.");
+    if(/requires-recent-login/.test(c)) return t("Reconnectez-vous puis réessayez.");
+    if(/too-many-requests/.test(c)) return t("Trop de tentatives. Réessayez dans quelques minutes.");
+    if(/network/.test(c)) return t("Problème de connexion Internet.");
+    return t("Une erreur s'est produite. Réessayez.");
+  },
+  async connecter(){
+    const id = (document.getElementById("co-id").value || "").trim(), pass = document.getElementById("co-pass").value;
+    if(!id || !pass) return this.toast(t("Remplissez tous les champs."), "err");
+    const btn = document.getElementById("co-go"); btn.disabled = true;
+    try{
+      let essais = [];
+      if(id.indexOf("@") >= 0) essais = [id.toLowerCase()];
+      else{
+        const cle = cleTel(id);
+        if(!cle) { btn.disabled = false; return this.toast(t("Numéro de téléphone invalide."), "err"); }
+        const ent = await window.Cloud.lookupPhone(cle);
+        if(ent && ent.email) essais.push(String(ent.email).toLowerCase());
+        if(ent && ent.pending) essais.push(String(ent.pending).toLowerCase());
+        if(!essais.length){ btn.disabled = false; return this.toast(t("Aucun compte avec ce numéro. Vérifiez-le ou connectez-vous avec votre e-mail."), "err"); }
+      }
+      let derniere = null;
+      for(const m of essais){
+        try{ await window.Cloud.signIn(m, pass); derniere = null; break; }
+        catch(e){ derniere = e; if(!/invalid-credential|wrong-password|user-not-found|invalid-login/.test((e && e.code) || "")) break; }
+      }
+      if(derniere) throw derniere;
+    }catch(e){ this.toast(this.erreurAuth(e), "err"); btn.disabled = false; }
+  },
+  async inscrire(){
+    const g = id => (document.getElementById(id).value || "").trim();
+    const nom = g("in-nom"), tel = normTel(g("in-tel")), email = g("in-email").toLowerCase(), pass = document.getElementById("in-pass").value;
+    if(!nom || !tel || !email || !pass) return this.toast(t("Remplissez tous les champs."), "err");
+    const cle = cleTel(tel);
+    if(cle.length < 8) return this.toast(t("Numéro de téléphone invalide."), "err");
+    if(!estEmail(email)) return this.toast(t("Adresse e-mail invalide."), "err");
+    const pb = this.verifMdp(pass); if(pb) return this.toast(pb, "err");
+    const btn = document.getElementById("in-go"); btn.disabled = true;
+    try{
+      const ent = await window.Cloud.lookupPhone(cle);
+      if(ent && ent.uid){ btn.disabled = false; return this.toast(t("Ce numéro a déjà un compte. Connectez-vous ou utilisez « Mot de passe oublié »."), "err"); }
+      this._inscription = { nom, tel, email }; lsSet("as_inscription", this._inscription);
+      await window.Cloud.signUp(email, pass);
+      this.toast(t("Bienvenue ! Votre compte est créé."), "ok");
+    }catch(e){
+      this._inscription = null; try{ localStorage.removeItem("as_inscription"); }catch(x){}
+      this.toast(this.erreurAuth(e), "err"); btn.disabled = false;
+    }
+  },
+  ouvrirOubli(){
+    const pre = ((document.getElementById("co-id") || {}).value || "").trim();
+    this.feuille(t("Mot de passe oublié"), `
+      <p class="doux">${esc(t("Nous vous envoyons un lien par e-mail pour choisir un nouveau mot de passe."))}</p>
+      <div class="champ"><label for="mo-id">${esc(t("E-mail ou numéro de téléphone"))}</label>
+        <input class="saisie" id="mo-id" value="${esc(pre)}" placeholder="${esc(t("Votre numéro ou votre e-mail"))}" autocapitalize="none" spellcheck="false"></div>
+      <div id="mo-res"></div>`,
+      `<button class="btn btn-or btn-bloc" id="mo-go" onclick="App.envoyerOubli()">${esc(t("Envoyer le lien"))}</button>`);
+  },
+  async envoyerOubli(){
+    const raw = (document.getElementById("mo-id").value || "").trim(), res = document.getElementById("mo-res"), btn = document.getElementById("mo-go");
+    if(!raw) return this.toast(t("Saisissez votre e-mail ou votre numéro."), "err");
+    let mail = "", parTel = false;
+    btn.disabled = true;
+    if(raw.indexOf("@") >= 0){ mail = raw.toLowerCase(); if(!estEmail(mail)){ btn.disabled = false; return this.toast(t("Adresse e-mail invalide."), "err"); } }
+    else{
+      const cle = cleTel(raw); if(!cle){ btn.disabled = false; return this.toast(t("Numéro de téléphone invalide."), "err"); }
+      parTel = true; const ent = await window.Cloud.lookupPhone(cle); mail = ent && ent.email ? String(ent.email).toLowerCase() : "";
+    }
+    if(!mail){
+      btn.disabled = false;
+      res.innerHTML = `<div class="encart alerte"><b>${esc(t("Aucun compte avec ce numéro."))}</b><div class="discret" style="margin-top:4px">${esc(t("Vérifiez le numéro, ou saisissez votre adresse e-mail."))}</div></div>`;
+      return;
+    }
+    try{ await window.Cloud.resetPassword(mail); }
+    catch(e){ if(!/user-not-found/.test((e && e.code) || "")){ btn.disabled = false; return this.toast(this.erreurAuth(e), "err"); } }
+    res.innerHTML = `<div class="encart"><b>${esc(t("E-mail envoyé"))}</b>
+      <div style="margin-top:6px">${esc(t("Si un compte existe, un lien a été envoyé à :"))} <b dir="ltr">${esc(parTel ? masquer(mail) : mail)}</b></div>
+      <div class="discret" style="margin-top:6px">${esc(t("Ouvrez l'e-mail, touchez le lien et choisissez un nouveau mot de passe. Pensez à regarder dans les spams."))}</div></div>`;
+    btn.disabled = false; btn.textContent = t("Retour à la connexion"); btn.onclick = () => this.fermer();
+  },
+  async deconnecter(){
+    try{ window.Cloud.stopAll(); }catch(e){}          // plus d'écoute avant de quitter le compte
+    try{ await window.Push.unlink(); }catch(e){}
+    try{ await window.Cloud.signOut(); }catch(e){}
+    location.hash = ""; location.reload();
+  },
+  oeil(b){
+    const inp = b.parentNode.querySelector("input"), voir = inp.type === "password";
+    inp.type = voir ? "text" : "password"; b.innerHTML = ico(voir ? "oeilBarre" : "oeil"); b.classList.toggle("on", voir);
+    b.title = t(voir ? "Masquer le mot de passe" : "Afficher le mot de passe"); b.setAttribute("aria-label", b.title);
+  },
+  changerLangue(){
+    LANG = LANG === "ar" ? "fr" : "ar"; try{ localStorage.setItem("as_lang", LANG); }catch(e){}
+    document.documentElement.lang = LANG; document.documentElement.dir = LANG === "ar" ? "rtl" : "ltr";
+    try{ window.Push && window.Push.relink(); }catch(e){}
+    if(S.prof){ this._edition = false; this.rendre(); } else if(window.Cloud && window.Cloud.configOK) this.rendreAuth(); else this.rendreConfig();
+  },
+
+  /* ------------------------------------------------ fenêtres, messages */
+  feuille(titre, corps, pied){
+    let v = document.getElementById("voile");
+    if(!v){ v = document.createElement("div"); v.id = "voile"; v.className = "voile"; v.addEventListener("click", e => { if(e.target === v) this.fermer(); }); document.body.appendChild(v); }
+    v.innerHTML = `<div class="feuille" role="dialog" aria-modal="true" aria-label="${esc(titre)}"><div class="tete"><h2>${esc(titre)}</h2>
+      <button class="btn-icone" onclick="App.fermer()" aria-label="${esc(t("Fermer"))}">${ico("fermer")}</button></div>
+      <div class="corps">${corps}</div><div class="pied">${pied || ""}</div></div>`;
+    requestAnimationFrame(() => v.classList.add("ouvert"));
+    document.body.style.overflow = "hidden";
+  },
+  fermer(){ const v = document.getElementById("voile"); if(v) v.classList.remove("ouvert"); document.body.style.overflow = ""; },
+  confirmer(titre, texte, ok, danger){
+    return new Promise(res => {
+      this._conf = res;
+      this.feuille(titre, `<p class="doux">${esc(texte)}</p>`,
+        `<div class="rangee"><button class="btn btn-clair" onclick="App._repondre(false)">${esc(t("Annuler"))}</button>
+         <button class="btn ${danger ? "btn-danger" : "btn-or"}" onclick="App._repondre(true)">${esc(ok)}</button></div>`);
+    });
+  },
+  _repondre(v){ this.fermer(); const r = this._conf; this._conf = null; if(r) r(v); },
+  toast(msg, type){
+    const el = document.getElementById("toast"); el.textContent = msg; el.className = "voir" + (type ? " " + type : "");
+    clearTimeout(this._tt); this._tt = setTimeout(() => { el.className = ""; }, 3200);
+  },
+
+  /* ------------------------------------------------ notifications */
+  // Crée une notification (dans l'app + push). Les textes sont gardés en français et en arabe.
+  async notifier(target, kind, titre, texte, vars, lien){
+    const n = { id: nouvelId("n"), target, kind,
+      fr: { t: tl("fr", titre, vars), b: tl("fr", texte, vars) }, ar: { t: tl("ar", titre, vars), b: tl("ar", texte, vars) },
+      lien: lien || "", ts: Date.now(), lu: false, envoi: "attente" };
+    try{ await window.Cloud.put("notifs", n); if(this.estAdmin()) window.Cloud.declencherEnvoi(); }catch(e){ console.warn("notif", e); }
+  },
+  _sonnerSiNouveau(){
+    const n = S.notifs.filter(x => !x.lu).length;
+    if(this._nbNonLues != null && n > this._nbNonLues){ const b = document.querySelector(".entete .btn-icone:last-child"); if(b && b.animate) b.animate([{ transform: "rotate(0)" }, { transform: "rotate(14deg)" }, { transform: "rotate(-10deg)" }, { transform: "rotate(0)" }], { duration: 600 }); }
+    this._nbNonLues = n;
+  },
+  ouvrirCloche(){
+    const liste = S.notifs.slice().sort((a, b) => b.ts - a.ts).slice(0, 60);
+    const corps = liste.length ? `<div class="liste">${liste.map(n => {
+      const x = n[LANG] || n.fr || {};
+      return `<button class="ligne" onclick="App.ouvrirNotif('${n.id}')"><span class="avatar" style="${n.lu ? "" : "border-color:var(--or)"}">${ico("cloche")}</span>
+        <span class="corps"><span class="t">${esc(x.t)}</span><span class="s" style="white-space:normal">${esc(x.b)}</span><span class="discret">${esc(depuis(n.ts))}</span></span></button>`;
+    }).join("")}</div>` : `<div class="vide">${ico("cloche")}<h3>${esc(t("Rien de nouveau"))}</h3><p>${esc(t("Vos notifications apparaîtront ici."))}</p></div>`;
+    const pied = liste.some(n => !n.lu) ? `<button class="btn btn-bloc" onclick="App.toutLu()">${esc(t("Tout marquer comme lu"))}</button>` : "";
+    this.feuille(t("Notifications"), corps, pied);
+  },
+  ouvrirNotif(id){
+    const n = S.notifs.find(x => x.id === id); if(!n) return;
+    if(!n.lu) window.Cloud.patch("notifs", id, { lu: true }).catch(() => {});
+    this.fermer(); if(n.lien) this.aller(n.lien.replace(/^#/, ""));
+  },
+  toutLu(){ S.notifs.filter(n => !n.lu).forEach(n => window.Cloud.patch("notifs", n.id, { lu: true }).catch(() => {})); this.fermer(); },
+  onPushPremierPlan(d){ if(d && d.title) this.toast(d.title + (d.body ? " — " + d.body : "")); },
+  etatPush(){ try{ return window.Push ? window.Push.etat() : "indisponible"; }catch(e){ return "indisponible"; } },
+  async activerNotifs(){
+    try{ await window.Push.register(); this.toast(t("Notifications activées."), "ok"); }
+    catch(e){
+      const m = String((e && e.message) || e);
+      if(m === "denied") this.toast(t("Notifications refusées. Autorisez-les dans les réglages du téléphone."), "err");
+      else if(/SamsungBrowser/i.test(navigator.userAgent || "")) this.toast(t("Notifications indisponibles avec Samsung Internet : ouvrez l'app avec Chrome."), "err");
+      else this.toast(t("Activation impossible. Vérifiez la connexion."), "err");
+    }
+    this.rendre();
+  },
+  async desactiverNotifs(){ try{ await window.Push.disable(); }catch(e){} this.toast(t("Notifications désactivées sur cet appareil.")); this.rendre(); },
+  vueNotifs(client){
+    const st = this.etatPush();
+    if(st === "granted") return `<div class="bloc"><h3>${esc(t("Notifications"))}</h3><p class="doux">${esc(client ? t("Ce téléphone sera prévenu dès que vos photos sont prêtes.") : t("Ce téléphone reçoit les nouvelles demandes et les messages des clients."))}</p>
+      <button class="btn btn-clair btn-petit" onclick="App.desactiverNotifs()">${esc(t("Désactiver sur cet appareil"))}</button></div>`;
+    const txt = { default: client ? t("Activez les notifications pour être prévenu(e) dès que vos photos et vidéos sont prêtes.") : t("Activez les notifications pour être prévenu des nouvelles demandes."),
+      denied: t("Les notifications sont bloquées. Autorisez-les dans les réglages du téléphone, rubrique Applications."),
+      "ios-installer": t("Sur iPhone : touchez Partager, puis « Sur l'écran d'accueil », et ouvrez l'app depuis son icône."),
+      indisponible: t("Ce navigateur ne gère pas les notifications. Ouvrez l'app avec Chrome."),
+      "non-configure": client ? t("Les notifications seront bientôt disponibles.") : t("Notifications pas encore configurées : ajoutez la clé vapidKey dans config.js (voir LISEZ-MOI, étape 1.5).") }[st] || "";
+    return `<div class="bloc"><h3>${esc(t("Notifications"))}</h3><p class="doux">${esc(txt)}</p>
+      ${st === "default" ? `<button class="btn btn-or" onclick="App.activerNotifs()">${ico("cloche")} ${esc(t("Activer les notifications"))}</button>` : ""}</div>`;
+  },
+
+  /* ================================================= CLIENT : ACCUEIL */
+  pageAccueil(){
+    const st = this.studio(), u = S.prof;
+    const vedettes = S.portfolio.filter(p => p.vedette).sort((a, b) => (b.ord || 0) - (a.ord || 0));
+    const diapos = (vedettes.length ? vedettes : S.portfolio.slice().sort((a, b) => (b.ord || 0) - (a.ord || 0))).slice(0, 5);
+    const prete = S.livraisons.filter(l => !l.telechargeAt && ecartJours(aujourdHui(), l.expireLe) >= 0).sort((a, b) => b.createdAt - a.createdAt)[0];
+    const prochaine = S.demandes.filter(d => d.statut === "confirmee" && d.date >= aujourdHui()).sort((a, b) => a.date < b.date ? -1 : 1)[0];
+    const enAttente = S.demandes.filter(d => d.statut === "attente").length;
+    const avisPub = S.avis.filter(a => a.publie).sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
+    const forfaits = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
+    return `
+      <section class="heros${diapos.length ? "" : " sans-photo"}" id="heros">
+        ${diapos.length ? diapos.map((p, i) => `<div class="diapo${i === 0 ? " on" : ""}" data-id="${p.id}" style="background-image:url('${p.thumb}')"></div>`).join("") : `<div class="monogramme-fond" aria-hidden="true">AS</div>`}
+        <div class="cadre${this._heroVu ? "" : " mise-au-point"}"><span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span></div>
+        <div class="texte"><p class="doux" style="margin-bottom:6px">${esc(t("Bonjour"))}${u && u.nom ? " " + esc(u.nom.split(" ")[0]) : ""}</p>
+          <h1>${esc(t(st.accroche))}</h1>
+          <div class="rangee"><button class="btn btn-or" onclick="App.aller('reserver')">${esc(t("Réserver une date"))}</button>
+            <button class="btn btn-clair" onclick="App.aller('portfolio')">${esc(t("Voir le portfolio"))}</button></div></div>
+      </section>
+      ${prete ? `<button class="encart ligne" style="cursor:pointer;margin-top:14px" onclick="App.aller('photos')">${ico("image", "chev")}
+          <span class="corps"><span class="t">${esc(t("Vos photos sont prêtes"))}</span><span class="s">${esc(prete.titre)} — ${esc(this.texteExpiration(prete))}</span></span>${ico("chevron", "chev")}</button>` : ""}
+      ${prochaine ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Votre date est confirmée"))}</b><div class="doux">${esc(t(prochaine.type))} — ${esc(dateLongue(prochaine.date))}${prochaine.lieu ? " — " + esc(prochaine.lieu) : ""}</div></div>`
+        : (enAttente ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Demande envoyée"))}</b><div class="doux">${esc(t("Achref vous répond très vite. Suivez-la dans l'onglet Réserver."))}</div></div>` : "")}
+      ${this.etatPush() === "default" ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Ne ratez pas vos photos"))}</b>
+          <div class="doux" style="margin:4px 0 10px">${esc(t("Activez les notifications pour être prévenu(e) dès que vos photos et vidéos sont prêtes."))}</div>
+          <button class="btn btn-or btn-petit" onclick="App.activerNotifs()">${esc(t("Activer les notifications"))}</button></div>` : ""}
+      <div class="titre-section"><h2>${esc(t("Comment ça se passe"))}</h2></div>
+      <ol class="etapes">
+        <li><span><b>${esc(t("Vous réservez votre date"))}</b><span class="doux">${esc(t("Choisissez le jour et le forfait, Achref confirme la disponibilité."))}</span></span></li>
+        <li><span><b>${esc(t("Le jour J"))}</b><span class="doux">${esc(t("Achref capture les préparatifs, la cérémonie et la fête, en photo et en vidéo."))}</span></span></li>
+        <li><span><b>${esc(t("Vous recevez vos fichiers"))}</b><span class="doux">${esc(t("Un lien de téléchargement arrive dans « Mes photos », avec une notification."))}</span></span></li>
+      </ol>
+      ${forfaits.length ? `<div class="titre-section"><h2>${esc(t("Forfaits"))}</h2></div><div class="bloc" style="padding-top:4px;padding-bottom:4px">${forfaits.map(f => this.vueForfait(f)).join("")}</div>` : ""}
+      ${avisPub.length ? `<div class="titre-section"><h2>${esc(t("Ils en parlent"))}</h2></div><div>${avisPub.map(a => this.vueAvis(a)).join("")}</div>` : ""}
+      <div class="titre-section"><h2>${esc(t("Restons en contact"))}</h2></div>
+      <div class="rangee">${this.boutonsContact()}</div>
+      <p class="credit" style="margin-top:22px"><button class="lien" onclick="App.aller('apropos')">${esc(t("À propos de l'application"))}</button></p>`;
+  },
+  apres_accueil(){
+    const h = document.getElementById("heros"); if(!h) return;
+    this._heroVu = true;          // l'animation de mise au point ne se joue qu'une fois
+    const d = h.querySelectorAll(".diapo");
+    d.forEach(el => { const id = el.dataset.id; this.imagePleine(id).then(src => { if(src) el.style.backgroundImage = `url('${src}')`; }); });
+    clearInterval(this._diapoT);
+    if(d.length > 1){ let i = 0; this._diapoT = setInterval(() => { if(!document.body.contains(h)) return clearInterval(this._diapoT); d[i].classList.remove("on"); i = (i + 1) % d.length; d[i].classList.add("on"); }, 6000); }
+  },
+  vueForfait(f){
+    return `<div class="forfait"><div class="haut"><h3>${esc(f.nom)}</h3>${f.prix ? `<span class="prix">${esc(f.prix)}</span>` : ""}</div>
+      ${f.description ? `<p class="doux" style="margin:6px 0 0">${txt(f.description)}</p>` : ""}
+      ${(f.inclus || []).length ? `<ul>${f.inclus.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}</div>`;
+  },
+  vueAvis(a){
+    return `<div class="avis-carte"><div class="etoiles" aria-label="${a.note}/5">${"★".repeat(a.note || 5)}${"☆".repeat(5 - (a.note || 5))}</div>
+      <blockquote>«&nbsp;${txt(a.texte)}&nbsp;»</blockquote><div class="discret">${esc((a.clientNom || "").split(" ")[0])}</div></div>`;
+  },
+  boutonsContact(){
+    const st = this.studio(), out = [];
+    if(st.tel) out.push(`<a class="btn" href="${telLien(st.tel)}">${ico("tel")} ${esc(t("Appeler"))}</a>`);
+    if(st.whatsapp || st.tel) out.push(`<a class="btn" href="${waLien(st.whatsapp || st.tel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>`);
+    if(st.instagram) out.push(`<a class="btn" href="https://www.instagram.com/${esc(st.instagram.replace(/^@/, ""))}/" target="_blank" rel="noopener">${ico("insta")} Instagram</a>`);
+    if(st.email) out.push(`<a class="btn" href="mailto:${esc(st.email)}">${ico("mail")} ${esc(t("E-mail"))}</a>`);
+    return out.join("");
+  },
+
+  /* ================================================= PORTFOLIO */
+  async imagePleine(id){
+    if(S.pleins[id]) return S.pleins[id];
+    try{ const d = await window.Cloud.get("portfolioFull", id); if(d && d.data){ S.pleins[id] = d.data; return d.data; } }catch(e){}
+    return null;
+  },
+  photosFiltrees(){
+    const f = S.filtrePortfolio;
+    return S.portfolio.filter(p => f === "Tout" || p.cat === f).sort((a, b) => (b.ord || 0) - (a.ord || 0));
+  },
+  pagePortfolio(){
+    const cats = ["Tout"].concat(CATS.filter(c => S.portfolio.some(p => p.cat === c)));
+    const liste = this.photosFiltrees(), st = this.studio();
+    const tete = `${this.estAdmin() ? this.retour("plus", "Plus") : ""}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Portfolio"))}</h2></div>`;
+    if(!S.portfolio.length) return tete + `<div class="vide">${ico("grille")}<h3>${esc(t("Le portfolio arrive bientôt"))}</h3>
+      <p>${esc(t("En attendant, retrouvez les derniers mariages sur Instagram."))}</p>
+      ${st.instagram ? `<a class="btn btn-or" href="https://www.instagram.com/${esc(st.instagram.replace(/^@/, ""))}/" target="_blank" rel="noopener">${ico("insta")} Instagram</a>` : ""}</div>`;
+    return tete + `<div class="puces">${cats.map(c => `<button class="puce${S.filtrePortfolio === c ? " on" : ""}" onclick="App.filtrerPortfolio('${esc(c)}')">${esc(t(c))}</button>`).join("")}</div>
+      <div class="mosaique">${liste.map((p, i) => `<button onclick="App.ouvrirVisionneuse(${i})" aria-label="${esc(p.legende || t(p.cat))}"><img src="${p.thumb}" alt="${esc(p.legende || t(p.cat))}" loading="lazy" width="${p.w || 400}" height="${p.h || 500}"></button>`).join("")}</div>`;
+  },
+  filtrerPortfolio(c){ S.filtrePortfolio = c; this.rendre(); },
+  ouvrirVisionneuse(i){
+    this._visio = { liste: this.photosFiltrees(), i };
+    let v = document.getElementById("visio");
+    if(!v){ v = document.createElement("div"); v.id = "visio"; v.className = "visionneuse"; document.body.appendChild(v); }
+    v.innerHTML = `<div class="barre"><span class="discret" id="vi-n"></span><button class="btn-icone" onclick="App.fermerVisionneuse()" aria-label="${esc(t("Fermer"))}">${ico("fermer")}</button></div>
+      <div class="scene" id="vi-scene"><button class="btn-icone nav prec" onclick="App.pasVisionneuse(-1)" aria-label="${esc(t("Précédente"))}">${ico("gauche")}</button>
+        <img id="vi-img" alt=""><button class="btn-icone nav suiv" onclick="App.pasVisionneuse(1)" aria-label="${esc(t("Suivante"))}">${ico("droite")}</button></div>
+      <div class="legende" id="vi-leg"></div>`;
+    v.hidden = false; document.body.style.overflow = "hidden";
+    const sc = document.getElementById("vi-scene"); let x0 = null;
+    sc.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+    sc.addEventListener("touchend", e => { if(x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if(Math.abs(dx) > 50) this.pasVisionneuse((dx < 0 ? 1 : -1) * (LANG === "ar" ? -1 : 1)); });
+    this.majVisionneuse();
+  },
+  majVisionneuse(){
+    const V = this._visio; if(!V) return; const p = V.liste[V.i]; if(!p) return;
+    const img = document.getElementById("vi-img"); img.src = p.thumb; img.classList.add("flou"); img.alt = p.legende || t(p.cat);
+    document.getElementById("vi-n").textContent = (V.i + 1) + " / " + V.liste.length;
+    document.getElementById("vi-leg").textContent = p.legende || t(p.cat);
+    document.querySelectorAll("#visio .nav").forEach(b => { b.style.visibility = V.liste.length > 1 ? "visible" : "hidden"; });
+    this.imagePleine(p.id).then(src => { if(this._visio && this._visio.liste[this._visio.i] === p){ if(src) img.src = src; img.classList.remove("flou"); } });
+  },
+  pasVisionneuse(d){ const V = this._visio; if(!V) return; V.i = (V.i + d + V.liste.length) % V.liste.length; this.majVisionneuse(); },
+  fermerVisionneuse(){ const v = document.getElementById("visio"); if(v) v.hidden = true; this._visio = null; document.body.style.overflow = ""; },
+
+  /* ================================================= CLIENT : MES PHOTOS */
+  joursRestants(l){ return ecartJours(aujourdHui(), l.expireLe || aujourdHui()); },
+  texteExpiration(l){
+    const n = this.joursRestants(l);
+    if(n < 0) return t("Lien expiré");
+    if(n === 0) return t("Expire aujourd'hui");
+    if(n === 1) return t("Expire demain");
+    return t("Encore {n} jours", { n });
+  },
+  pagePhotos(){
+    const liste = S.livraisons.slice().sort((a, b) => b.createdAt - a.createdAt);
+    const tete = `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Mes photos et vidéos"))}</h2></div>`;
+    if(!liste.length) return tete + `<div class="vide">${ico("image")}<h3>${esc(t("Rien pour l'instant"))}</h3>
+      <p>${esc(t("Vos photos et vidéos apparaîtront ici dès qu'Achref vous les enverra. Vous recevrez une notification."))}</p></div>
+      ${this.etatPush() === "default" ? `<div style="margin-top:14px">${this.vueNotifs(true)}</div>` : ""}`;
+    return tete + liste.map(l => this.vuePochette(l)).join("") + `
+      <details class="conseils bloc"><summary>${esc(t("Comment télécharger vos fichiers"))}</summary>
+        <ol><li>${esc(t("Connectez-vous au Wi-Fi : les fichiers d'un mariage sont lourds."))}</li>
+          <li>${esc(t("Touchez le bouton Photos ou Vidéo : la page WeTransfer s'ouvre."))}</li>
+          <li>${esc(t("Touchez « Télécharger ». Sur téléphone, le fichier .zip arrive dans « Téléchargements »."))}</li>
+          <li>${esc(t("Ouvrez le .zip avec l'application Fichiers pour retrouver vos photos, puis gardez une copie sur un ordinateur ou un cloud."))}</li></ol>
+        <p class="discret" style="margin-top:8px">${esc(t("Les liens WeTransfer expirent : téléchargez avant la date indiquée sur la pochette."))}</p></details>`;
+  },
+  vuePochette(l){
+    const n = this.joursRestants(l), expire = n < 0, fait = !!l.telechargeAt, nouvelle = !l.vuAt;
+    const classeTampon = fait ? "ok" : (expire ? "fin" : "");
+    const [y, m, d] = (l.expireLe || aujourdHui()).split("-");
+    const tampon = `<div class="tampon ${classeTampon}" aria-hidden="true">${fait ? `${esc(t("Téléchargé"))}<b>✓</b>` : (expire ? `${esc(t("Expiré le"))}<b>${+d}</b>${esc(moisCourt(l.expireLe))}` : `${esc(t("Valable jusqu'au"))}<b>${+d}</b>${esc(moisCourt(l.expireLe))}`)}</div>`;
+    const liens = (l.liens || []).map(x => `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener" onclick="App.lienOuvert('${l.id}')">${ico("telecharger")} ${esc(t(x.label) || t("Télécharger"))}</a>`).join("");
+    return `<article class="pochette${nouvelle ? " nouvelle" : ""}${expire && !fait ? " fermee" : ""}" id="p-${l.id}">
+      <div class="labo"><div><h3>${esc(l.titre)}</h3><div class="meta">${esc(t(l.type || "Mariage"))}${l.dateEvt ? " — " + esc(dateLongue(l.dateEvt)) : ""}</div></div>${tampon}</div>
+      ${l.message ? `<p class="mot">${txt(l.message)}</p>` : ""}
+      ${expire && !fait ? `<p class="mot">${l.nouveauLienDemandeAt ? esc(t("Nouveau lien demandé : Achref vous l'envoie bientôt.")) : esc(t("Ce lien a expiré. Demandez un nouveau lien à Achref."))}</p>
+          ${l.nouveauLienDemandeAt ? "" : `<div class="liens"><button class="btn" onclick="App.demanderNouveauLien('${l.id}')">${ico("lien")} ${esc(t("Demander un nouveau lien"))}</button></div>`}`
+        : `<div class="liens">${liens}</div>`}
+      <div class="pied"><span>${fait ? esc(t("Merci ! Fichiers bien reçus.")) : esc(this.texteExpiration(l))}</span>
+        ${fait ? `<button class="lien" style="color:var(--papier-encre)" onclick="App.ouvrirAvis()">${esc(t("Laisser un avis"))}</button>`
+          : (expire ? "" : `<button class="btn btn-clair btn-petit" onclick="App.marquerTelecharge('${l.id}')">${ico("coche")} ${esc(t("J'ai tout téléchargé"))}</button>`)}</div>
+    </article>`;
+  },
+  apres_photos(){
+    // Les pochettes affichées sont « vues » : Achref voit que le client les a ouvertes.
+    S.livraisons.filter(l => !l.vuAt).forEach(l => window.Cloud.patch("livraisons", l.id, { vuAt: Date.now() }).catch(e => console.warn(e)));
+    if(S.param){ const el = document.getElementById("p-" + S.param); if(el) el.scrollIntoView({ block: "center" }); }
+  },
+  lienOuvert(id){ const l = S.livraisons.find(x => x.id === id); if(l && !l.vuAt) window.Cloud.patch("livraisons", id, { vuAt: Date.now() }).catch(() => {}); },
+  async marquerTelecharge(id){
+    const l = S.livraisons.find(x => x.id === id); if(!l) return;
+    const ok = await this.confirmer(t("Tout est enregistré ?"), t("Vérifiez que vos photos et vidéos sont bien sur votre téléphone ou votre ordinateur : le lien peut expirer."), t("Oui, j'ai tout"));
+    if(!ok) return;
+    try{
+      await window.Cloud.patch("livraisons", id, { telechargeAt: Date.now() });
+      this.notifier("admin", "telecharge", "Fichiers téléchargés", "{nom} a téléchargé « {titre} ».", { nom: S.prof.nom || t("Un client"), titre: l.titre }, "livraisons/" + id);
+      this.toast(t("Merci ! Achref est prévenu."), "ok");
+    }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async demanderNouveauLien(id){
+    const l = S.livraisons.find(x => x.id === id); if(!l) return;
+    try{
+      await window.Cloud.patch("livraisons", id, { nouveauLienDemandeAt: Date.now() });
+      this.notifier("admin", "nouveau_lien", "Nouveau lien demandé", "{nom} n'a pas pu télécharger « {titre} » à temps.", { nom: S.prof.nom || t("Un client"), titre: l.titre }, "livraisons/" + id);
+      this.toast(t("Demande envoyée à Achref."), "ok");
+    }catch(e){ this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= CLIENT : RÉSERVER */
+  pageReserver(){
+    const forfaits = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
+    const mes = S.demandes.slice().sort((a, b) => b.createdAt - a.createdAt);
+    const etat = d => ({ attente: ["", "En attente"], confirmee: ["ok", "Confirmée"], refusee: ["danger", "Indisponible"], annulee: ["", "Annulée"] }[d.statut] || ["", d.statut]);
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Réserver une date"))}</h2></div>
+      <p class="doux">${esc(t("Choisissez une date libre dans le calendrier, puis envoyez votre demande. Achref vous répond dans l'app."))}</p>
+      <div class="bloc">${this.vueCalendrier()}</div>
+      <form class="bloc" onsubmit="event.preventDefault();App.envoyerDemande()">
+        <div class="champ"><label for="re-type">${esc(t("Événement"))}</label><select class="saisie" id="re-type">${TYPES_EVT.map(x => `<option value="${esc(x)}">${esc(t(x))}</option>`).join("")}</select></div>
+        <div class="champ"><label for="re-date">${esc(t("Date"))}</label><input class="saisie" id="re-date" type="date" min="${aujourdHui()}" value="${esc(S.dateChoisie)}" onchange="App.choisirDate(this.value,true)">
+          <div class="aide" id="re-dispo"></div></div>
+        <div class="champ"><label for="re-lieu">${esc(t("Ville ou salle"))}</label><input class="saisie" id="re-lieu" placeholder="${esc(t("Par exemple : Sousse, salle des fêtes"))}"></div>
+        ${forfaits.length ? `<div class="champ"><label for="re-forfait">${esc(t("Forfait"))}</label><select class="saisie" id="re-forfait"><option value="">${esc(t("Je ne sais pas encore"))}</option>${forfaits.map(f => `<option value="${f.id}">${esc(f.nom)}${f.prix ? " — " + esc(f.prix) : ""}</option>`).join("")}</select></div>` : ""}
+        <div class="champ"><label for="re-msg">${esc(t("Message (facultatif)"))}</label><textarea class="saisie" id="re-msg" placeholder="${esc(t("Horaires, nombre d'invités, vidéo souhaitée…"))}"></textarea></div>
+        <button class="btn btn-or btn-bloc" id="re-go">${esc(t("Envoyer la demande"))}</button>
+      </form>
+      ${mes.length ? `<div class="titre-section"><h2>${esc(t("Mes demandes"))}</h2></div><div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${mes.map(d => {
+        const [c, l] = etat(d);
+        return `<div class="ligne" style="cursor:default;flex-wrap:wrap"><span class="corps"><span class="t">${esc(t(d.type))} — ${esc(dateLongue(d.date))}</span>
+          <span class="s">${esc(d.lieu || "")}</span>${d.noteAdmin ? `<span class="doux" style="display:block;font-size:.92rem;margin-top:4px">${esc(d.noteAdmin)}</span>` : ""}</span>
+          <span class="etat ${c}">${esc(t(l))}</span>${d.statut === "attente" ? `<button class="lien" style="width:100%;text-align:end" onclick="App.annulerDemande('${d.id}')">${esc(t("Annuler la demande"))}</button>` : ""}</div>`;
+      }).join("")}</div></div>` : ""}`;
+  },
+  apres_reserver(){ if(S.dateChoisie) this.choisirDate(S.dateChoisie, false); },
+  vueCalendrier(){
+    const [y, m] = S.calMois.split("-").map(Number), premier = new Date(y, m - 1, 1), nb = new Date(y, m, 0).getDate();
+    const decal = (premier.getDay() + 6) % 7, auj = aujourdHui(), pris = (S.agenda.datesPrises || []);
+    let titre = ""; try{ titre = new Intl.DateTimeFormat(loc(), { month: "long", year: "numeric" }).format(premier); }catch(e){ titre = S.calMois; }
+    const jours = []; for(let i = 0; i < 7; i++){ const d = new Date(2024, 0, 1 + i); try{ jours.push(new Intl.DateTimeFormat(loc(), { weekday: "narrow" }).format(d)); }catch(e){ jours.push(""); } }
+    let cases = jours.map(j => `<span class="entete-j">${esc(j)}</span>`).join("");
+    for(let i = 0; i < decal; i++) cases += "<span></span>";
+    for(let d = 1; d <= nb; d++){
+      const iso = y + "-" + pad(m) + "-" + pad(d), passe = iso < auj, estPris = pris.indexOf(iso) >= 0, choisi = iso === S.dateChoisie;
+      cases += passe ? `<span class="j" style="opacity:.3">${d}</span>`
+        : `<button class="j puce${choisi ? " on" : ""}${estPris ? " pris" : ""}" style="padding:8px 0;border-radius:8px" ${estPris ? `aria-label="${d} — ${esc(t("Date déjà réservée"))}"` : ""} onclick="App.choisirDate('${iso}',true)">${d}</button>`;
+    }
+    const moisPrec = S.calMois > auj.slice(0, 7);
+    return `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <button class="btn-icone" ${moisPrec ? "" : "disabled style=\"opacity:.3\""} onclick="App.changerMois(-1)" aria-label="${esc(t("Mois précédent"))}">${ico(LANG === "ar" ? "droite" : "gauche")}</button>
+        <b style="font-weight:500;text-transform:capitalize">${esc(titre)}</b>
+        <button class="btn-icone" onclick="App.changerMois(1)" aria-label="${esc(t("Mois suivant"))}">${ico(LANG === "ar" ? "gauche" : "droite")}</button></div>
+      <div class="cal" id="cal">${cases}</div>
+      <div class="discret" style="margin-top:10px"><span style="color:var(--danger);text-decoration:line-through">12</span> ${esc(t("= date déjà réservée"))}</div>`;
+  },
+  changerMois(d){
+    const [y, m] = S.calMois.split("-").map(Number), x = new Date(y, m - 1 + d, 1);
+    S.calMois = x.getFullYear() + "-" + pad(x.getMonth() + 1);
+    const bloc = document.getElementById("cal"); if(bloc) bloc.parentNode.innerHTML = this.vueCalendrier();
+  },
+  choisirDate(iso, maj){
+    S.dateChoisie = iso || "";
+    const inp = document.getElementById("re-date"); if(inp && inp.value !== iso) inp.value = iso;
+    const info = document.getElementById("re-dispo"), pris = (S.agenda.datesPrises || []).indexOf(iso) >= 0;
+    if(info) info.innerHTML = !iso ? "" : (pris ? `<span style="color:var(--danger)">${esc(t("Cette date est déjà réservée. Choisissez-en une autre ou écrivez à Achref."))}</span>`
+      : `<span style="color:var(--ok)">${esc(t("Date libre"))} — ${esc(dateLongue(iso))}</span>`);
+    if(maj){ const cal = document.getElementById("cal"); if(cal) cal.parentNode.innerHTML = this.vueCalendrier(); this._edition = true; }
+  },
+  async envoyerDemande(){
+    const g = id => ((document.getElementById(id) || {}).value || "").trim();
+    const type = g("re-type"), date = g("re-date"), lieu = g("re-lieu"), fid = g("re-forfait"), msg = g("re-msg");
+    if(!date) return this.toast(t("Choisissez une date."), "err");
+    if(date < aujourdHui()) return this.toast(t("Cette date est passée."), "err");
+    if((S.agenda.datesPrises || []).indexOf(date) >= 0) return this.toast(t("Cette date est déjà réservée. Choisissez-en une autre ou écrivez à Achref."), "err");
+    const f = S.forfaits.find(x => x.id === fid), u = S.prof;
+    const d = { id: nouvelId("d"), clientId: u.id, clientNom: u.nom || "", clientTel: u.tel || "", clientEmail: u.email || "",
+      type, date, lieu, forfaitId: f ? f.id : "", forfaitNom: f ? f.nom : "", message: msg, statut: "attente", noteAdmin: "", createdAt: Date.now(), updatedAt: Date.now() };
+    const btn = document.getElementById("re-go"); btn.disabled = true;
+    try{
+      await window.Cloud.put("demandes", d);
+      this.notifier("admin", "demande", "Nouvelle demande", "{nom} : {type} le {date}.", { nom: u.nom || t("Un client"), type: deuxLangues(l => tl(l, type)), date: deuxLangues(l => dateLongue(date, l)) }, "demandes/" + d.id);
+      S.dateChoisie = ""; this._edition = false; this.toast(t("Demande envoyée. Achref vous répond très vite."), "ok"); this.rendre();
+    }catch(e){ btn.disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
+  },
+  async annulerDemande(id){
+    if(!(await this.confirmer(t("Annuler la demande ?"), t("Achref sera prévenu que cette date ne vous intéresse plus."), t("Annuler la demande"), true))) return;
+    const d = S.demandes.find(x => x.id === id);
+    try{
+      await window.Cloud.patch("demandes", id, { statut: "annulee", updatedAt: Date.now() });
+      if(d) this.notifier("admin", "demande_annulee", "Demande annulée", "{nom} a annulé sa demande du {date}.", { nom: S.prof.nom || t("Un client"), date: deuxLangues(l => dateLongue(d.date, l)) }, "demandes/" + id);
+    }catch(e){ this.toast(t("Annulation impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= CLIENT : AVIS */
+  ouvrirAvis(){
+    this._note = 5;
+    this.feuille(t("Votre avis"), `<p class="doux">${esc(t("Quelques mots sur votre expérience aideront les futurs mariés. Votre avis sera publié après validation."))}</p>
+      <div class="choix-etoiles" id="av-et">${[1, 2, 3, 4, 5].map(n => `<button type="button" class="on" onclick="App.noter(${n})" aria-label="${n}/5">★</button>`).join("")}</div>
+      <div class="champ"><label for="av-txt">${esc(t("Votre message"))}</label><textarea class="saisie" id="av-txt" maxlength="600" placeholder="${esc(t("Ce que vous avez aimé…"))}"></textarea></div>`,
+      `<button class="btn btn-or btn-bloc" id="av-go" onclick="App.envoyerAvis()">${esc(t("Envoyer mon avis"))}</button>`);
+  },
+  noter(n){ this._note = n; document.querySelectorAll("#av-et button").forEach((b, i) => b.classList.toggle("on", i < n)); },
+  async envoyerAvis(){
+    const txt = (document.getElementById("av-txt").value || "").trim();
+    if(txt.length < 10) return this.toast(t("Écrivez au moins quelques mots."), "err");
+    const a = { id: nouvelId("a"), clientId: S.prof.id, clientNom: S.prof.nom || "", note: this._note || 5, texte: txt, publie: false, createdAt: Date.now() };
+    document.getElementById("av-go").disabled = true;
+    try{
+      await window.Cloud.put("avis", a);
+      this.notifier("admin", "avis", "Nouvel avis à valider", "{nom} a laissé {n} étoiles.", { nom: S.prof.nom || t("Un client"), n: a.note }, "a-avis");
+      this.fermer(); this.toast(t("Merci ! Votre avis sera publié après validation."), "ok");
+    }catch(e){ document.getElementById("av-go").disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= CLIENT : COMPTE */
+  pageCompte(){
+    const u = S.prof, mail = window.Cloud.authEmail(), mesAvis = S.avis.filter(a => a.clientId === u.id);
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Mon compte"))}</h2></div>
+      <form class="bloc" onsubmit="event.preventDefault();App.enregistrerInfos()"><h3>${esc(t("Mes informations"))}</h3>
+        <div class="champ"><label for="cp-nom">${esc(t("Nom complet"))}</label><input class="saisie" id="cp-nom" value="${esc(u.nom || "")}" placeholder="${esc(t("Votre nom et prénom"))}" autocomplete="name"></div>
+        <div class="champ"><label for="cp-tel">${esc(t("Numéro de téléphone"))}</label><input class="saisie" id="cp-tel" type="tel" value="${esc(u.tel || "")}" placeholder="${esc(t("Votre numéro de téléphone"))}" autocomplete="tel">
+          <div class="aide">${esc(t("Vous pouvez aussi vous connecter avec ce numéro."))}</div></div>
+        <button class="btn btn-or btn-bloc" id="cp-go">${esc(t("Enregistrer"))}</button></form>
+      <div class="bloc"><h3>${esc(t("Adresse e-mail"))}</h3><p style="word-break:break-all" dir="ltr">${esc(mail)}</p>
+        <button class="btn btn-clair btn-petit" onclick="App.ouvrirEmail()">${ico("crayon")} ${esc(t("Modifier mon e-mail"))}</button></div>
+      <form class="bloc" onsubmit="event.preventDefault();App.changerMdp('cp')"><h3>${esc(t("Mot de passe"))}</h3>
+        <div class="champ"><label for="cp-old">${esc(t("Mot de passe actuel"))}</label>${champMdp("cp-old", "Votre mot de passe", "current-password")}</div>
+        <div class="champ"><label for="cp-new">${esc(t("Nouveau mot de passe"))}</label>${champMdp("cp-new", "Nouveau mot de passe", "new-password")}</div>
+        <div class="champ"><label for="cp-conf">${esc(t("Confirmer le nouveau mot de passe"))}</label>${champMdp("cp-conf", "Retapez le mot de passe", "new-password")}
+          <div class="aide">${esc(t("Au moins 8 caractères, avec une majuscule, une minuscule, un chiffre et un symbole."))}</div></div>
+        <button class="btn btn-bloc">${esc(t("Modifier le mot de passe"))}</button></form>
+      ${this.vueNotifs(!this.estAdmin())}
+      ${this.estAdmin() ? "" : `<div class="bloc"><h3>${esc(t("Mon avis"))}</h3>
+        ${mesAvis.length ? mesAvis.map(a => `<div class="avis-carte"><div class="etoiles">${"★".repeat(a.note)}</div><blockquote>« ${esc(a.texte)} »</blockquote>
+          <span class="etat ${a.publie ? "ok" : ""}">${esc(a.publie ? t("Publié") : t("En attente de validation"))}</span></div>`).join("")
+          : `<p class="doux">${esc(t("Partagez votre expérience avec les futurs mariés."))}</p><button class="btn btn-petit" onclick="App.ouvrirAvis()">${ico("etoile")} ${esc(t("Laisser un avis"))}</button>`}</div>`}
+      <div class="bloc"><h3>${esc(t("Mes données"))}</h3>
+        <a class="btn btn-clair btn-bloc" style="margin-bottom:10px" href="confidentialite.html">${ico("bouclier")} ${esc(t("Politique de confidentialité"))}</a>
+        ${this.estAdmin() ? "" : `<button class="btn btn-danger btn-bloc" onclick="App.ouvrirSuppression()">${ico("corbeille")} ${esc(t("Supprimer mon compte"))}</button>
+        <p class="discret" style="margin-top:8px">${esc(t("Supprime définitivement votre compte, vos demandes, vos avis et vos liens de téléchargement."))}</p>`}</div>
+      <div class="rangee" style="margin-bottom:8px"><button class="btn btn-clair" onclick="App.aller('apropos')">${ico("info")} ${esc(t("À propos"))}</button>
+        <button class="btn btn-clair" onclick="App.deconnecter()">${ico("sortir")} ${esc(t("Se déconnecter"))}</button></div>`;
+  },
+  async enregistrerInfos(){
+    const u = S.prof, nom = document.getElementById("cp-nom").value.trim(), tel = normTel(document.getElementById("cp-tel").value);
+    if(!nom || !tel) return this.toast(t("Nom et téléphone requis."), "err");
+    const cle = cleTel(tel), ancienne = cleTel(u.tel);
+    if(cle.length < 8) return this.toast(t("Numéro de téléphone invalide."), "err");
+    if(nom === (u.nom || "") && tel === (u.tel || "")) return this.toast(t("Aucune modification."));
+    const btn = document.getElementById("cp-go"); btn.disabled = true;
+    try{
+      if(cle !== ancienne){
+        const ent = await window.Cloud.lookupPhone(cle);
+        if(ent && ent.uid && ent.uid !== u.id){ btn.disabled = false; return this.toast(t("Ce numéro est déjà utilisé par un autre compte."), "err"); }
+        await window.Cloud.movePhone(ancienne, cle);
+      }
+      await window.Cloud.patch("users", u.id, { nom, tel });
+      S.prof = Object.assign({}, u, { nom, tel });
+      this._edition = false; this.toast(t("Informations enregistrées."), "ok"); this.rendre();
+    }catch(e){ btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async changerMdp(p){
+    const g = id => document.getElementById(id).value;
+    const a = g(p + "-old"), n = g(p + "-new"), c = g(p + "-conf");
+    if(!a || !n || !c) return this.toast(t("Remplissez tous les champs."), "err");
+    const pb = this.verifMdp(n); if(pb) return this.toast(pb, "err");
+    if(n !== c) return this.toast(t("La confirmation ne correspond pas."), "err");
+    if(n === a) return this.toast(t("Le nouveau mot de passe doit être différent de l'ancien."), "err");
+    try{
+      await window.Cloud.changePassword(a, n);
+      ["-old", "-new", "-conf"].forEach(x => { document.getElementById(p + x).value = ""; });
+      this._edition = false; this.toast(t("Mot de passe modifié."), "ok");
+    }catch(e){ this.toast(/invalid-credential|wrong-password/.test((e && e.code) || "") ? t("Mot de passe actuel incorrect.") : this.erreurAuth(e), "err"); }
+  },
+  ouvrirEmail(){
+    this.feuille(t("Modifier mon e-mail"), `
+      <div class="champ"><label for="em-new">${esc(t("Nouvelle adresse e-mail"))}</label><input class="saisie" id="em-new" type="email" inputmode="email" placeholder="${esc(t("Votre adresse e-mail"))}" autocapitalize="none" spellcheck="false"></div>
+      <div class="champ"><label for="em-pass">${esc(t("Mot de passe actuel"))}</label>${champMdp("em-pass", "Votre mot de passe", "current-password")}</div>
+      <p class="discret">${esc(t("Un e-mail de confirmation vous sera envoyé. L'adresse change dès que vous touchez le lien qu'il contient."))}</p><div id="em-res"></div>`,
+      `<button class="btn btn-or btn-bloc" id="em-go" onclick="App.enregistrerEmail()">${esc(t("Envoyer la confirmation"))}</button>`);
+  },
+  async enregistrerEmail(){
+    const mail = (document.getElementById("em-new").value || "").trim().toLowerCase(), pass = document.getElementById("em-pass").value;
+    if(!mail || !pass) return this.toast(t("Remplissez tous les champs."), "err");
+    if(!estEmail(mail)) return this.toast(t("Adresse e-mail invalide."), "err");
+    if(mail === window.Cloud.authEmail().toLowerCase()) return this.toast(t("C'est déjà votre adresse actuelle."), "err");
+    const btn = document.getElementById("em-go"); btn.disabled = true;
+    try{ await window.Cloud.changeEmail(mail, pass, cleTel(S.prof.tel)); }
+    catch(e){
+      btn.disabled = false; const c = (e && e.code) || "";
+      return this.toast(/invalid-credential|wrong-password/.test(c) ? t("Mot de passe actuel incorrect.") : (/email-already-in-use/.test(c) ? t("Cette adresse e-mail est déjà utilisée par un autre compte.") : this.erreurAuth(e)), "err");
+    }
+    document.getElementById("em-res").innerHTML = `<div class="encart"><b>${esc(t("E-mail de confirmation envoyé"))}</b><div style="margin-top:6px">${esc(t("Ouvrez votre boîte :"))} <b dir="ltr">${esc(mail)}</b></div>
+      <div class="discret" style="margin-top:6px">${esc(t("Touchez le lien pour valider votre adresse (pensez aux spams)."))}</div></div>`;
+    btn.disabled = false; btn.textContent = t("Fermer"); btn.onclick = () => this.fermer();
+  },
+  ouvrirSuppression(){
+    this.feuille(t("Supprimer mon compte"), `<div class="encart alerte"><b>${esc(t("Cette action est définitive."))}</b></div>
+      <p class="doux">${esc(t("Seront effacés : votre compte, vos demandes de réservation, vos avis, vos notifications et vos liens de téléchargement. Pensez à télécharger vos photos avant."))}</p>
+      <div class="champ"><label for="sup-pass">${esc(t("Mot de passe"))}</label>${champMdp("sup-pass", "Votre mot de passe", "current-password")}</div>`,
+      `<button class="btn btn-danger btn-bloc" id="sup-go" onclick="App.supprimerCompte()">${esc(t("Supprimer définitivement mon compte"))}</button>`);
+  },
+  async supprimerCompte(){
+    const pass = document.getElementById("sup-pass").value; if(!pass) return this.toast(t("Saisissez votre mot de passe."), "err");
+    const btn = document.getElementById("sup-go"); btn.disabled = true; btn.textContent = t("Suppression en cours…");
+    const u = S.prof, vars = { nom: u.nom || t("Un client"), tel: telAffiche(u.tel) };
+    const notif = { id: "n_del_" + u.id, target: "admin", kind: "compte_supprime",
+      fr: { t: tl("fr", "Compte client supprimé"), b: tl("fr", "{nom} ({tel}) a supprimé son compte.", vars) },
+      ar: { t: tl("ar", "Compte client supprimé"), b: tl("ar", "{nom} ({tel}) a supprimé son compte.", vars) }, lien: "clients", ts: Date.now(), lu: false, envoi: "attente" };
+    try{ await window.Cloud.deleteMyAccount(pass, { cle: cleTel(u.tel), notif }); }
+    catch(e){ btn.disabled = false; btn.textContent = t("Supprimer définitivement mon compte"); return this.toast(/invalid-credential|wrong-password/.test((e && e.code) || "") ? t("Mot de passe incorrect.") : this.erreurAuth(e), "err"); }
+    this.fermer(); this.toast(t("Votre compte a été supprimé."), "ok"); setTimeout(() => { location.hash = ""; location.reload(); }, 1500);
+  },
+
+  /* ================================================= À PROPOS */
+  urlApp(){ try{ return location.origin + location.pathname.replace(/[^/]*$/, ""); }catch(e){ return ""; } },
+  pageApropos(){
+    const st = this.studio();
+    return `${this.retour(this.estAdmin() ? "plus" : "compte", this.estAdmin() ? "Plus" : "Compte")}
+      <section class="viseur" style="padding:16px 0 8px"><div class="cadre" style="width:170px"><span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span>
+        <div class="monogramme" style="font-size:4.2rem" aria-hidden="true">AS</div></div>
+        <h1 style="font-size:var(--t-2xl)">${esc(st.nom)}</h1><p class="sous">${esc(t(st.metier))}${st.ville ? " — " + esc(st.ville) : ""}</p></section>
+      ${st.bio ? `<p class="doux" style="text-align:center;max-width:52ch;margin:0 auto 18px">${txt(t(st.bio))}</p>` : ""}
+      <div class="rangee" style="margin-bottom:18px">${this.boutonsContact()}</div>
+      <div class="bloc"><h3>${esc(t("Partager l'application"))}</h3>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="qr" id="qr">${esc(t("QR code indisponible hors ligne"))}</div>
+          <div style="flex:1;min-width:150px"><p class="doux">${esc(t("Faites scanner ce code pour ouvrir l'application."))}</p>
+            <div class="rangee"><button class="btn btn-petit" onclick="App.copierLien()">${ico("lien")} ${esc(t("Copier le lien"))}</button>
+              <a class="btn btn-petit" href="https://wa.me/?text=${encodeURIComponent(st.nom + " — " + this.urlApp())}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a></div></div></div></div>
+      <div class="bloc"><h3>${esc(t("À propos de l'application"))}</h3>
+        <dl class="kv"><dt>${esc(t("Version"))}</dt><dd dir="ltr" style="text-align:start">${APP_VERSION}</dd>
+          <dt>${esc(t("Conception et développement"))}</dt><dd>${esc(DEV_INFO.nom)}<br><a href="mailto:${DEV_INFO.mail}" dir="ltr">${DEV_INFO.mail}</a><br><a href="tel:${DEV_INFO.tel.replace(/\s/g, "")}" dir="ltr">${DEV_INFO.tel}</a></dd></dl>
+        <div class="legal"><a href="confidentialite.html">${esc(t("Politique de confidentialité"))}</a><a href="suppression-compte.html">${esc(t("Suppression de compte"))}</a></div>
+        <p class="credit"><bdi dir="ltr">© ${new Date().getFullYear()} ${esc(DEV_INFO.nom)}.</bdi> ${esc(t("Tous droits réservés."))}</p></div>`;
+  },
+  apres_apropos(){
+    const box = document.getElementById("qr"); if(!box || typeof qrcode === "undefined") return;
+    try{ const q = qrcode(0, "M"); q.addData(this.urlApp()); q.make(); box.innerHTML = q.createSvgTag({ scalable: true, margin: 0 }); }catch(e){}
+  },
+  copierLien(){
+    const u = this.urlApp();
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(() => this.toast(t("Lien copié."), "ok")).catch(() => this.toast(u));
+    else this.toast(u);
+  },
+
+  /* ================================================= ADMIN : TABLEAU */
+  clients(){ return S.users.filter(u => u.role !== "admin").sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)); },
+  pageTableau(){
+    const auj = aujourdHui(), st = this.studio();
+    const attente = S.demandes.filter(d => d.statut === "attente").length;
+    const nonTel = S.livraisons.filter(l => !l.telechargeAt && ecartJours(auj, l.expireLe) >= 0).length;
+    const bientot = S.livraisons.filter(l => !l.telechargeAt && ecartJours(auj, l.expireLe) >= 0 && ecartJours(auj, l.expireLe) <= 1).length;
+    const nouveauLien = S.livraisons.filter(l => l.nouveauLienDemandeAt && !l.telechargeAt && ecartJours(auj, l.expireLe) < 0).length;
+    const aValider = S.avis.filter(a => !a.publie).length;
+    const prochains = S.demandes.filter(d => d.statut === "confirmee" && d.date >= auj).sort((a, b) => a.date < b.date ? -1 : 1).slice(0, 5);
+    const ligne = (n, l, r) => `<button class="compteur" onclick="App.aller('${r}')"><span class="n">${n}</span><span class="l">${esc(l)}</span>${ico("chevron", "chev")}</button>`;
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Bonjour"))} ${esc((S.prof.nom || st.nom).split(" ")[0])}</h2></div>
+      <button class="btn btn-or btn-bloc" style="margin-bottom:16px" onclick="App.ouvrirLivraison()">${ico("envoyer")} ${esc(t("Envoyer des photos à un client"))}</button>
+      <div class="bloc" style="padding-top:4px;padding-bottom:4px">
+        ${ligne(attente, attente === 1 ? t("demande de réservation en attente") : t("demandes de réservation en attente"), "demandes")}
+        ${nouveauLien ? ligne(nouveauLien, t("client(s) demandent un nouveau lien"), "livraisons") : ""}
+        ${ligne(bientot, t("lien(s) qui expirent dans moins de 24 h"), "livraisons")}
+        ${ligne(nonTel, t("livraison(s) pas encore téléchargée(s)"), "livraisons")}
+        ${aValider ? ligne(aValider, t("avis à valider"), "a-avis") : ""}
+        ${ligne(this.clients().length, t("clients inscrits"), "clients")}</div>
+      <div class="titre-section"><h2>${esc(t("Prochains événements"))}</h2></div>
+      ${prochains.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${prochains.map(d => `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')">
+        <span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(dateLongue(d.date))}</span><span class="s">${esc(t(d.type))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
+        : `<div class="vide"><p>${esc(t("Aucun événement confirmé pour l'instant."))}</p></div>`}
+      ${this.etatPush() !== "granted" ? `<div style="margin-top:14px">${this.vueNotifs(false)}</div>` : ""}`;
+  },
+
+  /* ================================================= ADMIN : LIVRAISONS */
+  etatLivraison(l){
+    const n = ecartJours(aujourdHui(), l.expireLe);
+    if(l.telechargeAt) return ["ok", t("Téléchargée")];
+    if(n < 0) return l.nouveauLienDemandeAt ? ["danger", t("Nouveau lien demandé")] : ["", t("Expirée")];
+    if(n <= 1) return ["alerte", this.texteExpiration(l)];
+    return l.vuAt ? ["or", t("Vue")] : ["", t("Envoyée")];
+  },
+  pageLivraisons(){
+    const auj = aujourdHui(), f = S.filtreLivraisons;
+    const toutes = S.livraisons.slice().sort((a, b) => b.createdAt - a.createdAt);
+    const liste = toutes.filter(l => f === "toutes" || (f === "encours" && !l.telechargeAt && ecartJours(auj, l.expireLe) >= 0) ||
+      (f === "telechargees" && l.telechargeAt) || (f === "expirees" && !l.telechargeAt && ecartJours(auj, l.expireLe) < 0));
+    const puces = [["encours", "En cours"], ["telechargees", "Téléchargées"], ["expirees", "Expirées"], ["toutes", "Toutes"]];
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Livraisons"))}</h2><button class="btn btn-or btn-petit" onclick="App.ouvrirLivraison()">${ico("ajout")} ${esc(t("Nouvelle"))}</button></div>
+      <div class="puces">${puces.map(([k, l]) => `<button class="puce${f === k ? " on" : ""}" onclick="App.filtreL('${k}')">${esc(t(l))}</button>`).join("")}</div>
+      ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(l => { const [c, e] = this.etatLivraison(l);
+        return `<button class="ligne" onclick="App.ouvrirLivraison('${l.id}')"><span class="avatar">${esc(initiales(l.clientNom))}</span>
+          <span class="corps"><span class="t">${esc(l.titre)}</span><span class="s">${esc(l.clientNom)} — ${esc(t("jusqu'au {d}", { d: dateCourte(l.expireLe) }))}</span></span><span class="etat ${c}">${esc(e)}</span></button>`; }).join("")}</div></div>`
+        : `<div class="vide">${ico("envoyer")}<h3>${esc(t("Aucune livraison ici"))}</h3><p>${esc(t("Préparez votre lien WeTransfer, puis envoyez-le au client depuis ce bouton."))}</p>
+          <button class="btn btn-or" onclick="App.ouvrirLivraison()">${esc(t("Envoyer des photos à un client"))}</button></div>`}`;
+  },
+  filtreL(k){ S.filtreLivraisons = k; this.rendre(); },
+  apres_livraisons(){ if(S.param){ const id = S.param; S.param = ""; history.replaceState(null, "", "#livraisons"); this.ouvrirLivraison(id); } },
+  ouvrirLivraison(id, clientId){
+    const l = id ? S.livraisons.find(x => x.id === id) : null;
+    if(id && !l) return;
+    const st = this.studio();
+    this._liv = { id: l ? l.id : null, clientId: l ? l.clientId : (clientId || ""), liens: l ? JSON.parse(JSON.stringify(l.liens || [])) : [{ label: "Photos", url: "" }, { label: "Vidéo", url: "" }] };
+    const c = S.users.find(u => u.id === this._liv.clientId);
+    const corps = `
+      ${l && l.nouveauLienDemandeAt && !l.telechargeAt ? `<div class="encart alerte"><b>${esc(t("Le client demande un nouveau lien."))}</b><div class="discret">${esc(t("Collez le nouveau lien WeTransfer, changez la date d'expiration, puis enregistrez en prévenant le client."))}</div></div>` : ""}
+      ${l ? `<div class="discret" style="margin-bottom:12px">${esc(t("Envoyée le {d}", { d: depuis(l.createdAt) }))}${l.vuAt ? " — " + esc(t("vue le {d}", { d: depuis(l.vuAt) })) : ""}${l.telechargeAt ? " — " + esc(t("téléchargée le {d}", { d: depuis(l.telechargeAt) })) : ""}</div>` : ""}
+      <div class="champ"><span class="etiquette">${esc(t("Client"))}</span><div id="lv-client">${this.vueClientChoisi(c)}</div></div>
+      <div class="champ"><label for="lv-titre">${esc(t("Titre"))}</label><input class="saisie" id="lv-titre" value="${esc(l ? l.titre : "")}" placeholder="${esc(t("Par exemple : Mariage de Sarra et Amine"))}"></div>
+      <div class="rangee"><div class="champ" style="flex:1"><label for="lv-type">${esc(t("Événement"))}</label><select class="saisie" id="lv-type">${TYPES_EVT.map(x => `<option value="${esc(x)}"${l && l.type === x ? " selected" : ""}>${esc(t(x))}</option>`).join("")}</select></div>
+        <div class="champ" style="flex:1"><label for="lv-date">${esc(t("Date de l'événement"))}</label><input class="saisie" id="lv-date" type="date" value="${esc(l ? l.dateEvt || "" : "")}"></div></div>
+      <div class="champ"><span class="etiquette">${esc(t("Liens de téléchargement"))}</span><div id="lv-liens">${this.vueLiens()}</div>
+        <button type="button" class="lien" onclick="App.ajouterLien()">${esc(t("Ajouter un lien"))}</button>
+        <div class="aide">${esc(t("Collez les liens WeTransfer (ou Google Drive, Dropbox…). Ils doivent commencer par https://"))}</div></div>
+      <div class="champ"><label for="lv-exp">${esc(t("Le lien expire le"))}</label><input class="saisie" id="lv-exp" type="date" value="${esc(l ? l.expireLe : plusJours(aujourdHui(), +st.dureeLien || 3))}">
+        <div class="aide">${esc(t("Mettez la même date que sur WeTransfer (3 jours pour un compte gratuit). Le client est prévenu la veille."))}</div></div>
+      <div class="champ"><label for="lv-msg">${esc(t("Message pour le client (facultatif)"))}</label><textarea class="saisie" id="lv-msg" placeholder="${esc(t("Un petit mot avec la livraison…"))}">${esc(l ? l.message || "" : "")}</textarea></div>
+      <label class="case"><input type="checkbox" id="lv-prev" ${!l || (l.nouveauLienDemandeAt && !l.telechargeAt) ? "checked" : ""}> ${esc(t("Prévenir le client par notification"))}</label>`;
+    const pied = `<button class="btn btn-or btn-bloc" id="lv-go" onclick="App.enregistrerLivraison()">${ico("envoyer")} ${esc(l ? t("Enregistrer") : t("Envoyer au client"))}</button>
+      ${l ? `<div class="rangee" style="margin-top:10px"><button class="btn btn-clair btn-petit" onclick="App.renvoyerNotif('${l.id}')">${ico("cloche")} ${esc(t("Renvoyer la notification"))}</button>
+        <button class="btn btn-danger btn-petit" onclick="App.supprimerLivraison('${l.id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button></div>` : ""}`;
+    this.feuille(l ? t("Livraison") : t("Nouvelle livraison"), corps, pied);
+  },
+  vueClientChoisi(c){
+    if(c) return `<div class="ligne" style="cursor:default;padding-top:2px"><span class="avatar">${esc(initiales(c.nom))}</span><span class="corps"><span class="t">${esc(c.nom || t("Client"))}</span><span class="s" dir="ltr" style="text-align:start">${esc(telAffiche(c.tel))}</span></span>
+      ${this._liv && this._liv.id ? "" : `<button type="button" class="lien" onclick="App.choisirClient('')">${esc(t("Changer"))}</button>`}</div>`;
+    return `<input class="saisie" id="lv-rech" placeholder="${esc(t("Rechercher un client (nom, numéro, e-mail)"))}" oninput="App.filtrerChoixClient(this.value)" autocomplete="off">
+      <div class="liste" id="lv-choix" style="max-height:220px;overflow:auto;margin-top:6px">${this.vueChoixClients("")}</div>`;
+  },
+  vueChoixClients(q){
+    q = (q || "").toLowerCase().trim(); const qd = cleTel(q);
+    const l = this.clients().filter(c => !q || (c.nom || "").toLowerCase().indexOf(q) >= 0 || (qd && cleTel(c.tel).indexOf(qd) >= 0) || (c.email || "").toLowerCase().indexOf(q) >= 0).slice(0, 30);
+    if(!l.length) return `<p class="discret" style="padding:8px 2px">${esc(this.clients().length ? t("Aucun client trouvé.") : t("Aucun client inscrit. Le client doit d'abord créer son compte dans l'app."))}</p>`;
+    return l.map(c => `<button type="button" class="ligne" onclick="App.choisirClient('${c.id}')"><span class="avatar">${esc(initiales(c.nom))}</span><span class="corps"><span class="t">${esc(c.nom || t("Client"))}</span><span class="s">${esc(telAffiche(c.tel))}${c.email ? " — " + esc(c.email) : ""}</span></span></button>`).join("");
+  },
+  filtrerChoixClient(q){ document.getElementById("lv-choix").innerHTML = this.vueChoixClients(q); },
+  choisirClient(id){
+    this._liv.clientId = id; const c = S.users.find(u => u.id === id);
+    document.getElementById("lv-client").innerHTML = this.vueClientChoisi(c);
+    const ti = document.getElementById("lv-titre");
+    if(c && ti && !ti.value) ti.value = t("Mariage de {nom}", { nom: (c.nom || "").split(" ")[0] });
+  },
+  vueLiens(){
+    return this._liv.liens.map((x, i) => `<div class="lien-ligne"><input class="saisie" value="${esc(x.label)}" oninput="App._liv.liens[${i}].label=this.value" placeholder="${esc(t("Photos"))}" aria-label="${esc(t("Nom du lien"))}">
+      <input class="saisie" type="url" inputmode="url" value="${esc(x.url)}" oninput="App._liv.liens[${i}].url=this.value.trim()" placeholder="https://we.tl/…" aria-label="${esc(t("Adresse du lien"))}" autocapitalize="none" spellcheck="false">
+      ${this._liv.liens.length > 1 ? `<button type="button" class="btn-icone" style="flex:none" onclick="App.retirerLien(${i})" aria-label="${esc(t("Retirer ce lien"))}">${ico("fermer")}</button>` : ""}</div>`).join("");
+  },
+  ajouterLien(){ this._liv.liens.push({ label: "", url: "" }); document.getElementById("lv-liens").innerHTML = this.vueLiens(); },
+  retirerLien(i){ this._liv.liens.splice(i, 1); document.getElementById("lv-liens").innerHTML = this.vueLiens(); },
+  async enregistrerLivraison(){
+    const L = this._liv, g = id => (document.getElementById(id).value || "").trim();
+    const c = S.users.find(u => u.id === L.clientId);
+    if(!c) return this.toast(t("Choisissez le client."), "err");
+    const titre = g("lv-titre"), type = g("lv-type"), dateEvt = g("lv-date"), expireLe = g("lv-exp"), message = g("lv-msg");
+    const liens = L.liens.filter(x => x.url).map(x => ({ label: (x.label || "").trim() || t("Fichiers"), url: x.url.trim() }));
+    if(!titre) return this.toast(t("Donnez un titre à la livraison."), "err");
+    if(!liens.length) return this.toast(t("Ajoutez au moins un lien."), "err");
+    if(liens.some(x => !lienValide(x.url))) return this.toast(t("Un lien n'est pas valide : il doit commencer par https://"), "err");
+    if(!expireLe) return this.toast(t("Indiquez la date d'expiration du lien."), "err");
+    const prevenir = document.getElementById("lv-prev").checked;
+    const ancien = L.id ? S.livraisons.find(x => x.id === L.id) : null;
+    const liensChanges = !ancien || JSON.stringify(ancien.liens) !== JSON.stringify(liens) || ancien.expireLe !== expireLe;
+    const obj = { id: L.id || nouvelId("l"), clientId: c.id, clientNom: c.nom || "", titre, type, dateEvt, liens, expireLe, message, updatedAt: Date.now() };
+    if(!ancien) Object.assign(obj, { createdAt: Date.now(), vuAt: null, telechargeAt: null, rappelEnvoye: false, nouveauLienDemandeAt: null });
+    else if(liensChanges) Object.assign(obj, { vuAt: null, telechargeAt: null, rappelEnvoye: false, nouveauLienDemandeAt: null });
+    document.getElementById("lv-go").disabled = true;
+    try{
+      await window.Cloud.put("livraisons", obj);
+      if(prevenir) await this.notifier(c.id, "livraison", "Vos photos sont prêtes", "« {titre} » : téléchargez vos fichiers avant le {date}.", { titre, date: deuxLangues(l => dateLongue(expireLe, l)) }, "photos/" + obj.id);
+      this.fermer(); this.toast(prevenir ? t("Envoyé à {nom}.", { nom: c.nom || t("le client") }) : t("Livraison enregistrée."), "ok");
+    }catch(e){ console.warn(e); document.getElementById("lv-go").disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async renvoyerNotif(id){
+    const l = S.livraisons.find(x => x.id === id); if(!l) return;
+    await this.notifier(l.clientId, "livraison", "Vos photos sont prêtes", "« {titre} » : téléchargez vos fichiers avant le {date}.", { titre: l.titre, date: deuxLangues(x => dateLongue(l.expireLe, x)) }, "photos/" + id);
+    this.toast(t("Notification renvoyée."), "ok");
+  },
+  async supprimerLivraison(id){
+    if(!(await this.confirmer(t("Supprimer cette livraison ?"), t("Le client ne verra plus ces liens dans l'app. Les fichiers restent sur WeTransfer jusqu'à leur expiration."), t("Supprimer"), true))) return;
+    try{ await window.Cloud.del("livraisons", id); this.toast(t("Livraison supprimée."), "ok"); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= ADMIN : CLIENTS */
+  pageClients(){
+    const q = (S.rechercheClients || "").toLowerCase().trim(), qd = cleTel(q);
+    const liste = this.clients().filter(c => !q || (c.nom || "").toLowerCase().indexOf(q) >= 0 || (qd && cleTel(c.tel).indexOf(qd) >= 0) || (c.email || "").toLowerCase().indexOf(q) >= 0);
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Clients"))}</h2><span class="discret">${this.clients().length}</span></div>
+      <input class="saisie" id="cl-rech" value="${esc(S.rechercheClients)}" placeholder="${esc(t("Rechercher un client (nom, numéro, e-mail)"))}" oninput="App.rechercherClients(this.value)" style="margin-bottom:12px">
+      ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste" id="cl-liste">${liste.map(c => {
+        const nb = S.livraisons.filter(l => l.clientId === c.id).length;
+        return `<button class="ligne" onclick="App.ouvrirClient('${c.id}')"><span class="avatar">${esc(initiales(c.nom))}</span><span class="corps"><span class="t">${esc(c.nom || t("Client"))}</span>
+          <span class="s">${esc(telAffiche(c.tel))} — ${esc(t("{n} livraison(s)", { n: nb }))}</span></span>${ico("chevron", "chev")}</button>`; }).join("")}</div></div>`
+        : `<div class="vide">${ico("clients")}<p>${esc(this.clients().length ? t("Aucun client trouvé.") : t("Les clients apparaîtront ici dès qu'ils auront créé leur compte dans l'app."))}</p></div>`}`;
+  },
+  rechercherClients(v){ S.rechercheClients = v; this._edition = false; this.rendre(); const i = document.getElementById("cl-rech"); if(i){ i.focus(); const n = i.value.length; try{ i.setSelectionRange(n, n); }catch(e){} } },
+  ouvrirClient(id){
+    const c = S.users.find(u => u.id === id); if(!c) return;
+    const livs = S.livraisons.filter(l => l.clientId === id).sort((a, b) => b.createdAt - a.createdAt);
+    const dems = S.demandes.filter(d => d.clientId === id).sort((a, b) => b.createdAt - a.createdAt);
+    const corps = `<div class="ligne" style="cursor:default"><span class="avatar">${esc(initiales(c.nom))}</span><span class="corps"><span class="t">${esc(c.nom || t("Client"))}</span>
+        <span class="s" dir="ltr" style="text-align:start">${esc(telAffiche(c.tel))}</span><span class="s" dir="ltr" style="text-align:start">${esc(c.email || "")}</span></span></div>
+      <div class="rangee" style="margin:10px 0 16px">${c.tel ? `<a class="btn btn-petit" href="${telLien(c.tel)}">${ico("tel")} ${esc(t("Appeler"))}</a><a class="btn btn-petit" href="${waLien(c.tel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>` : ""}
+        ${c.email ? `<a class="btn btn-petit" href="mailto:${esc(c.email)}">${ico("mail")} ${esc(t("E-mail"))}</a>` : ""}</div>
+      <h3 style="margin-bottom:6px">${esc(t("Livraisons"))}</h3>
+      ${livs.length ? `<div class="liste">${livs.map(l => { const [k, e] = this.etatLivraison(l); return `<button class="ligne" onclick="App.ouvrirLivraison('${l.id}')"><span class="corps"><span class="t">${esc(l.titre)}</span><span class="s">${esc(t("jusqu'au {d}", { d: dateCourte(l.expireLe) }))}</span></span><span class="etat ${k}">${esc(e)}</span></button>`; }).join("")}</div>` : `<p class="discret">${esc(t("Aucune livraison."))}</p>`}
+      <h3 style="margin:16px 0 6px">${esc(t("Demandes"))}</h3>
+      ${dems.length ? `<div class="liste">${dems.map(d => `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="corps"><span class="t">${esc(t(d.type))} — ${esc(dateLongue(d.date))}</span></span><span class="etat">${esc(t(this.libelleStatut(d.statut)))}</span></button>`).join("")}</div>` : `<p class="discret">${esc(t("Aucune demande."))}</p>`}`;
+    this.feuille(c.nom || t("Client"), corps, `<button class="btn btn-or btn-bloc" onclick="App.fermer();setTimeout(()=>App.ouvrirLivraison(null,'${id}'),250)">${ico("envoyer")} ${esc(t("Envoyer des photos à ce client"))}</button>
+      <button class="btn btn-danger btn-bloc" style="margin-top:10px" onclick="App.supprimerClient('${id}')">${ico("corbeille")} ${esc(t("Supprimer ce client"))}</button>`);
+  },
+  async supprimerClient(id){
+    const c = S.users.find(u => u.id === id); if(!c) return;
+    if(!(await this.confirmer(t("Supprimer ce client ?"), t("Ses livraisons, demandes, avis et notifications seront effacés. Il pourra recréer un compte s'il le souhaite."), t("Supprimer"), true))) return;
+    const C = window.Cloud;
+    try{
+      for(const [coll, champ] of [["livraisons", "clientId"], ["demandes", "clientId"], ["avis", "clientId"], ["notifs", "target"]]){
+        const docs = await C.listWhere(coll, champ, id); await Promise.allSettled(docs.map(d => C.del(coll, d.id)));
+      }
+      await C.removeLoginIndex(cleTel(c.tel), id);
+      await C.del("users", id);
+      this.toast(t("Client supprimé."), "ok");
+    }catch(e){ console.warn(e); this.toast(t("Suppression incomplète. Vérifiez la connexion et réessayez."), "err"); }
+  },
+
+  /* ================================================= ADMIN : DEMANDES */
+  libelleStatut(s){ return { attente: "En attente", confirmee: "Confirmée", refusee: "Refusée", annulee: "Annulée" }[s] || s; },
+  pageDemandes(){
+    const f = S.filtreDemandes;
+    const liste = S.demandes.filter(d => f === "toutes" || d.statut === f || (f === "confirmee" && d.statut === "confirmee"))
+      .sort((a, b) => f === "attente" ? a.createdAt - b.createdAt : (a.date < b.date ? 1 : -1));
+    const puces = [["attente", "En attente"], ["confirmee", "Confirmées"], ["toutes", "Toutes"]];
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Demandes"))}</h2></div>
+      <div class="puces">${puces.map(([k, l]) => `<button class="puce${f === k ? " on" : ""}" onclick="App.filtreD('${k}')">${esc(t(l))}</button>`).join("")}</div>
+      ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(d => {
+        const k = { attente: "alerte", confirmee: "ok", refusee: "danger" }[d.statut] || "";
+        return `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(dateLongue(d.date))}</span>
+          <span class="s">${esc(t(d.type))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span><span class="etat ${k}">${esc(t(this.libelleStatut(d.statut)))}</span></button>`; }).join("")}</div></div>`
+        : `<div class="vide">${ico("boite")}<p>${esc(t("Aucune demande ici."))}</p></div>`}`;
+  },
+  filtreD(k){ S.filtreDemandes = k; this.rendre(); },
+  apres_demandes(){ if(S.param){ const id = S.param; S.param = ""; history.replaceState(null, "", "#demandes"); this.ouvrirDemande(id); } },
+  ouvrirDemande(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const prise = (S.agenda.datesPrises || []).indexOf(d.date) >= 0 && d.statut !== "confirmee";
+    const corps = `<dl class="kv"><dt>${esc(t("Client"))}</dt><dd>${esc(d.clientNom)}</dd><dt>${esc(t("Événement"))}</dt><dd>${esc(t(d.type))}</dd>
+        <dt>${esc(t("Date"))}</dt><dd>${esc(dateLongue(d.date))}</dd>${d.lieu ? `<dt>${esc(t("Lieu"))}</dt><dd>${esc(d.lieu)}</dd>` : ""}
+        ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}</dd>` : ""}<dt>${esc(t("Statut"))}</dt><dd>${esc(t(this.libelleStatut(d.statut)))}</dd></dl>
+      ${d.message ? `<p class="mot" style="margin-top:12px;padding:10px 12px;border-inline-start:2px solid var(--or);background:rgba(201,164,92,.06)">${txt(d.message)}</p>` : ""}
+      ${prise ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(t("Attention : cette date est déjà marquée comme prise."))}</b></div>` : ""}
+      <div class="rangee" style="margin:12px 0">${d.clientTel ? `<a class="btn btn-petit" href="${telLien(d.clientTel)}">${ico("tel")} ${esc(t("Appeler"))}</a><a class="btn btn-petit" href="${waLien(d.clientTel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>` : ""}</div>
+      <div class="champ"><label for="dm-note">${esc(t("Réponse au client (facultatif)"))}</label><textarea class="saisie" id="dm-note" placeholder="${esc(t("Par exemple : je vous appelle demain pour le devis."))}">${esc(d.noteAdmin || "")}</textarea></div>`;
+    const pied = d.statut === "annulee" ? `<p class="discret">${esc(t("Le client a annulé cette demande."))}</p>` :
+      `<div class="rangee"><button class="btn btn-danger" onclick="App.repondreDemande('${id}','refusee')">${esc(t("Date indisponible"))}</button>
+        <button class="btn btn-or" onclick="App.repondreDemande('${id}','confirmee')">${ico("coche")} ${esc(t("Confirmer"))}</button></div>`;
+    this.feuille(t("Demande de réservation"), corps, pied);
+  },
+  async repondreDemande(id, statut){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const note = (document.getElementById("dm-note").value || "").trim();
+    try{
+      await window.Cloud.patch("demandes", id, { statut, noteAdmin: note, updatedAt: Date.now() });
+      const dates = (S.agenda.datesPrises || []).slice(), i = dates.indexOf(d.date);
+      if(statut === "confirmee" && i < 0) dates.push(d.date);
+      if(statut !== "confirmee" && i >= 0 && d.statut === "confirmee") dates.splice(i, 1);
+      if(JSON.stringify(dates) !== JSON.stringify(S.agenda.datesPrises || [])) await window.Cloud.put("_config", { id: "agenda", datesPrises: dates.sort() });
+      const vars = { date: deuxLangues(l => dateLongue(d.date, l)) };
+      if(statut === "confirmee") await this.notifier(d.clientId, "demande", "Date confirmée", "Votre demande pour le {date} est confirmée.", vars, "reserver");
+      else await this.notifier(d.clientId, "demande", "Réponse à votre demande", "Achref a répondu à votre demande pour le {date}.", vars, "reserver");
+      this.fermer(); this.toast(statut === "confirmee" ? t("Date confirmée. Le client est prévenu.") : t("Réponse envoyée au client."), "ok");
+    }catch(e){ console.warn(e); this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= ADMIN : PLUS */
+  pagePlus(){
+    const l = (r, i, titre, sous, n) => `<button class="ligne" onclick="App.aller('${r}')"><span class="avatar">${ico(i)}</span><span class="corps"><span class="t">${esc(t(titre))}</span><span class="s">${esc(t(sous))}</span></span>${n ? `<span class="etat alerte">${n}</span>` : ""}${ico("chevron", "chev")}</button>`;
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Plus"))}</h2></div>
+      <div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">
+        ${l("a-portfolio", "grille", "Portfolio", "Ajouter et trier vos photos", 0)}
+        ${l("a-forfaits", "etiquette", "Forfaits", "Vos offres et leurs prix", 0)}
+        ${l("a-avis", "etoile", "Avis", "Valider les avis des clients", S.avis.filter(a => !a.publie).length)}
+        ${l("reglages", "reglages", "Réglages", "Coordonnées, agenda, notifications, sécurité", 0)}
+        ${l("apropos", "info", "À propos", "Ce que voient les clients", 0)}</div></div>
+      <button class="btn btn-clair btn-bloc" onclick="App.deconnecter()">${ico("sortir")} ${esc(t("Se déconnecter"))}</button>`;
+  },
+
+  /* ================================================= ADMIN : PORTFOLIO */
+  pageAdminPortfolio(){
+    const liste = S.portfolio.slice().sort((a, b) => (b.ord || 0) - (a.ord || 0));
+    return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Portfolio"))}</h2><span class="discret">${liste.length}</span></div>
+      <div class="bloc"><div class="champ"><label for="pf-cat">${esc(t("Catégorie des nouvelles photos"))}</label><select class="saisie" id="pf-cat">${CATS.map(c => `<option value="${esc(c)}">${esc(t(c))}</option>`).join("")}</select></div>
+        <label class="btn btn-or btn-bloc" for="pf-fichiers" id="pf-btn">${ico("ajout")} ${esc(t("Ajouter des photos"))}</label>
+        <input type="file" id="pf-fichiers" accept="image/*" multiple hidden onchange="App.ajouterPhotos(this.files)">
+        <p class="aide">${esc(t("Les photos sont réduites automatiquement. Touchez une photo pour la mettre en avant sur l'accueil (étoile) ou la supprimer."))}</p></div>
+      ${liste.length ? `<div class="grille-admin">${liste.map(p => `<button onclick="App.ouvrirPhoto('${p.id}')" aria-label="${esc(p.legende || t(p.cat))}"><img src="${p.thumb}" alt="" loading="lazy">${p.vedette ? `<span class="vedette">★</span>` : ""}</button>`).join("")}</div>`
+        : `<div class="vide">${ico("grille")}<p>${esc(t("Ajoutez vos plus belles photos : elles s'affichent dans le portfolio des clients."))}</p></div>`}`;
+  },
+  reduireImage(fichier, max, qualite){
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onerror = rej;
+      r.onload = () => { const img = new Image(); img.onerror = rej; img.onload = () => {
+        let w = img.naturalWidth, h = img.naturalHeight; const k = Math.min(1, max / Math.max(w, h)); w = Math.round(w * k); h = Math.round(h * k);
+        const c = document.createElement("canvas"); c.width = w; c.height = h; c.getContext("2d").drawImage(img, 0, 0, w, h);
+        let q = qualite, data = c.toDataURL("image/jpeg", q);
+        while(data.length > 900000 && q > 0.45){ q -= 0.08; data = c.toDataURL("image/jpeg", q); }
+        res({ data, w, h });
+      }; img.src = r.result; };
+      r.readAsDataURL(fichier);
+    });
+  },
+  async ajouterPhotos(files){
+    const liste = Array.from(files || []); if(!liste.length) return;
+    const cat = document.getElementById("pf-cat").value, btn = document.getElementById("pf-btn");
+    let ok = 0;
+    for(let i = 0; i < liste.length; i++){
+      if(btn) btn.textContent = t("Envoi {i} / {n}…", { i: i + 1, n: liste.length });
+      try{
+        const mini = await this.reduireImage(liste[i], 520, 0.74), plein = await this.reduireImage(liste[i], 1600, 0.82);
+        const id = nouvelId("p");
+        await window.Cloud.put("portfolioFull", { id, data: plein.data });
+        await window.Cloud.put("portfolio", { id, cat, legende: "", thumb: mini.data, w: mini.w, h: mini.h, vedette: false, ord: Date.now(), createdAt: Date.now() });
+        S.pleins[id] = plein.data; ok++;
+      }catch(e){ console.warn("photo", e); }
+    }
+    this.toast(t("{n} photo(s) ajoutée(s).", { n: ok }), ok ? "ok" : "err"); this.rendre();
+  },
+  ouvrirPhoto(id){
+    const p = S.portfolio.find(x => x.id === id); if(!p) return;
+    this.feuille(t("Photo"), `<img src="${p.thumb}" alt="" style="width:100%;border-radius:6px;margin-bottom:14px">
+      <div class="champ"><label for="ph-cat">${esc(t("Catégorie"))}</label><select class="saisie" id="ph-cat">${CATS.map(c => `<option value="${esc(c)}"${p.cat === c ? " selected" : ""}>${esc(t(c))}</option>`).join("")}</select></div>
+      <div class="champ"><label for="ph-leg">${esc(t("Légende (facultatif)"))}</label><input class="saisie" id="ph-leg" value="${esc(p.legende || "")}" placeholder="${esc(t("Par exemple : sortie de la mariée"))}"></div>
+      <label class="case"><input type="checkbox" id="ph-ved" ${p.vedette ? "checked" : ""}> ${esc(t("Mettre en avant sur l'accueil"))}</label>`,
+      `<div class="rangee"><button class="btn btn-danger" onclick="App.supprimerPhoto('${id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button>
+        <button class="btn btn-or" onclick="App.enregistrerPhoto('${id}')">${esc(t("Enregistrer"))}</button></div>`);
+  },
+  async enregistrerPhoto(id){
+    try{ await window.Cloud.patch("portfolio", id, { cat: document.getElementById("ph-cat").value, legende: document.getElementById("ph-leg").value.trim(), vedette: document.getElementById("ph-ved").checked }); this.fermer(); this.toast(t("Photo enregistrée."), "ok"); }
+    catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async supprimerPhoto(id){
+    if(!(await this.confirmer(t("Supprimer cette photo ?"), t("Elle disparaîtra du portfolio."), t("Supprimer"), true))) return;
+    try{ await window.Cloud.del("portfolio", id); await window.Cloud.del("portfolioFull", id); delete S.pleins[id]; this.toast(t("Photo supprimée."), "ok"); }
+    catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= ADMIN : FORFAITS */
+  pageAdminForfaits(){
+    const liste = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
+    return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Forfaits"))}</h2><button class="btn btn-or btn-petit" onclick="App.ouvrirForfait()">${ico("ajout")} ${esc(t("Nouveau"))}</button></div>
+      ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(f => `<button class="ligne" onclick="App.ouvrirForfait('${f.id}')"><span class="corps"><span class="t">${esc(f.nom)}</span><span class="s">${esc(f.prix || "")}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
+        : `<div class="vide">${ico("etiquette")}<p>${esc(t("Ajoutez vos forfaits : ils s'affichent sur l'accueil et dans le formulaire de réservation."))}</p></div>`}`;
+  },
+  ouvrirForfait(id){
+    const f = id ? S.forfaits.find(x => x.id === id) : null;
+    this.feuille(f ? t("Modifier le forfait") : t("Nouveau forfait"), `
+      <div class="champ"><label for="fo-nom">${esc(t("Nom"))}</label><input class="saisie" id="fo-nom" value="${esc(f ? f.nom : "")}" placeholder="${esc(t("Par exemple : Mariage complet"))}"></div>
+      <div class="champ"><label for="fo-prix">${esc(t("Prix"))}</label><input class="saisie" id="fo-prix" value="${esc(f ? f.prix || "" : "")}" placeholder="${esc(t("Par exemple : à partir de 1 500 DT"))}"></div>
+      <div class="champ"><label for="fo-desc">${esc(t("Description"))}</label><textarea class="saisie" id="fo-desc">${esc(f ? f.description || "" : "")}</textarea></div>
+      <div class="champ"><label for="fo-inc">${esc(t("Ce qui est inclus (une ligne par élément)"))}</label><textarea class="saisie" id="fo-inc" placeholder="${esc(t("Reportage photo de la journée\nFilm du mariage\nLivraison par lien WeTransfer"))}">${esc(f ? (f.inclus || []).join("\n") : "")}</textarea></div>
+      <div class="champ"><label for="fo-ord">${esc(t("Position dans la liste"))}</label><input class="saisie" id="fo-ord" type="number" inputmode="numeric" value="${f ? f.ord || 1 : S.forfaits.length + 1}"></div>`,
+      `<div class="rangee">${f ? `<button class="btn btn-danger" onclick="App.supprimerForfait('${f.id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button>` : ""}
+        <button class="btn btn-or" onclick="App.enregistrerForfait('${f ? f.id : ""}')">${esc(t("Enregistrer"))}</button></div>`);
+  },
+  async enregistrerForfait(id){
+    const g = x => (document.getElementById(x).value || "").trim();
+    const nom = g("fo-nom"); if(!nom) return this.toast(t("Donnez un nom au forfait."), "err");
+    const f = { id: id || nouvelId("f"), nom, prix: g("fo-prix"), description: g("fo-desc"), inclus: g("fo-inc").split("\n").map(x => x.trim()).filter(Boolean), ord: parseInt(g("fo-ord"), 10) || 1 };
+    try{ await window.Cloud.put("forfaits", f); this.fermer(); this.toast(t("Forfait enregistré."), "ok"); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async supprimerForfait(id){
+    if(!(await this.confirmer(t("Supprimer ce forfait ?"), t("Il ne sera plus proposé aux clients."), t("Supprimer"), true))) return;
+    try{ await window.Cloud.del("forfaits", id); this.toast(t("Forfait supprimé."), "ok"); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= ADMIN : AVIS */
+  pageAdminAvis(){
+    const liste = S.avis.slice().sort((a, b) => (a.publie === b.publie ? b.createdAt - a.createdAt : (a.publie ? 1 : -1)));
+    return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Avis des clients"))}</h2></div>
+      ${liste.length ? liste.map(a => `<div class="bloc"><div class="etoiles">${"★".repeat(a.note)}${"☆".repeat(5 - a.note)}</div>
+        <blockquote style="margin:6px 0 8px;font-family:var(--f-titre);font-style:italic;font-size:1.08rem">« ${esc(a.texte)} »</blockquote>
+        <div class="discret" style="margin-bottom:10px">${esc(a.clientNom)} — ${esc(depuis(a.createdAt))}</div>
+        <div class="rangee">${a.publie ? `<button class="btn btn-petit" onclick="App.publierAvis('${a.id}',false)">${esc(t("Masquer"))}</button>` : `<button class="btn btn-or btn-petit" onclick="App.publierAvis('${a.id}',true)">${ico("coche")} ${esc(t("Publier"))}</button>`}
+          <button class="btn btn-danger btn-petit" onclick="App.supprimerAvis('${a.id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button></div></div>`).join("")
+        : `<div class="vide">${ico("etoile")}<p>${esc(t("Les avis laissés par vos clients apparaîtront ici. Seuls ceux que vous publiez sont visibles."))}</p></div>`}`;
+  },
+  async publierAvis(id, v){ try{ await window.Cloud.patch("avis", id, { publie: v }); this.toast(v ? t("Avis publié.") : t("Avis masqué."), "ok"); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); } },
+  async supprimerAvis(id){
+    if(!(await this.confirmer(t("Supprimer cet avis ?"), t("Il sera définitivement effacé."), t("Supprimer"), true))) return;
+    try{ await window.Cloud.del("avis", id); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ================================================= ADMIN : RÉGLAGES */
+  pageReglages(){
+    const st = this.studio(), dates = (S.agenda.datesPrises || []).filter(d => d >= aujourdHui()).sort();
+    let jeton = ""; try{ jeton = localStorage.getItem("as_gh_token") || ""; }catch(e){}
+    const ch = (id, lab, val, ph, type) => `<div class="champ"><label for="${id}">${esc(t(lab))}</label><input class="saisie" id="${id}" ${type ? `type="${type}"` : ""} value="${esc(val || "")}" placeholder="${esc(ph ? t(ph) : "")}"></div>`;
+    return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Réglages"))}</h2></div>
+      <form class="bloc" onsubmit="event.preventDefault();App.enregistrerStudio()"><h3>${esc(t("Ce que voient les clients"))}</h3>
+        ${ch("st-nom", "Nom affiché", st.nom)}${ch("st-metier", "Métier", st.metier)}${ch("st-accroche", "Phrase d'accueil", st.accroche)}
+        <div class="champ"><label for="st-bio">${esc(t("Présentation"))}</label><textarea class="saisie" id="st-bio">${esc(st.bio || "")}</textarea></div>
+        ${ch("st-ville", "Ville ou région", st.ville, "Par exemple : Sousse et toute la Tunisie")}
+        ${ch("st-tel", "Téléphone", st.tel, "Votre numéro de téléphone", "tel")}${ch("st-wa", "WhatsApp (si différent)", st.whatsapp, "Votre numéro WhatsApp", "tel")}
+        ${ch("st-insta", "Compte Instagram", st.instagram, "nom_du_compte")}${ch("st-mail", "E-mail de contact", st.email, "Votre adresse e-mail", "email")}
+        ${ch("st-duree", "Durée des liens WeTransfer (jours)", st.dureeLien, "3", "number")}
+        <button class="btn btn-or btn-bloc">${esc(t("Enregistrer"))}</button></form>
+      <div class="bloc"><h3>${esc(t("Dates déjà prises"))}</h3><p class="doux">${esc(t("Ces dates apparaissent barrées pour les clients. Les dates confirmées dans Demandes s'ajoutent toutes seules."))}</p>
+        <div class="rangee" style="margin-bottom:10px"><input class="saisie" id="ag-date" type="date" min="${aujourdHui()}" style="flex:1"><button class="btn" onclick="App.ajouterDatePrise()">${ico("ajout")} ${esc(t("Ajouter"))}</button></div>
+        ${dates.length ? `<div class="liste">${dates.map(d => `<div class="ligne" style="cursor:default"><span class="corps"><span class="t">${esc(dateLongue(d))}</span></span><button class="btn-icone" onclick="App.retirerDatePrise('${d}')" aria-label="${esc(t("Libérer cette date"))}">${ico("fermer")}</button></div>`).join("")}</div>` : `<p class="discret">${esc(t("Aucune date prise."))}</p>`}</div>
+      ${this.vueNotifs(false)}
+      <div class="bloc"><h3>${esc(t("Envoi immédiat des notifications"))}</h3>
+        <p class="doux">${esc(t("Sans réglage, les notifications partent toutes les 5 à 15 minutes. Avec un jeton GitHub enregistré sur ce téléphone, elles partent en moins d'une minute."))}</p>
+        <div class="champ"><label for="gh-jeton">${esc(t("Jeton GitHub (facultatif)"))}</label>${champMdp("gh-jeton", "github_pat_…", "off")}
+          <div class="aide">${esc(t("Gardé uniquement sur ce téléphone. Voir le fichier LISEZ-MOI.md pour le créer."))}</div></div>
+        <div class="rangee"><button class="btn btn-petit" onclick="App.enregistrerJeton()">${esc(t("Enregistrer"))}</button>${jeton ? `<button class="btn btn-petit btn-clair" onclick="App.testerJeton()">${esc(t("Tester l'envoi"))}</button>` : ""}</div></div>
+      ${this.pageCompteAdmin()}`;
+  },
+  apres_reglages(){ let j = ""; try{ j = localStorage.getItem("as_gh_token") || ""; }catch(e){} const i = document.getElementById("gh-jeton"); if(i) i.value = j; },
+  pageCompteAdmin(){
+    return `<div class="bloc"><h3>${esc(t("Mon adresse e-mail"))}</h3><p style="word-break:break-all" dir="ltr">${esc(window.Cloud.authEmail())}</p>
+        <button class="btn btn-clair btn-petit" onclick="App.ouvrirEmail()">${ico("crayon")} ${esc(t("Modifier mon e-mail"))}</button></div>
+      <form class="bloc" onsubmit="event.preventDefault();App.changerMdp('cp')"><h3>${esc(t("Mot de passe"))}</h3>
+        <div class="champ"><label for="cp-old">${esc(t("Mot de passe actuel"))}</label>${champMdp("cp-old", "Votre mot de passe", "current-password")}</div>
+        <div class="champ"><label for="cp-new">${esc(t("Nouveau mot de passe"))}</label>${champMdp("cp-new", "Nouveau mot de passe", "new-password")}</div>
+        <div class="champ"><label for="cp-conf">${esc(t("Confirmer le nouveau mot de passe"))}</label>${champMdp("cp-conf", "Retapez le mot de passe", "new-password")}</div>
+        <button class="btn btn-bloc">${esc(t("Modifier le mot de passe"))}</button></form>`;
+  },
+  async enregistrerStudio(){
+    const g = id => (document.getElementById(id).value || "").trim();
+    const s = { id: "studio", nom: g("st-nom") || STUDIO_DEFAUT.nom, metier: g("st-metier"), accroche: g("st-accroche"), bio: g("st-bio"), ville: g("st-ville"),
+      tel: normTel(g("st-tel")), whatsapp: normTel(g("st-wa")), instagram: g("st-insta").replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/\/.*$/, ""),
+      email: g("st-mail"), dureeLien: Math.max(1, Math.min(60, parseInt(g("st-duree"), 10) || 3)) };
+    try{ await window.Cloud.put("_config", s); this._edition = false; this.toast(t("Réglages enregistrés."), "ok"); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async ajouterDatePrise(){
+    const v = document.getElementById("ag-date").value; if(!v) return this.toast(t("Choisissez une date."), "err");
+    const dates = (S.agenda.datesPrises || []).slice(); if(dates.indexOf(v) < 0) dates.push(v);
+    try{ await window.Cloud.put("_config", { id: "agenda", datesPrises: dates.sort() }); this._edition = false; this.toast(t("Date ajoutée."), "ok"); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async retirerDatePrise(d){
+    const dates = (S.agenda.datesPrises || []).filter(x => x !== d);
+    try{ await window.Cloud.put("_config", { id: "agenda", datesPrises: dates }); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  enregistrerJeton(){
+    const v = (document.getElementById("gh-jeton").value || "").trim();
+    try{ if(v) localStorage.setItem("as_gh_token", v); else localStorage.removeItem("as_gh_token"); }catch(e){}
+    this._edition = false; this.toast(v ? t("Jeton enregistré sur ce téléphone.") : t("Jeton retiré."), "ok"); this.rendre();
+  },
+  async testerJeton(){
+    const r = await window.Cloud.declencherEnvoi(true);
+    if(r.ok) this.toast(t("C'est parti : le robot d'envoi démarre."), "ok");
+    else if(r.raison === "hors-github") this.toast(t("Le test marche seulement depuis l'adresse GitHub de l'app."), "err");
+    else if(r.statut === 401 || r.statut === 403 || r.statut === 404) this.toast(t("Jeton refusé par GitHub : vérifiez ses droits (Actions : lecture et écriture)."), "err");
+    else this.toast(t("Échec de l'envoi. Vérifiez la connexion."), "err");
+  }
+};
+window.App = App;
+
+    document.addEventListener("DOMContentLoaded", function(){ App.init(); });
+  </script>
+  <script type="module">
+/* =====================================================================
+   FIREBASE — connexion, base de données, notifications push
+   ---------------------------------------------------------------------
+   Ce module crée window.Cloud et window.Push, utilisés par l'app.
+   La configuration vient de config.js (window.APP_CONFIG).
+   ===================================================================== */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeFirestore, getFirestore, persistentLocalCache, persistentMultipleTabManager,
+         collection, doc, getDoc, getDocs, setDoc, deleteDoc, onSnapshot, query, where }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getMessaging, getToken, deleteToken, onMessage, isSupported as messagingSupported }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+         EmailAuthProvider, reauthenticateWithCredential, updatePassword, deleteUser,
+         sendPasswordResetEmail, verifyBeforeUpdateEmail }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const CONF  = window.APP_CONFIG || {};
+const FB    = CONF.firebase || {};
+const VAPID = /REMPLIR/i.test(CONF.vapidKey || "") ? "" : (CONF.vapidKey || "").trim();
+const configOK = !!(FB.apiKey && FB.projectId && !/REMPLIR/i.test(FB.apiKey + FB.projectId));
+
+let fbApp = null, db = null, auth = null, resolveReady;
+const IDX = "loginIndex", TOKENS = "pushTokens";
+const appRef = () => { try{ return window.App || null; }catch(e){ return null; } };
+const langue = () => { try{ return localStorage.getItem("as_lang") === "ar" ? "ar" : "fr"; }catch(e){ return "fr"; } };
+const avecDelai = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error("delai")), ms))]);
+
+const Cloud = {
+  configOK, enabled: false,
+  ready: new Promise(r => { resolveReady = r; }),
+  _ecoutes: [],
+
+  /* ---------------- Authentification ---------------- */
+  onAuth: (cb) => onAuthStateChanged(auth, cb),
+  signUp: (email, pass) => createUserWithEmailAndPassword(auth, email, pass),
+  signIn: (email, pass) => signInWithEmailAndPassword(auth, email, pass),
+  signOut: () => signOut(auth),
+  uid: () => (auth && auth.currentUser) ? auth.currentUser.uid : null,
+  authEmail: () => (auth && auth.currentUser && auth.currentUser.email) || "",
+
+  async resetPassword(email){
+    auth.languageCode = langue();
+    await sendPasswordResetEmail(auth, email);
+  },
+  async changePassword(ancien, nouveau){
+    const u = auth.currentUser; if(!u) throw new Error("aucun-compte");
+    await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, ancien));
+    await updatePassword(u, nouveau);
+  },
+  // Changement d'e-mail : Firebase envoie un lien à la NOUVELLE adresse et ne
+  // l'applique qu'une fois ce lien touché. « pending » permet de se connecter
+  // par numéro avec la nouvelle adresse dès qu'elle est confirmée.
+  async changeEmail(nouvel, pass, cle){
+    const u = auth.currentUser; if(!u) throw new Error("aucun-compte");
+    await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, pass));
+    auth.languageCode = langue();
+    await verifyBeforeUpdateEmail(u, nouvel);
+    if(cle){
+      try{
+        const ref = doc(db, IDX, String(cle)); const d = await getDoc(ref);
+        if(!d.exists() || d.data().uid === u.uid)
+          await setDoc(ref, { email: u.email, uid: u.uid, pending: nouvel, ts: Date.now() });
+      }catch(e){ console.warn("loginIndex pending", e); }
+    }
+  },
+
+  /* ---------------- Annuaire numéro -> e-mail ---------------- */
+  async lookupPhone(cle){
+    if(!db || !cle) return null;
+    try{ const d = await avecDelai(getDoc(doc(db, IDX, String(cle))), 6000); return d.exists() ? d.data() : null; }
+    catch(e){ console.warn("loginIndex lecture", e); return null; }
+  },
+  async syncLoginIndex(cle){
+    const u = auth && auth.currentUser; if(!db || !u || !cle) return;
+    try{
+      const ref = doc(db, IDX, String(cle)); const d = await getDoc(ref);
+      const cur = d.exists() ? d.data() : null;
+      if(cur && cur.uid !== u.uid) return;
+      if(cur && cur.email === u.email) return;
+      await setDoc(ref, { email: u.email, uid: u.uid, ts: Date.now() });
+    }catch(e){ console.warn("loginIndex", e); }
+  },
+  async movePhone(ancienne, nouvelle){
+    const u = auth && auth.currentUser; if(!db || !u || !nouvelle || ancienne === nouvelle) return;
+    try{
+      const oref = ancienne ? doc(db, IDX, String(ancienne)) : null;
+      const od = oref ? await getDoc(oref) : null;
+      const aMoi = !!(od && od.exists() && od.data().uid === u.uid);
+      const nref = doc(db, IDX, String(nouvelle)); const nd = await getDoc(nref);
+      if(nd.exists() && nd.data().uid !== u.uid) return;
+      const data = { email: u.email, uid: u.uid, ts: Date.now() };
+      if(aMoi && od.data().pending) data.pending = od.data().pending;
+      await setDoc(nref, data);
+      if(aMoi) await deleteDoc(oref);
+    }catch(e){ console.warn("loginIndex numéro", e); }
+  },
+  async removeLoginIndex(cle, uid){
+    if(!db || !cle) return;
+    try{
+      const ref = doc(db, IDX, String(cle)); const d = await getDoc(ref);
+      if(d.exists() && (!uid || d.data().uid === uid)) await deleteDoc(ref);
+    }catch(e){ console.warn("loginIndex suppression", e); }
+  },
+
+  /* ---------------- Données ---------------- */
+  async getProfile(uid){
+    const d = await getDoc(doc(db, "users", String(uid)));
+    return d.exists() ? d.data() : null;
+  },
+  async get(coll, id){
+    const d = await getDoc(doc(db, coll, String(id)));
+    return d.exists() ? d.data() : null;
+  },
+  put: (coll, obj) => setDoc(doc(db, coll, String(obj.id)), obj, { merge: true }),
+  patch: (coll, id, champs) => setDoc(doc(db, coll, String(id)), champs, { merge: true }),
+  del: (coll, id) => deleteDoc(doc(db, coll, String(id))),
+  async listWhere(coll, champ, valeur){
+    const snap = await getDocs(query(collection(db, coll), where(champ, "==", valeur)));
+    return snap.docs.map(d => d.data());
+  },
+
+  // Écoutes en temps réel. Chaque entrée : { cle, coll, ou:[champ, valeur] } ou { cle, doc:[coll, id] }.
+  // Plusieurs entrées peuvent partager la même clé : leurs résultats sont fusionnés.
+  watch(spec, cb){
+    this.stopAll();
+    const parts = {};
+    spec.forEach((s, i) => {
+      const fin = (arr) => {
+        parts[s.cle] = parts[s.cle] || {}; parts[s.cle][i] = arr;
+        const fusion = new Map();
+        Object.values(parts[s.cle]).forEach(a => a.forEach(o => { if(o && o.id != null) fusion.set(String(o.id), o); }));
+        cb(s.cle, s.doc ? (arr[0] || null) : Array.from(fusion.values()));
+      };
+      const erreur = (e) => { console.warn("écoute " + s.cle, e); fin([]); };
+      let unsub;
+      if(s.doc){
+        unsub = onSnapshot(doc(db, s.doc[0], String(s.doc[1])), d => fin(d.exists() ? [d.data()] : []), erreur);
+      } else {
+        const c = collection(db, s.coll);
+        const q = s.ou ? query(c, where(s.ou[0], "==", s.ou[1])) : c;
+        unsub = onSnapshot(q, snap => { const a = []; snap.forEach(d => a.push(d.data())); fin(a); }, erreur);
+      }
+      this._ecoutes.push(unsub);
+    });
+  },
+  stopAll(){ this._ecoutes.forEach(u => { try{ u(); }catch(e){} }); this._ecoutes = []; },
+
+  /* ---------------- Suppression du compte par le client ---------------- */
+  async deleteMyAccount(pass, info){
+    const u = auth.currentUser; if(!u || !db) throw new Error("aucun-compte");
+    await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, pass));
+    const uid = u.uid; let echecs = 0;
+    const PROPRIO = [["livraisons", "clientId"], ["demandes", "clientId"], ["avis", "clientId"], ["notifs", "target"]];
+    for(const [coll, champ] of PROPRIO){
+      try{
+        const snap = await getDocs(query(collection(db, coll), where(champ, "==", uid)));
+        const res = await Promise.allSettled(snap.docs.map(d => deleteDoc(d.ref)));
+        echecs += res.filter(r => r.status === "rejected").length;
+      }catch(e){ echecs++; console.warn("suppression " + coll, e); }
+    }
+    try{ await Push.disable(); }catch(e){}
+    try{ if(info && info.cle) await Cloud.removeLoginIndex(info.cle, uid); }catch(e){}
+    try{ if(info && info.notif) await setDoc(doc(db, "notifs", info.notif.id), info.notif); }catch(e){ console.warn("notif", e); }
+    if(!echecs){ try{ await deleteDoc(doc(db, "users", uid)); }catch(e){ echecs++; } }
+    await deleteUser(u);
+    return { echecs };
+  },
+
+  /* ---------------- Envoi immédiat des notifications (facultatif) ----------------
+     Sur le téléphone d'Achref seulement : un jeton GitHub (gardé sur cet appareil,
+     jamais dans la base) lance tout de suite le robot d'envoi, au lieu
+     d'attendre son passage automatique (toutes les 5 à 15 minutes). */
+  _dernierEnvoi: 0, _envoiPrevu: null,
+  depot(){
+    try{
+      const h = location.hostname, seg = location.pathname.split("/").filter(Boolean)[0];
+      if(/\.github\.io$/i.test(h) && seg) return { owner: h.split(".")[0], repo: seg };
+    }catch(e){}
+    return null;
+  },
+  async declencherEnvoi(force){
+    let jeton = ""; try{ jeton = localStorage.getItem("as_gh_token") || ""; }catch(e){}
+    const dep = this.depot();
+    if(!jeton || !dep) return { ok: false, raison: !jeton ? "sans-jeton" : "hors-github" };
+    const attente = 45000 - (Date.now() - this._dernierEnvoi);
+    if(attente > 0 && !force){
+      if(!this._envoiPrevu) this._envoiPrevu = setTimeout(() => { this._envoiPrevu = null; this.declencherEnvoi(true); }, attente);
+      return { ok: true, prevu: true };
+    }
+    this._dernierEnvoi = Date.now();
+    let branche = "main"; try{ branche = localStorage.getItem("as_gh_branch") || "main"; }catch(e){}
+    try{
+      const r = await fetch(`https://api.github.com/repos/${dep.owner}/${dep.repo}/actions/workflows/notifications.yml/dispatches`, {
+        method: "POST",
+        headers: { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + jeton, "X-GitHub-Api-Version": "2022-11-28" },
+        body: JSON.stringify({ ref: branche })
+      });
+      return { ok: r.status === 204, statut: r.status };
+    }catch(e){ return { ok: false, raison: "reseau" }; }
+  }
+};
+window.Cloud = Cloud;
+
+/* =====================================================================
+   NOTIFICATIONS PUSH (Firebase Cloud Messaging)
+   Le jeton identifie UN appareil : collection pushTokens, un document par
+   appareil. Le robot GitHub (scripts/envoyer-notifications.mjs) lit les
+   notifications « en attente » et les envoie à ces jetons.
+   ===================================================================== */
+function appareil(){
+  let id = null; try{ id = localStorage.getItem("as_device"); }catch(e){}
+  if(!id){ id = "dev_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); try{ localStorage.setItem("as_device", id); }catch(e){} }
+  return id;
+}
+const Push = {
+  supported: false, _msg: null, token: null,
+  permission(){ try{ return typeof Notification !== "undefined" ? Notification.permission : "unsupported"; }catch(e){ return "unsupported"; } },
+  etat(){
+    if(!VAPID) return "non-configure";            // vapidKey pas encore ajoutée dans config.js
+    if(!this.supported){
+      const ios = /iphone|ipad|ipod/i.test(navigator.userAgent || "");
+      const installe = window.matchMedia && window.matchMedia("(display-mode: standalone)").matches;
+      return (ios && !installe) ? "ios-installer" : "indisponible";
+    }
+    return this.permission();     // granted | default | denied
+  },
+  async init(){
+    try{
+      this.supported = ("serviceWorker" in navigator) && ("PushManager" in window) &&
+                       (typeof Notification !== "undefined") && !!VAPID && await messagingSupported();
+    }catch(e){ this.supported = false; }
+    if(!this.supported || !fbApp) return;
+    try{ this._msg = getMessaging(fbApp); }catch(e){ this.supported = false; return; }
+    try{ onMessage(this._msg, p => { const A = appRef(); A && A.onPushPremierPlan && A.onPushPremierPlan((p && p.data) || {}); }); }catch(e){}
+    // Le jeton n'est enregistré qu'une fois connecté (App.onAuth) : les règles l'exigent.
+  },
+  async register(){
+    if(!this.supported) throw new Error("unsupported");
+    const perm = await Notification.requestPermission();
+    if(perm !== "granted") throw new Error(perm);
+    const reg = await navigator.serviceWorker.ready;
+    if(!this._msg) this._msg = getMessaging(fbApp);
+    const token = await getToken(this._msg, { vapidKey: VAPID, serviceWorkerRegistration: reg });
+    if(!token) throw new Error("no-token");
+    this.token = token;
+    await this.save();
+    return token;
+  },
+  async save(){
+    if(!db || !this.token) return;
+    const A = appRef(); const u = A && A.profil ? A.profil() : null;
+    const data = { id: appareil(), token: this.token, lang: langue(), agent: (navigator.userAgent || "").slice(0, 150), updatedAt: Date.now() };
+    if(u){ data.userId = u.id; data.role = u.role || "client"; data.nom = u.nom || ""; }
+    try{ await setDoc(doc(db, TOKENS, appareil()), data, { merge: true }); }catch(e){ console.warn("pushTokens", e); }
+  },
+  async relink(){ if(this.token) await this.save(); },
+  async unlink(){
+    if(!db) return;
+    try{ await setDoc(doc(db, TOKENS, appareil()), { userId: null, role: null, nom: "", updatedAt: Date.now() }, { merge: true }); }catch(e){}
+  },
+  async disable(){
+    try{ if(this._msg) await deleteToken(this._msg); }catch(e){}
+    this.token = null;
+    try{ if(db) await deleteDoc(doc(db, TOKENS, appareil())); }catch(e){}
+  }
+};
+window.Push = Push;
+
+/* ---------------- Initialisation ---------------- */
+if(!configOK){
+  resolveReady(false);
+} else {
+  try{
+    fbApp = initializeApp(FB);
+    try{ db = initializeFirestore(fbApp, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) }); }
+    catch(e){ db = getFirestore(fbApp); }
+    auth = getAuth(fbApp);
+    Cloud.enabled = true;
+    Push.init();
+    resolveReady(true);
+  }catch(e){
+    console.error("Firebase", e);
+    resolveReady(false);
+  }
+}
+
+  </script>
+</body>
+</html>

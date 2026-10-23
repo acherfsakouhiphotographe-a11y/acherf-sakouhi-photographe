@@ -1,0 +1,21 @@
+{
+  "name": "Achref Sakouhi — Photographe",
+  "short_name": "Achref Photo",
+  "description": "Portfolio, réservation et livraison de vos photos et vidéos de mariage.",
+  "lang": "fr",
+  "dir": "auto",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2A0E17",
+  "theme_color": "#2A0E17",
+  "categories": ["photo", "lifestyle"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-monochrome-512.png", "sizes": "512x512", "type": "image/png", "purpose": "monochrome" }
+  ]
+}
