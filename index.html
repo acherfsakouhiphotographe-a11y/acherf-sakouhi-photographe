@@ -90,7 +90,8 @@ p{margin:0 0 .8em}
 /* ---------- coque de l'app ---------- */
 .ecran{min-height:100vh}
 .entete{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;
-  padding:calc(10px + var(--sur-haut)) 16px 10px;background:linear-gradient(var(--velours) 70%,rgba(42,14,23,0));}
+  padding:calc(10px + var(--sur-haut)) 16px 10px;background:var(--velours)}
+.entete::after{content:"";position:absolute;left:0;right:0;top:100%;height:16px;background:linear-gradient(var(--velours),rgba(42,14,23,0));pointer-events:none}
 .entete .marque{display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none;color:inherit}
 .entete .marque img{width:38px;height:38px}
 .entete .nom{font-family:var(--f-titre);font-style:italic;font-size:1.15rem;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -160,7 +161,7 @@ html[lang="ar"] input[type="tel"]:placeholder-shown,html[lang="ar"] input[type="
 .titre-section{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:26px 0 12px}
 .titre-section h2{font-size:var(--t-xl)}
 .vide{text-align:center;padding:34px 18px;border:1px dashed var(--ligne-2);border-radius:var(--r-carte);color:var(--ivoire-2)}
-.vide svg{width:34px;height:34px;color:var(--or);margin-bottom:8px}
+.vide>svg{width:34px;height:34px;color:var(--or);margin-bottom:8px}
 .vide h3{margin-bottom:6px}
 .liste{display:flex;flex-direction:column}
 .ligne{display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid var(--ligne);background:none;border-inline:0;border-top:0;
@@ -214,7 +215,11 @@ html[lang="ar"] .viseur h1{font-style:normal}
 .oubli{display:flex;justify-content:flex-end;margin:-4px 0 14px}
 .legal{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:.86rem}
 .legal a{color:var(--ivoire-2)}
-.coin-langue{position:absolute;top:calc(14px + var(--sur-haut));inset-inline-end:14px}
+.coin-langue{position:absolute;top:calc(14px + var(--sur-haut));inset-inline-end:14px;z-index:2}
+.accueil-auth .viseur{padding-top:calc(80px + var(--sur-haut))}
+.accueil-auth .viseur .cadre{width:min(72vw,300px)}
+.installer-auth{margin-top:22px;padding-top:18px;border-top:1px solid var(--ligne);text-align:center}
+.installer-auth .discret{margin-top:8px}
 
 /* ---------- accueil client : héros ---------- */
 .heros{position:relative;margin:0 -16px 8px;aspect-ratio:4/5;max-height:72vh;overflow:hidden;background:
@@ -222,7 +227,7 @@ html[lang="ar"] .viseur h1{font-style:normal}
 .heros .diapo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease}
 .heros .diapo.on{opacity:1;animation:lent 14s linear both}
 @keyframes lent{from{transform:scale(1.08)}to{transform:scale(1)}}
-.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,14,23,.1) 30%,rgba(42,14,23,.94) 100%)}
+.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,14,23,.25) 0%,rgba(42,14,23,.05) 22%,rgba(42,14,23,.55) 50%,rgba(42,14,23,.93) 72%,rgba(42,14,23,.98) 100%)}
 .heros .cadre{position:absolute;inset:22px 22px 232px;z-index:2;pointer-events:none}
 .heros .texte{position:absolute;inset-inline:22px;bottom:22px;z-index:3}
 .heros h1{font-style:italic;font-size:clamp(2.1rem,9vw,2.9rem);max-width:13ch}
@@ -273,11 +278,21 @@ html[lang="ar"] .avis-carte blockquote{font-style:normal}
 .choix-etoiles{display:flex;gap:6px;direction:ltr;justify-content:center;margin:6px 0 14px}
 .choix-etoiles button{width:46px;height:46px;border:0;background:none;color:var(--sourdine);font-size:2rem;cursor:pointer;line-height:1}
 .choix-etoiles button.on{color:var(--or)}
-.forfait{padding:16px 0;border-bottom:1px solid var(--ligne)}
+.forfait{display:block;width:100%;padding:16px 0;border:0;border-bottom:1px solid var(--ligne);background:none;color:inherit;font:inherit;text-align:start;cursor:pointer}
+.forfait .desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:6px}
+.forfait .voir{display:inline-flex;align-items:center;gap:4px;margin-top:8px;color:var(--or);font-size:.9rem}
+.forfait .voir .chev{color:var(--or);width:16px;height:16px}
+.forfait:active{opacity:.8}
+.prix-offre{font-family:"Bodoni Moda",serif;font-size:1.7rem;color:var(--or-clair);margin-bottom:8px}
+html[lang="ar"] .prix-offre{font-family:var(--f-texte);font-weight:700}
+.inclus{list-style:none;margin:0;padding:0}
+.inclus li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--ligne)}
+.inclus li:last-child{border-bottom:0}
+.inclus svg{width:18px;height:18px;color:var(--or);flex:none;margin-top:2px}
 .forfait:last-child{border-bottom:0}
-.forfait .haut{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.forfait h3{font-style:italic}
-html[lang="ar"] .forfait h3{font-style:normal}
+.forfait .haut{display:flex;width:100%;justify-content:space-between;align-items:baseline;gap:12px}
+.forfait .nom-f{font-family:var(--f-titre);font-size:var(--t-l);line-height:1.15;font-style:italic}
+html[lang="ar"] .forfait .nom-f{font-style:normal}
 .forfait .prix{color:var(--or-clair);font-weight:500;white-space:nowrap}
 .forfait ul{margin:8px 0 0;padding-inline-start:18px;color:var(--ivoire-2);font-size:.94rem}
 
@@ -343,6 +358,27 @@ html[lang="ar"] .feuille .tete h2{font-style:normal}
 .cal .entete-j{color:var(--sourdine);font-size:.75rem}
 .cal .puce{padding:8px 0;border-radius:8px;font-size:.88rem}
 .cal .puce.pris{background:rgba(231,130,111,.14);border-color:transparent}
+.cal-legende{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.84rem;color:var(--sourdine)}
+.cal-legende span{display:inline-flex;align-items:center;gap:7px}
+.ech{display:inline-block;width:16px;height:16px;border-radius:4px;position:relative;flex:none}
+.ech.on{background:var(--ivoire)}
+.ech.pris{background:rgba(231,130,111,.22)}
+.ech.pris::after{content:"";position:absolute;left:3px;right:3px;top:50%;height:1.5px;margin-top:-.75px;background:var(--danger)}
+.jours{display:flex;flex-direction:column}
+.jour-ligne{display:grid;grid-template-columns:1fr auto;gap:6px 8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ligne)}
+.jour-ligne:first-child{padding-top:2px}
+.jour-ligne:last-child{border-bottom:0}
+.jour-date{grid-column:1/-1;font-weight:500}
+.jour-date::first-letter,.jours-demande li span::first-letter{text-transform:uppercase}
+.jours-demande{list-style:none;margin:0;padding:0}
+.jours-demande li{display:flex;flex-direction:column;padding:2px 0 6px}
+.jours-demande li span{color:var(--ivoire-2);font-size:.9rem}
+/* installation */
+.encart-install{display:flex;gap:12px;align-items:flex-start}
+.ico-install{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(201,164,92,.16);color:var(--or)}
+.ico-install svg{width:19px;height:19px}
+.etapes-install li{grid-template-columns:34px 1fr;padding:10px 0}
+.etapes-install li::before{font-size:1.5rem}
 .bandeau-config{max-width:520px;margin:40px auto;padding:22px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (min-width:700px){.mosaique{columns:3}}
@@ -526,7 +562,71 @@ const AR = {
   "En attente":"في الانتظار","Confirmée":"مؤكّدة","Indisponible":"غير متاح","Annulée":"ملغاة","Refusée":"مرفوضة","En cours":"جارية","Téléchargées":"محمّلة","Expirées":"منتهية","Toutes":"الكل","Confirmées":"المؤكّدة",
   "Mariage":"عرس","Fiançailles":"خطوبة","Henné":"حنّة","Séance couple":"جلسة تصوير للعروسين","Portrait":"بورتريه","Autre":"أخرى","Couple":"عروسان","Tout":"الكل","Vidéo":"الفيديو",
   "Photographe de mariage":"مصوّر أعراس","Votre histoire, en images.":"قصّتكم بالصور.",
-  "Photographe et vidéaste de mariage. Je raconte votre journée, des préparatifs à la dernière danse, avec des images naturelles et soignées.":"مصوّر فوتوغرافي وفيديو للأعراس. أروي يومكم من التحضيرات إلى آخر رقصة، بصور طبيعية ومتقنة."
+  "Photographe et vidéaste de mariage. Je raconte votre journée, des préparatifs à la dernière danse, avec des images naturelles et soignées.":"مصوّر فوتوغرافي وفيديو للأعراس. أروي يومكم من التحضيرات إلى آخر رقصة، بصور طبيعية ومتقنة.",
+  /* v1.1 : plusieurs jours, installation, offres */
+  "{n} jours":"{n} أيام",
+  "Installer l'application":"تثبيت التطبيق",
+  "Ajoutez l'app sur l'écran d'accueil de votre téléphone, comme une vraie application.":"أضيفوا التطبيق إلى الشاشة الرئيسية لهاتفكم، مثل أيّ تطبيق عادي.",
+  "Installez l'application":"ثبّتوا التطبيق",
+  "Retrouvez vos photos en un geste, depuis l'écran d'accueil de votre téléphone.":"صوركم بلمسة واحدة، من الشاشة الرئيسية لهاتفكم.",
+  "Installer":"تثبيت",
+  "Plus tard":"لاحقًا",
+  "Application installée : retrouvez-la sur l'écran d'accueil.":"تمّ تثبيت التطبيق: تجدونه على الشاشة الرئيسية.",
+  "Copier le lien de l'app":"نسخ رابط التطبيق",
+  "J'ai compris":"فهمت",
+  "Vos dates sont confirmées":"تمّ تأكيد مواعيدكم",
+  "Voir l'offre et réserver":"عرض الباقة والحجز",
+  "Vous réservez vos dates":"تحجزون مواعيدكم",
+  "Choisissez le ou les jours (henné, wtiya, mariage…) et le forfait, Achref confirme la disponibilité.":"اختاروا اليوم أو الأيام (الحنّة، الوطية، العرس…) والباقة، ويؤكّد أشرف التوفّر.",
+  "Ce qui est inclus":"ما تشمله الباقة",
+  "Aperçu : c'est ce que voient vos clients.":"معاينة: هذا ما يراه حرفاؤك.",
+  "Réserver avec cette offre":"الحجز بهذه الباقة",
+  "Offre choisie. Touchez maintenant vos jours dans le calendrier.":"تمّ اختيار الباقة. اضغطوا الآن على أيامكم في الرزنامة.",
+  "Touchez les jours de votre événement dans le calendrier. Vous pouvez en choisir plusieurs, par exemple le henné, la wtiya et le mariage.":"اضغطوا على أيام مناسبتكم في الرزنامة. يمكنكم اختيار عدّة أيام، مثلًا الحنّة والوطية والعرس.",
+  "Offre choisie":"الباقة المختارة",
+  "Vos jours":"أيامكم",
+  "Déjà réservée":"محجوز",
+  "Aucun jour choisi : touchez une date libre dans le calendrier.":"لم تختاروا أيّ يوم: اضغطوا على تاريخ متاح في الرزنامة.",
+  "Retirer ce jour":"حذف هذا اليوم",
+  "Ce jour est déjà réservé. Choisissez-en un autre ou écrivez à Achref.":"هذا اليوم محجوز. اختاروا يومًا آخر أو راسلوا أشرف.",
+  "{n} jours au plus par demande.":"{n} أيام كحدّ أقصى في الطلب الواحد.",
+  "Choisissez au moins un jour dans le calendrier.":"اختاروا يومًا واحدًا على الأقلّ في الرزنامة.",
+  "Le {date} est déjà réservé. Retirez ce jour ou écrivez à Achref.":"يوم {date} محجوز. احذفوا هذا اليوم أو راسلوا أشرف.",
+  "Application":"التطبيق",
+  "Jours":"الأيام",
+  "Attention : déjà marqué comme pris : {dates}.":"تنبيه: مسجّل كمحجوز: {dates}.",
+  "{nom} : {details}.":"{nom}: {details}.",
+  "Votre demande du {date} est confirmée.":"تمّ تأكيد طلبكم ليوم {date}.",
+  "Achref a répondu à votre demande du {date}.":"ردّ أشرف على طلبكم ليوم {date}.",
+  "Touchez les trois points ⋯ en haut à droite.":"اضغطوا على النقاط الثلاث ⋯ في الأعلى.",
+  "Choisissez « Ouvrir dans le navigateur » (ou « Ouvrir dans Chrome »).":"اختاروا «فتح في المتصفّح» (أو «فتح في Chrome»).",
+  "Dans Chrome, touchez « Installer l'application ».":"في Chrome، اضغطوا على «تثبيت التطبيق».",
+  "Touchez le bouton Partager (le carré avec une flèche vers le haut).":"اضغطوا على زرّ المشاركة (المربّع مع سهم نحو الأعلى).",
+  "Faites défiler, puis touchez « Sur l'écran d'accueil ».":"مرّروا ثمّ اضغطوا على «إضافة إلى الشاشة الرئيسية».",
+  "Touchez « Ajouter » : l'icône apparaît sur l'écran d'accueil.":"اضغطوا على «إضافة»: تظهر الأيقونة على الشاشة الرئيسية.",
+  "Touchez le menu ≡ en bas à droite.":"اضغطوا على القائمة ≡ في الأسفل.",
+  "Touchez « Ajouter la page à », puis « Écran d'accueil ».":"اضغطوا على «إضافة الصفحة إلى» ثمّ «الشاشة الرئيسية».",
+  "Confirmez : l'icône apparaît sur l'écran d'accueil.":"أكّدوا: تظهر الأيقونة على الشاشة الرئيسية.",
+  "Touchez le menu ⋮.":"اضغطوا على القائمة ⋮.",
+  "Touchez « Installer » (ou « Ajouter à l'écran d'accueil »).":"اضغطوا على «تثبيت» (أو «إضافة إلى الشاشة الرئيسية»).",
+  "Touchez le menu ⋮ en haut à droite de Chrome.":"اضغطوا على القائمة ⋮ في أعلى Chrome.",
+  "Touchez « Installer l'application » (ou « Ajouter à l'écran d'accueil »).":"اضغطوا على «تثبيت التطبيق» (أو «إضافة إلى الشاشة الرئيسية»).",
+  "Confirmez avec « Installer » : l'icône apparaît sur l'écran d'accueil.":"أكّدوا بـ«تثبيت»: تظهر الأيقونة على الشاشة الرئيسية.",
+  "Ouvrez l'app avec Chrome ou Edge.":"افتحوا التطبيق بـChrome أو Edge.",
+  "Cliquez sur l'icône d'installation, à droite de la barre d'adresse.":"انقروا على أيقونة التثبيت بجانب شريط العنوان.",
+  "Cliquez sur « Installer ».":"انقروا على «تثبيت».",
+  "Vous êtes dans le navigateur d'Instagram ou de Facebook, qui ne peut pas installer d'application. Ouvrez d'abord la page dans Chrome :":"أنتم داخل متصفّح Instagram أو Facebook، ولا يمكنه تثبيت التطبيقات. افتحوا الصفحة أوّلًا في Chrome:",
+  "Sur iPhone, l'installation se fait depuis Safari :":"على iPhone، يتمّ التثبيت من Safari:",
+  "Avec Samsung Internet :":"مع Samsung Internet:",
+  "Avec Firefox :":"مع Firefox:",
+  "Avec Chrome :":"مع Chrome:",
+  "Sur ordinateur :":"على الحاسوب:",
+  "Ouvrez ensuite l'app depuis son icône : c'est nécessaire sur iPhone pour recevoir les notifications.":"افتحوا التطبيق بعد ذلك من أيقونته: هذا ضروري على iPhone لتلقّي الإشعارات.",
+  "Pour recevoir les notifications, Chrome est recommandé.":"لتلقّي الإشعارات، يُنصح باستعمال Chrome.",
+  "Déjà installée ? Ouvrez-la depuis son icône sur l'écran d'accueil.":"مثبّت من قبل؟ افتحوه من أيقونته على الشاشة الرئيسية.",
+  "Wtiya":"وطية",
+  "Contrat de mariage":"عقد القران",
+  "Photographe":"مصوّر"
 };
 
 /* =====================================================================
@@ -538,16 +638,17 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.0.0";
+const APP_VERSION = "1.1.0";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
-  nom: "Achref Sakouhi", metier: "Photographe de mariage",
+  nom: "Achref Sakouhi", metier: "Photographe",
   accroche: "Votre histoire, en images.",
   bio: "Photographe et vidéaste de mariage. Je raconte votre journée, des préparatifs à la dernière danse, avec des images naturelles et soignées.",
   tel: "", whatsapp: "", instagram: "achref_sakouhi_photographe", email: "", ville: "", dureeLien: 3
 };
-const TYPES_EVT = ["Mariage", "Fiançailles", "Henné", "Séance couple", "Portrait", "Événement", "Autre"];
-const CATS = ["Mariage", "Fiançailles", "Henné", "Couple", "Portrait", "Événement"];
+const TYPES_EVT = ["Mariage", "Wtiya", "Henné", "Fiançailles", "Contrat de mariage", "Séance couple", "Portrait", "Événement", "Autre"];
+const CATS = ["Mariage", "Wtiya", "Henné", "Fiançailles", "Couple", "Portrait", "Événement"];
+const MAX_JOURS = 7;          // jours au plus dans une même demande de réservation
 
 /* ---------------------------------------------------------------- outils */
 const esc = s => (s == null ? "" : String(s)).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -588,11 +689,39 @@ function dateLongue(iso, lang){
   try{ return new Intl.DateTimeFormat((lang || LANG) === "ar" ? "ar-TN-u-nu-latn" : "fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(new Date(y, m - 1, d)); }
   catch(e){ return iso; }
 }
-function dateCourte(iso){
+const locDe = lang => (lang || LANG) === "ar" ? "ar-TN-u-nu-latn" : "fr-FR";
+const dateObj = iso => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d); };
+function dateCourte(iso, lang){
   if(!iso) return "";
-  const [y, m, d] = iso.split("-").map(Number);
-  try{ return new Intl.DateTimeFormat(loc(), { day: "numeric", month: "short" }).format(new Date(y, m - 1, d)); }catch(e){ return iso; }
+  try{ return new Intl.DateTimeFormat(locDe(lang), { day: "numeric", month: "short" }).format(dateObj(iso)); }catch(e){ return iso; }
 }
+function dateAvecJour(iso, lang){
+  if(!iso) return "";
+  try{ return new Intl.DateTimeFormat(locDe(lang), { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(dateObj(iso)); }catch(e){ return iso; }
+}
+/* Jours d'une demande de réservation : [{ date, type }], triés.
+   Les demandes d'avant la version 1.1 n'ont qu'une date et un type. */
+const joursDe = d => (d && Array.isArray(d.jours) && d.jours.length ? d.jours : (d && d.date ? [{ date: d.date, type: d.type || "Mariage" }] : []))
+  .slice().sort((a, b) => a.date < b.date ? -1 : 1);
+const finDe = d => { const j = joursDe(d); return j.length ? j[j.length - 1].date : (d && d.date) || ""; };
+// « 12 octobre 2027 » ou « 5–7 juillet 2027 »
+function plage(jours, lang){
+  const ds = jours.map(j => j.date).sort(); if(!ds.length) return "";
+  if(ds.length === 1) return dateLongue(ds[0], lang);
+  try{ const f = new Intl.DateTimeFormat(locDe(lang), { day: "numeric", month: "long", year: "numeric" }); if(f.formatRange) return f.formatRange(dateObj(ds[0]), dateObj(ds[ds.length - 1])); }catch(e){}
+  return dateLongue(ds[0], lang) + " – " + dateLongue(ds[ds.length - 1], lang);
+}
+// « Mariage — 12 octobre 2027 » ou « Henné 5 juil., Wtiya 6 juil., Mariage 7 juil. 2027 »
+function resumeJours(jours, lang){
+  lang = lang || LANG; if(!jours.length) return "";
+  if(jours.length === 1) return tl(lang, jours[0].type) + " — " + dateLongue(jours[0].date, lang);
+  const annees = Array.from(new Set(jours.map(j => j.date.slice(0, 4))));
+  const items = jours.map(j => tl(lang, j.type) + " " + dateCourte(j.date, lang) + (annees.length > 1 ? " " + j.date.slice(0, 4) : ""));
+  return items.join(lang === "ar" ? "، " : ", ") + (annees.length === 1 ? " " + annees[0] : "");
+}
+// Titre court d'une demande : « Mariage — 12 octobre 2027 » ou « 5–7 juillet 2027 (3 jours) »
+const titreDemande = d => { const j = joursDe(d); return j.length > 1 ? plage(j) + " (" + t("{n} jours", { n: j.length }) + ")" : (j.length ? t(j[0].type) + " — " + dateLongue(j[0].date) : ""); };
+const typesDemande = d => joursDe(d).map(j => t(j.type)).join(" · ");
 const moisCourt = iso => { const [y, m, d] = iso.split("-").map(Number); try{ return new Intl.DateTimeFormat(loc(), { month: "short" }).format(new Date(y, m - 1, d)); }catch(e){ return ""; } };
 const depuis = ts => { try{ return new Intl.DateTimeFormat(loc(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(ts)); }catch(e){ return ""; } };
 const deuxLangues = (fn) => ({ fr: fn("fr"), ar: fn("ar") });
@@ -640,12 +769,31 @@ const ico = (n, cls) => `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24"
 const champMdp = (id, ph, ac) => `<div class="mdp"><input class="saisie" id="${id}" type="password" placeholder="${esc(t(ph))}" autocomplete="${ac}">
   <button type="button" class="oeil" onclick="App.oeil(this)" aria-label="${esc(t("Afficher le mot de passe"))}" title="${esc(t("Afficher le mot de passe"))}">${ico("oeil")}</button></div>`;
 
+/* ---------------------------------------------------------------- installation sur l'écran d'accueil */
+const INSTALL = { evt: null };
+const estInstallee = () => {
+  try{ return matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches || matchMedia("(display-mode: minimal-ui)").matches
+    || navigator.standalone === true || document.referrer.indexOf("android-app://") === 0; }catch(e){ return false; }
+};
+// Chrome (Android, ordinateur) propose l'installation : on garde l'événement pour notre bouton.
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); INSTALL.evt = e; });
+window.addEventListener("appinstalled", () => { INSTALL.evt = null; lsSet("as_installee", true); try{ App.apresInstallation(); }catch(x){} });
+function navigateur(){
+  const ua = navigator.userAgent || "";
+  if(/Instagram|FBAN|FBAV|FB_IAB|FBIOS|Messenger|Snapchat|TikTok|musical_ly|Line\//i.test(ua)) return "integre";
+  if(/iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) return "ios";
+  if(/SamsungBrowser/i.test(ua)) return "samsung";
+  if(/Firefox|FxiOS/i.test(ua)) return "firefox";
+  if(/Android/i.test(ua)) return "android";
+  return "ordinateur";
+}
+
 /* ---------------------------------------------------------------- état */
 const S = {
   user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [],
   portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})), agenda: { datesPrises: [] },
   route: "", param: "", filtrePortfolio: "Tout", filtreLivraisons: "encours", filtreDemandes: "attente", rechercheClients: "",
-  calMois: aujourdHui().slice(0, 7), dateChoisie: "", pleins: {}
+  calMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", pleins: {}
 };
 
 /* ================================================================= APP */
@@ -654,11 +802,17 @@ const App = {
 
   profil(){ return S.prof; },
   estAdmin(){ return !!(S.prof && S.prof.role === "admin"); },
-  studio(){ return Object.assign({}, STUDIO_DEFAUT, S.studio || {}); },
+  studio(){
+    const st = Object.assign({}, STUDIO_DEFAUT, S.studio || {});
+    if(st.metier === "Photographe de mariage" || !st.metier) st.metier = STUDIO_DEFAUT.metier;   // ancien texte par défaut
+    return st;
+  },
 
   /* ------------------------------------------------ démarrage */
   async init(){
     document.documentElement.lang = LANG; document.documentElement.dir = LANG === "ar" ? "rtl" : "ltr";
+    if(estInstallee()) lsSet("as_installee", true);
+    try{ localStorage.removeItem("as_gh_token"); }catch(e){}      // ancien réglage « envoi immédiat », supprimé
     if("serviceWorker" in navigator){
       navigator.serviceWorker.register("sw.js").catch(e => console.warn("sw", e));
       navigator.serviceWorker.addEventListener("message", ev => {
@@ -741,6 +895,7 @@ const App = {
       if(moi) S.prof = moi;
     } else if(cle === "studio"){
       S.studio = Object.assign({}, STUDIO_DEFAUT, data || {}); lsSet("as_studio", data || {});
+      if(data && data.metier === "Photographe de mariage" && this.estAdmin()) window.Cloud.patch("_config", "studio", { metier: STUDIO_DEFAUT.metier }).catch(() => {});
     } else if(cle === "agenda"){
       S.agenda = Object.assign({ datesPrises: [] }, data || {});
     } else {
@@ -864,6 +1019,8 @@ const App = {
           <button class="btn btn-or btn-bloc" id="co-go">${esc(t("Se connecter"))}</button>
         </form>
         <div class="legal"><a href="confidentialite.html">${esc(t("Politique de confidentialité"))}</a><a href="suppression-compte.html">${esc(t("Suppression de compte"))}</a></div>`}
+        ${estInstallee() ? "" : `<div class="installer-auth" data-installer><button type="button" class="btn btn-clair btn-bloc" onclick="App.installer()">${ico("telecharger")} ${esc(t("Installer l'application"))}</button>
+          <p class="discret">${esc(t("Ajoutez l'app sur l'écran d'accueil de votre téléphone, comme une vraie application."))}</p></div>`}
       </section></div>`;
   },
 
@@ -1011,7 +1168,7 @@ const App = {
     const n = { id: nouvelId("n"), target, kind,
       fr: { t: tl("fr", titre, vars), b: tl("fr", texte, vars) }, ar: { t: tl("ar", titre, vars), b: tl("ar", texte, vars) },
       lien: lien || "", ts: Date.now(), lu: false, envoi: "attente" };
-    try{ await window.Cloud.put("notifs", n); if(this.estAdmin()) window.Cloud.declencherEnvoi(); }catch(e){ console.warn("notif", e); }
+    try{ await window.Cloud.put("notifs", n); }catch(e){ console.warn("notif", e); }
   },
   _sonnerSiNouveau(){
     const n = S.notifs.filter(x => !x.lu).length;
@@ -1060,13 +1217,67 @@ const App = {
       ${st === "default" ? `<button class="btn btn-or" onclick="App.activerNotifs()">${ico("cloche")} ${esc(t("Activer les notifications"))}</button>` : ""}</div>`;
   },
 
+  /* ------------------------------------------------ installation sur l'écran d'accueil */
+  boutonInstaller(cls){
+    if(estInstallee()) return "";
+    return `<button type="button" class="btn ${cls || ""}" data-installer onclick="App.installer()">${ico("telecharger")} ${esc(t("Installer l'application"))}</button>`;
+  },
+  // Encart d'accueil (client et Achref), masquable avec « Plus tard ».
+  encartInstall(){
+    if(estInstallee() || lsGet("as_installee", false) || lsGet("as_install_plus_tard", 0) > Date.now()) return "";
+    return `<div class="encart encart-install" data-installer style="margin-top:14px"><span class="ico-install">${ico("telecharger")}</span>
+      <div><b>${esc(t("Installez l'application"))}</b>
+        <div class="doux" style="margin:4px 0 10px">${esc(t("Retrouvez vos photos en un geste, depuis l'écran d'accueil de votre téléphone."))}</div>
+        <div class="rangee" style="align-items:center"><button class="btn btn-or btn-petit" onclick="App.installer()">${esc(t("Installer"))}</button>
+          <button class="lien" onclick="App.installerPlusTard()">${esc(t("Plus tard"))}</button></div></div></div>`;
+  },
+  installerPlusTard(){ lsSet("as_install_plus_tard", Date.now() + 7 * 86400000); document.querySelectorAll(".encart-install").forEach(el => el.remove()); },
+  async installer(){
+    const e = INSTALL.evt;
+    if(e){
+      INSTALL.evt = null;                       // l'invitation de Chrome ne sert qu'une fois
+      try{ await e.prompt(); const r = await e.userChoice; if(r && r.outcome === "accepted"){ lsSet("as_installee", true); this.apresInstallation(); } }
+      catch(x){ this.ouvrirAideInstall(); }
+      return;
+    }
+    this.ouvrirAideInstall();
+  },
+  apresInstallation(){
+    document.querySelectorAll("[data-installer]").forEach(el => el.remove());
+    this.toast(t("Application installée : retrouvez-la sur l'écran d'accueil."), "ok");
+  },
+  ouvrirAideInstall(){
+    const nav = navigateur();
+    const etapes = {
+      integre: ["Touchez les trois points ⋯ en haut à droite.", "Choisissez « Ouvrir dans le navigateur » (ou « Ouvrir dans Chrome »).", "Dans Chrome, touchez « Installer l'application »."],
+      ios: ["Touchez le bouton Partager (le carré avec une flèche vers le haut).", "Faites défiler, puis touchez « Sur l'écran d'accueil ».", "Touchez « Ajouter » : l'icône apparaît sur l'écran d'accueil."],
+      samsung: ["Touchez le menu ≡ en bas à droite.", "Touchez « Ajouter la page à », puis « Écran d'accueil ».", "Confirmez : l'icône apparaît sur l'écran d'accueil."],
+      firefox: ["Touchez le menu ⋮.", "Touchez « Installer » (ou « Ajouter à l'écran d'accueil »).", "Confirmez : l'icône apparaît sur l'écran d'accueil."],
+      android: ["Touchez le menu ⋮ en haut à droite de Chrome.", "Touchez « Installer l'application » (ou « Ajouter à l'écran d'accueil »).", "Confirmez avec « Installer » : l'icône apparaît sur l'écran d'accueil."],
+      ordinateur: ["Ouvrez l'app avec Chrome ou Edge.", "Cliquez sur l'icône d'installation, à droite de la barre d'adresse.", "Cliquez sur « Installer »."]
+    }[nav];
+    const intro = {
+      integre: "Vous êtes dans le navigateur d'Instagram ou de Facebook, qui ne peut pas installer d'application. Ouvrez d'abord la page dans Chrome :",
+      ios: "Sur iPhone, l'installation se fait depuis Safari :",
+      samsung: "Avec Samsung Internet :", firefox: "Avec Firefox :", android: "Avec Chrome :", ordinateur: "Sur ordinateur :"
+    }[nav];
+    const note = nav === "ios" ? "Ouvrez ensuite l'app depuis son icône : c'est nécessaire sur iPhone pour recevoir les notifications."
+      : (nav === "samsung" || nav === "firefox" ? "Pour recevoir les notifications, Chrome est recommandé."
+      : (nav === "integre" ? "" : "Déjà installée ? Ouvrez-la depuis son icône sur l'écran d'accueil."));
+    this.feuille(t("Installer l'application"), `<p class="doux">${esc(t(intro))}</p>
+      <ol class="etapes etapes-install">${etapes.map(x => `<li><span>${esc(t(x))}</span></li>`).join("")}</ol>
+      ${note ? `<p class="discret" style="margin-top:10px">${esc(t(note))}</p>` : ""}`,
+      nav === "integre" ? `<button class="btn btn-or btn-bloc" onclick="App.copierLien()">${ico("lien")} ${esc(t("Copier le lien de l'app"))}</button>`
+        : `<button class="btn btn-bloc" onclick="App.fermer()">${esc(t("J'ai compris"))}</button>`);
+  },
+
   /* ================================================= CLIENT : ACCUEIL */
   pageAccueil(){
     const st = this.studio(), u = S.prof;
     const vedettes = S.portfolio.filter(p => p.vedette).sort((a, b) => (b.ord || 0) - (a.ord || 0));
     const diapos = (vedettes.length ? vedettes : S.portfolio.slice().sort((a, b) => (b.ord || 0) - (a.ord || 0))).slice(0, 5);
     const prete = S.livraisons.filter(l => !l.telechargeAt && ecartJours(aujourdHui(), l.expireLe) >= 0).sort((a, b) => b.createdAt - a.createdAt)[0];
-    const prochaine = S.demandes.filter(d => d.statut === "confirmee" && d.date >= aujourdHui()).sort((a, b) => a.date < b.date ? -1 : 1)[0];
+    const prochaine = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= aujourdHui()).sort((a, b) => a.date < b.date ? -1 : 1)[0];
     const enAttente = S.demandes.filter(d => d.statut === "attente").length;
     const avisPub = S.avis.filter(a => a.publie).sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
     const forfaits = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
@@ -1081,17 +1292,12 @@ const App = {
       </section>
       ${prete ? `<button class="encart ligne" style="cursor:pointer;margin-top:14px" onclick="App.aller('photos')">${ico("image", "chev")}
           <span class="corps"><span class="t">${esc(t("Vos photos sont prêtes"))}</span><span class="s">${esc(prete.titre)} — ${esc(this.texteExpiration(prete))}</span></span>${ico("chevron", "chev")}</button>` : ""}
-      ${prochaine ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Votre date est confirmée"))}</b><div class="doux">${esc(t(prochaine.type))} — ${esc(dateLongue(prochaine.date))}${prochaine.lieu ? " — " + esc(prochaine.lieu) : ""}</div></div>`
+      ${prochaine ? `<div class="encart" style="margin-top:14px"><b>${esc(joursDe(prochaine).length > 1 ? t("Vos dates sont confirmées") : t("Votre date est confirmée"))}</b><div class="doux">${esc(resumeJours(joursDe(prochaine)))}${prochaine.lieu ? " — " + esc(prochaine.lieu) : ""}</div></div>`
         : (enAttente ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Demande envoyée"))}</b><div class="doux">${esc(t("Achref vous répond très vite. Suivez-la dans l'onglet Réserver."))}</div></div>` : "")}
       ${this.etatPush() === "default" ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Ne ratez pas vos photos"))}</b>
           <div class="doux" style="margin:4px 0 10px">${esc(t("Activez les notifications pour être prévenu(e) dès que vos photos et vidéos sont prêtes."))}</div>
           <button class="btn btn-or btn-petit" onclick="App.activerNotifs()">${esc(t("Activer les notifications"))}</button></div>` : ""}
-      <div class="titre-section"><h2>${esc(t("Comment ça se passe"))}</h2></div>
-      <ol class="etapes">
-        <li><span><b>${esc(t("Vous réservez votre date"))}</b><span class="doux">${esc(t("Choisissez le jour et le forfait, Achref confirme la disponibilité."))}</span></span></li>
-        <li><span><b>${esc(t("Le jour J"))}</b><span class="doux">${esc(t("Achref capture les préparatifs, la cérémonie et la fête, en photo et en vidéo."))}</span></span></li>
-        <li><span><b>${esc(t("Vous recevez vos fichiers"))}</b><span class="doux">${esc(t("Un lien de téléchargement arrive dans « Mes photos », avec une notification."))}</span></span></li>
-      </ol>
+      ${this.encartInstall()}
       ${forfaits.length ? `<div class="titre-section"><h2>${esc(t("Forfaits"))}</h2></div><div class="bloc" style="padding-top:4px;padding-bottom:4px">${forfaits.map(f => this.vueForfait(f)).join("")}</div>` : ""}
       ${avisPub.length ? `<div class="titre-section"><h2>${esc(t("Ils en parlent"))}</h2></div><div>${avisPub.map(a => this.vueAvis(a)).join("")}</div>` : ""}
       <div class="titre-section"><h2>${esc(t("Restons en contact"))}</h2></div>
@@ -1107,9 +1313,30 @@ const App = {
     if(d.length > 1){ let i = 0; this._diapoT = setInterval(() => { if(!document.body.contains(h)) return clearInterval(this._diapoT); d[i].classList.remove("on"); i = (i + 1) % d.length; d[i].classList.add("on"); }, 6000); }
   },
   vueForfait(f){
-    return `<div class="forfait"><div class="haut"><h3>${esc(f.nom)}</h3>${f.prix ? `<span class="prix">${esc(f.prix)}</span>` : ""}</div>
-      ${f.description ? `<p class="doux" style="margin:6px 0 0">${txt(f.description)}</p>` : ""}
-      ${(f.inclus || []).length ? `<ul>${f.inclus.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}</div>`;
+    return `<button class="forfait" onclick="App.ouvrirOffre('${f.id}')"><span class="haut"><span class="nom-f">${esc(f.nom)}</span>${f.prix ? `<span class="prix">${esc(f.prix)}</span>` : ""}</span>
+      ${f.description ? `<span class="doux desc">${txt(f.description)}</span>` : ""}
+      <span class="voir">${esc(t("Voir l'offre et réserver"))} ${ico("chevron", "chev")}</span></button>`;
+  },
+  vueEtapes(){
+    return `<ol class="etapes">
+        <li><span><b>${esc(t("Vous réservez vos dates"))}</b><span class="doux">${esc(t("Choisissez le ou les jours (henné, wtiya, mariage…) et le forfait, Achref confirme la disponibilité."))}</span></span></li>
+        <li><span><b>${esc(t("Le jour J"))}</b><span class="doux">${esc(t("Achref capture les préparatifs, la cérémonie et la fête, en photo et en vidéo."))}</span></span></li>
+        <li><span><b>${esc(t("Vous recevez vos fichiers"))}</b><span class="doux">${esc(t("Un lien de téléchargement arrive dans « Mes photos », avec une notification."))}</span></span></li>
+      </ol>`;
+  },
+  // Fiche d'une offre (forfait) : détails, puis réservation avec cette offre.
+  ouvrirOffre(id){
+    const f = S.forfaits.find(x => x.id === id); if(!f) return;
+    this.feuille(f.nom, `${f.prix ? `<p class="prix-offre">${esc(f.prix)}</p>` : ""}
+      ${f.description ? `<p class="doux">${txt(f.description)}</p>` : ""}
+      ${(f.inclus || []).length ? `<h3 style="margin:14px 0 6px">${esc(t("Ce qui est inclus"))}</h3><ul class="inclus">${f.inclus.map(x => `<li>${ico("coche")}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
+      ${this.estAdmin() ? `<p class="discret" style="margin-top:12px">${esc(t("Aperçu : c'est ce que voient vos clients."))}</p>` : ""}`,
+      this.estAdmin() ? `<button class="btn btn-bloc" onclick="App.fermer()">${esc(t("Fermer"))}</button>`
+        : `<button class="btn btn-or btn-bloc" onclick="App.reserverAvecOffre('${f.id}')">${ico("calendrier")} ${esc(t("Réserver avec cette offre"))}</button>`);
+  },
+  reserverAvecOffre(id){
+    S.forfaitChoisi = id; this.fermer(); this.aller("reserver");
+    setTimeout(() => this.toast(t("Offre choisie. Touchez maintenant vos jours dans le calendrier.")), 350);
   },
   vueAvis(a){
     return `<div class="avis-carte"><div class="etoiles" aria-label="${a.note}/5">${"★".repeat(a.note || 5)}${"☆".repeat(5 - (a.note || 5))}</div>
@@ -1240,26 +1467,26 @@ const App = {
     const forfaits = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
     const mes = S.demandes.slice().sort((a, b) => b.createdAt - a.createdAt);
     const etat = d => ({ attente: ["", "En attente"], confirmee: ["ok", "Confirmée"], refusee: ["danger", "Indisponible"], annulee: ["", "Annulée"] }[d.statut] || ["", d.statut]);
+    const fc = S.forfaits.find(f => f.id === S.forfaitChoisi);
     return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Réserver une date"))}</h2></div>
-      <p class="doux">${esc(t("Choisissez une date libre dans le calendrier, puis envoyez votre demande. Achref vous répond dans l'app."))}</p>
+      <p class="doux">${esc(t("Touchez les jours de votre événement dans le calendrier. Vous pouvez en choisir plusieurs, par exemple le henné, la wtiya et le mariage."))}</p>
+      ${fc ? `<div class="encart"><b>${esc(t("Offre choisie"))}</b><div class="doux">${esc(fc.nom)}${fc.prix ? " — " + esc(fc.prix) : ""}</div></div>` : ""}
       <div class="bloc">${this.vueCalendrier()}</div>
       <form class="bloc" onsubmit="event.preventDefault();App.envoyerDemande()">
-        <div class="champ"><label for="re-type">${esc(t("Événement"))}</label><select class="saisie" id="re-type">${TYPES_EVT.map(x => `<option value="${esc(x)}">${esc(t(x))}</option>`).join("")}</select></div>
-        <div class="champ"><label for="re-date">${esc(t("Date"))}</label><input class="saisie" id="re-date" type="date" min="${aujourdHui()}" value="${esc(S.dateChoisie)}" onchange="App.choisirDate(this.value,true)">
-          <div class="aide" id="re-dispo"></div></div>
+        <div class="champ"><span class="etiquette">${esc(t("Vos jours"))}</span><div id="re-jours">${this.vueJoursChoisis()}</div></div>
         <div class="champ"><label for="re-lieu">${esc(t("Ville ou salle"))}</label><input class="saisie" id="re-lieu" placeholder="${esc(t("Par exemple : Sousse, salle des fêtes"))}"></div>
-        ${forfaits.length ? `<div class="champ"><label for="re-forfait">${esc(t("Forfait"))}</label><select class="saisie" id="re-forfait"><option value="">${esc(t("Je ne sais pas encore"))}</option>${forfaits.map(f => `<option value="${f.id}">${esc(f.nom)}${f.prix ? " — " + esc(f.prix) : ""}</option>`).join("")}</select></div>` : ""}
+        ${forfaits.length ? `<div class="champ"><label for="re-forfait">${esc(t("Forfait"))}</label><select class="saisie" id="re-forfait" onchange="App.choisirForfait(this.value)"><option value="">${esc(t("Je ne sais pas encore"))}</option>${forfaits.map(f => `<option value="${f.id}"${f.id === S.forfaitChoisi ? " selected" : ""}>${esc(f.nom)}${f.prix ? " — " + esc(f.prix) : ""}</option>`).join("")}</select></div>` : ""}
         <div class="champ"><label for="re-msg">${esc(t("Message (facultatif)"))}</label><textarea class="saisie" id="re-msg" placeholder="${esc(t("Horaires, nombre d'invités, vidéo souhaitée…"))}"></textarea></div>
         <button class="btn btn-or btn-bloc" id="re-go">${esc(t("Envoyer la demande"))}</button>
       </form>
       ${mes.length ? `<div class="titre-section"><h2>${esc(t("Mes demandes"))}</h2></div><div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${mes.map(d => {
-        const [c, l] = etat(d);
-        return `<div class="ligne" style="cursor:default;flex-wrap:wrap"><span class="corps"><span class="t">${esc(t(d.type))} — ${esc(dateLongue(d.date))}</span>
-          <span class="s">${esc(d.lieu || "")}</span>${d.noteAdmin ? `<span class="doux" style="display:block;font-size:.92rem;margin-top:4px">${esc(d.noteAdmin)}</span>` : ""}</span>
+        const [c, l] = etat(d), j = joursDe(d);
+        return `<div class="ligne" style="cursor:default;flex-wrap:wrap"><span class="corps"><span class="t">${esc(titreDemande(d))}</span>
+          ${j.length > 1 ? `<span class="s">${esc(resumeJours(j))}</span>` : ""}${d.lieu ? `<span class="s">${esc(d.lieu)}</span>` : ""}${d.forfaitNom ? `<span class="s">${esc(t("Forfait"))} : ${esc(d.forfaitNom)}</span>` : ""}
+          ${d.noteAdmin ? `<span class="doux" style="display:block;font-size:.92rem;margin-top:4px">${esc(d.noteAdmin)}</span>` : ""}</span>
           <span class="etat ${c}">${esc(t(l))}</span>${d.statut === "attente" ? `<button class="lien" style="width:100%;text-align:end" onclick="App.annulerDemande('${d.id}')">${esc(t("Annuler la demande"))}</button>` : ""}</div>`;
       }).join("")}</div></div>` : ""}`;
   },
-  apres_reserver(){ if(S.dateChoisie) this.choisirDate(S.dateChoisie, false); },
   vueCalendrier(){
     const [y, m] = S.calMois.split("-").map(Number), premier = new Date(y, m - 1, 1), nb = new Date(y, m, 0).getDate();
     const decal = (premier.getDay() + 6) % 7, auj = aujourdHui(), pris = (S.agenda.datesPrises || []);
@@ -1268,45 +1495,66 @@ const App = {
     let cases = jours.map(j => `<span class="entete-j">${esc(j)}</span>`).join("");
     for(let i = 0; i < decal; i++) cases += "<span></span>";
     for(let d = 1; d <= nb; d++){
-      const iso = y + "-" + pad(m) + "-" + pad(d), passe = iso < auj, estPris = pris.indexOf(iso) >= 0, choisi = iso === S.dateChoisie;
+      const iso = y + "-" + pad(m) + "-" + pad(d), passe = iso < auj, estPris = pris.indexOf(iso) >= 0, choisi = S.joursChoisis.some(j => j.date === iso);
       cases += passe ? `<span class="j" style="opacity:.3">${d}</span>`
-        : `<button class="j puce${choisi ? " on" : ""}${estPris ? " pris" : ""}" style="padding:8px 0;border-radius:8px" ${estPris ? `aria-label="${d} — ${esc(t("Date déjà réservée"))}"` : ""} onclick="App.choisirDate('${iso}',true)">${d}</button>`;
+        : `<button type="button" class="j puce${choisi ? " on" : ""}${estPris ? " pris" : ""}" data-date="${iso}" aria-pressed="${choisi}" aria-label="${esc(dateLongue(iso))}${estPris ? " — " + esc(t("Déjà réservée")) : ""}" onclick="App.basculerJour('${iso}')">${d}</button>`;
     }
     const moisPrec = S.calMois > auj.slice(0, 7);
     return `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <button class="btn-icone" ${moisPrec ? "" : "disabled style=\"opacity:.3\""} onclick="App.changerMois(-1)" aria-label="${esc(t("Mois précédent"))}">${ico(LANG === "ar" ? "droite" : "gauche")}</button>
+        <button type="button" class="btn-icone" ${moisPrec ? "" : "disabled style=\"opacity:.3\""} onclick="App.changerMois(-1)" aria-label="${esc(t("Mois précédent"))}">${ico(LANG === "ar" ? "droite" : "gauche")}</button>
         <b style="font-weight:500;text-transform:capitalize">${esc(titre)}</b>
-        <button class="btn-icone" onclick="App.changerMois(1)" aria-label="${esc(t("Mois suivant"))}">${ico(LANG === "ar" ? "gauche" : "droite")}</button></div>
+        <button type="button" class="btn-icone" onclick="App.changerMois(1)" aria-label="${esc(t("Mois suivant"))}">${ico(LANG === "ar" ? "gauche" : "droite")}</button></div>
       <div class="cal" id="cal">${cases}</div>
-      <div class="discret" style="margin-top:10px"><span style="color:var(--danger);text-decoration:line-through">12</span> ${esc(t("= date déjà réservée"))}</div>`;
+      <div class="cal-legende"><span><i class="ech on"></i>${esc(t("Vos jours"))}</span><span><i class="ech pris"></i>${esc(t("Déjà réservée"))}</span></div>`;
+  },
+  vueJoursChoisis(){
+    const J = S.joursChoisis.slice().sort((a, b) => a.date < b.date ? -1 : 1);
+    if(!J.length) return `<p class="discret" style="margin:0">${esc(t("Aucun jour choisi : touchez une date libre dans le calendrier."))}</p>`;
+    return `<div class="jours">${J.map(j => `<div class="jour-ligne"><span class="jour-date">${esc(dateAvecJour(j.date))}</span>
+        <select class="saisie" aria-label="${esc(t("Événement"))} — ${esc(dateLongue(j.date))}" onchange="App.typeJour('${j.date}',this.value)">${TYPES_EVT.map(x => `<option value="${esc(x)}"${x === j.type ? " selected" : ""}>${esc(t(x))}</option>`).join("")}</select>
+        <button type="button" class="btn-icone" onclick="App.basculerJour('${j.date}')" aria-label="${esc(t("Retirer ce jour"))}" title="${esc(t("Retirer ce jour"))}">${ico("fermer")}</button></div>`).join("")}</div>`;
+  },
+  majReserver(){
+    const cal = document.getElementById("cal"); if(cal) cal.parentNode.innerHTML = this.vueCalendrier();
+    const jr = document.getElementById("re-jours"); if(jr) jr.innerHTML = this.vueJoursChoisis();
   },
   changerMois(d){
     const [y, m] = S.calMois.split("-").map(Number), x = new Date(y, m - 1 + d, 1);
     S.calMois = x.getFullYear() + "-" + pad(x.getMonth() + 1);
     const bloc = document.getElementById("cal"); if(bloc) bloc.parentNode.innerHTML = this.vueCalendrier();
   },
-  choisirDate(iso, maj){
-    S.dateChoisie = iso || "";
-    const inp = document.getElementById("re-date"); if(inp && inp.value !== iso) inp.value = iso;
-    const info = document.getElementById("re-dispo"), pris = (S.agenda.datesPrises || []).indexOf(iso) >= 0;
-    if(info) info.innerHTML = !iso ? "" : (pris ? `<span style="color:var(--danger)">${esc(t("Cette date est déjà réservée. Choisissez-en une autre ou écrivez à Achref."))}</span>`
-      : `<span style="color:var(--ok)">${esc(t("Date libre"))} — ${esc(dateLongue(iso))}</span>`);
-    if(maj){ const cal = document.getElementById("cal"); if(cal) cal.parentNode.innerHTML = this.vueCalendrier(); this._edition = true; }
+  // Touche d'un jour : l'ajoute ou le retire de la demande.
+  basculerJour(iso){
+    if(!iso || iso < aujourdHui()) return;
+    const i = S.joursChoisis.findIndex(j => j.date === iso);
+    if(i >= 0) S.joursChoisis.splice(i, 1);
+    else{
+      if((S.agenda.datesPrises || []).indexOf(iso) >= 0) return this.toast(t("Ce jour est déjà réservé. Choisissez-en un autre ou écrivez à Achref."), "err");
+      if(S.joursChoisis.length >= MAX_JOURS) return this.toast(t("{n} jours au plus par demande.", { n: MAX_JOURS }), "err");
+      S.joursChoisis.push({ date: iso, type: "Mariage" });
+    }
+    this._edition = true; this.majReserver();
   },
+  typeJour(iso, type){ const j = S.joursChoisis.find(x => x.date === iso); if(j && TYPES_EVT.indexOf(type) >= 0) j.type = type; this._edition = true; },
+  choisirForfait(id){ S.forfaitChoisi = id || ""; },
   async envoyerDemande(){
     const g = id => ((document.getElementById(id) || {}).value || "").trim();
-    const type = g("re-type"), date = g("re-date"), lieu = g("re-lieu"), fid = g("re-forfait"), msg = g("re-msg");
-    if(!date) return this.toast(t("Choisissez une date."), "err");
-    if(date < aujourdHui()) return this.toast(t("Cette date est passée."), "err");
-    if((S.agenda.datesPrises || []).indexOf(date) >= 0) return this.toast(t("Cette date est déjà réservée. Choisissez-en une autre ou écrivez à Achref."), "err");
+    const lieu = g("re-lieu"), fid = g("re-forfait"), msg = g("re-msg");
+    const jours = S.joursChoisis.slice().sort((a, b) => a.date < b.date ? -1 : 1).map(j => ({ date: j.date, type: j.type }));
+    if(!jours.length) return this.toast(t("Choisissez au moins un jour dans le calendrier."), "err");
+    if(jours.some(j => j.date < aujourdHui())) return this.toast(t("Cette date est passée."), "err");
+    const pris = S.agenda.datesPrises || [], bloque = jours.find(j => pris.indexOf(j.date) >= 0);
+    if(bloque) return this.toast(t("Le {date} est déjà réservé. Retirez ce jour ou écrivez à Achref.", { date: dateLongue(bloque.date) }), "err");
     const f = S.forfaits.find(x => x.id === fid), u = S.prof;
     const d = { id: nouvelId("d"), clientId: u.id, clientNom: u.nom || "", clientTel: u.tel || "", clientEmail: u.email || "",
-      type, date, lieu, forfaitId: f ? f.id : "", forfaitNom: f ? f.nom : "", message: msg, statut: "attente", noteAdmin: "", createdAt: Date.now(), updatedAt: Date.now() };
+      jours, date: jours[0].date, dateFin: jours[jours.length - 1].date, type: jours[0].type,
+      lieu, forfaitId: f ? f.id : "", forfaitNom: f ? f.nom : "", message: msg, statut: "attente", noteAdmin: "", createdAt: Date.now(), updatedAt: Date.now() };
     const btn = document.getElementById("re-go"); btn.disabled = true;
     try{
       await window.Cloud.put("demandes", d);
-      this.notifier("admin", "demande", "Nouvelle demande", "{nom} : {type} le {date}.", { nom: u.nom || t("Un client"), type: deuxLangues(l => tl(l, type)), date: deuxLangues(l => dateLongue(date, l)) }, "demandes/" + d.id);
-      S.dateChoisie = ""; this._edition = false; this.toast(t("Demande envoyée. Achref vous répond très vite."), "ok"); this.rendre();
+      this.notifier("admin", "demande", "Nouvelle demande", "{nom} : {details}.", { nom: u.nom || t("Un client"), details: deuxLangues(l => resumeJours(jours, l)) }, "demandes/" + d.id);
+      S.joursChoisis = []; S.forfaitChoisi = ""; this._edition = false;
+      this.toast(t("Demande envoyée. Achref vous répond très vite."), "ok"); this.rendre();
     }catch(e){ btn.disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
   },
   async annulerDemande(id){
@@ -1314,7 +1562,7 @@ const App = {
     const d = S.demandes.find(x => x.id === id);
     try{
       await window.Cloud.patch("demandes", id, { statut: "annulee", updatedAt: Date.now() });
-      if(d) this.notifier("admin", "demande_annulee", "Demande annulée", "{nom} a annulé sa demande du {date}.", { nom: S.prof.nom || t("Un client"), date: deuxLangues(l => dateLongue(d.date, l)) }, "demandes/" + id);
+      if(d) this.notifier("admin", "demande_annulee", "Demande annulée", "{nom} a annulé sa demande du {date}.", { nom: S.prof.nom || t("Un client"), date: deuxLangues(l => plage(joursDe(d), l)) }, "demandes/" + id);
     }catch(e){ this.toast(t("Annulation impossible. Vérifiez la connexion."), "err"); }
   },
 
@@ -1361,6 +1609,7 @@ const App = {
         ${mesAvis.length ? mesAvis.map(a => `<div class="avis-carte"><div class="etoiles">${"★".repeat(a.note)}</div><blockquote>« ${esc(a.texte)} »</blockquote>
           <span class="etat ${a.publie ? "ok" : ""}">${esc(a.publie ? t("Publié") : t("En attente de validation"))}</span></div>`).join("")
           : `<p class="doux">${esc(t("Partagez votre expérience avec les futurs mariés."))}</p><button class="btn btn-petit" onclick="App.ouvrirAvis()">${ico("etoile")} ${esc(t("Laisser un avis"))}</button>`}</div>`}
+      ${estInstallee() ? "" : `<div class="bloc" data-installer><h3>${esc(t("Application"))}</h3><p class="doux">${esc(t("Ajoutez l'app sur l'écran d'accueil de votre téléphone, comme une vraie application."))}</p>${this.boutonInstaller("btn-or")}</div>`}
       <div class="bloc"><h3>${esc(t("Mes données"))}</h3>
         <a class="btn btn-clair btn-bloc" style="margin-bottom:10px" href="confidentialite.html">${ico("bouclier")} ${esc(t("Politique de confidentialité"))}</a>
         ${this.estAdmin() ? "" : `<button class="btn btn-danger btn-bloc" onclick="App.ouvrirSuppression()">${ico("corbeille")} ${esc(t("Supprimer mon compte"))}</button>
@@ -1449,11 +1698,13 @@ const App = {
         <h1 style="font-size:var(--t-2xl)">${esc(st.nom)}</h1><p class="sous">${esc(t(st.metier))}${st.ville ? " — " + esc(st.ville) : ""}</p></section>
       ${st.bio ? `<p class="doux" style="text-align:center;max-width:52ch;margin:0 auto 18px">${txt(t(st.bio))}</p>` : ""}
       <div class="rangee" style="margin-bottom:18px">${this.boutonsContact()}</div>
+      <div class="bloc"><h3>${esc(t("Comment ça se passe"))}</h3>${this.vueEtapes()}</div>
       <div class="bloc"><h3>${esc(t("Partager l'application"))}</h3>
         <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="qr" id="qr">${esc(t("QR code indisponible hors ligne"))}</div>
           <div style="flex:1;min-width:150px"><p class="doux">${esc(t("Faites scanner ce code pour ouvrir l'application."))}</p>
             <div class="rangee"><button class="btn btn-petit" onclick="App.copierLien()">${ico("lien")} ${esc(t("Copier le lien"))}</button>
-              <a class="btn btn-petit" href="https://wa.me/?text=${encodeURIComponent(st.nom + " — " + this.urlApp())}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a></div></div></div></div>
+              <a class="btn btn-petit" href="https://wa.me/?text=${encodeURIComponent(st.nom + " — " + this.urlApp())}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a></div></div></div>
+        ${estInstallee() ? "" : `<div style="margin-top:14px">${this.boutonInstaller("btn-or btn-bloc")}</div>`}</div>
       <div class="bloc"><h3>${esc(t("À propos de l'application"))}</h3>
         <dl class="kv"><dt>${esc(t("Version"))}</dt><dd dir="ltr" style="text-align:start">${APP_VERSION}</dd>
           <dt>${esc(t("Conception et développement"))}</dt><dd>${esc(DEV_INFO.nom)}<br><a href="mailto:${DEV_INFO.mail}" dir="ltr">${DEV_INFO.mail}</a><br><a href="tel:${DEV_INFO.tel.replace(/\s/g, "")}" dir="ltr">${DEV_INFO.tel}</a></dd></dl>
@@ -1479,7 +1730,7 @@ const App = {
     const bientot = S.livraisons.filter(l => !l.telechargeAt && ecartJours(auj, l.expireLe) >= 0 && ecartJours(auj, l.expireLe) <= 1).length;
     const nouveauLien = S.livraisons.filter(l => l.nouveauLienDemandeAt && !l.telechargeAt && ecartJours(auj, l.expireLe) < 0).length;
     const aValider = S.avis.filter(a => !a.publie).length;
-    const prochains = S.demandes.filter(d => d.statut === "confirmee" && d.date >= auj).sort((a, b) => a.date < b.date ? -1 : 1).slice(0, 5);
+    const prochains = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= auj).sort((a, b) => a.date < b.date ? -1 : 1).slice(0, 5);
     const ligne = (n, l, r) => `<button class="compteur" onclick="App.aller('${r}')"><span class="n">${n}</span><span class="l">${esc(l)}</span>${ico("chevron", "chev")}</button>`;
     return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Bonjour"))} ${esc((S.prof.nom || st.nom).split(" ")[0])}</h2></div>
       <button class="btn btn-or btn-bloc" style="margin-bottom:16px" onclick="App.ouvrirLivraison()">${ico("envoyer")} ${esc(t("Envoyer des photos à un client"))}</button>
@@ -1492,9 +1743,10 @@ const App = {
         ${ligne(this.clients().length, t("clients inscrits"), "clients")}</div>
       <div class="titre-section"><h2>${esc(t("Prochains événements"))}</h2></div>
       ${prochains.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${prochains.map(d => `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')">
-        <span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(dateLongue(d.date))}</span><span class="s">${esc(t(d.type))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
+        <span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(plage(joursDe(d)))}</span><span class="s">${esc(typesDemande(d))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
         : `<div class="vide"><p>${esc(t("Aucun événement confirmé pour l'instant."))}</p></div>`}
-      ${this.etatPush() !== "granted" ? `<div style="margin-top:14px">${this.vueNotifs(false)}</div>` : ""}`;
+      ${this.etatPush() !== "granted" ? `<div style="margin-top:14px">${this.vueNotifs(false)}</div>` : ""}
+      ${this.encartInstall()}`;
   },
 
   /* ================================================= ADMIN : LIVRAISONS */
@@ -1629,7 +1881,7 @@ const App = {
       <h3 style="margin-bottom:6px">${esc(t("Livraisons"))}</h3>
       ${livs.length ? `<div class="liste">${livs.map(l => { const [k, e] = this.etatLivraison(l); return `<button class="ligne" onclick="App.ouvrirLivraison('${l.id}')"><span class="corps"><span class="t">${esc(l.titre)}</span><span class="s">${esc(t("jusqu'au {d}", { d: dateCourte(l.expireLe) }))}</span></span><span class="etat ${k}">${esc(e)}</span></button>`; }).join("")}</div>` : `<p class="discret">${esc(t("Aucune livraison."))}</p>`}
       <h3 style="margin:16px 0 6px">${esc(t("Demandes"))}</h3>
-      ${dems.length ? `<div class="liste">${dems.map(d => `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="corps"><span class="t">${esc(t(d.type))} — ${esc(dateLongue(d.date))}</span></span><span class="etat">${esc(t(this.libelleStatut(d.statut)))}</span></button>`).join("")}</div>` : `<p class="discret">${esc(t("Aucune demande."))}</p>`}`;
+      ${dems.length ? `<div class="liste">${dems.map(d => `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="corps"><span class="t">${esc(titreDemande(d))}</span>${joursDe(d).length > 1 ? `<span class="s">${esc(typesDemande(d))}</span>` : ""}</span><span class="etat">${esc(t(this.libelleStatut(d.statut)))}</span></button>`).join("")}</div>` : `<p class="discret">${esc(t("Aucune demande."))}</p>`}`;
     this.feuille(c.nom || t("Client"), corps, `<button class="btn btn-or btn-bloc" onclick="App.fermer();setTimeout(()=>App.ouvrirLivraison(null,'${id}'),250)">${ico("envoyer")} ${esc(t("Envoyer des photos à ce client"))}</button>
       <button class="btn btn-danger btn-bloc" style="margin-top:10px" onclick="App.supprimerClient('${id}')">${ico("corbeille")} ${esc(t("Supprimer ce client"))}</button>`);
   },
@@ -1658,20 +1910,23 @@ const App = {
       <div class="puces">${puces.map(([k, l]) => `<button class="puce${f === k ? " on" : ""}" onclick="App.filtreD('${k}')">${esc(t(l))}</button>`).join("")}</div>
       ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(d => {
         const k = { attente: "alerte", confirmee: "ok", refusee: "danger" }[d.statut] || "";
-        return `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(dateLongue(d.date))}</span>
-          <span class="s">${esc(t(d.type))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span><span class="etat ${k}">${esc(t(this.libelleStatut(d.statut)))}</span></button>`; }).join("")}</div></div>`
+        const j = joursDe(d);
+        return `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(plage(j))}${j.length > 1 ? " · " + esc(t("{n} jours", { n: j.length })) : ""}</span>
+          <span class="s">${esc(typesDemande(d))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span><span class="etat ${k}">${esc(t(this.libelleStatut(d.statut)))}</span></button>`; }).join("")}</div></div>`
         : `<div class="vide">${ico("boite")}<p>${esc(t("Aucune demande ici."))}</p></div>`}`;
   },
   filtreD(k){ S.filtreDemandes = k; this.rendre(); },
   apres_demandes(){ if(S.param){ const id = S.param; S.param = ""; history.replaceState(null, "", "#demandes"); this.ouvrirDemande(id); } },
   ouvrirDemande(id){
     const d = S.demandes.find(x => x.id === id); if(!d) return;
-    const prise = (S.agenda.datesPrises || []).indexOf(d.date) >= 0 && d.statut !== "confirmee";
-    const corps = `<dl class="kv"><dt>${esc(t("Client"))}</dt><dd>${esc(d.clientNom)}</dd><dt>${esc(t("Événement"))}</dt><dd>${esc(t(d.type))}</dd>
-        <dt>${esc(t("Date"))}</dt><dd>${esc(dateLongue(d.date))}</dd>${d.lieu ? `<dt>${esc(t("Lieu"))}</dt><dd>${esc(d.lieu)}</dd>` : ""}
+    const jours = joursDe(d), pris = S.agenda.datesPrises || [];
+    const prises = d.statut !== "confirmee" ? jours.filter(j => pris.indexOf(j.date) >= 0) : [];
+    const corps = `<dl class="kv"><dt>${esc(t("Client"))}</dt><dd>${esc(d.clientNom)}</dd>
+        <dt>${esc(jours.length > 1 ? t("Jours") : t("Date"))}</dt><dd><ul class="jours-demande">${jours.map(j => `<li><b>${esc(t(j.type))}</b><span>${esc(dateAvecJour(j.date))}</span></li>`).join("")}</ul></dd>
+        ${d.lieu ? `<dt>${esc(t("Lieu"))}</dt><dd>${esc(d.lieu)}</dd>` : ""}
         ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}</dd>` : ""}<dt>${esc(t("Statut"))}</dt><dd>${esc(t(this.libelleStatut(d.statut)))}</dd></dl>
       ${d.message ? `<p class="mot" style="margin-top:12px;padding:10px 12px;border-inline-start:2px solid var(--or);background:rgba(201,164,92,.06)">${txt(d.message)}</p>` : ""}
-      ${prise ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(t("Attention : cette date est déjà marquée comme prise."))}</b></div>` : ""}
+      ${prises.length ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(prises.length > 1 || jours.length > 1 ? t("Attention : déjà marqué comme pris : {dates}.", { dates: prises.map(j => dateLongue(j.date)).join(", ") }) : t("Attention : cette date est déjà marquée comme prise."))}</b></div>` : ""}
       <div class="rangee" style="margin:12px 0">${d.clientTel ? `<a class="btn btn-petit" href="${telLien(d.clientTel)}">${ico("tel")} ${esc(t("Appeler"))}</a><a class="btn btn-petit" href="${waLien(d.clientTel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>` : ""}</div>
       <div class="champ"><label for="dm-note">${esc(t("Réponse au client (facultatif)"))}</label><textarea class="saisie" id="dm-note" placeholder="${esc(t("Par exemple : je vous appelle demain pour le devis."))}">${esc(d.noteAdmin || "")}</textarea></div>`;
     const pied = d.statut === "annulee" ? `<p class="discret">${esc(t("Le client a annulé cette demande."))}</p>` :
@@ -1684,13 +1939,16 @@ const App = {
     const note = (document.getElementById("dm-note").value || "").trim();
     try{
       await window.Cloud.patch("demandes", id, { statut, noteAdmin: note, updatedAt: Date.now() });
-      const dates = (S.agenda.datesPrises || []).slice(), i = dates.indexOf(d.date);
-      if(statut === "confirmee" && i < 0) dates.push(d.date);
-      if(statut !== "confirmee" && i >= 0 && d.statut === "confirmee") dates.splice(i, 1);
-      if(JSON.stringify(dates) !== JSON.stringify(S.agenda.datesPrises || [])) await window.Cloud.put("_config", { id: "agenda", datesPrises: dates.sort() });
-      const vars = { date: deuxLangues(l => dateLongue(d.date, l)) };
-      if(statut === "confirmee") await this.notifier(d.clientId, "demande", "Date confirmée", "Votre demande pour le {date} est confirmée.", vars, "reserver");
-      else await this.notifier(d.clientId, "demande", "Réponse à votre demande", "Achref a répondu à votre demande pour le {date}.", vars, "reserver");
+      // Tous les jours de la demande sont pris (confirmée) ou libérés (si elle était confirmée).
+      let dates = (S.agenda.datesPrises || []).slice();
+      const jours = joursDe(d).map(j => j.date);
+      if(statut === "confirmee") jours.forEach(x => { if(dates.indexOf(x) < 0) dates.push(x); });
+      else if(d.statut === "confirmee") dates = dates.filter(x => jours.indexOf(x) < 0);
+      dates.sort();
+      if(JSON.stringify(dates) !== JSON.stringify((S.agenda.datesPrises || []).slice().sort())) await window.Cloud.put("_config", { id: "agenda", datesPrises: dates });
+      const vars = { date: deuxLangues(l => plage(joursDe(d), l)) };
+      if(statut === "confirmee") await this.notifier(d.clientId, "demande", "Date confirmée", "Votre demande du {date} est confirmée.", vars, "reserver");
+      else await this.notifier(d.clientId, "demande", "Réponse à votre demande", "Achref a répondu à votre demande du {date}.", vars, "reserver");
       this.fermer(); this.toast(statut === "confirmee" ? t("Date confirmée. Le client est prévenu.") : t("Réponse envoyée au client."), "ok");
     }catch(e){ console.warn(e); this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   },
@@ -1705,6 +1963,7 @@ const App = {
         ${l("a-avis", "etoile", "Avis", "Valider les avis des clients", S.avis.filter(a => !a.publie).length)}
         ${l("reglages", "reglages", "Réglages", "Coordonnées, agenda, notifications, sécurité", 0)}
         ${l("apropos", "info", "À propos", "Ce que voient les clients", 0)}</div></div>
+      ${estInstallee() ? "" : `<div style="margin-bottom:12px">${this.boutonInstaller("btn-or btn-bloc")}</div>`}
       <button class="btn btn-clair btn-bloc" onclick="App.deconnecter()">${ico("sortir")} ${esc(t("Se déconnecter"))}</button>`;
   },
 
@@ -1817,7 +2076,6 @@ const App = {
   /* ================================================= ADMIN : RÉGLAGES */
   pageReglages(){
     const st = this.studio(), dates = (S.agenda.datesPrises || []).filter(d => d >= aujourdHui()).sort();
-    let jeton = ""; try{ jeton = localStorage.getItem("as_gh_token") || ""; }catch(e){}
     const ch = (id, lab, val, ph, type) => `<div class="champ"><label for="${id}">${esc(t(lab))}</label><input class="saisie" id="${id}" ${type ? `type="${type}"` : ""} value="${esc(val || "")}" placeholder="${esc(ph ? t(ph) : "")}"></div>`;
     return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Réglages"))}</h2></div>
       <form class="bloc" onsubmit="event.preventDefault();App.enregistrerStudio()"><h3>${esc(t("Ce que voient les clients"))}</h3>
@@ -1832,14 +2090,8 @@ const App = {
         <div class="rangee" style="margin-bottom:10px"><input class="saisie" id="ag-date" type="date" min="${aujourdHui()}" style="flex:1"><button class="btn" onclick="App.ajouterDatePrise()">${ico("ajout")} ${esc(t("Ajouter"))}</button></div>
         ${dates.length ? `<div class="liste">${dates.map(d => `<div class="ligne" style="cursor:default"><span class="corps"><span class="t">${esc(dateLongue(d))}</span></span><button class="btn-icone" onclick="App.retirerDatePrise('${d}')" aria-label="${esc(t("Libérer cette date"))}">${ico("fermer")}</button></div>`).join("")}</div>` : `<p class="discret">${esc(t("Aucune date prise."))}</p>`}</div>
       ${this.vueNotifs(false)}
-      <div class="bloc"><h3>${esc(t("Envoi immédiat des notifications"))}</h3>
-        <p class="doux">${esc(t("Sans réglage, les notifications partent toutes les 5 à 15 minutes. Avec un jeton GitHub enregistré sur ce téléphone, elles partent en moins d'une minute."))}</p>
-        <div class="champ"><label for="gh-jeton">${esc(t("Jeton GitHub (facultatif)"))}</label>${champMdp("gh-jeton", "github_pat_…", "off")}
-          <div class="aide">${esc(t("Gardé uniquement sur ce téléphone. Voir le fichier LISEZ-MOI.md pour le créer."))}</div></div>
-        <div class="rangee"><button class="btn btn-petit" onclick="App.enregistrerJeton()">${esc(t("Enregistrer"))}</button>${jeton ? `<button class="btn btn-petit btn-clair" onclick="App.testerJeton()">${esc(t("Tester l'envoi"))}</button>` : ""}</div></div>
       ${this.pageCompteAdmin()}`;
   },
-  apres_reglages(){ let j = ""; try{ j = localStorage.getItem("as_gh_token") || ""; }catch(e){} const i = document.getElementById("gh-jeton"); if(i) i.value = j; },
   pageCompteAdmin(){
     return `<div class="bloc"><h3>${esc(t("Mon adresse e-mail"))}</h3><p style="word-break:break-all" dir="ltr">${esc(window.Cloud.authEmail())}</p>
         <button class="btn btn-clair btn-petit" onclick="App.ouvrirEmail()">${ico("crayon")} ${esc(t("Modifier mon e-mail"))}</button></div>
@@ -1864,18 +2116,6 @@ const App = {
   async retirerDatePrise(d){
     const dates = (S.agenda.datesPrises || []).filter(x => x !== d);
     try{ await window.Cloud.put("_config", { id: "agenda", datesPrises: dates }); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
-  },
-  enregistrerJeton(){
-    const v = (document.getElementById("gh-jeton").value || "").trim();
-    try{ if(v) localStorage.setItem("as_gh_token", v); else localStorage.removeItem("as_gh_token"); }catch(e){}
-    this._edition = false; this.toast(v ? t("Jeton enregistré sur ce téléphone.") : t("Jeton retiré."), "ok"); this.rendre();
-  },
-  async testerJeton(){
-    const r = await window.Cloud.declencherEnvoi(true);
-    if(r.ok) this.toast(t("C'est parti : le robot d'envoi démarre."), "ok");
-    else if(r.raison === "hors-github") this.toast(t("Le test marche seulement depuis l'adresse GitHub de l'app."), "err");
-    else if(r.statut === 401 || r.statut === 403 || r.statut === 404) this.toast(t("Jeton refusé par GitHub : vérifiez ses droits (Actions : lecture et écriture)."), "err");
-    else this.toast(t("Échec de l'envoi. Vérifiez la connexion."), "err");
   }
 };
 window.App = App;
@@ -2050,39 +2290,6 @@ const Cloud = {
     if(!echecs){ try{ await deleteDoc(doc(db, "users", uid)); }catch(e){ echecs++; } }
     await deleteUser(u);
     return { echecs };
-  },
-
-  /* ---------------- Envoi immédiat des notifications (facultatif) ----------------
-     Sur le téléphone d'Achref seulement : un jeton GitHub (gardé sur cet appareil,
-     jamais dans la base) lance tout de suite le robot d'envoi, au lieu
-     d'attendre son passage automatique (toutes les 5 à 15 minutes). */
-  _dernierEnvoi: 0, _envoiPrevu: null,
-  depot(){
-    try{
-      const h = location.hostname, seg = location.pathname.split("/").filter(Boolean)[0];
-      if(/\.github\.io$/i.test(h) && seg) return { owner: h.split(".")[0], repo: seg };
-    }catch(e){}
-    return null;
-  },
-  async declencherEnvoi(force){
-    let jeton = ""; try{ jeton = localStorage.getItem("as_gh_token") || ""; }catch(e){}
-    const dep = this.depot();
-    if(!jeton || !dep) return { ok: false, raison: !jeton ? "sans-jeton" : "hors-github" };
-    const attente = 45000 - (Date.now() - this._dernierEnvoi);
-    if(attente > 0 && !force){
-      if(!this._envoiPrevu) this._envoiPrevu = setTimeout(() => { this._envoiPrevu = null; this.declencherEnvoi(true); }, attente);
-      return { ok: true, prevu: true };
-    }
-    this._dernierEnvoi = Date.now();
-    let branche = "main"; try{ branche = localStorage.getItem("as_gh_branch") || "main"; }catch(e){}
-    try{
-      const r = await fetch(`https://api.github.com/repos/${dep.owner}/${dep.repo}/actions/workflows/notifications.yml/dispatches`, {
-        method: "POST",
-        headers: { "Accept": "application/vnd.github+json", "Authorization": "Bearer " + jeton, "X-GitHub-Api-Version": "2022-11-28" },
-        body: JSON.stringify({ ref: branche })
-      });
-      return { ok: r.status === 204, statut: r.status };
-    }catch(e){ return { ok: false, raison: "reseau" }; }
   }
 };
 window.Cloud = Cloud;
