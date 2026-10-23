@@ -50,6 +50,7 @@
   --papier-2:#E4D5BD;
   --papier-encre:#3B2417;
   --ok:#A7C38C; --alerte:#E9B95F; --danger:#E7826F;
+  --travail:#C4443A;      /* jours de travail dans l'agenda d'Achref */
   --f-titre:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
   --f-texte:"Jost","Avenir Next","Segoe UI",system-ui,sans-serif;
   --t-xs:.8rem; --t-s:.9rem; --t-m:1rem; --t-l:1.25rem; --t-xl:1.563rem; --t-2xl:1.953rem; --t-3xl:2.441rem;
@@ -365,16 +366,37 @@ html[lang="ar"] .feuille .tete h2{font-style:normal}
 .compteur .l{flex:1}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.85rem}
 .cal .j{padding:8px 0;border-radius:8px}
-.cal .pris{background:rgba(231,130,111,.18);color:var(--danger);text-decoration:line-through}
 .cal .entete-j{color:var(--sourdine);font-size:.75rem}
 .cal .puce{padding:8px 0;border-radius:8px;font-size:.88rem}
-.cal .puce.pris{background:rgba(231,130,111,.14);border-color:transparent}
 .cal-legende{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.84rem;color:var(--sourdine)}
 .cal-legende span{display:inline-flex;align-items:center;gap:7px}
 .ech{display:inline-block;width:16px;height:16px;border-radius:4px;position:relative;flex:none}
 .ech.on{background:var(--ivoire)}
-.ech.pris{background:rgba(231,130,111,.22)}
-.ech.pris::after{content:"";position:absolute;left:3px;right:3px;top:50%;height:1.5px;margin-top:-.75px;background:var(--danger)}
+/* agenda d'Achref : jours de travail en rouge, demandes en attente en pointillé or */
+.agenda-tete{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.agenda-tete b{font-weight:500;text-transform:capitalize;text-align:center;flex:1}
+.agenda-tete .lien{font-size:.85rem}
+.cal .aj{position:relative;display:flex;align-items:center;justify-content:center;min-height:42px;padding:0;border-radius:9px;border:1.5px solid transparent;
+  background:none;color:var(--ivoire);font:inherit;font-size:.9rem;cursor:pointer}
+.cal .aj.passe{color:var(--sourdine)}
+.cal .aj.auj{border-color:var(--or)}
+.cal .aj.attente{border:1.5px dashed var(--alerte);color:var(--alerte)}
+.cal .aj.travail{background:var(--travail);border-color:var(--travail);color:#FFF6F1;font-weight:600}
+.cal .aj.travail.auj{box-shadow:0 0 0 2px var(--velours-2),0 0 0 3.5px var(--or)}
+.cal .aj.travail.passe{background:rgba(196,68,58,.42);border-color:transparent;color:var(--ivoire)}
+.cal .aj .nb{position:absolute;top:2px;inset-inline-end:3px;min-width:15px;height:15px;padding:0 3px;border-radius:8px;background:var(--ivoire);color:var(--encre);
+  font-size:.62rem;font-weight:600;line-height:15px}
+.cal .aj .pt{position:absolute;bottom:3px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--alerte);box-shadow:0 0 0 1.5px var(--travail)}
+.ech.travail{background:var(--travail)}
+.ech.attente{border:1.5px dashed var(--alerte)}
+.ech.auj{border:1.5px solid var(--or)}
+.resume-mois{margin:12px 0 0}
+.pastille-ag{flex:none;width:12px;height:12px;border-radius:50%;background:var(--travail)}
+.pastille-ag.attente{background:none;border:1.5px dashed var(--alerte)}
+.conseils-mail{margin:10px 0 12px;padding-inline-start:18px;color:var(--ivoire-2);font-size:.9rem}
+.conseils-mail li{margin-bottom:4px}
+.mosaique img{transition:opacity .35s}
+.mosaique img[data-mini]:not(.charge){opacity:0}
 .jours{display:flex;flex-direction:column}
 .jour-ligne{display:grid;grid-template-columns:1fr auto;gap:6px 8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ligne)}
 .jour-ligne:first-child{padding-top:2px}
@@ -692,7 +714,52 @@ const AR = {
   "Réservation annulée":"حجز ملغى",
   "{nom} a annulé sa réservation confirmée du {date}.":"ألغى {nom} حجزه المؤكَّد ليوم {date}.",
   "Refusées et annulées":"المرفوضة والملغاة",
-  "Avis modifié à valider":"رأي معدَّل في انتظار الموافقة"
+  "Avis modifié à valider":"رأي معدَّل في انتظار الموافقة",
+  /* v1.3 : agenda, réservation libre, mot de passe oublié */
+  "Ce compte a été supprimé par Achref. Vous pouvez créer un nouveau compte avec la même adresse.":"حذف أشرف هذا الحساب. يمكنكم إنشاء حساب جديد بنفس البريد الإلكتروني.",
+  "Ce compte a été supprimé par Achref. Reconnectez-vous une fois pour le fermer définitivement, puis créez un nouveau compte.":"حذف أشرف هذا الحساب. سجّلوا الدخول مرّة واحدة لإغلاقه نهائيًا، ثمّ أنشئوا حسابًا جديدًا.",
+  "Trop d'e-mails envoyés pour le moment. Réessayez plus tard.":"أُرسلت رسائل كثيرة حاليًا. أعيدوا المحاولة لاحقًا.",
+  "Il arrive en général en moins de 5 minutes.":"يصل عادةً في أقلّ من 5 دقائق.",
+  "Regardez aussi dans « Spam » (ou « Courrier indésirable ») et dans l'onglet « Promotions » de Gmail.":"تحقّقوا أيضًا من «Spam» (البريد غير المرغوب فيه) ومن تبويب «Promotions» في Gmail.",
+  "Cherchez « Achref Sakouhi » ou « mot de passe » dans votre boîte.":"ابحثوا عن «Achref Sakouhi» أو «mot de passe» في بريدكم.",
+  "Vérifiez que c'est bien l'adresse de votre compte. Vous pouvez aussi saisir votre numéro de téléphone.":"تأكّدوا أنّه بريد حسابكم. يمكنكم أيضًا إدخال رقم هاتفكم.",
+  "Renvoyer l'e-mail":"إعادة إرسال البريد",
+  "Renvoyer l'e-mail ({n} s)":"إعادة إرسال البريد ({n} ث)",
+  "Toujours rien ?":"لم يصلكم شيء؟",
+  "Bonjour, je n'arrive pas à réinitialiser mon mot de passe dans l'application.":"مرحبًا، لم أتمكّن من إعادة تعيين كلمة المرور في التطبيق.",
+  "Écrivez à Achref sur WhatsApp":"راسلوا أشرف على واتساب",
+  "E-mail renvoyé.":"أُعيد إرسال البريد.",
+  "Complétez votre profil":"أكملوا ملفّكم",
+  "Ajoutez votre nom et votre numéro pour qu'Achref vous retrouve.":"أضيفوا اسمكم ورقمكم ليتعرّف عليكم أشرف.",
+  "Achref sera prévenu de l'annulation de votre réservation.":"سيتمّ إعلام أشرف بإلغاء حجزكم.",
+  "Agenda":"الرزنامة",
+  "Ajouté à la main":"مُضاف يدويًا",
+  "{n} jour(s) de travail":"{n} يوم عمل",
+  "{n} demande(s) en attente":"{n} طلب في الانتظار",
+  "Jour de travail":"يوم عمل",
+  "Demande en attente":"طلب في الانتظار",
+  "Aujourd'hui":"اليوم",
+  "Ce mois-ci : {a} jour(s) de travail · {b} demande(s) en attente":"هذا الشهر: {a} يوم عمل · {b} طلب في الانتظار",
+  "Revenir à aujourd'hui":"العودة إلى اليوم",
+  "Touchez un jour pour voir le détail ou ajouter un événement pris en dehors de l'app.":"اضغط على يوم لرؤية التفاصيل أو لإضافة مناسبة حُجزت خارج التطبيق.",
+  "Retirer de l'agenda":"حذف من الرزنامة",
+  "{n} événements ce jour : prévoyez votre équipe.":"{n} مناسبات في هذا اليوم: جهّز فريقك.",
+  "Aucun événement ce jour.":"لا توجد مناسبة في هذا اليوم.",
+  "Ajouter un événement ce jour":"إضافة مناسبة في هذا اليوم",
+  "Note (facultatif)":"ملاحظة (اختياري)",
+  "Par exemple : mariage pris par téléphone, salle Le Pacha":"مثال: عرس محجوز بالهاتف، قاعة Le Pacha",
+  "Visible par vous seul. Le jour apparaît en rouge dans votre agenda.":"تظهر لك وحدك. يظهر اليوم باللون الأحمر في رزنامتك.",
+  "Ajouter à l'agenda":"إضافة إلى الرزنامة",
+  "Ajouté à l'agenda.":"تمّت الإضافة إلى الرزنامة.",
+  "Retirer cet événement ?":"حذف هذه المناسبة؟",
+  "Il disparaîtra de votre agenda.":"ستختفي من رزنامتك.",
+  "Retirer":"حذف",
+  "Retiré de l'agenda.":"تمّ الحذف من الرزنامة.",
+  "Cette réservation confirmée disparaîtra de votre agenda et de la liste du client. Le client ne sera pas prévenu.":"سيختفي هذا الحجز المؤكَّد من رزنامتك ومن قائمة الحريف. لن يتمّ إعلام الحريف.",
+  "Déjà prévu ces jours-là :":"مبرمج من قبل في هذه الأيام:",
+  "Vous pouvez quand même confirmer, par exemple en envoyant votre équipe.":"يمكنك التأكيد رغم ذلك، مثلًا بإرسال فريقك.",
+  "Vos jours de travail sont dans le Tableau, rubrique Agenda. Les clients peuvent demander toutes les dates : c'est vous qui confirmez. Pour une date prise en dehors de l'app, touchez le jour dans l'agenda.":"أيام عملك موجودة في لوحة القيادة، قسم الرزنامة. يمكن للحرفاء طلب كلّ التواريخ: أنت من يؤكّد. لتاريخ محجوز خارج التطبيق، اضغط على اليوم في الرزنامة.",
+  "Ouvrir l'agenda":"فتح الرزنامة"
 };
 
 /* =====================================================================
@@ -704,7 +771,7 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.2.0";
+const APP_VERSION = "1.3.0";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -725,7 +792,11 @@ const aujourdHui = () => isoDe(new Date());
 const plusJours = (iso, n) => { const [y, m, d] = iso.split("-").map(Number); const x = new Date(y, m - 1, d + n); return isoDe(x); };
 const ecartJours = (de, a) => { const f = s => { const [y, m, d] = s.split("-").map(Number); return Date.UTC(y, m - 1, d); }; return Math.round((f(a) - f(de)) / 86400000); };
 const normTel = s => (s || "").replace(/\s+/g, "").trim();
-const cleTel = s => (s || "").replace(/\D/g, "").replace(/^216/, "");
+// Numéro sans indicatif : « +216 20 111 222 », « 0021620111222 » et « 20111222 » donnent « 20111222 ».
+// (Avant la 1.3, un numéro à 8 chiffres commençant par 216 perdait ses 3 premiers chiffres.)
+const cleTel = s => { let d = (s || "").replace(/\D/g, ""); if(d.indexOf("00216") === 0) d = d.slice(5); else if(d.length === 11 && d.indexOf("216") === 0) d = d.slice(3); return d; };
+const cleTelAncienne = s => (s || "").replace(/\D/g, "").replace(/^216/, "");     // clé des comptes créés avant la 1.3
+const PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 const telAffiche = s => { const d = cleTel(s); return d.length === 8 ? "+216 " + d.slice(0, 2) + " " + d.slice(2, 5) + " " + d.slice(5) : (s || ""); };
 const telLien = s => { const d = cleTel(s); return d ? "tel:+216" + d : ""; };
 const waLien = (s, texte) => { const d = cleTel(s); return d ? "https://wa.me/216" + d + (texte ? "?text=" + encodeURIComponent(texte) : "") : ""; };
@@ -856,10 +927,11 @@ function navigateur(){
 
 /* ---------------------------------------------------------------- état */
 const S = {
-  user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [],
-  portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})), agenda: { datesPrises: [] },
+  user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [],
+  portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})),
   route: "", param: "", filtrePortfolio: "Tout", filtreLivraisons: "encours", filtreDemandes: "attente", rechercheClients: "",
-  calMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", modifDemande: null, brouillon: null, pleins: {}
+  calMois: aujourdHui().slice(0, 7), agMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", modifDemande: null, brouillon: null,
+  thumbs: {}, pleins: {}       // miniatures et grandes photos du portfolio, chargées à la demande
 };
 
 /* ================================================================= APP */
@@ -906,14 +978,26 @@ const App = {
     const C = window.Cloud;
     if(!user){
       C.stopAll(); S.user = null; S.prof = null;
-      Object.assign(S, { users: [], livraisons: [], demandes: [], avis: [], notifs: [] });
-      this.finBoot(); this.rendreAuth(); return;
+      Object.assign(S, { users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [] });
+      this.finBoot(); this.rendreAuth();
+      // Coordonnées du studio (contenu public) : pour l'aide « mot de passe oublié » sur un nouveau téléphone.
+      C.get("_config", "studio").then(d => { if(d){ S.studio = Object.assign({}, STUDIO_DEFAUT, d); lsSet("as_studio", d); } }).catch(() => {});
+      return;
     }
     S.user = user;
     let prof = null, lu = false;
     for(const attente of [0, 1200, 3000]){
       if(attente) await new Promise(r => setTimeout(r, attente));
       try{ prof = await C.getProfile(user.uid); lu = true; break; }catch(e){ console.warn("profil", e); }
+    }
+    if(lu && !prof && !this._inscription){
+      // Compte supprimé par Achref : on ferme aussi le compte de connexion, pour libérer l'adresse e-mail.
+      let sup = null; try{ sup = await C.get("comptesSupprimes", user.uid); }catch(e){}
+      if(sup){
+        try{ await C.deleteAuthUser(); this._msgAuth = t("Ce compte a été supprimé par Achref. Vous pouvez créer un nouveau compte avec la même adresse."); }
+        catch(e){ this._msgAuth = t("Ce compte a été supprimé par Achref. Reconnectez-vous une fois pour le fermer définitivement, puis créez un nouveau compte."); try{ await C.signOut(); }catch(x){} }
+        this._modeAuth = "connexion"; this.finBoot(); this.rendreAuth(); return;
+      }
     }
     if(lu && !prof){
       const p = this._inscription || lsGet("as_inscription", {}) || {};
@@ -927,6 +1011,7 @@ const App = {
     if(mail && prof.email !== mail) C.patch("users", prof.id, { email: mail }).catch(() => {});
     if(prof.tel) C.syncLoginIndex(cleTel(prof.tel));
     this.demarrerEcoutes();
+    if(this.estAdmin()) setTimeout(() => this.migrerAgenda(), 1500);
     // Notifications déjà autorisées sur ce téléphone : on (ré)enregistre le jeton pour ce compte.
     try{ const P = window.Push; if(P && P.supported && P.permission() === "granted") P.register().catch(() => {}); }catch(e){}
     this.finBoot();
@@ -939,7 +1024,7 @@ const App = {
     const uid = S.prof.id, admin = this.estAdmin();
     const spec = admin ? [
       { cle: "users", coll: "users" }, { cle: "livraisons", coll: "livraisons" }, { cle: "demandes", coll: "demandes" },
-      { cle: "avis", coll: "avis" }, { cle: "notifs", coll: "notifs", ou: ["target", "admin"] }
+      { cle: "avis", coll: "avis" }, { cle: "notifs", coll: "notifs", ou: ["target", "admin"] }, { cle: "evenements", coll: "evenements" }
     ] : [
       { cle: "prof", doc: ["users", uid] },
       { cle: "livraisons", coll: "livraisons", ou: ["clientId", uid] },
@@ -947,13 +1032,21 @@ const App = {
       { cle: "avis", coll: "avis", ou: ["publie", true] }, { cle: "avis", coll: "avis", ou: ["clientId", uid] },
       { cle: "notifs", coll: "notifs", ou: ["target", uid] }
     ];
-    spec.push({ cle: "portfolio", coll: "portfolio" }, { cle: "forfaits", coll: "forfaits" },
-              { cle: "studio", doc: ["_config", "studio"] }, { cle: "agenda", doc: ["_config", "agenda"] });
+    // Portfolio : un seul petit document « index » ; les photos se chargent à la demande (et restent en cache).
+    spec.push({ cle: "portfolioIndex", doc: ["_config", "portfolio"] }, { cle: "forfaits", coll: "forfaits" },
+              { cle: "studio", doc: ["_config", "studio"] });
     window.Cloud.watch(spec, (cle, data) => this.surDonnees(cle, data));
   },
   surDonnees(cle, data){
     if(cle === "prof"){
-      if(!data) return;
+      if(!data){
+        // Profil effacé (par exemple par Achref) : on vérifie auprès du serveur, puis on recharge.
+        if(S.prof && !this._verifProfil){
+          this._verifProfil = true;
+          setTimeout(async () => { try{ const p = await window.Cloud.getProfile(S.prof.id); if(!p) location.reload(); }catch(e){} this._verifProfil = false; }, 1500);
+        }
+        return;
+      }
       if(S.prof && data.role !== S.prof.role){ location.reload(); return; }   // rôle changé dans la console
       S.prof = data;
     } else if(cle === "users"){
@@ -968,13 +1061,13 @@ const App = {
         if(data.accroche === "Votre histoire, en images.") maj.accroche = STUDIO_DEFAUT.accroche;
         if(Object.keys(maj).length) window.Cloud.patch("_config", "studio", maj).catch(() => {});
       }
-    } else if(cle === "agenda"){
-      S.agenda = Object.assign({ datesPrises: [] }, data || {});
+    } else if(cle === "portfolioIndex"){
+      if(data && Array.isArray(data.photos)) S.portfolio = data.photos.map(p => this.metaPhoto(p));
+      else this.chargerPortfolioDirect();          // index pas encore créé : lecture directe des photos
     } else {
       S[cle] = data || [];
     }
     if(cle === "notifs") this._sonnerSiNouveau();
-    if(cle === "demandes" || cle === "agenda"){ (this._charges = this._charges || {})[cle] = true; if(this.estAdmin()) setTimeout(() => this.libererAnnulations(), 0); }
     this.planifier();
   },
   planifier(){
@@ -1018,6 +1111,7 @@ const App = {
     c.innerHTML = page ? page() : "";
     const apres = this["apres_" + S.route.replace("-", "_")];
     if(apres) apres.call(this);
+    this.chargerMiniatures();
   },
   vueEntete(){
     const st = this.studio(), nonLues = S.notifs.filter(n => !n.lu).length;
@@ -1071,6 +1165,7 @@ const App = {
         <p class="sous">${esc(t(st.metier))}${st.ville ? " — " + esc(st.ville) : ""}</p>
       </section>
       <section class="carte-auth">
+        ${this._msgAuth ? `<div class="encart alerte"><b>${esc(this._msgAuth)}</b></div>` : ""}
         <div class="bascule" role="tablist">
           <button class="${ins ? "" : "on"}" onclick="App.rendreAuth('connexion')">${esc(t("Connexion"))}</button>
           <button class="${ins ? "on" : ""}" onclick="App.rendreAuth('inscription')">${esc(t("Créer un compte"))}</button>
@@ -1116,12 +1211,22 @@ const App = {
     if(/weak-password/.test(c)) return t("Mot de passe trop faible.");
     if(/requires-recent-login/.test(c)) return t("Reconnectez-vous puis réessayez.");
     if(/too-many-requests/.test(c)) return t("Trop de tentatives. Réessayez dans quelques minutes.");
+    if(/quota-exceeded/.test(c)) return t("Trop d'e-mails envoyés pour le moment. Réessayez plus tard.");
+    if(/missing-email/.test(c)) return t("Adresse e-mail invalide.");
     if(/network/.test(c)) return t("Problème de connexion Internet.");
     return t("Une erreur s'est produite. Réessayez.");
+  },
+  // Annuaire numéro -> e-mail : clé actuelle, puis clé des comptes créés avant la version 1.3.
+  async chercherNumero(raw){
+    const C = window.Cloud, cle = cleTel(raw), ancienne = cleTelAncienne(raw);
+    let ent = cle ? await C.lookupPhone(cle) : null;
+    if(!ent && ancienne && ancienne !== cle) ent = await C.lookupPhone(ancienne);
+    return ent;
   },
   async connecter(){
     const id = (document.getElementById("co-id").value || "").trim(), pass = document.getElementById("co-pass").value;
     if(!id || !pass) return this.toast(t("Remplissez tous les champs."), "err");
+    this._msgAuth = "";
     const btn = document.getElementById("co-go"); btn.disabled = true;
     try{
       let essais = [];
@@ -1129,7 +1234,7 @@ const App = {
       else{
         const cle = cleTel(id);
         if(!cle) { btn.disabled = false; return this.toast(t("Numéro de téléphone invalide."), "err"); }
-        const ent = await window.Cloud.lookupPhone(cle);
+        const ent = await this.chercherNumero(id);
         if(ent && ent.email) essais.push(String(ent.email).toLowerCase());
         if(ent && ent.pending) essais.push(String(ent.pending).toLowerCase());
         if(!essais.length){ btn.disabled = false; return this.toast(t("Aucun compte avec ce numéro. Vérifiez-le ou connectez-vous avec votre e-mail."), "err"); }
@@ -1150,9 +1255,10 @@ const App = {
     if(cle.length < 8) return this.toast(t("Numéro de téléphone invalide."), "err");
     if(!estEmail(email)) return this.toast(t("Adresse e-mail invalide."), "err");
     const pb = this.verifMdp(pass); if(pb) return this.toast(pb, "err");
+    this._msgAuth = "";
     const btn = document.getElementById("in-go"); btn.disabled = true;
     try{
-      const ent = await window.Cloud.lookupPhone(cle);
+      const ent = await this.chercherNumero(tel);
       if(ent && ent.uid){ btn.disabled = false; return this.toast(t("Ce numéro a déjà un compte. Connectez-vous ou utilisez « Mot de passe oublié »."), "err"); }
       this._inscription = { nom, tel, email }; lsSet("as_inscription", this._inscription);
       await window.Cloud.signUp(email, pass);
@@ -1174,24 +1280,61 @@ const App = {
   async envoyerOubli(){
     const raw = (document.getElementById("mo-id").value || "").trim(), res = document.getElementById("mo-res"), btn = document.getElementById("mo-go");
     if(!raw) return this.toast(t("Saisissez votre e-mail ou votre numéro."), "err");
-    let mail = "", parTel = false;
+    let mails = [], parTel = false;
     btn.disabled = true;
-    if(raw.indexOf("@") >= 0){ mail = raw.toLowerCase(); if(!estEmail(mail)){ btn.disabled = false; return this.toast(t("Adresse e-mail invalide."), "err"); } }
+    if(raw.indexOf("@") >= 0){ const m = raw.toLowerCase(); if(!estEmail(m)){ btn.disabled = false; return this.toast(t("Adresse e-mail invalide."), "err"); } mails = [m]; }
     else{
-      const cle = cleTel(raw); if(!cle){ btn.disabled = false; return this.toast(t("Numéro de téléphone invalide."), "err"); }
-      parTel = true; const ent = await window.Cloud.lookupPhone(cle); mail = ent && ent.email ? String(ent.email).toLowerCase() : "";
+      if(cleTel(raw).length < 8){ btn.disabled = false; return this.toast(t("Numéro de téléphone invalide."), "err"); }
+      parTel = true; const ent = await this.chercherNumero(raw);
+      // Un changement d'e-mail en cours (« pending ») : le lien part aussi vers la nouvelle adresse.
+      if(ent && ent.email) mails.push(String(ent.email).toLowerCase());
+      if(ent && ent.pending && mails.indexOf(String(ent.pending).toLowerCase()) < 0) mails.push(String(ent.pending).toLowerCase());
     }
-    if(!mail){
+    if(!mails.length){
       btn.disabled = false;
       res.innerHTML = `<div class="encart alerte"><b>${esc(t("Aucun compte avec ce numéro."))}</b><div class="discret" style="margin-top:4px">${esc(t("Vérifiez le numéro, ou saisissez votre adresse e-mail."))}</div></div>`;
       return;
     }
-    try{ await window.Cloud.resetPassword(mail); }
-    catch(e){ if(!/user-not-found/.test((e && e.code) || "")){ btn.disabled = false; return this.toast(this.erreurAuth(e), "err"); } }
+    try{ await this._envoyerLiensOubli(mails); }
+    catch(e){ btn.disabled = false; return this.toast(this.erreurAuth(e), "err"); }
+    this._oubli = { mails, parTel };
+    const st = this.studio(), wa = st.whatsapp || st.tel;
     res.innerHTML = `<div class="encart"><b>${esc(t("E-mail envoyé"))}</b>
-      <div style="margin-top:6px">${esc(t("Si un compte existe, un lien a été envoyé à :"))} <b dir="ltr">${esc(parTel ? masquer(mail) : mail)}</b></div>
-      <div class="discret" style="margin-top:6px">${esc(t("Ouvrez l'e-mail, touchez le lien et choisissez un nouveau mot de passe. Pensez à regarder dans les spams."))}</div></div>`;
+      <div style="margin-top:6px">${esc(t("Si un compte existe, un lien a été envoyé à :"))} <b dir="ltr">${esc(mails.map(m => parTel ? masquer(m) : m).join(" / "))}</b></div>
+      <ul class="conseils-mail">
+        <li>${esc(t("Il arrive en général en moins de 5 minutes."))}</li>
+        <li>${esc(t("Regardez aussi dans « Spam » (ou « Courrier indésirable ») et dans l'onglet « Promotions » de Gmail."))}</li>
+        <li>${esc(t("Cherchez « Achref Sakouhi » ou « mot de passe » dans votre boîte."))}</li>
+        ${parTel ? "" : `<li>${esc(t("Vérifiez que c'est bien l'adresse de votre compte. Vous pouvez aussi saisir votre numéro de téléphone."))}</li>`}
+      </ul>
+      <button type="button" class="btn btn-clair btn-petit" id="mo-renv" disabled onclick="App.renvoyerOubli()">${esc(t("Renvoyer l'e-mail"))}</button>
+      ${wa ? `<p class="discret" style="margin:12px 0 0">${esc(t("Toujours rien ?"))} <a href="${waLien(wa, t("Bonjour, je n'arrive pas à réinitialiser mon mot de passe dans l'application."))}" target="_blank" rel="noopener">${esc(t("Écrivez à Achref sur WhatsApp"))}</a></p>` : ""}</div>`;
     btn.disabled = false; btn.textContent = t("Retour à la connexion"); btn.onclick = () => this.fermer();
+    this.attendreRenvoi(60);
+  },
+  // Lien de réinitialisation ; après le nouveau mot de passe, « Continuer » ramène dans l'app.
+  async _envoyerLiensOubli(mails){
+    const retour = /^https:/.test(location.protocol) ? this.urlApp() : "";
+    let erreur = null, ok = 0;
+    for(const m of mails){
+      try{ await window.Cloud.resetPassword(m, retour); ok++; }
+      catch(e){ if(/user-not-found/.test((e && e.code) || "")) ok++; else erreur = e; }
+    }
+    if(!ok && erreur) throw erreur;
+  },
+  async renvoyerOubli(){
+    const o = this._oubli; if(!o) return;
+    try{ await this._envoyerLiensOubli(o.mails); this.toast(t("E-mail renvoyé."), "ok"); this.attendreRenvoi(60); }
+    catch(e){ this.toast(this.erreurAuth(e), "err"); }
+  },
+  attendreRenvoi(s){
+    clearInterval(this._renvT);
+    const maj = () => {
+      const b = document.getElementById("mo-renv"); if(!b){ clearInterval(this._renvT); return; }
+      if(s <= 0){ clearInterval(this._renvT); b.disabled = false; b.textContent = t("Renvoyer l'e-mail"); return; }
+      b.disabled = true; b.textContent = t("Renvoyer l'e-mail ({n} s)", { n: s }); s--;
+    };
+    maj(); this._renvT = setInterval(maj, 1000);
   },
   async demanderDeconnexion(){
     if(await this.confirmer(t("Se déconnecter ?"), t("Vous pourrez vous reconnecter avec votre numéro ou votre e-mail."), t("Se déconnecter"))) this.deconnecter();
@@ -1379,7 +1522,7 @@ const App = {
   vueHeros(salut, boutons, court){
     const st = this.studio(), diapos = this.diapos(), n = diapos.length, cour = n ? (this._diapoI || 0) % n : 0;
     return `<section class="heros${n ? "" : " sans-photo"}${court ? " court" : ""}" id="heros">
-        ${n ? diapos.map((p, i) => `<div class="diapo${i === cour ? " on" : ""}" data-id="${p.id}" style="background-image:url('${p.thumb}');--fp:${this.cadrage(p)}"></div>`).join("") : `<div class="monogramme-fond" aria-hidden="true">AS</div>`}
+        ${n ? diapos.map((p, i) => { const src = S.pleins[p.id] || S.thumbs[p.id]; return `<div class="diapo${i === cour ? " on" : ""}" data-id="${p.id}" style="${src ? `background-image:url('${src}');` : ""}--fp:${this.cadrage(p)}"></div>`; }).join("") : `<div class="monogramme-fond" aria-hidden="true">AS</div>`}
         <div class="cadre${this._heroVu ? "" : " mise-au-point"}"><span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span></div>
         <div class="texte"><p class="doux" style="margin-bottom:6px">${esc(salut)}</p>
           <h1>${esc(t(st.accroche))}</h1>
@@ -1400,7 +1543,11 @@ const App = {
     if(!this._ecouteCadre){ this._ecouteCadre = true; window.addEventListener("resize", () => this.ajusterCadre()); }
     this._heroVu = true;          // l'animation de mise au point ne se joue qu'une fois
     const d = h.querySelectorAll(".diapo");
-    d.forEach(el => { const id = el.dataset.id; this.imagePleine(id).then(src => { if(src) el.style.backgroundImage = `url('${src}')`; }); });
+    d.forEach(el => {
+      const id = el.dataset.id; if(S.pleins[id]) return;
+      this.miniature(id).then(src => { if(src && !S.pleins[id]) el.style.backgroundImage = `url('${src}')`; });     // vite : la miniature
+      this.imagePleine(id).then(src => { if(src) el.style.backgroundImage = `url('${src}')`; });                   // puis la grande photo
+    });
     clearInterval(this._diapoT);
     if(d.length > 1){
       let i = Array.from(d).findIndex(x => x.classList.contains("on")); if(i < 0) i = 0;
@@ -1422,6 +1569,8 @@ const App = {
       ${this.vueHeros(t("Bonjour") + (u && u.nom ? " " + u.nom.split(" ")[0] : ""),
         `<button class="btn btn-or" onclick="App.aller('reserver')">${esc(t("Réserver une date"))}</button>
             <button class="btn btn-clair" onclick="App.aller('portfolio')">${esc(t("Voir le portfolio"))}</button>`)}
+      ${u && (!u.nom || !u.tel) ? `<button class="encart ligne" style="cursor:pointer;margin-top:14px" onclick="App.aller('compte')">${ico("personne", "chev")}
+          <span class="corps"><span class="t">${esc(t("Complétez votre profil"))}</span><span class="s" style="white-space:normal">${esc(t("Ajoutez votre nom et votre numéro pour qu'Achref vous retrouve."))}</span></span>${ico("chevron", "chev")}</button>` : ""}
       ${prete ? `<button class="encart ligne" style="cursor:pointer;margin-top:14px" onclick="App.aller('photos')">${ico("image", "chev")}
           <span class="corps"><span class="t">${esc(t("Vos photos sont prêtes"))}</span><span class="s">${esc(prete.titre)} — ${esc(this.texteExpiration(prete))}</span></span>${ico("chevron", "chev")}</button>` : ""}
       ${prochaine ? `<div class="encart" style="margin-top:14px"><b>${esc(joursDe(prochaine).length > 1 ? t("Vos dates sont confirmées") : t("Votre date est confirmée"))}</b><div class="doux">${esc(resumeJours(joursDe(prochaine)))}${prochaine.lieu ? " — " + esc(prochaine.lieu) : ""}</div></div>`
@@ -1477,10 +1626,53 @@ const App = {
   },
 
   /* ================================================= PORTFOLIO */
+  /* Les photos sont dans la base : un index léger (_config/portfolio) décrit toutes les photos,
+     et chaque miniature (portfolio/{id}) ou grande photo (portfolioFull/{id}) n'est lue qu'une
+     fois par téléphone, puis reprise du cache. */
+  metaPhoto(p){ return { id: String(p.id), cat: p.cat || "Mariage", legende: p.legende || "", w: p.w || 0, h: p.h || 0, vedette: !!p.vedette, ord: p.ord || 0, cadrage: p.cadrage || "" }; },
+  ecrireIndexPortfolio(){
+    return window.Cloud.put("_config", { id: "portfolio", v: 1, photos: S.portfolio.map(p => this.metaPhoto(p)), updatedAt: Date.now() });
+  },
+  // Index absent (photos ajoutées avant la version 1.3) : on lit les photos une fois ; Achref crée l'index.
+  async chargerPortfolioDirect(){
+    if(this._pfDirect) return; this._pfDirect = true;
+    try{
+      const idx = await window.Cloud.get("_config", "portfolio");
+      if(idx && Array.isArray(idx.photos)){ S.portfolio = idx.photos.map(p => this.metaPhoto(p)); this._pfDirect = false; this.planifier(); return; }
+      const docs = await window.Cloud.listAll("portfolio");
+      docs.forEach(p => { if(p.thumb) S.thumbs[p.id] = p.thumb; });
+      S.portfolio = docs.map(p => this.metaPhoto(p));
+      if(this.estAdmin() && docs.length) await this.ecrireIndexPortfolio();
+      this.planifier();
+    }catch(e){ console.warn("portfolio", e); }
+    this._pfDirect = false;
+  },
+  miniature(id){
+    if(S.thumbs[id]) return Promise.resolve(S.thumbs[id]);
+    const enCours = this._miniEnCours = this._miniEnCours || {};
+    if(!enCours[id]) enCours[id] = window.Cloud.getCache("portfolio", id)
+      .then(d => { delete enCours[id]; if(d && d.thumb){ S.thumbs[id] = d.thumb; return d.thumb; } return null; })
+      .catch(() => { delete enCours[id]; return null; });
+    return enCours[id];
+  },
   async imagePleine(id){
     if(S.pleins[id]) return S.pleins[id];
-    try{ const d = await window.Cloud.get("portfolioFull", id); if(d && d.data){ S.pleins[id] = d.data; return d.data; } }catch(e){}
+    try{ const d = await window.Cloud.getCache("portfolioFull", id); if(d && d.data){ S.pleins[id] = d.data; return d.data; } }catch(e){}
     return null;
+  },
+  // Images marquées data-mini : la miniature est chargée quand elle approche de l'écran.
+  chargerMiniatures(){
+    const els = Array.from(document.querySelectorAll("img[data-mini]:not(.charge)"));
+    if(this._io) this._io.disconnect();
+    if(!els.length) return;
+    const charger = el => this.miniature(el.dataset.mini).then(src => { if(src){ el.src = src; el.classList.add("charge"); } });
+    if(!("IntersectionObserver" in window)) return els.forEach(charger);
+    this._io = new IntersectionObserver(entrees => entrees.forEach(e => { if(e.isIntersecting){ this._io.unobserve(e.target); charger(e.target); } }), { rootMargin: "500px 0px" });
+    els.forEach(el => this._io.observe(el));
+  },
+  imgMini(p, alt){
+    const src = S.thumbs[p.id];
+    return `<img src="${src || PIXEL}"${src ? ` class="charge"` : ` data-mini="${p.id}"`} alt="${esc(alt || "")}" loading="lazy" width="${p.w || 400}" height="${p.h || 500}">`;
   },
   photosFiltrees(){
     const f = S.filtrePortfolio;
@@ -1494,7 +1686,7 @@ const App = {
       <p>${esc(t("En attendant, retrouvez les derniers mariages sur Instagram."))}</p>
       ${st.instagram ? `<a class="btn btn-or" href="https://www.instagram.com/${esc(st.instagram.replace(/^@/, ""))}/" target="_blank" rel="noopener">${ico("insta")} Instagram</a>` : ""}</div>`;
     return tete + `<div class="puces">${cats.map(c => `<button class="puce${S.filtrePortfolio === c ? " on" : ""}" onclick="App.filtrerPortfolio('${esc(c)}')">${esc(t(c))}</button>`).join("")}</div>
-      <div class="mosaique">${liste.map((p, i) => `<button onclick="App.ouvrirVisionneuse(${i})" aria-label="${esc(p.legende || t(p.cat))}"><img src="${p.thumb}" alt="${esc(p.legende || t(p.cat))}" loading="lazy" width="${p.w || 400}" height="${p.h || 500}"></button>`).join("")}</div>`;
+      <div class="mosaique">${liste.map((p, i) => `<button onclick="App.ouvrirVisionneuse(${i})" aria-label="${esc(p.legende || t(p.cat))}">${this.imgMini(p, p.legende || t(p.cat))}</button>`).join("")}</div>`;
   },
   filtrerPortfolio(c){ S.filtrePortfolio = c; this.rendre(); },
   ouvrirVisionneuse(i){
@@ -1513,11 +1705,15 @@ const App = {
   },
   majVisionneuse(){
     const V = this._visio; if(!V) return; const p = V.liste[V.i]; if(!p) return;
-    const img = document.getElementById("vi-img"); img.src = p.thumb; img.classList.add("flou"); img.alt = p.legende || t(p.cat);
+    const img = document.getElementById("vi-img"), plein = S.pleins[p.id];
+    img.src = plein || S.thumbs[p.id] || PIXEL; img.classList.toggle("flou", !plein); img.alt = p.legende || t(p.cat);
     document.getElementById("vi-n").textContent = (V.i + 1) + " / " + V.liste.length;
     document.getElementById("vi-leg").textContent = p.legende || t(p.cat);
     document.querySelectorAll("#visio .nav").forEach(b => { b.style.visibility = V.liste.length > 1 ? "visible" : "hidden"; });
-    this.imagePleine(p.id).then(src => { if(this._visio && this._visio.liste[this._visio.i] === p){ if(src) img.src = src; img.classList.remove("flou"); } });
+    const encore = () => this._visio && this._visio.liste[this._visio.i] === p;
+    if(plein) return;
+    this.miniature(p.id).then(src => { if(src && encore() && !S.pleins[p.id]) img.src = src; });
+    this.imagePleine(p.id).then(src => { if(encore()){ if(src) img.src = src; img.classList.remove("flou"); } });
   },
   pasVisionneuse(d){ const V = this._visio; if(!V) return; V.i = (V.i + d + V.liste.length) % V.liste.length; this.majVisionneuse(); },
   fermerVisionneuse(){ const v = document.getElementById("visio"); if(v) v.hidden = true; this._visio = null; document.body.style.overflow = ""; },
@@ -1616,15 +1812,15 @@ const App = {
   },
   vueCalendrier(){
     const [y, m] = S.calMois.split("-").map(Number), premier = new Date(y, m - 1, 1), nb = new Date(y, m, 0).getDate();
-    const decal = (premier.getDay() + 6) % 7, auj = aujourdHui(), pris = (S.agenda.datesPrises || []);
+    const decal = (premier.getDay() + 6) % 7, auj = aujourdHui();
     let titre = ""; try{ titre = new Intl.DateTimeFormat(loc(), { month: "long", year: "numeric" }).format(premier); }catch(e){ titre = S.calMois; }
-    const jours = []; for(let i = 0; i < 7; i++){ const d = new Date(2024, 0, 1 + i); try{ jours.push(new Intl.DateTimeFormat(loc(), { weekday: "narrow" }).format(d)); }catch(e){ jours.push(""); } }
-    let cases = jours.map(j => `<span class="entete-j">${esc(j)}</span>`).join("");
+    let cases = this.entetesSemaine();
     for(let i = 0; i < decal; i++) cases += "<span></span>";
+    // Toutes les dates à venir peuvent être demandées : Achref décide (il peut envoyer son équipe).
     for(let d = 1; d <= nb; d++){
-      const iso = y + "-" + pad(m) + "-" + pad(d), passe = iso < auj, estPris = pris.indexOf(iso) >= 0, choisi = S.joursChoisis.some(j => j.date === iso);
+      const iso = y + "-" + pad(m) + "-" + pad(d), passe = iso < auj, choisi = S.joursChoisis.some(j => j.date === iso);
       cases += passe ? `<span class="j" style="opacity:.3">${d}</span>`
-        : `<button type="button" class="j puce${choisi ? " on" : ""}${estPris ? " pris" : ""}" data-date="${iso}" aria-pressed="${choisi}" aria-label="${esc(dateLongue(iso))}${estPris ? " — " + esc(t("Déjà réservée")) : ""}" onclick="App.basculerJour('${iso}')">${d}</button>`;
+        : `<button type="button" class="j puce${choisi ? " on" : ""}" data-date="${iso}" aria-pressed="${choisi}" aria-label="${esc(dateLongue(iso))}" onclick="App.basculerJour('${iso}')">${d}</button>`;
     }
     const moisPrec = S.calMois > auj.slice(0, 7);
     return `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
@@ -1632,7 +1828,11 @@ const App = {
         <b style="font-weight:500;text-transform:capitalize">${esc(titre)}</b>
         <button type="button" class="btn-icone" onclick="App.changerMois(1)" aria-label="${esc(t("Mois suivant"))}">${ico(LANG === "ar" ? "gauche" : "droite")}</button></div>
       <div class="cal" id="cal">${cases}</div>
-      <div class="cal-legende"><span><i class="ech on"></i>${esc(t("Vos jours"))}</span><span><i class="ech pris"></i>${esc(t("Déjà réservée"))}</span></div>`;
+      <div class="cal-legende"><span><i class="ech on"></i>${esc(t("Vos jours"))}</span></div>`;
+  },
+  entetesSemaine(){
+    const jours = []; for(let i = 0; i < 7; i++){ const d = new Date(2024, 0, 1 + i); try{ jours.push(new Intl.DateTimeFormat(loc(), { weekday: "narrow" }).format(d)); }catch(e){ jours.push(""); } }
+    return jours.map(j => `<span class="entete-j">${esc(j)}</span>`).join("");
   },
   vueJoursChoisis(){
     const J = S.joursChoisis.slice().sort((a, b) => a.date < b.date ? -1 : 1);
@@ -1656,7 +1856,6 @@ const App = {
     const i = S.joursChoisis.findIndex(j => j.date === iso);
     if(i >= 0) S.joursChoisis.splice(i, 1);
     else{
-      if((S.agenda.datesPrises || []).indexOf(iso) >= 0) return this.toast(t("Ce jour est déjà réservé. Choisissez-en un autre ou écrivez à Achref."), "err");
       if(S.joursChoisis.length >= MAX_JOURS) return this.toast(t("{n} jours au plus par demande.", { n: MAX_JOURS }), "err");
       S.joursChoisis.push({ date: iso, type: "Mariage" });
     }
@@ -1691,8 +1890,6 @@ const App = {
     const jours = S.joursChoisis.slice().sort((a, b) => a.date < b.date ? -1 : 1).map(j => ({ date: j.date, type: j.type }));
     if(!jours.length) return this.toast(t("Choisissez au moins un jour dans le calendrier."), "err");
     if(jours.some(j => j.date < aujourdHui())) return this.toast(t("Cette date est passée."), "err");
-    const pris = S.agenda.datesPrises || [], bloque = jours.find(j => pris.indexOf(j.date) >= 0);
-    if(bloque) return this.toast(t("Le {date} est déjà réservé. Retirez ce jour ou écrivez à Achref.", { date: dateLongue(bloque.date) }), "err");
     const f = S.forfaits.find(x => x.id === fid), u = S.prof;
     const d = { id: nouvelId("d"), clientId: u.id, clientNom: u.nom || "", clientTel: u.tel || "", clientEmail: u.email || "",
       jours, date: jours[0].date, dateFin: jours[jours.length - 1].date, type: jours[0].type,
@@ -1715,7 +1912,7 @@ const App = {
     const d = S.demandes.find(x => x.id === id); if(!d) return;
     const confirmee = d.statut === "confirmee";
     if(!(await this.confirmer(confirmee ? t("Annuler la réservation ?") : t("Annuler la demande ?"),
-      confirmee ? t("Achref sera prévenu et vos dates seront libérées pour d'autres mariés.") : t("Achref sera prévenu que cette date ne vous intéresse plus."),
+      confirmee ? t("Achref sera prévenu de l'annulation de votre réservation.") : t("Achref sera prévenu que cette date ne vous intéresse plus."),
       confirmee ? t("Annuler la réservation") : t("Annuler la demande"), true))) return;
     try{
       await window.Cloud.patch("demandes", id, { statut: "annulee", updatedAt: Date.now() });
@@ -1853,7 +2050,7 @@ const App = {
     const notif = { id: "n_del_" + u.id, target: "admin", kind: "compte_supprime",
       fr: { t: tl("fr", "Compte client supprimé"), b: tl("fr", "{nom} ({tel}) a supprimé son compte.", vars) },
       ar: { t: tl("ar", "Compte client supprimé"), b: tl("ar", "{nom} ({tel}) a supprimé son compte.", vars) }, lien: "clients", ts: Date.now(), lu: false, envoi: "attente" };
-    try{ await window.Cloud.deleteMyAccount(pass, { cle: cleTel(u.tel), notif }); }
+    try{ await window.Cloud.deleteMyAccount(pass, { cles: [cleTel(u.tel), cleTelAncienne(u.tel)], notif }); }
     catch(e){ btn.disabled = false; btn.textContent = t("Supprimer définitivement mon compte"); return this.toast(/invalid-credential|wrong-password/.test((e && e.code) || "") ? t("Mot de passe incorrect.") : this.erreurAuth(e), "err"); }
     this.fermer(); this.toast(t("Votre compte a été supprimé."), "ok"); setTimeout(() => { location.hash = ""; location.reload(); }, 1500);
   },
@@ -1900,7 +2097,10 @@ const App = {
     const bientot = S.livraisons.filter(l => !l.telechargeAt && ecartJours(auj, l.expireLe) >= 0 && ecartJours(auj, l.expireLe) <= 1).length;
     const nouveauLien = S.livraisons.filter(l => l.nouveauLienDemandeAt && !l.telechargeAt && ecartJours(auj, l.expireLe) < 0).length;
     const aValider = S.avis.filter(a => !a.publie).length;
-    const prochains = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= auj).sort((a, b) => a.date < b.date ? -1 : 1).slice(0, 5);
+    // Prochains jours de travail : réservations confirmées et événements ajoutés à la main.
+    const prochains = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= auj).map(d => ({ date: joursDe(d)[0].date, d }))
+      .concat(S.evenements.filter(e => e.date >= auj).map(e => ({ date: e.date, e })))
+      .sort((a, b) => a.date < b.date ? -1 : (a.date > b.date ? 1 : 0)).slice(0, 6);
     const ligne = (n, l, r) => `<button class="compteur" onclick="App.aller('${r}')"><span class="n">${n}</span><span class="l">${esc(l)}</span>${ico("chevron", "chev")}</button>`;
     return `${this.vueHeros(t("Bonjour") + " " + (S.prof.nom || st.nom).split(" ")[0],
         `<button class="btn btn-or" onclick="App.ouvrirLivraison()">${ico("envoyer")} ${esc(t("Envoyer des photos à un client"))}</button>`, true)}
@@ -1911,15 +2111,122 @@ const App = {
         ${ligne(nonTel, t("livraison(s) pas encore téléchargée(s)"), "livraisons")}
         ${aValider ? ligne(aValider, t("avis à valider"), "a-avis") : ""}
         ${ligne(this.clients().length, t("clients inscrits"), "clients")}</div>
+      <div class="titre-section" id="agenda-titre"><h2>${esc(t("Agenda"))}</h2></div>
+      <div class="bloc" id="agenda">${this.vueAgenda()}</div>
       <div class="titre-section"><h2>${esc(t("Prochains événements"))}</h2></div>
-      ${prochains.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${prochains.map(d => `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')">
-        <span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(plage(joursDe(d)))}</span><span class="s">${esc(typesDemande(d))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
+      ${prochains.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${prochains.map(x => x.d ? `<button class="ligne" onclick="App.ouvrirDemande('${x.d.id}')">
+        <span class="avatar">${esc(initiales(x.d.clientNom))}</span><span class="corps"><span class="t">${esc(plage(joursDe(x.d)))}</span><span class="s">${esc(typesDemande(x.d))} — ${esc(x.d.clientNom)}${x.d.lieu ? " — " + esc(x.d.lieu) : ""}</span></span>${ico("chevron", "chev")}</button>`
+        : `<button class="ligne" onclick="App.ouvrirJour('${x.e.date}')"><span class="avatar">${ico("calendrier")}</span><span class="corps"><span class="t">${esc(dateLongue(x.e.date))}</span>
+          <span class="s">${esc(t(x.e.type || "Événement"))}${x.e.note ? " — " + esc(x.e.note) : ""} · ${esc(t("Ajouté à la main"))}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
         : `<div class="vide"><p>${esc(t("Aucun événement confirmé pour l'instant."))}</p></div>`}
       ${this.etatPush() !== "granted" ? `<div style="margin-top:14px">${this.vueNotifs(false)}</div>` : ""}
       ${this.encartInstall()}`;
   },
 
-  apres_tableau(){ this.demarrerDiaporama(); },
+  apres_tableau(){
+    this.demarrerDiaporama();
+    if(S.param === "agenda"){ S.param = ""; history.replaceState(null, "", "#tableau"); const a = document.getElementById("agenda-titre"); if(a) setTimeout(() => a.scrollIntoView({ block: "start", behavior: "smooth" }), 60); }
+  },
+
+  /* ================================================= ADMIN : AGENDA */
+  /* Jours de travail = réservations confirmées + événements ajoutés à la main (pris hors de l'app).
+     Plusieurs événements le même jour sont possibles : Achref peut envoyer son équipe. */
+  agendaParDate(){
+    const m = {}, add = (date, x) => { (m[date] = m[date] || []).push(x); };
+    S.demandes.forEach(d => {
+      if(d.statut !== "confirmee" && d.statut !== "attente") return;
+      joursDe(d).forEach(j => add(j.date, { genre: d.statut, date: j.date, type: j.type, nom: d.clientNom || "", lieu: d.lieu || "", d }));
+    });
+    S.evenements.forEach(e => { if(e && e.date) add(e.date, { genre: "manuel", date: e.date, type: e.type || "Événement", nom: e.note || "", e }); });
+    return m;
+  },
+  vueAgenda(){
+    const [y, m] = S.agMois.split("-").map(Number), premier = new Date(y, m - 1, 1), nb = new Date(y, m, 0).getDate();
+    const decal = (premier.getDay() + 6) % 7, auj = aujourdHui(), A = this.agendaParDate();
+    let titre = ""; try{ titre = new Intl.DateTimeFormat(loc(), { month: "long", year: "numeric" }).format(premier); }catch(e){ titre = S.agMois; }
+    let cases = this.entetesSemaine(), joursTravail = 0, enAttente = new Set();
+    for(let i = 0; i < decal; i++) cases += "<span></span>";
+    for(let d = 1; d <= nb; d++){
+      const iso = y + "-" + pad(m) + "-" + pad(d), ev = A[iso] || [];
+      const travail = ev.filter(x => x.genre !== "attente").length, att = ev.filter(x => x.genre === "attente");
+      if(travail) joursTravail++;
+      att.forEach(x => enAttente.add(x.d.id));
+      const cls = "aj" + (travail ? " travail" : (att.length ? " attente" : "")) + (iso === auj ? " auj" : "") + (iso < auj ? " passe" : "");
+      const etiquette = dateLongue(iso) + (travail ? " — " + t("{n} jour(s) de travail", { n: travail }) : "") + (att.length ? " — " + t("{n} demande(s) en attente", { n: att.length }) : "");
+      cases += `<button type="button" class="${cls}" onclick="App.ouvrirJour('${iso}')" aria-label="${esc(etiquette)}">${d}${travail > 1 ? `<span class="nb">${travail}</span>` : ""}${travail && att.length ? `<span class="pt"></span>` : ""}</button>`;
+    }
+    const ceMois = S.agMois === auj.slice(0, 7);
+    return `<div class="agenda-tete">
+        <button type="button" class="btn-icone" onclick="App.changerMoisAgenda(-1)" aria-label="${esc(t("Mois précédent"))}">${ico(LANG === "ar" ? "droite" : "gauche")}</button>
+        <b>${esc(titre)}</b>
+        <button type="button" class="btn-icone" onclick="App.changerMoisAgenda(1)" aria-label="${esc(t("Mois suivant"))}">${ico(LANG === "ar" ? "gauche" : "droite")}</button></div>
+      <div class="cal">${cases}</div>
+      <div class="cal-legende"><span><i class="ech travail"></i>${esc(t("Jour de travail"))}</span><span><i class="ech attente"></i>${esc(t("Demande en attente"))}</span><span><i class="ech auj"></i>${esc(t("Aujourd'hui"))}</span></div>
+      <p class="discret resume-mois">${esc(t("Ce mois-ci : {a} jour(s) de travail · {b} demande(s) en attente", { a: joursTravail, b: enAttente.size }))}
+        ${ceMois ? "" : ` · <button type="button" class="lien" onclick="App.changerMoisAgenda(0)">${esc(t("Revenir à aujourd'hui"))}</button>`}</p>
+      <p class="discret" style="margin:4px 0 0">${esc(t("Touchez un jour pour voir le détail ou ajouter un événement pris en dehors de l'app."))}</p>`;
+  },
+  changerMoisAgenda(d){
+    if(!d) S.agMois = aujourdHui().slice(0, 7);
+    else{ const [y, m] = S.agMois.split("-").map(Number), x = new Date(y, m - 1 + d, 1); S.agMois = x.getFullYear() + "-" + pad(x.getMonth() + 1); }
+    const el = document.getElementById("agenda"); if(el) el.innerHTML = this.vueAgenda();
+  },
+  ouvrirJour(iso){
+    const ordre = { confirmee: 0, manuel: 1, attente: 2 };
+    const ev = (this.agendaParDate()[iso] || []).slice().sort((a, b) => ordre[a.genre] - ordre[b.genre]);
+    const travail = ev.filter(x => x.genre !== "attente").length;
+    const item = x => {
+      if(x.genre === "manuel") return `<div class="ligne" style="cursor:default"><span class="avatar">${ico("calendrier")}</span>
+          <span class="corps"><span class="t">${esc(t(x.type))}${x.nom ? " — " + esc(x.nom) : ""}</span><span class="s">${esc(t("Ajouté à la main"))}</span></span>
+          <span class="etat danger">${esc(t("Jour de travail"))}</span>
+          <button type="button" class="btn-icone btn-suppr" onclick="App.supprimerEvenement('${x.e.id}','${iso}')" aria-label="${esc(t("Retirer de l'agenda"))}" title="${esc(t("Retirer de l'agenda"))}">${ico("corbeille")}</button></div>`;
+      const conf = x.genre === "confirmee";
+      return `<button type="button" class="ligne" onclick="App.fermer();setTimeout(()=>App.ouvrirDemande('${x.d.id}'),250)"><span class="avatar">${esc(initiales(x.nom))}</span>
+          <span class="corps"><span class="t">${esc(t(x.type))} — ${esc(x.nom || t("Client"))}</span><span class="s">${esc([x.lieu, x.d.forfaitNom].filter(Boolean).join(" · ") || plage(joursDe(x.d)))}</span></span>
+          <span class="etat ${conf ? "ok" : "alerte"}">${esc(t(conf ? "Confirmée" : "En attente"))}</span></button>`;
+    };
+    const corps = `${travail > 1 ? `<div class="encart alerte"><b>${esc(t("{n} événements ce jour : prévoyez votre équipe.", { n: travail }))}</b></div>` : ""}
+      ${ev.length ? `<div class="liste">${ev.map(item).join("")}</div>` : `<p class="doux">${esc(t("Aucun événement ce jour."))}</p>`}
+      <h3 style="margin:18px 0 10px">${esc(t("Ajouter un événement ce jour"))}</h3>
+      <div class="champ"><label for="ev-type">${esc(t("Événement"))}</label><select class="saisie" id="ev-type">${TYPES_EVT.map(x => `<option value="${esc(x)}">${esc(t(x))}</option>`).join("")}</select></div>
+      <div class="champ"><label for="ev-note">${esc(t("Note (facultatif)"))}</label><input class="saisie" id="ev-note" maxlength="140" placeholder="${esc(t("Par exemple : mariage pris par téléphone, salle Le Pacha"))}"></div>
+      <p class="aide" style="margin-top:-6px">${esc(t("Visible par vous seul. Le jour apparaît en rouge dans votre agenda."))}</p>`;
+    let titre = dateAvecJour(iso); titre = titre.charAt(0).toUpperCase() + titre.slice(1);
+    this.feuille(titre, corps, `<button class="btn btn-or btn-bloc" id="ev-go" onclick="App.ajouterEvenement('${iso}')">${ico("ajout")} ${esc(t("Ajouter à l'agenda"))}</button>`);
+  },
+  majAgenda(){ const el = document.getElementById("agenda"); if(el) el.innerHTML = this.vueAgenda(); },
+  async ajouterEvenement(iso){
+    const type = document.getElementById("ev-type").value, note = (document.getElementById("ev-note").value || "").trim();
+    const e = { id: nouvelId("e"), date: iso, type: TYPES_EVT.indexOf(type) >= 0 ? type : "Événement", note, createdAt: Date.now() };
+    const btn = document.getElementById("ev-go"); btn.disabled = true;
+    try{
+      await window.Cloud.put("evenements", e);
+      if(!S.evenements.some(x => x.id === e.id)) S.evenements = S.evenements.concat([e]);
+      this.toast(t("Ajouté à l'agenda."), "ok"); this.majAgenda(); this.ouvrirJour(iso);
+    }catch(x){ btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async supprimerEvenement(id, iso){
+    if(!(await this.confirmer(t("Retirer cet événement ?"), t("Il disparaîtra de votre agenda."), t("Retirer"), true))) return this.ouvrirJour(iso);
+    try{ await window.Cloud.del("evenements", id); S.evenements = S.evenements.filter(x => x.id !== id); this.toast(t("Retiré de l'agenda."), "ok"); }
+    catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+    this.majAgenda(); this.ouvrirJour(iso);
+  },
+  // Version 1.3 : les anciennes « dates déjà prises » ajoutées à la main deviennent des événements de l'agenda.
+  async migrerAgenda(){
+    if(!this.estAdmin() || this._migrAgenda) return; this._migrAgenda = true;
+    const C = window.Cloud;
+    try{
+      const ag = await C.get("_config", "agenda"), dates = (ag && ag.datesPrises) || [];
+      if(!dates.length) return;
+      const conf = await C.listWhere("demandes", "statut", "confirmee");
+      const couvertes = new Set(conf.flatMap(d => joursDe(d).map(j => j.date)));
+      for(const d of dates){
+        if(couvertes.has(d)) continue;
+        await C.put("evenements", { id: "e_ancien_" + d.replace(/-/g, ""), date: d, type: "Événement", note: "", createdAt: Date.now() });
+      }
+      await C.put("_config", { id: "agenda", datesPrises: [], migreLe: Date.now() });
+    }catch(e){ console.warn("agenda", e); this._migrAgenda = false; }
+  },
 
   /* ================================================= ADMIN : LIVRAISONS */
   etatLivraison(l){
@@ -2088,10 +2395,14 @@ const App = {
     if(!(await this.confirmer(t("Supprimer ce client ?"), t("Ses livraisons, demandes, avis et notifications seront effacés. Il pourra recréer un compte s'il le souhaite."), t("Supprimer"), true))) return;
     const C = window.Cloud;
     try{
+      // Marque « supprimé » : à sa prochaine connexion, l'app du client ferme aussi son compte de connexion
+      // (sinon il retomberait sur un profil vide et ne pourrait pas recréer de compte avec la même adresse).
+      await C.put("comptesSupprimes", { id, ts: Date.now() });
       for(const [coll, champ] of [["livraisons", "clientId"], ["demandes", "clientId"], ["avis", "clientId"], ["notifs", "target"]]){
         const docs = await C.listWhere(coll, champ, id); await Promise.allSettled(docs.map(d => C.del(coll, d.id)));
       }
       await C.removeLoginIndex(cleTel(c.tel), id);
+      if(cleTelAncienne(c.tel) !== cleTel(c.tel)) await C.removeLoginIndex(cleTelAncienne(c.tel), id);
       await C.del("users", id);
       this.toast(t("Client supprimé."), "ok");
     }catch(e){ console.warn(e); this.toast(t("Suppression incomplète. Vérifiez la connexion et réessayez."), "err"); }
@@ -2116,65 +2427,38 @@ const App = {
       ${f === "fermees" && liste.length ? `<button class="btn btn-danger btn-bloc" onclick="App.supprimerDemandesFermees()">${ico("corbeille")} ${esc(t("Supprimer ces {n} demandes", { n: liste.length }))}</button>` : ""}`;
   },
   filtreD(k){ S.filtreDemandes = k; this.rendre(); },
-  // Dates d'une demande encore marquées « prises » alors qu'aucune réservation confirmée ne les garde.
-  datesALiberer(d){
-    const pris = S.agenda.datesPrises || [];
-    const gardees = new Set(S.demandes.filter(x => x.id !== d.id && x.statut === "confirmee").flatMap(x => joursDe(x).map(j => j.date)));
-    return joursDe(d).map(j => j.date).filter(x => pris.indexOf(x) >= 0 && !gardees.has(x));
-  },
-  async libererDates(dates){
-    if(!dates.length) return;
-    const reste = (S.agenda.datesPrises || []).filter(x => dates.indexOf(x) < 0).sort();
-    S.agenda = Object.assign({}, S.agenda, { datesPrises: reste });
-    await window.Cloud.put("_config", { id: "agenda", datesPrises: reste });
-  },
-  // Un client a annulé une réservation confirmée : ses dates redeviennent libres (côté Achref, seul autorisé à modifier l'agenda).
-  async libererAnnulations(){
-    if(!this.estAdmin() || this._liberation || !(this._charges && this._charges.demandes && this._charges.agenda)) return;
-    const aFaire = S.demandes.filter(d => d.statut === "annulee" && d.confirmeeAt && !d.datesLibereesAt);
-    if(!aFaire.length) return;
-    this._liberation = true;
-    try{
-      for(const d of aFaire){ await this.libererDates(this.datesALiberer(d)); await window.Cloud.patch("demandes", d.id, { datesLibereesAt: Date.now() }); }
-    }catch(e){ console.warn("dates libérées", e); }
-    this._liberation = false;
-  },
-  async libererDatesDemande(id){
-    const d = S.demandes.find(x => x.id === id); if(!d) return;
-    try{ await this.libererDates(this.datesALiberer(d)); await window.Cloud.patch("demandes", id, { datesLibereesAt: Date.now() }); this.fermer(); this.toast(t("Dates libérées dans le calendrier."), "ok"); }
-    catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
-  },
   async supprimerDemande(id){
     const d = S.demandes.find(x => x.id === id); if(!d) return;
     const conf = d.statut === "confirmee";
-    if(!(await this.confirmer(t("Supprimer cette demande ?"), conf ? t("Cette réservation est confirmée : ses dates seront libérées dans le calendrier. Le client ne sera pas prévenu.") : t("Elle disparaîtra de votre liste et de celle du client."), t("Supprimer"), true))) return;
-    try{ await this.libererDates(this.datesALiberer(d)); await window.Cloud.del("demandes", id); this.toast(t("Demande supprimée."), "ok"); }
+    if(!(await this.confirmer(t("Supprimer cette demande ?"), conf ? t("Cette réservation confirmée disparaîtra de votre agenda et de la liste du client. Le client ne sera pas prévenu.") : t("Elle disparaîtra de votre liste et de celle du client."), t("Supprimer"), true))) return;
+    try{ await window.Cloud.del("demandes", id); this.toast(t("Demande supprimée."), "ok"); }
     catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
   },
   async supprimerDemandesFermees(){
     const liste = S.demandes.filter(d => d.statut === "refusee" || d.statut === "annulee"); if(!liste.length) return;
     if(!(await this.confirmer(t("Supprimer ces {n} demandes ?", { n: liste.length }), t("Les demandes refusées et annulées disparaîtront de votre liste et de celle des clients."), t("Supprimer"), true))) return;
-    try{ for(const d of liste) await this.libererDates(this.datesALiberer(d)); }catch(e){ console.warn(e); }
     const r = await Promise.allSettled(liste.map(d => window.Cloud.del("demandes", d.id)));
     this.toast(r.some(x => x.status === "rejected") ? t("Suppression incomplète. Vérifiez la connexion et réessayez.") : t("Demandes supprimées."), r.some(x => x.status === "rejected") ? "err" : "ok");
   },
   apres_demandes(){ if(S.param){ const id = S.param; S.param = ""; history.replaceState(null, "", "#demandes"); this.ouvrirDemande(id); } },
   ouvrirDemande(id){
     const d = S.demandes.find(x => x.id === id); if(!d) return;
-    const jours = joursDe(d), pris = S.agenda.datesPrises || [];
-    const prises = d.statut !== "confirmee" ? jours.filter(j => pris.indexOf(j.date) >= 0) : [];
+    const jours = joursDe(d), A = this.agendaParDate();
+    // Ce qui est déjà prévu ces jours-là (autres réservations confirmées, événements ajoutés à la main, autres demandes).
+    const autres = jours.flatMap(j => (A[j.date] || []).filter(x => !(x.d && x.d.id === d.id)));
+    const statutAutre = x => x.genre === "confirmee" ? t("Confirmée") : (x.genre === "attente" ? t("En attente") : t("Ajouté à la main"));
     const corps = `<dl class="kv"><dt>${esc(t("Client"))}</dt><dd>${esc(d.clientNom)}</dd>
         <dt>${esc(jours.length > 1 ? t("Jours") : t("Date"))}</dt><dd><ul class="jours-demande">${jours.map(j => `<li><b>${esc(t(j.type))}</b><span>${esc(dateAvecJour(j.date))}</span></li>`).join("")}</ul></dd>
         ${d.lieu ? `<dt>${esc(t("Lieu"))}</dt><dd>${esc(d.lieu)}</dd>` : ""}
         ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}</dd>` : ""}<dt>${esc(t("Statut"))}</dt><dd>${esc(t(this.libelleStatut(d.statut)))}</dd></dl>
       ${d.message ? `<p class="mot" style="margin-top:12px;padding:10px 12px;border-inline-start:2px solid var(--or);background:rgba(201,164,92,.06)">${txt(d.message)}</p>` : ""}
-      ${prises.length ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(prises.length > 1 || jours.length > 1 ? t("Attention : déjà marqué comme pris : {dates}.", { dates: prises.map(j => dateLongue(j.date)).join(", ") }) : t("Attention : cette date est déjà marquée comme prise."))}</b></div>` : ""}
+      ${autres.length ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(t("Déjà prévu ces jours-là :"))}</b>
+          <ul class="conseils-mail" style="margin:8px 0 6px">${autres.map(x => `<li>${esc(dateCourte(x.date))} — ${esc(t(x.type))}${x.nom ? " — " + esc(x.nom) : ""} (${esc(statutAutre(x))})</li>`).join("")}</ul>
+          <div class="discret">${esc(t("Vous pouvez quand même confirmer, par exemple en envoyant votre équipe."))}</div></div>` : ""}
       <div class="rangee" style="margin:12px 0">${d.clientTel ? `<a class="btn btn-petit" href="${telLien(d.clientTel)}">${ico("tel")} ${esc(t("Appeler"))}</a><a class="btn btn-petit" href="${waLien(d.clientTel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>` : ""}</div>
       <div class="champ"><label for="dm-note">${esc(t("Réponse au client (facultatif)"))}</label><textarea class="saisie" id="dm-note" placeholder="${esc(t("Par exemple : je vous appelle demain pour le devis."))}">${esc(d.noteAdmin || "")}</textarea></div>`;
-    const aLiberer = d.statut === "annulee" ? this.datesALiberer(d) : [];
     const suppr = `<button class="btn btn-clair btn-bloc" style="margin-top:10px" onclick="App.supprimerDemande('${id}')">${ico("corbeille")} ${esc(t("Supprimer cette demande"))}</button>`;
-    const pied = d.statut === "annulee" ? `<p class="discret" style="margin-bottom:10px">${esc(t("Le client a annulé cette demande."))}</p>
-        ${aLiberer.length ? `<button class="btn btn-or btn-bloc" onclick="App.libererDatesDemande('${id}')">${esc(t("Libérer les dates dans le calendrier"))}</button>` : ""}${suppr}` :
+    const pied = d.statut === "annulee" ? `<p class="discret" style="margin-bottom:10px">${esc(t("Le client a annulé cette demande."))}</p>${suppr}` :
       `<div class="rangee"><button class="btn btn-danger" onclick="App.repondreDemande('${id}','refusee')">${esc(t("Date indisponible"))}</button>
         <button class="btn btn-or" onclick="App.repondreDemande('${id}','confirmee')">${ico("coche")} ${esc(t("Confirmer"))}</button></div>${suppr}`;
     this.feuille(t("Demande de réservation"), corps, pied);
@@ -2183,14 +2467,8 @@ const App = {
     const d = S.demandes.find(x => x.id === id); if(!d) return;
     const note = (document.getElementById("dm-note").value || "").trim();
     try{
-      await window.Cloud.patch("demandes", id, Object.assign({ statut, noteAdmin: note, updatedAt: Date.now() }, statut === "confirmee" ? { confirmeeAt: d.confirmeeAt || Date.now(), datesLibereesAt: null } : {}));
-      // Tous les jours de la demande sont pris (confirmée) ou libérés (si elle était confirmée).
-      let dates = (S.agenda.datesPrises || []).slice();
-      const jours = joursDe(d).map(j => j.date);
-      if(statut === "confirmee") jours.forEach(x => { if(dates.indexOf(x) < 0) dates.push(x); });
-      else if(d.statut === "confirmee") dates = dates.filter(x => jours.indexOf(x) < 0);
-      dates.sort();
-      if(JSON.stringify(dates) !== JSON.stringify((S.agenda.datesPrises || []).slice().sort())) await window.Cloud.put("_config", { id: "agenda", datesPrises: dates });
+      // Une réservation confirmée apparaît dans l'agenda d'Achref ; elle ne bloque plus la date pour les autres clients.
+      await window.Cloud.patch("demandes", id, Object.assign({ statut, noteAdmin: note, updatedAt: Date.now() }, statut === "confirmee" ? { confirmeeAt: d.confirmeeAt || Date.now() } : {}));
       const vars = { date: deuxLangues(l => plage(joursDe(d), l)) };
       if(statut === "confirmee") await this.notifier(d.clientId, "demande", "Date confirmée", "Votre demande du {date} est confirmée.", vars, "reserver");
       else await this.notifier(d.clientId, "demande", "Réponse à votre demande", "Achref a répondu à votre demande du {date}.", vars, "reserver");
@@ -2220,7 +2498,7 @@ const App = {
         <label class="btn btn-or btn-bloc" for="pf-fichiers" id="pf-btn">${ico("ajout")} ${esc(t("Ajouter des photos"))}</label>
         <input type="file" id="pf-fichiers" accept="image/*" multiple hidden onchange="App.ajouterPhotos(this.files)">
         <p class="aide">${esc(t("Les photos sont réduites automatiquement. Touchez une photo pour la mettre en avant sur l'accueil (étoile) ou la supprimer."))}</p></div>
-      ${liste.length ? `<div class="mosaique mosaique-admin">${liste.map(p => `<button onclick="App.ouvrirPhoto('${p.id}')" aria-label="${esc(p.legende || t(p.cat))}"><img src="${p.thumb}" alt="" loading="lazy" width="${p.w || 400}" height="${p.h || 500}">${p.vedette ? `<span class="vedette">★</span>` : ""}</button>`).join("")}</div>`
+      ${liste.length ? `<div class="mosaique mosaique-admin">${liste.map(p => `<button onclick="App.ouvrirPhoto('${p.id}')" aria-label="${esc(p.legende || t(p.cat))}">${this.imgMini(p, "")}${p.vedette ? `<span class="vedette">★</span>` : ""}</button>`).join("")}</div>`
         : `<div class="vide">${ico("grille")}<p>${esc(t("Ajoutez vos plus belles photos : elles s'affichent dans le portfolio des clients."))}</p></div>`}`;
   },
   reduireImage(fichier, max, qualite){
@@ -2237,6 +2515,18 @@ const App = {
       r.readAsDataURL(fichier);
     });
   },
+  // Page Portfolio d'Achref : une fois par session, l'index est comparé aux photos (et réparé si besoin).
+  async apres_a_portfolio(){
+    if(this._pfVerifie) return; this._pfVerifie = true;
+    try{
+      const docs = await window.Cloud.listAll("portfolio");
+      docs.forEach(p => { if(p.thumb) S.thumbs[p.id] = p.thumb; });
+      const metas = docs.map(p => this.metaPhoto(p)).sort((a, b) => (b.ord || 0) - (a.ord || 0));
+      const cle = l => JSON.stringify(l.map(p => this.metaPhoto(p)).sort((a, b) => a.id < b.id ? -1 : 1));
+      if(cle(metas) !== cle(S.portfolio)){ S.portfolio = metas; await this.ecrireIndexPortfolio(); }
+      if(S.route === "a-portfolio" && !this._edition) this.rendre();
+    }catch(e){ console.warn("portfolio", e); this._pfVerifie = false; }
+  },
   async ajouterPhotos(files){
     const liste = Array.from(files || []); if(!liste.length) return;
     const cat = document.getElementById("pf-cat").value, btn = document.getElementById("pf-btn");
@@ -2245,24 +2535,28 @@ const App = {
       if(btn) btn.textContent = t("Envoi {i} / {n}…", { i: i + 1, n: liste.length });
       try{
         const mini = await this.reduireImage(liste[i], 520, 0.74), plein = await this.reduireImage(liste[i], 1600, 0.82);
-        const id = nouvelId("p");
+        const id = nouvelId("p"), meta = { id, cat, legende: "", w: mini.w, h: mini.h, vedette: false, ord: Date.now(), cadrage: "" };
         await window.Cloud.put("portfolioFull", { id, data: plein.data });
-        await window.Cloud.put("portfolio", { id, cat, legende: "", thumb: mini.data, w: mini.w, h: mini.h, vedette: false, ord: Date.now(), createdAt: Date.now() });
-        S.pleins[id] = plein.data; ok++;
+        await window.Cloud.put("portfolio", Object.assign({ thumb: mini.data, createdAt: Date.now() }, meta));
+        S.pleins[id] = plein.data; S.thumbs[id] = mini.data;
+        S.portfolio = S.portfolio.filter(x => x.id !== id).concat([meta]);
+        await this.ecrireIndexPortfolio(); ok++;
       }catch(e){ console.warn("photo", e); }
     }
     this.toast(t("{n} photo(s) ajoutée(s).", { n: ok }), ok ? "ok" : "err"); this._edition = false; this.rendre();
   },
   ouvrirPhoto(id){
     const p = S.portfolio.find(x => x.id === id); if(!p) return;
-    this.feuille(t("Photo"), `<img src="${p.thumb}" alt="" style="width:100%;border-radius:6px;margin-bottom:14px">
+    this.miniature(id).then(src => { if(!src) return; const a = document.getElementById("ph-img"), b = document.getElementById("ph-apercu"); if(a) a.src = src; if(b) b.style.backgroundImage = `url('${src}')`; });
+    const mini = S.thumbs[id] || PIXEL;
+    this.feuille(t("Photo"), `<img id="ph-img" src="${mini}" alt="" style="width:100%;border-radius:6px;margin-bottom:14px;min-height:120px;background:var(--velours-3)">
       <div class="champ"><label for="ph-cat">${esc(t("Catégorie"))}</label><select class="saisie" id="ph-cat">${CATS.map(c => `<option value="${esc(c)}"${p.cat === c ? " selected" : ""}>${esc(t(c))}</option>`).join("")}</select></div>
       <div class="champ"><label for="ph-leg">${esc(t("Légende (facultatif)"))}</label><input class="saisie" id="ph-leg" value="${esc(p.legende || "")}" placeholder="${esc(t("Par exemple : sortie de la mariée"))}"></div>
       <label class="case"><input type="checkbox" id="ph-ved" ${p.vedette ? "checked" : ""}> ${esc(t("Mettre en avant sur l'accueil"))}</label>
       <div class="champ cadrage-photo" style="margin-top:16px"><div><label for="ph-cad">${esc(t("Cadrage sur l'accueil"))}</label>
           <select class="saisie" id="ph-cad" onchange="App.apercuCadrage('${id}')">${[["", "Automatique"], ["haut", "Haut de la photo"], ["centre", "Centre"], ["bas", "Bas de la photo"]].map(([v, l]) => `<option value="${v}"${(p.cadrage || "") === v ? " selected" : ""}>${esc(t(l))}</option>`).join("")}</select>
           <div class="aide">${esc(t("Choisissez la partie de la photo qui reste visible (par exemple les visages)."))}</div></div>
-        <div class="apercu-cadrage" id="ph-apercu" aria-hidden="true" style="background-image:url('${p.thumb}');background-position:${this.cadrage(p)}"></div></div>`,
+        <div class="apercu-cadrage" id="ph-apercu" aria-hidden="true" style="background-image:url('${mini}');background-position:${this.cadrage(p)}"></div></div>`,
       `<div class="rangee"><button class="btn btn-danger" onclick="App.supprimerPhoto('${id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button>
         <button class="btn btn-or" onclick="App.enregistrerPhoto('${id}')">${esc(t("Enregistrer"))}</button></div>`);
   },
@@ -2271,13 +2565,22 @@ const App = {
     el.style.backgroundPosition = this.cadrage(Object.assign({}, p, { cadrage: document.getElementById("ph-cad").value }));
   },
   async enregistrerPhoto(id){
-    try{ await window.Cloud.patch("portfolio", id, { cat: document.getElementById("ph-cat").value, legende: document.getElementById("ph-leg").value.trim(), vedette: document.getElementById("ph-ved").checked, cadrage: document.getElementById("ph-cad").value }); this.fermer(); this.toast(t("Photo enregistrée."), "ok"); }
-    catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+    const champs = { cat: document.getElementById("ph-cat").value, legende: document.getElementById("ph-leg").value.trim(), vedette: document.getElementById("ph-ved").checked, cadrage: document.getElementById("ph-cad").value };
+    try{
+      await window.Cloud.patch("portfolio", id, champs);
+      S.portfolio = S.portfolio.map(p => p.id === id ? Object.assign({}, p, champs) : p);
+      await this.ecrireIndexPortfolio();
+      this.fermer(); this.toast(t("Photo enregistrée."), "ok"); this.rendre();
+    }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   },
   async supprimerPhoto(id){
     if(!(await this.confirmer(t("Supprimer cette photo ?"), t("Elle disparaîtra du portfolio."), t("Supprimer"), true))) return;
-    try{ await window.Cloud.del("portfolio", id); await window.Cloud.del("portfolioFull", id); delete S.pleins[id]; this.toast(t("Photo supprimée."), "ok"); }
-    catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+    try{
+      S.portfolio = S.portfolio.filter(p => p.id !== id);
+      await this.ecrireIndexPortfolio();            // d'abord l'index : les clients ne la chercheront plus
+      await window.Cloud.del("portfolio", id); await window.Cloud.del("portfolioFull", id);
+      delete S.pleins[id]; delete S.thumbs[id]; this.toast(t("Photo supprimée."), "ok"); this.rendre();
+    }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
   },
 
   /* ================================================= ADMIN : FORFAITS */
@@ -2328,7 +2631,7 @@ const App = {
 
   /* ================================================= ADMIN : RÉGLAGES */
   pageReglages(){
-    const st = this.studio(), dates = (S.agenda.datesPrises || []).filter(d => d >= aujourdHui()).sort();
+    const st = this.studio();
     const ch = (id, lab, val, ph, type) => `<div class="champ"><label for="${id}">${esc(t(lab))}</label><input class="saisie" id="${id}" ${type ? `type="${type}"` : ""} value="${esc(val || "")}" placeholder="${esc(ph ? t(ph) : "")}"></div>`;
     return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Réglages"))}</h2></div>
       <form class="bloc" onsubmit="event.preventDefault();App.enregistrerStudio()"><h3>${esc(t("Ce que voient les clients"))}</h3>
@@ -2339,9 +2642,8 @@ const App = {
         ${ch("st-insta", "Compte Instagram", st.instagram, "nom_du_compte")}${ch("st-mail", "E-mail de contact", st.email, "Votre adresse e-mail", "email")}
         ${ch("st-duree", "Durée des liens WeTransfer (jours)", st.dureeLien, "3", "number")}
         <button class="btn btn-or btn-bloc">${esc(t("Enregistrer"))}</button></form>
-      <div class="bloc"><h3>${esc(t("Dates déjà prises"))}</h3><p class="doux">${esc(t("Ces dates apparaissent barrées pour les clients. Les dates confirmées dans Demandes s'ajoutent toutes seules."))}</p>
-        <div class="rangee" style="margin-bottom:10px"><input class="saisie" id="ag-date" type="date" min="${aujourdHui()}" style="flex:1"><button class="btn" onclick="App.ajouterDatePrise()">${ico("ajout")} ${esc(t("Ajouter"))}</button></div>
-        ${dates.length ? `<div class="liste">${dates.map(d => `<div class="ligne" style="cursor:default"><span class="corps"><span class="t">${esc(dateLongue(d))}</span></span><button class="btn-icone" onclick="App.retirerDatePrise('${d}')" aria-label="${esc(t("Libérer cette date"))}">${ico("fermer")}</button></div>`).join("")}</div>` : `<p class="discret">${esc(t("Aucune date prise."))}</p>`}</div>
+      <div class="bloc"><h3>${esc(t("Agenda"))}</h3><p class="doux">${esc(t("Vos jours de travail sont dans le Tableau, rubrique Agenda. Les clients peuvent demander toutes les dates : c'est vous qui confirmez. Pour une date prise en dehors de l'app, touchez le jour dans l'agenda."))}</p>
+        <button class="btn btn-petit" onclick="App.aller('tableau/agenda')">${ico("calendrier")} ${esc(t("Ouvrir l'agenda"))}</button></div>
       ${this.vueNotifs(false)}
       ${this.pageCompteAdmin()}`;
   },
@@ -2360,15 +2662,6 @@ const App = {
       tel: normTel(g("st-tel")), whatsapp: normTel(g("st-wa")), instagram: g("st-insta").replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/\/.*$/, ""),
       email: g("st-mail"), dureeLien: Math.max(1, Math.min(60, parseInt(g("st-duree"), 10) || 3)) };
     try{ await window.Cloud.put("_config", s); this._edition = false; this.toast(t("Réglages enregistrés."), "ok"); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
-  },
-  async ajouterDatePrise(){
-    const v = document.getElementById("ag-date").value; if(!v) return this.toast(t("Choisissez une date."), "err");
-    const dates = (S.agenda.datesPrises || []).slice(); if(dates.indexOf(v) < 0) dates.push(v);
-    try{ await window.Cloud.put("_config", { id: "agenda", datesPrises: dates.sort() }); this._edition = false; this.toast(t("Date ajoutée."), "ok"); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
-  },
-  async retirerDatePrise(d){
-    const dates = (S.agenda.datesPrises || []).filter(x => x !== d);
-    try{ await window.Cloud.put("_config", { id: "agenda", datesPrises: dates }); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   }
 };
 window.App = App;
@@ -2384,7 +2677,7 @@ window.App = App;
    ===================================================================== */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { initializeFirestore, getFirestore, persistentLocalCache, persistentMultipleTabManager,
-         collection, doc, getDoc, getDocs, setDoc, deleteDoc, onSnapshot, query, where }
+         collection, doc, getDoc, getDocFromCache, getDocs, setDoc, deleteDoc, onSnapshot, query, where }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getMessaging, getToken, deleteToken, onMessage, isSupported as messagingSupported }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
@@ -2417,10 +2710,17 @@ const Cloud = {
   uid: () => (auth && auth.currentUser) ? auth.currentUser.uid : null,
   authEmail: () => (auth && auth.currentUser && auth.currentUser.email) || "",
 
-  async resetPassword(email){
+  // retour : adresse de l'app, pour le bouton « Continuer » après le nouveau mot de passe.
+  // Si ce domaine n'est pas dans les « Domaines autorisés » de Firebase, l'e-mail part quand même, sans ce bouton.
+  async resetPassword(email, retour){
     auth.languageCode = langue();
+    if(retour){
+      try{ await sendPasswordResetEmail(auth, email, { url: retour }); return; }
+      catch(e){ if(!/continue-uri|unauthorized-domain|argument-error/.test((e && e.code) || "")) throw e; console.warn("lien de retour refusé", e && e.code); }
+    }
     await sendPasswordResetEmail(auth, email);
   },
+  deleteAuthUser: () => deleteUser(auth.currentUser),
   async changePassword(ancien, nouveau){
     const u = auth.currentUser; if(!u) throw new Error("aucun-compte");
     await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, ancien));
@@ -2503,6 +2803,17 @@ const Cloud = {
     const d = await getDoc(doc(db, coll, String(id)));
     return d.exists() ? d.data() : null;
   },
+  // Document qui ne change jamais (photo du portfolio) : d'abord le cache du téléphone, sinon le serveur.
+  async getCache(coll, id){
+    const ref = doc(db, coll, String(id));
+    try{ const c = await getDocFromCache(ref); if(c.exists()) return c.data(); }catch(e){}
+    const d = await getDoc(ref);
+    return d.exists() ? d.data() : null;
+  },
+  async listAll(coll){
+    const snap = await getDocs(collection(db, coll));
+    return snap.docs.map(d => d.data());
+  },
   put: (coll, obj) => setDoc(doc(db, coll, String(obj.id)), obj, { merge: true }),
   patch: (coll, id, champs) => setDoc(doc(db, coll, String(id)), champs, { merge: true }),
   del: (coll, id) => deleteDoc(doc(db, coll, String(id))),
@@ -2551,7 +2862,7 @@ const Cloud = {
       }catch(e){ echecs++; console.warn("suppression " + coll, e); }
     }
     try{ await Push.disable(); }catch(e){}
-    try{ if(info && info.cle) await Cloud.removeLoginIndex(info.cle, uid); }catch(e){}
+    for(const cle of Array.from(new Set((info && info.cles) || []))){ try{ if(cle) await Cloud.removeLoginIndex(cle, uid); }catch(e){} }
     try{ if(info && info.notif) await setDoc(doc(db, "notifs", info.notif.id), info.notif); }catch(e){ console.warn("notif", e); }
     if(!echecs){ try{ await deleteDoc(doc(db, "users", uid)); }catch(e){ echecs++; } }
     await deleteUser(u);
@@ -2566,8 +2877,8 @@ window.Cloud = Cloud;
    appareil. Le robot GitHub (scripts/envoyer-notifications.mjs) lit les
    notifications « en attente » et les envoie à ces jetons.
    ===================================================================== */
-function appareil(){
-  let id = null; try{ id = localStorage.getItem("as_device"); }catch(e){}
+function appareil(nouveau){
+  let id = null; try{ id = nouveau ? null : localStorage.getItem("as_device"); }catch(e){}
   if(!id){ id = "dev_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); try{ localStorage.setItem("as_device", id); }catch(e){} }
   return id;
 }
@@ -2597,7 +2908,7 @@ const Push = {
     if(!this.supported) throw new Error("unsupported");
     const perm = await Notification.requestPermission();
     if(perm !== "granted") throw new Error(perm);
-    const reg = await navigator.serviceWorker.ready;
+    const reg = await avecDelai(navigator.serviceWorker.ready, 10000);      // jamais bloqué si le service worker ne démarre pas
     if(!this._msg) this._msg = getMessaging(fbApp);
     const token = await getToken(this._msg, { vapidKey: VAPID, serviceWorkerRegistration: reg });
     if(!token) throw new Error("no-token");
@@ -2605,16 +2916,23 @@ const Push = {
     await this.save();
     return token;
   },
+  // Les règles n'acceptent qu'un jeton lié au compte connecté (rôle « admin » réservé à Achref).
   async save(){
     if(!db || !this.token) return;
     const A = appRef(); const u = A && A.profil ? A.profil() : null;
-    const data = { id: appareil(), token: this.token, lang: langue(), agent: (navigator.userAgent || "").slice(0, 150), updatedAt: Date.now() };
-    if(u){ data.userId = u.id; data.role = u.role || "client"; data.nom = u.nom || ""; }
-    try{ await setDoc(doc(db, TOKENS, appareil()), data, { merge: true }); }catch(e){ console.warn("pushTokens", e); }
+    if(!u) return;
+    const data = { id: appareil(), token: this.token, lang: langue(), agent: (navigator.userAgent || "").slice(0, 150), updatedAt: Date.now(),
+      userId: u.id, role: u.role === "admin" ? "admin" : "client", nom: u.nom || "" };
+    try{ await setDoc(doc(db, TOKENS, data.id), data, { merge: true }); }
+    catch(e){
+      // Appareil encore attaché à un autre compte (supprimé, par exemple) : nouvel identifiant d'appareil.
+      if(/permission/.test((e && e.code) || "")){ data.id = appareil(true); try{ await setDoc(doc(db, TOKENS, data.id), data); }catch(x){ console.warn("pushTokens", x); } }
+      else console.warn("pushTokens", e);
+    }
   },
   async relink(){ if(this.token) await this.save(); },
   async unlink(){
-    if(!db) return;
+    if(!db || !this.token) return;          // aucun jeton sur cet appareil : rien à détacher
     try{ await setDoc(doc(db, TOKENS, appareil()), { userId: null, role: null, nom: "", updatedAt: Date.now() }, { merge: true }); }catch(e){}
   },
   async disable(){
@@ -2631,7 +2949,8 @@ if(!configOK){
 } else {
   try{
     fbApp = initializeApp(FB);
-    try{ db = initializeFirestore(fbApp, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) }); }
+    // Cache sur le téléphone : 150 Mo, pour garder les photos du portfolio déjà vues (moins de données mobiles).
+    try{ db = initializeFirestore(fbApp, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager(), cacheSizeBytes: 150 * 1024 * 1024 }) }); }
     catch(e){ db = getFirestore(fbApp); }
     auth = getAuth(fbApp);
     Cloud.enabled = true;
