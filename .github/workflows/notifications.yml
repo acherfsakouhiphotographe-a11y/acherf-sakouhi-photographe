@@ -1,1 +1,51 @@
+# =====================================================================
+#  ACHREF SAKOUHI — Envoi des notifications push
+#  ---------------------------------------------------------------------
+#  GitHub lance ce robot toutes les 5 minutes (en pratique toutes les 5 à
+#  15 minutes, selon la charge de GitHub). Il est gratuit pour un dépôt
+#  public. L'app peut aussi le lancer tout de suite (jeton GitHub enregistré
+#  dans Réglages → Envoi immédiat des notifications).
+#
+#  À faire une seule fois : Settings → Secrets and variables → Actions →
+#  New repository secret → FIREBASE_SERVICE_ACCOUNT = contenu du fichier
+#  JSON de la clé de service Firebase (voir LISEZ-MOI.md).
+# =====================================================================
+name: Notifications push
 
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: notifications-push
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  envoyer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Installer les dépendances
+        working-directory: scripts
+        run: npm install --omit=dev --no-audit --no-fund --loglevel=error
+      - name: Envoyer
+        working-directory: scripts
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          APP_URL: ${{ vars.APP_URL }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then echo "Secret FIREBASE_SERVICE_ACCOUNT pas encore ajouté : rien à faire."; exit 0; fi
+          if [ -z "$APP_URL" ]; then
+            OWNER=$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')
+            APP_URL="https://${OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          fi
+          export APP_URL
+          node envoyer-notifications.mjs
