@@ -1,1 +1,8 @@
-
+{
+  "packageId": "tn.achrefsakouhi.photo",
+  "appName": "Achref Sakouhi Photographe",
+  "launcherName": "Achref Photo",
+  "siteUrl": "",
+  "versionNameBase": "1.0",
+  "playAppSigningSha256": ""
+}
