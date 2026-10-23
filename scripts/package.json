@@ -1,0 +1,9 @@
+{
+  "name": "achref-photo-notifications",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Envoie les notifications push de l'app Achref Sakouhi Photographe (lancé par GitHub Actions).",
+  "scripts": { "envoyer": "node envoyer-notifications.mjs" },
+  "dependencies": { "firebase-admin": "12.7.0" }
+}
