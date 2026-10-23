@@ -101,6 +101,8 @@ html[lang="ar"] .entete .nom{font-style:normal;font-weight:700}
   display:grid;place-items:center;cursor:pointer;color:var(--ivoire);padding:0}
 .btn-icone svg{width:20px;height:20px}
 .btn-langue{width:auto;padding:0 14px;border-radius:21px;font-size:.88rem;font-weight:500}
+html[lang="ar"] #btn-sortir svg{transform:scaleX(-1)}
+@media (max-width:389px){.entete{gap:7px;padding-inline:12px}.btn-langue{padding:0 10px;font-size:.82rem}.entete .marque img{width:32px;height:32px}.entete .nom{font-size:1.05rem}}
 .pastille{position:absolute;top:-3px;inset-inline-end:-3px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;
   background:var(--or);color:var(--encre);font-size:.72rem;font-weight:600;display:grid;place-items:center;border:2px solid var(--velours)}
 .contenu{max-width:var(--maxw);margin:0 auto;padding:6px 16px calc(var(--barre) + 28px + var(--sur-bas))}
@@ -224,7 +226,7 @@ html[lang="ar"] .viseur h1{font-style:normal}
 /* ---------- accueil client : héros ---------- */
 .heros{position:relative;margin:0 -16px 8px;aspect-ratio:4/5;max-height:72vh;overflow:hidden;background:
   radial-gradient(120% 80% at 50% 30%,#4A1B29 0%,var(--velours) 70%)}
-.heros .diapo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease}
+.heros .diapo{position:absolute;inset:0;background-size:cover;background-position:var(--fp,50% 45%);transform-origin:var(--fp,50% 45%);opacity:0;transition:opacity 1.6s ease}
 .heros .diapo.on{opacity:1;animation:lent 14s linear both}
 @keyframes lent{from{transform:scale(1.08)}to{transform:scale(1)}}
 .heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,14,23,.25) 0%,rgba(42,14,23,.05) 22%,rgba(42,14,23,.55) 50%,rgba(42,14,23,.93) 72%,rgba(42,14,23,.98) 100%)}
@@ -234,6 +236,14 @@ html[lang="ar"] .viseur h1{font-style:normal}
 html[lang="ar"] .heros h1{font-style:normal}
 .heros .rangee{margin-top:16px}
 .heros .rangee .btn{flex:1 1 auto;white-space:nowrap;padding:0 16px}
+.heros.court{aspect-ratio:1/1;max-height:62vh}
+.signature-heros{position:absolute;top:34px;inset-inline-start:34px;z-index:3;display:inline-flex;align-items:center;gap:6px;max-width:calc(100% - 68px);
+  padding:5px 11px;border-radius:14px;background:rgba(27,8,14,.55);color:var(--or-clair);font-size:.78rem;letter-spacing:.02em;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.signature-heros svg{width:14px;height:14px;flex:none}
+.cadrage-photo{display:flex;gap:14px;align-items:flex-start}
+.cadrage-photo>div:first-child{flex:1;min-width:0}
+.apercu-cadrage{flex:none;width:92px;aspect-ratio:4/5;border-radius:6px;background-size:cover;border:1px solid var(--ligne-2);margin-top:26px;transition:background-position .3s}
 .heros.sans-photo .monogramme-fond{position:absolute;inset:0;display:grid;place-items:center;font-family:"Bodoni Moda",serif;font-style:italic;
   font-size:min(52vw,260px);color:rgba(201,164,92,.13);letter-spacing:-.05em;padding-bottom:30%}
 
@@ -626,7 +636,17 @@ const AR = {
   "Déjà installée ? Ouvrez-la depuis son icône sur l'écran d'accueil.":"مثبّت من قبل؟ افتحوه من أيقونته على الشاشة الرئيسية.",
   "Wtiya":"وطية",
   "Contrat de mariage":"عقد القران",
-  "Photographe":"مصوّر"
+  "Photographe":"مصوّر",
+  "Cadrage sur l'accueil":"التأطير في الصفحة الرئيسية",
+  "Automatique":"تلقائي",
+  "Haut de la photo":"أعلى الصورة",
+  "Centre":"الوسط",
+  "Bas de la photo":"أسفل الصورة",
+  "Choisissez la partie de la photo qui reste visible (par exemple les visages).":"اختر جزء الصورة الذي يبقى ظاهرًا (مثلًا الوجوه).",
+  "Racontons votre histoire en images.":"لنروِ قصّتكم بالصور.",
+  "Portfolio — {nom}":"معرض أعمال {nom}",
+  "Se déconnecter ?":"تسجيل الخروج؟",
+  "Vous pourrez vous reconnecter avec votre numéro ou votre e-mail.":"يمكنكم الدخول مجدّدًا برقم الهاتف أو بالبريد الإلكتروني."
 };
 
 /* =====================================================================
@@ -638,11 +658,11 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.1.0";
+const APP_VERSION = "1.1.1";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
-  accroche: "Votre histoire, en images.",
+  accroche: "Racontons votre histoire en images.",
   bio: "Photographe et vidéaste de mariage. Je raconte votre journée, des préparatifs à la dernière danse, avec des images naturelles et soignées.",
   tel: "", whatsapp: "", instagram: "achref_sakouhi_photographe", email: "", ville: "", dureeLien: 3
 };
@@ -804,7 +824,8 @@ const App = {
   estAdmin(){ return !!(S.prof && S.prof.role === "admin"); },
   studio(){
     const st = Object.assign({}, STUDIO_DEFAUT, S.studio || {});
-    if(st.metier === "Photographe de mariage" || !st.metier) st.metier = STUDIO_DEFAUT.metier;   // ancien texte par défaut
+    if(st.metier === "Photographe de mariage" || !st.metier) st.metier = STUDIO_DEFAUT.metier;   // anciens textes par défaut
+    if(st.accroche === "Votre histoire, en images." || !st.accroche) st.accroche = STUDIO_DEFAUT.accroche;
     return st;
   },
 
@@ -895,7 +916,12 @@ const App = {
       if(moi) S.prof = moi;
     } else if(cle === "studio"){
       S.studio = Object.assign({}, STUDIO_DEFAUT, data || {}); lsSet("as_studio", data || {});
-      if(data && data.metier === "Photographe de mariage" && this.estAdmin()) window.Cloud.patch("_config", "studio", { metier: STUDIO_DEFAUT.metier }).catch(() => {});
+      if(data && this.estAdmin()){            // anciens textes par défaut remplacés une fois dans la base
+        const maj = {};
+        if(data.metier === "Photographe de mariage") maj.metier = STUDIO_DEFAUT.metier;
+        if(data.accroche === "Votre histoire, en images.") maj.accroche = STUDIO_DEFAUT.accroche;
+        if(Object.keys(maj).length) window.Cloud.patch("_config", "studio", maj).catch(() => {});
+      }
     } else if(cle === "agenda"){
       S.agenda = Object.assign({ datesPrises: [] }, data || {});
     } else {
@@ -951,7 +977,8 @@ const App = {
     return `<a class="marque" href="#${this.estAdmin() ? "tableau" : "accueil"}"><img src="logo-mark.png" alt="">
         <span><span class="nom">${esc(st.nom)}</span><span class="metier">${esc(this.estAdmin() ? t("Espace photographe") : t(st.metier))}</span></span></a>
       <button class="btn-icone btn-langue" onclick="App.changerLangue()" title="${esc(t("Changer de langue"))}">${LANG === "ar" ? "Français" : "العربية"}</button>
-      <button class="btn-icone" onclick="App.ouvrirCloche()" aria-label="${esc(t("Notifications"))}">${ico("cloche")}${nonLues ? `<span class="pastille">${nonLues > 9 ? "9+" : nonLues}</span>` : ""}</button>`;
+      <button class="btn-icone" id="btn-cloche" onclick="App.ouvrirCloche()" aria-label="${esc(t("Notifications"))}">${ico("cloche")}${nonLues ? `<span class="pastille">${nonLues > 9 ? "9+" : nonLues}</span>` : ""}</button>
+      <button class="btn-icone" id="btn-sortir" onclick="App.demanderDeconnexion()" aria-label="${esc(t("Se déconnecter"))}" title="${esc(t("Se déconnecter"))}">${ico("sortir")}</button>`;
   },
   vueOnglets(){
     const actif = r => {
@@ -1119,6 +1146,9 @@ const App = {
       <div class="discret" style="margin-top:6px">${esc(t("Ouvrez l'e-mail, touchez le lien et choisissez un nouveau mot de passe. Pensez à regarder dans les spams."))}</div></div>`;
     btn.disabled = false; btn.textContent = t("Retour à la connexion"); btn.onclick = () => this.fermer();
   },
+  async demanderDeconnexion(){
+    if(await this.confirmer(t("Se déconnecter ?"), t("Vous pourrez vous reconnecter avec votre numéro ou votre e-mail."), t("Se déconnecter"))) this.deconnecter();
+  },
   async deconnecter(){
     try{ window.Cloud.stopAll(); }catch(e){}          // plus d'écoute avant de quitter le compte
     try{ await window.Push.unlink(); }catch(e){}
@@ -1172,7 +1202,7 @@ const App = {
   },
   _sonnerSiNouveau(){
     const n = S.notifs.filter(x => !x.lu).length;
-    if(this._nbNonLues != null && n > this._nbNonLues){ const b = document.querySelector(".entete .btn-icone:last-child"); if(b && b.animate) b.animate([{ transform: "rotate(0)" }, { transform: "rotate(14deg)" }, { transform: "rotate(-10deg)" }, { transform: "rotate(0)" }], { duration: 600 }); }
+    if(this._nbNonLues != null && n > this._nbNonLues){ const b = document.getElementById("btn-cloche"); if(b && b.animate) b.animate([{ transform: "rotate(0)" }, { transform: "rotate(14deg)" }, { transform: "rotate(-10deg)" }, { transform: "rotate(0)" }], { duration: 600 }); }
     this._nbNonLues = n;
   },
   ouvrirCloche(){
@@ -1272,24 +1302,64 @@ const App = {
   },
 
   /* ================================================= CLIENT : ACCUEIL */
+  /* Héros : diaporama des photos mises en avant (accueil du client, tableau d'Achref). */
+  diapos(){
+    const vedettes = S.portfolio.filter(p => p.vedette).sort((a, b) => (b.ord || 0) - (a.ord || 0));
+    return (vedettes.length ? vedettes : S.portfolio.slice().sort((a, b) => (b.ord || 0) - (a.ord || 0))).slice(0, 5);
+  },
+  // Point de la photo gardé visible : réglé par Achref, sinon le tiers haut pour une photo en hauteur (les visages).
+  cadrage(p){
+    const c = { haut: "50% 12%", centre: "50% 50%", bas: "50% 88%" }[p && p.cadrage];
+    if(c) return c;
+    return p && p.w && p.h && p.h / p.w > 1.1 ? "50% 22%" : "50% 45%";
+  },
+  vueHeros(salut, boutons, court){
+    const st = this.studio(), diapos = this.diapos(), n = diapos.length, cour = n ? (this._diapoI || 0) % n : 0;
+    return `<section class="heros${n ? "" : " sans-photo"}${court ? " court" : ""}" id="heros">
+        ${n ? diapos.map((p, i) => `<div class="diapo${i === cour ? " on" : ""}" data-id="${p.id}" style="background-image:url('${p.thumb}');--fp:${this.cadrage(p)}"></div>`).join("") : `<div class="monogramme-fond" aria-hidden="true">AS</div>`}
+        <div class="cadre${this._heroVu ? "" : " mise-au-point"}"><span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span></div>
+        ${n ? `<span class="signature-heros">${ico("grille")} ${esc(t("Portfolio — {nom}", { nom: st.nom }))}</span>` : ""}
+        <div class="texte"><p class="doux" style="margin-bottom:6px">${esc(salut)}</p>
+          <h1>${esc(t(st.accroche))}</h1>
+          <div class="rangee">${boutons}</div></div>
+      </section>`;
+  },
+  // Le cadre du viseur s'arrête au-dessus du texte, quelle que soit sa hauteur (petit écran, arabe…).
+  ajusterCadre(){
+    const h = document.getElementById("heros"); if(!h) return;
+    const tx = h.querySelector(".texte"), cd = h.querySelector(".cadre"); if(!tx || !cd) return;
+    const bas = tx.offsetHeight + 22 + 16;
+    cd.style.bottom = bas + "px";
+    cd.style.visibility = h.clientHeight - bas - 22 < 90 ? "hidden" : "";
+  },
+  demarrerDiaporama(){
+    const h = document.getElementById("heros"); if(!h) return;
+    this.ajusterCadre();
+    if(!this._ecouteCadre){ this._ecouteCadre = true; window.addEventListener("resize", () => this.ajusterCadre()); }
+    this._heroVu = true;          // l'animation de mise au point ne se joue qu'une fois
+    const d = h.querySelectorAll(".diapo");
+    d.forEach(el => { const id = el.dataset.id; this.imagePleine(id).then(src => { if(src) el.style.backgroundImage = `url('${src}')`; }); });
+    clearInterval(this._diapoT);
+    if(d.length > 1){
+      let i = Array.from(d).findIndex(x => x.classList.contains("on")); if(i < 0) i = 0;
+      this._diapoT = setInterval(() => {
+        if(!document.body.contains(h)) return clearInterval(this._diapoT);
+        d[i].classList.remove("on"); i = (i + 1) % d.length; d[i].classList.add("on"); this._diapoI = i;
+      }, 6000);
+    }
+  },
+
   pageAccueil(){
     const st = this.studio(), u = S.prof;
-    const vedettes = S.portfolio.filter(p => p.vedette).sort((a, b) => (b.ord || 0) - (a.ord || 0));
-    const diapos = (vedettes.length ? vedettes : S.portfolio.slice().sort((a, b) => (b.ord || 0) - (a.ord || 0))).slice(0, 5);
     const prete = S.livraisons.filter(l => !l.telechargeAt && ecartJours(aujourdHui(), l.expireLe) >= 0).sort((a, b) => b.createdAt - a.createdAt)[0];
     const prochaine = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= aujourdHui()).sort((a, b) => a.date < b.date ? -1 : 1)[0];
     const enAttente = S.demandes.filter(d => d.statut === "attente").length;
     const avisPub = S.avis.filter(a => a.publie).sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
     const forfaits = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
     return `
-      <section class="heros${diapos.length ? "" : " sans-photo"}" id="heros">
-        ${diapos.length ? diapos.map((p, i) => `<div class="diapo${i === 0 ? " on" : ""}" data-id="${p.id}" style="background-image:url('${p.thumb}')"></div>`).join("") : `<div class="monogramme-fond" aria-hidden="true">AS</div>`}
-        <div class="cadre${this._heroVu ? "" : " mise-au-point"}"><span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span></div>
-        <div class="texte"><p class="doux" style="margin-bottom:6px">${esc(t("Bonjour"))}${u && u.nom ? " " + esc(u.nom.split(" ")[0]) : ""}</p>
-          <h1>${esc(t(st.accroche))}</h1>
-          <div class="rangee"><button class="btn btn-or" onclick="App.aller('reserver')">${esc(t("Réserver une date"))}</button>
-            <button class="btn btn-clair" onclick="App.aller('portfolio')">${esc(t("Voir le portfolio"))}</button></div></div>
-      </section>
+      ${this.vueHeros(t("Bonjour") + (u && u.nom ? " " + u.nom.split(" ")[0] : ""),
+        `<button class="btn btn-or" onclick="App.aller('reserver')">${esc(t("Réserver une date"))}</button>
+            <button class="btn btn-clair" onclick="App.aller('portfolio')">${esc(t("Voir le portfolio"))}</button>`)}
       ${prete ? `<button class="encart ligne" style="cursor:pointer;margin-top:14px" onclick="App.aller('photos')">${ico("image", "chev")}
           <span class="corps"><span class="t">${esc(t("Vos photos sont prêtes"))}</span><span class="s">${esc(prete.titre)} — ${esc(this.texteExpiration(prete))}</span></span>${ico("chevron", "chev")}</button>` : ""}
       ${prochaine ? `<div class="encart" style="margin-top:14px"><b>${esc(joursDe(prochaine).length > 1 ? t("Vos dates sont confirmées") : t("Votre date est confirmée"))}</b><div class="doux">${esc(resumeJours(joursDe(prochaine)))}${prochaine.lieu ? " — " + esc(prochaine.lieu) : ""}</div></div>`
@@ -1304,14 +1374,7 @@ const App = {
       <div class="rangee">${this.boutonsContact()}</div>
       <p class="credit" style="margin-top:22px"><button class="lien" onclick="App.aller('apropos')">${esc(t("À propos de l'application"))}</button></p>`;
   },
-  apres_accueil(){
-    const h = document.getElementById("heros"); if(!h) return;
-    this._heroVu = true;          // l'animation de mise au point ne se joue qu'une fois
-    const d = h.querySelectorAll(".diapo");
-    d.forEach(el => { const id = el.dataset.id; this.imagePleine(id).then(src => { if(src) el.style.backgroundImage = `url('${src}')`; }); });
-    clearInterval(this._diapoT);
-    if(d.length > 1){ let i = 0; this._diapoT = setInterval(() => { if(!document.body.contains(h)) return clearInterval(this._diapoT); d[i].classList.remove("on"); i = (i + 1) % d.length; d[i].classList.add("on"); }, 6000); }
-  },
+  apres_accueil(){ this.demarrerDiaporama(); },
   vueForfait(f){
     return `<button class="forfait" onclick="App.ouvrirOffre('${f.id}')"><span class="haut"><span class="nom-f">${esc(f.nom)}</span>${f.prix ? `<span class="prix">${esc(f.prix)}</span>` : ""}</span>
       ${f.description ? `<span class="doux desc">${txt(f.description)}</span>` : ""}
@@ -1732,9 +1795,9 @@ const App = {
     const aValider = S.avis.filter(a => !a.publie).length;
     const prochains = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= auj).sort((a, b) => a.date < b.date ? -1 : 1).slice(0, 5);
     const ligne = (n, l, r) => `<button class="compteur" onclick="App.aller('${r}')"><span class="n">${n}</span><span class="l">${esc(l)}</span>${ico("chevron", "chev")}</button>`;
-    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Bonjour"))} ${esc((S.prof.nom || st.nom).split(" ")[0])}</h2></div>
-      <button class="btn btn-or btn-bloc" style="margin-bottom:16px" onclick="App.ouvrirLivraison()">${ico("envoyer")} ${esc(t("Envoyer des photos à un client"))}</button>
-      <div class="bloc" style="padding-top:4px;padding-bottom:4px">
+    return `${this.vueHeros(t("Bonjour") + " " + (S.prof.nom || st.nom).split(" ")[0],
+        `<button class="btn btn-or" onclick="App.ouvrirLivraison()">${ico("envoyer")} ${esc(t("Envoyer des photos à un client"))}</button>`, true)}
+      <div class="bloc" style="padding-top:4px;padding-bottom:4px;margin-top:6px">
         ${ligne(attente, attente === 1 ? t("demande de réservation en attente") : t("demandes de réservation en attente"), "demandes")}
         ${nouveauLien ? ligne(nouveauLien, t("client(s) demandent un nouveau lien"), "livraisons") : ""}
         ${ligne(bientot, t("lien(s) qui expirent dans moins de 24 h"), "livraisons")}
@@ -1748,6 +1811,8 @@ const App = {
       ${this.etatPush() !== "granted" ? `<div style="margin-top:14px">${this.vueNotifs(false)}</div>` : ""}
       ${this.encartInstall()}`;
   },
+
+  apres_tableau(){ this.demarrerDiaporama(); },
 
   /* ================================================= ADMIN : LIVRAISONS */
   etatLivraison(l){
@@ -2013,12 +2078,20 @@ const App = {
     this.feuille(t("Photo"), `<img src="${p.thumb}" alt="" style="width:100%;border-radius:6px;margin-bottom:14px">
       <div class="champ"><label for="ph-cat">${esc(t("Catégorie"))}</label><select class="saisie" id="ph-cat">${CATS.map(c => `<option value="${esc(c)}"${p.cat === c ? " selected" : ""}>${esc(t(c))}</option>`).join("")}</select></div>
       <div class="champ"><label for="ph-leg">${esc(t("Légende (facultatif)"))}</label><input class="saisie" id="ph-leg" value="${esc(p.legende || "")}" placeholder="${esc(t("Par exemple : sortie de la mariée"))}"></div>
-      <label class="case"><input type="checkbox" id="ph-ved" ${p.vedette ? "checked" : ""}> ${esc(t("Mettre en avant sur l'accueil"))}</label>`,
+      <label class="case"><input type="checkbox" id="ph-ved" ${p.vedette ? "checked" : ""}> ${esc(t("Mettre en avant sur l'accueil"))}</label>
+      <div class="champ cadrage-photo" style="margin-top:16px"><div><label for="ph-cad">${esc(t("Cadrage sur l'accueil"))}</label>
+          <select class="saisie" id="ph-cad" onchange="App.apercuCadrage('${id}')">${[["", "Automatique"], ["haut", "Haut de la photo"], ["centre", "Centre"], ["bas", "Bas de la photo"]].map(([v, l]) => `<option value="${v}"${(p.cadrage || "") === v ? " selected" : ""}>${esc(t(l))}</option>`).join("")}</select>
+          <div class="aide">${esc(t("Choisissez la partie de la photo qui reste visible (par exemple les visages)."))}</div></div>
+        <div class="apercu-cadrage" id="ph-apercu" aria-hidden="true" style="background-image:url('${p.thumb}');background-position:${this.cadrage(p)}"></div></div>`,
       `<div class="rangee"><button class="btn btn-danger" onclick="App.supprimerPhoto('${id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button>
         <button class="btn btn-or" onclick="App.enregistrerPhoto('${id}')">${esc(t("Enregistrer"))}</button></div>`);
   },
+  apercuCadrage(id){
+    const p = S.portfolio.find(x => x.id === id), el = document.getElementById("ph-apercu"); if(!p || !el) return;
+    el.style.backgroundPosition = this.cadrage(Object.assign({}, p, { cadrage: document.getElementById("ph-cad").value }));
+  },
   async enregistrerPhoto(id){
-    try{ await window.Cloud.patch("portfolio", id, { cat: document.getElementById("ph-cat").value, legende: document.getElementById("ph-leg").value.trim(), vedette: document.getElementById("ph-ved").checked }); this.fermer(); this.toast(t("Photo enregistrée."), "ok"); }
+    try{ await window.Cloud.patch("portfolio", id, { cat: document.getElementById("ph-cat").value, legende: document.getElementById("ph-leg").value.trim(), vedette: document.getElementById("ph-ved").checked, cadrage: document.getElementById("ph-cad").value }); this.fermer(); this.toast(t("Photo enregistrée."), "ok"); }
     catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   },
   async supprimerPhoto(id){
