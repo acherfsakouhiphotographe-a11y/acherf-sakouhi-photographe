@@ -237,10 +237,6 @@ html[lang="ar"] .heros h1{font-style:normal}
 .heros .rangee{margin-top:16px}
 .heros .rangee .btn{flex:1 1 auto;white-space:nowrap;padding:0 16px}
 .heros.court{aspect-ratio:1/1;max-height:62vh}
-.signature-heros{position:absolute;top:34px;inset-inline-start:34px;z-index:3;display:inline-flex;align-items:center;gap:6px;max-width:calc(100% - 68px);
-  padding:5px 11px;border-radius:14px;background:rgba(27,8,14,.55);color:var(--or-clair);font-size:.78rem;letter-spacing:.02em;
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.signature-heros svg{width:14px;height:14px;flex:none}
 .cadrage-photo{display:flex;gap:14px;align-items:flex-start}
 .cadrage-photo>div:first-child{flex:1;min-width:0}
 .apercu-cadrage{flex:none;width:92px;aspect-ratio:4/5;border-radius:6px;background-size:cover;border:1px solid var(--ligne-2);margin-top:26px;transition:background-position .3s}
@@ -355,10 +351,8 @@ html[lang="ar"] .feuille .tete h2{font-style:normal}
 .lien-ligne{display:flex;gap:8px;margin-bottom:8px}
 .lien-ligne .saisie:first-child{flex:0 0 36%}
 .miniature{width:52px;height:52px;border-radius:6px;object-fit:cover;flex:none;background:var(--velours-3)}
-.grille-admin{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.grille-admin button{position:relative;padding:0;border:0;background:var(--velours-3);aspect-ratio:1/1;border-radius:4px;overflow:hidden;cursor:pointer}
-.grille-admin img{width:100%;height:100%;object-fit:cover}
-.grille-admin .vedette{position:absolute;top:5px;inset-inline-start:5px;width:22px;height:22px;border-radius:50%;background:var(--or);color:var(--encre);display:grid;place-items:center;font-size:.75rem}
+.mosaique-admin button{position:relative;cursor:pointer}
+.mosaique-admin .vedette{position:absolute;top:7px;inset-inline-start:7px;width:24px;height:24px;border-radius:50%;background:var(--or);color:var(--encre);display:grid;place-items:center;font-size:.8rem;box-shadow:0 2px 6px rgba(0,0,0,.35)}
 .compteur{display:flex;align-items:center;gap:14px;padding:13px 2px;border-bottom:1px solid var(--ligne);width:100%;background:none;border-inline:0;border-top:0;color:inherit;cursor:pointer;text-align:start}
 .compteur .n{font-family:"Bodoni Moda",serif;font-size:1.8rem;min-width:42px;color:var(--or-clair);line-height:1}
 .compteur .l{flex:1}
@@ -658,7 +652,7 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.1.1";
+const APP_VERSION = "1.1.2";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -843,7 +837,7 @@ const App = {
     }
     window.addEventListener("hashchange", () => this.surRoute());
     document.addEventListener("keydown", e => { if(e.key === "Escape"){ if(this._visio) this.fermerVisionneuse(); else this.fermer(); } });
-    document.getElementById("app").addEventListener("input", e => { if(e.target.closest("#contenu")) this._edition = true; });
+    document.getElementById("app").addEventListener("input", e => { if(e.target.closest("#contenu") && e.target.type !== "file") this._edition = true; });
     // config.js rempli ?
     const fb = (window.APP_CONFIG || {}).firebase || {};
     if(!fb.apiKey || !fb.projectId || /REMPLIR/i.test(fb.apiKey + fb.projectId)){ this.finBoot(); return this.rendreConfig(); }
@@ -1318,7 +1312,6 @@ const App = {
     return `<section class="heros${n ? "" : " sans-photo"}${court ? " court" : ""}" id="heros">
         ${n ? diapos.map((p, i) => `<div class="diapo${i === cour ? " on" : ""}" data-id="${p.id}" style="background-image:url('${p.thumb}');--fp:${this.cadrage(p)}"></div>`).join("") : `<div class="monogramme-fond" aria-hidden="true">AS</div>`}
         <div class="cadre${this._heroVu ? "" : " mise-au-point"}"><span class="coin hg"></span><span class="coin hd"></span><span class="coin bg"></span><span class="coin bd"></span></div>
-        ${n ? `<span class="signature-heros">${ico("grille")} ${esc(t("Portfolio — {nom}", { nom: st.nom }))}</span>` : ""}
         <div class="texte"><p class="doux" style="margin-bottom:6px">${esc(salut)}</p>
           <h1>${esc(t(st.accroche))}</h1>
           <div class="rangee">${boutons}</div></div>
@@ -2040,7 +2033,7 @@ const App = {
         <label class="btn btn-or btn-bloc" for="pf-fichiers" id="pf-btn">${ico("ajout")} ${esc(t("Ajouter des photos"))}</label>
         <input type="file" id="pf-fichiers" accept="image/*" multiple hidden onchange="App.ajouterPhotos(this.files)">
         <p class="aide">${esc(t("Les photos sont réduites automatiquement. Touchez une photo pour la mettre en avant sur l'accueil (étoile) ou la supprimer."))}</p></div>
-      ${liste.length ? `<div class="grille-admin">${liste.map(p => `<button onclick="App.ouvrirPhoto('${p.id}')" aria-label="${esc(p.legende || t(p.cat))}"><img src="${p.thumb}" alt="" loading="lazy">${p.vedette ? `<span class="vedette">★</span>` : ""}</button>`).join("")}</div>`
+      ${liste.length ? `<div class="mosaique mosaique-admin">${liste.map(p => `<button onclick="App.ouvrirPhoto('${p.id}')" aria-label="${esc(p.legende || t(p.cat))}"><img src="${p.thumb}" alt="" loading="lazy" width="${p.w || 400}" height="${p.h || 500}">${p.vedette ? `<span class="vedette">★</span>` : ""}</button>`).join("")}</div>`
         : `<div class="vide">${ico("grille")}<p>${esc(t("Ajoutez vos plus belles photos : elles s'affichent dans le portfolio des clients."))}</p></div>`}`;
   },
   reduireImage(fichier, max, qualite){
@@ -2071,7 +2064,7 @@ const App = {
         S.pleins[id] = plein.data; ok++;
       }catch(e){ console.warn("photo", e); }
     }
-    this.toast(t("{n} photo(s) ajoutée(s).", { n: ok }), ok ? "ok" : "err"); this.rendre();
+    this.toast(t("{n} photo(s) ajoutée(s).", { n: ok }), ok ? "ok" : "err"); this._edition = false; this.rendre();
   },
   ouvrirPhoto(id){
     const p = S.portfolio.find(x => x.id === id); if(!p) return;
