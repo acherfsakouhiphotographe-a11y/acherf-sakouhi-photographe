@@ -1,0 +1,7 @@
+Polices incluses dans l'application (fichiers .woff2), toutes sous licence libre
+SIL Open Font License 1.1 (https://openfontlicense.org) :
+  • Bodoni Moda — © 2020 The Bodoni Moda Project Authors (indestructible-type/Bodoni)
+  • Jost — © 2020 The Jost Project Authors (indestructible-type/Jost)
+  • Tajawal — Google Inc. (Google Fonts)
+Fichiers obtenus via le projet Fontsource (npm @fontsource/*).
+Bibliothèque QR code (qrcode.js) : qrcode-generator © 2009 Kazuhiko Arase, licence MIT.
