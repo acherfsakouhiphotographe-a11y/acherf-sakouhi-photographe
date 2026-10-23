@@ -174,6 +174,13 @@ html[lang="ar"] input[type="tel"]:placeholder-shown,html[lang="ar"] input[type="
 .ligne .s{font-size:.86rem;color:var(--sourdine);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ligne .t,.ligne .s,.ligne .corps>.discret{display:block}
 .chev{color:var(--sourdine);width:18px;height:18px;flex:none}
+.notif-ligne{padding:0;gap:6px;cursor:default}
+.notif-ouvrir{display:flex;align-items:center;gap:12px;flex:1;min-width:0;padding:13px 2px;background:none;border:0;color:inherit;font:inherit;text-align:start;cursor:pointer}
+.btn-suppr{flex:none;width:38px;height:38px;color:var(--sourdine);background:none}
+.btn-suppr svg{width:18px;height:18px}
+.actions-demande{display:flex;justify-content:flex-end;gap:18px;width:100%;flex-wrap:wrap}
+.lien-danger{color:var(--danger)}
+.feuille .pied .rangee>.btn{white-space:nowrap}
 html[lang="ar"] .chev{transform:scaleX(-1)}
 .avatar{width:42px;height:42px;border-radius:50%;background:var(--velours-3);display:grid;place-items:center;flex:none;
   font-family:var(--f-titre);font-style:italic;color:var(--or-clair);font-size:1.05rem;border:1px solid var(--ligne)}
@@ -640,7 +647,52 @@ const AR = {
   "Racontons votre histoire en images.":"لنروِ قصّتكم بالصور.",
   "Portfolio — {nom}":"معرض أعمال {nom}",
   "Se déconnecter ?":"تسجيل الخروج؟",
-  "Vous pourrez vous reconnecter avec votre numéro ou votre e-mail.":"يمكنكم الدخول مجدّدًا برقم الهاتف أو بالبريد الإلكتروني."
+  "Vous pourrez vous reconnecter avec votre numéro ou votre e-mail.":"يمكنكم الدخول مجدّدًا برقم الهاتف أو بالبريد الإلكتروني.",
+  /* v1.2 : supprimer et modifier */
+  "Supprimer cette notification":"حذف هذا الإشعار",
+  "Tout effacer":"حذف الكلّ",
+  "Effacer toutes les notifications ?":"حذف كلّ الإشعارات؟",
+  "Elles disparaîtront de la liste. Cela ne supprime ni vos photos ni vos demandes.":"ستختفي من القائمة. لا يحذف ذلك صوركم ولا طلباتكم.",
+  "Notifications effacées.":"تمّ حذف الإشعارات.",
+  "Modifier ma demande":"تعديل طلبي",
+  "Modification de votre demande":"تعديل طلبكم",
+  "Changez les jours, leur type, le lieu ou le message, puis enregistrez. Achref sera prévenu.":"غيّروا الأيام أو نوعها أو المكان أو الرسالة ثمّ احفظوا. سيتمّ إعلام أشرف.",
+  "Annuler la modification":"إلغاء التعديل",
+  "Enregistrer les modifications":"حفظ التعديلات",
+  "Supprimer cette demande ?":"حذف هذا الطلب؟",
+  "Elle disparaîtra de votre liste.":"سيختفي من قائمتكم.",
+  "Demande supprimée.":"تمّ حذف الطلب.",
+  "Demande modifiée. Achref est prévenu.":"تمّ تعديل الطلب وإعلام أشرف.",
+  "Annuler la réservation ?":"إلغاء الحجز؟",
+  "Achref sera prévenu et vos dates seront libérées pour d'autres mariés.":"سيتمّ إعلام أشرف وستُتاح مواعيدكم لعرسان آخرين.",
+  "Annuler la réservation":"إلغاء الحجز",
+  "Réservation annulée. Achref est prévenu.":"تمّ إلغاء الحجز وإعلام أشرف.",
+  "Demande annulée.":"تمّ إلغاء الطلب.",
+  "Modifier mon avis":"تعديل رأيي",
+  "Votre avis modifié sera de nouveau publié après validation par Achref.":"سيُنشر رأيكم المعدّل من جديد بعد موافقة أشرف.",
+  "Enregistrer mon avis":"حفظ رأيي",
+  "Supprimer mon avis ?":"حذف رأيي؟",
+  "Il ne sera plus visible sur l'accueil.":"لن يظهر بعد الآن في الصفحة الرئيسية.",
+  "Avis supprimé.":"تمّ حذف الرأي.",
+  "Modifier":"تعديل",
+  "Modifier le client":"تعديل الحريف",
+  "Le client se connecte aussi avec ce numéro. Son e-mail ne peut être changé que par lui, depuis son compte.":"يدخل الحريف أيضًا بهذا الرقم. لا يمكن تغيير بريده الإلكتروني إلّا من حسابه.",
+  "Client modifié.":"تمّ تعديل الحريف.",
+  "Supprimer ces {n} demandes":"حذف هذه الطلبات ({n})",
+  "Dates libérées dans le calendrier.":"أُتيحت التواريخ في الرزنامة.",
+  "Cette réservation est confirmée : ses dates seront libérées dans le calendrier. Le client ne sera pas prévenu.":"هذا الحجز مؤكَّد: ستُتاح تواريخه في الرزنامة. لن يتمّ إعلام الحريف.",
+  "Elle disparaîtra de votre liste et de celle du client.":"سيختفي من قائمتك ومن قائمة الحريف.",
+  "Supprimer ces {n} demandes ?":"حذف هذه الطلبات ({n})؟",
+  "Les demandes refusées et annulées disparaîtront de votre liste et de celle des clients.":"ستختفي الطلبات المرفوضة والملغاة من قائمتك ومن قوائم الحرفاء.",
+  "Demandes supprimées.":"تمّ حذف الطلبات.",
+  "Supprimer cette demande":"حذف هذا الطلب",
+  "Libérer les dates dans le calendrier":"إتاحة التواريخ في الرزنامة",
+  "Demande modifiée":"طلب معدَّل",
+  "{nom} a modifié sa demande : {details}.":"عدّل {nom} طلبه: {details}.",
+  "Réservation annulée":"حجز ملغى",
+  "{nom} a annulé sa réservation confirmée du {date}.":"ألغى {nom} حجزه المؤكَّد ليوم {date}.",
+  "Refusées et annulées":"المرفوضة والملغاة",
+  "Avis modifié à valider":"رأي معدَّل في انتظار الموافقة"
 };
 
 /* =====================================================================
@@ -652,7 +704,7 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.1.2";
+const APP_VERSION = "1.2.0";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -807,7 +859,7 @@ const S = {
   user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [],
   portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})), agenda: { datesPrises: [] },
   route: "", param: "", filtrePortfolio: "Tout", filtreLivraisons: "encours", filtreDemandes: "attente", rechercheClients: "",
-  calMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", pleins: {}
+  calMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", modifDemande: null, brouillon: null, pleins: {}
 };
 
 /* ================================================================= APP */
@@ -922,6 +974,7 @@ const App = {
       S[cle] = data || [];
     }
     if(cle === "notifs") this._sonnerSiNouveau();
+    if(cle === "demandes" || cle === "agenda"){ (this._charges = this._charges || {})[cle] = true; if(this.estAdmin()) setTimeout(() => this.libererAnnulations(), 0); }
     this.planifier();
   },
   planifier(){
@@ -1201,14 +1254,30 @@ const App = {
   },
   ouvrirCloche(){
     const liste = S.notifs.slice().sort((a, b) => b.ts - a.ts).slice(0, 60);
-    const corps = liste.length ? `<div class="liste">${liste.map(n => {
+    const corps = liste.length ? `<div class="liste" id="liste-notifs">${liste.map(n => {
       const x = n[LANG] || n.fr || {};
-      return `<button class="ligne" onclick="App.ouvrirNotif('${n.id}')"><span class="avatar" style="${n.lu ? "" : "border-color:var(--or)"}">${ico("cloche")}</span>
-        <span class="corps"><span class="t">${esc(x.t)}</span><span class="s" style="white-space:normal">${esc(x.b)}</span><span class="discret">${esc(depuis(n.ts))}</span></span></button>`;
+      return `<div class="ligne notif-ligne" id="nl-${n.id}"><button class="notif-ouvrir" onclick="App.ouvrirNotif('${n.id}')"><span class="avatar" style="${n.lu ? "" : "border-color:var(--or)"}">${ico("cloche")}</span>
+        <span class="corps"><span class="t">${esc(x.t)}</span><span class="s" style="white-space:normal">${esc(x.b)}</span><span class="discret">${esc(depuis(n.ts))}</span></span></button>
+        <button class="btn-icone btn-suppr" onclick="App.supprimerNotif('${n.id}')" aria-label="${esc(t("Supprimer cette notification"))}" title="${esc(t("Supprimer cette notification"))}">${ico("corbeille")}</button></div>`;
     }).join("")}</div>` : `<div class="vide">${ico("cloche")}<h3>${esc(t("Rien de nouveau"))}</h3><p>${esc(t("Vos notifications apparaîtront ici."))}</p></div>`;
-    const pied = liste.some(n => !n.lu) ? `<button class="btn btn-bloc" onclick="App.toutLu()">${esc(t("Tout marquer comme lu"))}</button>` : "";
+    const pied = liste.length ? `<div class="rangee">${liste.some(n => !n.lu) ? `<button class="btn" onclick="App.toutLu()">${esc(t("Tout marquer comme lu"))}</button>` : ""}
+      <button class="btn btn-danger" onclick="App.toutEffacer()">${ico("corbeille")} ${esc(t("Tout effacer"))}</button></div>` : "";
     this.feuille(t("Notifications"), corps, pied);
   },
+  async supprimerNotif(id){
+    const el = document.getElementById("nl-" + id); if(el) el.remove();
+    S.notifs = S.notifs.filter(n => n.id !== id); this.vueEnteteSeule();
+    try{ await window.Cloud.del("notifs", id); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+    if(!S.notifs.length) this.ouvrirCloche();
+  },
+  async toutEffacer(){
+    const ids = S.notifs.map(n => n.id); if(!ids.length) return;
+    if(!(await this.confirmer(t("Effacer toutes les notifications ?"), t("Elles disparaîtront de la liste. Cela ne supprime ni vos photos ni vos demandes."), t("Tout effacer"), true))) return;
+    S.notifs = []; this.vueEnteteSeule();
+    const r = await Promise.allSettled(ids.map(id => window.Cloud.del("notifs", id)));
+    this.toast(r.some(x => x.status === "rejected") ? t("Suppression incomplète. Vérifiez la connexion et réessayez.") : t("Notifications effacées."), r.some(x => x.status === "rejected") ? "err" : "ok");
+  },
+  vueEnteteSeule(){ const e = document.getElementById("entete"); if(e) e.innerHTML = this.vueEntete(); },
   ouvrirNotif(id){
     const n = S.notifs.find(x => x.id === id); if(!n) return;
     if(!n.lu) window.Cloud.patch("notifs", id, { lu: true }).catch(() => {});
@@ -1523,24 +1592,26 @@ const App = {
     const forfaits = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
     const mes = S.demandes.slice().sort((a, b) => b.createdAt - a.createdAt);
     const etat = d => ({ attente: ["", "En attente"], confirmee: ["ok", "Confirmée"], refusee: ["danger", "Indisponible"], annulee: ["", "Annulée"] }[d.statut] || ["", d.statut]);
-    const fc = S.forfaits.find(f => f.id === S.forfaitChoisi);
-    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Réserver une date"))}</h2></div>
-      <p class="doux">${esc(t("Touchez les jours de votre événement dans le calendrier. Vous pouvez en choisir plusieurs, par exemple le henné, la wtiya et le mariage."))}</p>
+    const fc = S.forfaits.find(f => f.id === S.forfaitChoisi), ed = S.modifDemande, br = S.brouillon || {};
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(ed ? t("Modifier ma demande") : t("Réserver une date"))}</h2></div>
+      ${ed ? `<div class="encart"><b>${esc(t("Modification de votre demande"))}</b><div class="doux" style="margin:4px 0 8px">${esc(t("Changez les jours, leur type, le lieu ou le message, puis enregistrez. Achref sera prévenu."))}</div>
+          <button class="lien" onclick="App.annulerModification()">${esc(t("Annuler la modification"))}</button></div>`
+        : `<p class="doux">${esc(t("Touchez les jours de votre événement dans le calendrier. Vous pouvez en choisir plusieurs, par exemple le henné, la wtiya et le mariage."))}</p>`}
       ${fc ? `<div class="encart"><b>${esc(t("Offre choisie"))}</b><div class="doux">${esc(fc.nom)}${fc.prix ? " — " + esc(fc.prix) : ""}</div></div>` : ""}
       <div class="bloc">${this.vueCalendrier()}</div>
       <form class="bloc" onsubmit="event.preventDefault();App.envoyerDemande()">
         <div class="champ"><span class="etiquette">${esc(t("Vos jours"))}</span><div id="re-jours">${this.vueJoursChoisis()}</div></div>
-        <div class="champ"><label for="re-lieu">${esc(t("Ville ou salle"))}</label><input class="saisie" id="re-lieu" placeholder="${esc(t("Par exemple : Sousse, salle des fêtes"))}"></div>
+        <div class="champ"><label for="re-lieu">${esc(t("Ville ou salle"))}</label><input class="saisie" id="re-lieu" value="${esc(br.lieu || "")}" placeholder="${esc(t("Par exemple : Sousse, salle des fêtes"))}"></div>
         ${forfaits.length ? `<div class="champ"><label for="re-forfait">${esc(t("Forfait"))}</label><select class="saisie" id="re-forfait" onchange="App.choisirForfait(this.value)"><option value="">${esc(t("Je ne sais pas encore"))}</option>${forfaits.map(f => `<option value="${f.id}"${f.id === S.forfaitChoisi ? " selected" : ""}>${esc(f.nom)}${f.prix ? " — " + esc(f.prix) : ""}</option>`).join("")}</select></div>` : ""}
-        <div class="champ"><label for="re-msg">${esc(t("Message (facultatif)"))}</label><textarea class="saisie" id="re-msg" placeholder="${esc(t("Horaires, nombre d'invités, vidéo souhaitée…"))}"></textarea></div>
-        <button class="btn btn-or btn-bloc" id="re-go">${esc(t("Envoyer la demande"))}</button>
+        <div class="champ"><label for="re-msg">${esc(t("Message (facultatif)"))}</label><textarea class="saisie" id="re-msg" placeholder="${esc(t("Horaires, nombre d'invités, vidéo souhaitée…"))}">${esc(br.message || "")}</textarea></div>
+        <button class="btn btn-or btn-bloc" id="re-go">${esc(ed ? t("Enregistrer les modifications") : t("Envoyer la demande"))}</button>
       </form>
       ${mes.length ? `<div class="titre-section"><h2>${esc(t("Mes demandes"))}</h2></div><div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${mes.map(d => {
         const [c, l] = etat(d), j = joursDe(d);
         return `<div class="ligne" style="cursor:default;flex-wrap:wrap"><span class="corps"><span class="t">${esc(titreDemande(d))}</span>
           ${j.length > 1 ? `<span class="s">${esc(resumeJours(j))}</span>` : ""}${d.lieu ? `<span class="s">${esc(d.lieu)}</span>` : ""}${d.forfaitNom ? `<span class="s">${esc(t("Forfait"))} : ${esc(d.forfaitNom)}</span>` : ""}
           ${d.noteAdmin ? `<span class="doux" style="display:block;font-size:.92rem;margin-top:4px">${esc(d.noteAdmin)}</span>` : ""}</span>
-          <span class="etat ${c}">${esc(t(l))}</span>${d.statut === "attente" ? `<button class="lien" style="width:100%;text-align:end" onclick="App.annulerDemande('${d.id}')">${esc(t("Annuler la demande"))}</button>` : ""}</div>`;
+          <span class="etat ${c}">${esc(t(l))}</span>${this.actionsDemandeClient(d)}</div>`;
       }).join("")}</div></div>` : ""}`;
   },
   vueCalendrier(){
@@ -1593,6 +1664,27 @@ const App = {
   },
   typeJour(iso, type){ const j = S.joursChoisis.find(x => x.date === iso); if(j && TYPES_EVT.indexOf(type) >= 0) j.type = type; this._edition = true; },
   choisirForfait(id){ S.forfaitChoisi = id || ""; },
+  // Boutons d'une demande dans « Mes demandes » (selon son état).
+  actionsDemandeClient(d){
+    const b = (f, l, danger) => `<button class="lien${danger ? " lien-danger" : ""}" onclick="App.${f}('${d.id}')">${esc(t(l))}</button>`;
+    let a = [];
+    if(d.statut === "attente") a = [b("modifierDemande", "Modifier"), b("annulerDemande", "Annuler la demande", true)];
+    else if(d.statut === "confirmee" && finDe(d) >= aujourdHui()) a = [b("annulerDemande", "Annuler la réservation", true)];
+    else if(d.statut === "annulee" || d.statut === "refusee") a = [b("supprimerDemandeClient", "Supprimer", true)];
+    return a.length ? `<div class="actions-demande">${a.join("")}</div>` : "";
+  },
+  modifierDemande(id){
+    const d = S.demandes.find(x => x.id === id); if(!d || d.statut !== "attente") return;
+    const j = joursDe(d);
+    S.modifDemande = id; S.joursChoisis = j.map(x => ({ date: x.date, type: x.type })); S.forfaitChoisi = d.forfaitId || "";
+    S.brouillon = { lieu: d.lieu || "", message: d.message || "" }; if(j.length) S.calMois = j[0].date.slice(0, 7);
+    this._edition = false; this.rendre(); window.scrollTo(0, 0);
+  },
+  annulerModification(){ S.modifDemande = null; S.brouillon = null; S.joursChoisis = []; S.forfaitChoisi = ""; this._edition = false; this.rendre(); },
+  async supprimerDemandeClient(id){
+    if(!(await this.confirmer(t("Supprimer cette demande ?"), t("Elle disparaîtra de votre liste."), t("Supprimer"), true))) return;
+    try{ await window.Cloud.del("demandes", id); this.toast(t("Demande supprimée."), "ok"); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+  },
   async envoyerDemande(){
     const g = id => ((document.getElementById(id) || {}).value || "").trim();
     const lieu = g("re-lieu"), fid = g("re-forfait"), msg = g("re-msg");
@@ -1606,39 +1698,60 @@ const App = {
       jours, date: jours[0].date, dateFin: jours[jours.length - 1].date, type: jours[0].type,
       lieu, forfaitId: f ? f.id : "", forfaitNom: f ? f.nom : "", message: msg, statut: "attente", noteAdmin: "", createdAt: Date.now(), updatedAt: Date.now() };
     const btn = document.getElementById("re-go"); btn.disabled = true;
+    const ancienne = S.modifDemande ? S.demandes.find(x => x.id === S.modifDemande && x.statut === "attente") : null;
+    if(ancienne) d.createdAt = ancienne.createdAt || d.createdAt;
     try{
+      // Une modification = la nouvelle version, puis l'ancienne est retirée.
       await window.Cloud.put("demandes", d);
-      this.notifier("admin", "demande", "Nouvelle demande", "{nom} : {details}.", { nom: u.nom || t("Un client"), details: deuxLangues(l => resumeJours(jours, l)) }, "demandes/" + d.id);
-      S.joursChoisis = []; S.forfaitChoisi = ""; this._edition = false;
-      this.toast(t("Demande envoyée. Achref vous répond très vite."), "ok"); this.rendre();
+      if(ancienne){ try{ await window.Cloud.del("demandes", ancienne.id); }catch(e){ console.warn("ancienne demande", e); } }
+      const vars = { nom: u.nom || t("Un client"), details: deuxLangues(l => resumeJours(jours, l)) };
+      if(ancienne) this.notifier("admin", "demande", "Demande modifiée", "{nom} a modifié sa demande : {details}.", vars, "demandes/" + d.id);
+      else this.notifier("admin", "demande", "Nouvelle demande", "{nom} : {details}.", vars, "demandes/" + d.id);
+      S.joursChoisis = []; S.forfaitChoisi = ""; S.modifDemande = null; S.brouillon = null; this._edition = false;
+      this.toast(ancienne ? t("Demande modifiée. Achref est prévenu.") : t("Demande envoyée. Achref vous répond très vite."), "ok"); this.rendre();
     }catch(e){ btn.disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
   },
   async annulerDemande(id){
-    if(!(await this.confirmer(t("Annuler la demande ?"), t("Achref sera prévenu que cette date ne vous intéresse plus."), t("Annuler la demande"), true))) return;
-    const d = S.demandes.find(x => x.id === id);
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const confirmee = d.statut === "confirmee";
+    if(!(await this.confirmer(confirmee ? t("Annuler la réservation ?") : t("Annuler la demande ?"),
+      confirmee ? t("Achref sera prévenu et vos dates seront libérées pour d'autres mariés.") : t("Achref sera prévenu que cette date ne vous intéresse plus."),
+      confirmee ? t("Annuler la réservation") : t("Annuler la demande"), true))) return;
     try{
       await window.Cloud.patch("demandes", id, { statut: "annulee", updatedAt: Date.now() });
-      if(d) this.notifier("admin", "demande_annulee", "Demande annulée", "{nom} a annulé sa demande du {date}.", { nom: S.prof.nom || t("Un client"), date: deuxLangues(l => plage(joursDe(d), l)) }, "demandes/" + id);
+      const vars = { nom: S.prof.nom || t("Un client"), date: deuxLangues(l => plage(joursDe(d), l)) };
+      if(confirmee) this.notifier("admin", "demande_annulee", "Réservation annulée", "{nom} a annulé sa réservation confirmée du {date}.", vars, "demandes/" + id);
+      else this.notifier("admin", "demande_annulee", "Demande annulée", "{nom} a annulé sa demande du {date}.", vars, "demandes/" + id);
+      this.toast(confirmee ? t("Réservation annulée. Achref est prévenu.") : t("Demande annulée."), "ok");
     }catch(e){ this.toast(t("Annulation impossible. Vérifiez la connexion."), "err"); }
   },
 
   /* ================================================= CLIENT : AVIS */
-  ouvrirAvis(){
-    this._note = 5;
-    this.feuille(t("Votre avis"), `<p class="doux">${esc(t("Quelques mots sur votre expérience aideront les futurs mariés. Votre avis sera publié après validation."))}</p>
-      <div class="choix-etoiles" id="av-et">${[1, 2, 3, 4, 5].map(n => `<button type="button" class="on" onclick="App.noter(${n})" aria-label="${n}/5">★</button>`).join("")}</div>
-      <div class="champ"><label for="av-txt">${esc(t("Votre message"))}</label><textarea class="saisie" id="av-txt" maxlength="600" placeholder="${esc(t("Ce que vous avez aimé…"))}"></textarea></div>`,
-      `<button class="btn btn-or btn-bloc" id="av-go" onclick="App.envoyerAvis()">${esc(t("Envoyer mon avis"))}</button>`);
+  ouvrirAvis(id){
+    // Le client a déjà un avis : on le modifie au lieu d'en ajouter un deuxième.
+    const a = id ? S.avis.find(x => x.id === id) : S.avis.find(x => S.prof && x.clientId === S.prof.id);
+    this._avisModifie = a ? a.id : null; this._note = a ? a.note || 5 : 5;
+    this.feuille(a ? t("Modifier mon avis") : t("Votre avis"), `<p class="doux">${esc(a ? t("Votre avis modifié sera de nouveau publié après validation par Achref.") : t("Quelques mots sur votre expérience aideront les futurs mariés. Votre avis sera publié après validation."))}</p>
+      <div class="choix-etoiles" id="av-et">${[1, 2, 3, 4, 5].map(n => `<button type="button" class="${n <= this._note ? "on" : ""}" onclick="App.noter(${n})" aria-label="${n}/5">★</button>`).join("")}</div>
+      <div class="champ"><label for="av-txt">${esc(t("Votre message"))}</label><textarea class="saisie" id="av-txt" maxlength="600" placeholder="${esc(t("Ce que vous avez aimé…"))}">${esc(a ? a.texte || "" : "")}</textarea></div>`,
+      `<button class="btn btn-or btn-bloc" id="av-go" onclick="App.envoyerAvis()">${esc(a ? t("Enregistrer mon avis") : t("Envoyer mon avis"))}</button>`);
+  },
+  async supprimerAvisClient(id){
+    if(!(await this.confirmer(t("Supprimer mon avis ?"), t("Il ne sera plus visible sur l'accueil."), t("Supprimer"), true))) return;
+    try{ await window.Cloud.del("avis", id); this.toast(t("Avis supprimé."), "ok"); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
   },
   noter(n){ this._note = n; document.querySelectorAll("#av-et button").forEach((b, i) => b.classList.toggle("on", i < n)); },
   async envoyerAvis(){
     const txt = (document.getElementById("av-txt").value || "").trim();
     if(txt.length < 10) return this.toast(t("Écrivez au moins quelques mots."), "err");
     const a = { id: nouvelId("a"), clientId: S.prof.id, clientNom: S.prof.nom || "", note: this._note || 5, texte: txt, publie: false, createdAt: Date.now() };
+    const ancien = this._avisModifie;
     document.getElementById("av-go").disabled = true;
     try{
       await window.Cloud.put("avis", a);
-      this.notifier("admin", "avis", "Nouvel avis à valider", "{nom} a laissé {n} étoiles.", { nom: S.prof.nom || t("Un client"), n: a.note }, "a-avis");
+      if(ancien){ try{ await window.Cloud.del("avis", ancien); }catch(e){ console.warn("ancien avis", e); } }
+      this.notifier("admin", "avis", ancien ? "Avis modifié à valider" : "Nouvel avis à valider", "{nom} a laissé {n} étoiles.", { nom: S.prof.nom || t("Un client"), n: a.note }, "a-avis");
+      this._avisModifie = null;
       this.fermer(); this.toast(t("Merci ! Votre avis sera publié après validation."), "ok");
     }catch(e){ document.getElementById("av-go").disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
   },
@@ -1663,7 +1776,8 @@ const App = {
       ${this.vueNotifs(!this.estAdmin())}
       ${this.estAdmin() ? "" : `<div class="bloc"><h3>${esc(t("Mon avis"))}</h3>
         ${mesAvis.length ? mesAvis.map(a => `<div class="avis-carte"><div class="etoiles">${"★".repeat(a.note)}</div><blockquote>« ${esc(a.texte)} »</blockquote>
-          <span class="etat ${a.publie ? "ok" : ""}">${esc(a.publie ? t("Publié") : t("En attente de validation"))}</span></div>`).join("")
+          <span class="etat ${a.publie ? "ok" : ""}">${esc(a.publie ? t("Publié") : t("En attente de validation"))}</span>
+          <div class="actions-demande" style="margin-top:8px"><button class="lien" onclick="App.ouvrirAvis('${a.id}')">${esc(t("Modifier"))}</button><button class="lien lien-danger" onclick="App.supprimerAvisClient('${a.id}')">${esc(t("Supprimer"))}</button></div></div>`).join("")
           : `<p class="doux">${esc(t("Partagez votre expérience avec les futurs mariés."))}</p><button class="btn btn-petit" onclick="App.ouvrirAvis()">${ico("etoile")} ${esc(t("Laisser un avis"))}</button>`}</div>`}
       ${estInstallee() ? "" : `<div class="bloc" data-installer><h3>${esc(t("Application"))}</h3><p class="doux">${esc(t("Ajoutez l'app sur l'écran d'accueil de votre téléphone, comme une vraie application."))}</p>${this.boutonInstaller("btn-or")}</div>`}
       <div class="bloc"><h3>${esc(t("Mes données"))}</h3>
@@ -1941,7 +2055,33 @@ const App = {
       <h3 style="margin:16px 0 6px">${esc(t("Demandes"))}</h3>
       ${dems.length ? `<div class="liste">${dems.map(d => `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="corps"><span class="t">${esc(titreDemande(d))}</span>${joursDe(d).length > 1 ? `<span class="s">${esc(typesDemande(d))}</span>` : ""}</span><span class="etat">${esc(t(this.libelleStatut(d.statut)))}</span></button>`).join("")}</div>` : `<p class="discret">${esc(t("Aucune demande."))}</p>`}`;
     this.feuille(c.nom || t("Client"), corps, `<button class="btn btn-or btn-bloc" onclick="App.fermer();setTimeout(()=>App.ouvrirLivraison(null,'${id}'),250)">${ico("envoyer")} ${esc(t("Envoyer des photos à ce client"))}</button>
-      <button class="btn btn-danger btn-bloc" style="margin-top:10px" onclick="App.supprimerClient('${id}')">${ico("corbeille")} ${esc(t("Supprimer ce client"))}</button>`);
+      <div class="rangee" style="margin-top:10px"><button class="btn btn-clair" onclick="App.modifierClient('${id}')">${ico("crayon")} ${esc(t("Modifier"))}</button>
+        <button class="btn btn-danger" onclick="App.supprimerClient('${id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button></div>`);
+  },
+  modifierClient(id){
+    const c = S.users.find(u => u.id === id); if(!c) return;
+    this.feuille(t("Modifier le client"), `
+      <div class="champ"><label for="mc-nom">${esc(t("Nom complet"))}</label><input class="saisie" id="mc-nom" value="${esc(c.nom || "")}" autocomplete="off"></div>
+      <div class="champ"><label for="mc-tel">${esc(t("Numéro de téléphone"))}</label><input class="saisie" id="mc-tel" type="tel" value="${esc(c.tel || "")}" autocomplete="off">
+        <div class="aide">${esc(t("Le client se connecte aussi avec ce numéro. Son e-mail ne peut être changé que par lui, depuis son compte."))}</div></div>`,
+      `<div class="rangee"><button class="btn btn-clair" onclick="App.ouvrirClient('${id}')">${esc(t("Annuler"))}</button>
+        <button class="btn btn-or" id="mc-go" onclick="App.enregistrerClient('${id}')">${esc(t("Enregistrer"))}</button></div>`);
+  },
+  async enregistrerClient(id){
+    const c = S.users.find(u => u.id === id); if(!c) return;
+    const nom = (document.getElementById("mc-nom").value || "").trim(), tel = normTel(document.getElementById("mc-tel").value);
+    if(!nom || !tel) return this.toast(t("Nom et téléphone requis."), "err");
+    const cle = cleTel(tel), ancienne = cleTel(c.tel);
+    if(cle.length < 8) return this.toast(t("Numéro de téléphone invalide."), "err");
+    const btn = document.getElementById("mc-go"); btn.disabled = true;
+    try{
+      if(cle !== ancienne){
+        const ok = await window.Cloud.adminMovePhone(ancienne, cle, c.id, c.email || "");
+        if(!ok){ btn.disabled = false; return this.toast(t("Ce numéro est déjà utilisé par un autre compte."), "err"); }
+      }
+      await window.Cloud.patch("users", id, { nom, tel });
+      this.toast(t("Client modifié."), "ok"); setTimeout(() => this.ouvrirClient(id), 150);
+    }catch(e){ console.warn(e); btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   },
   async supprimerClient(id){
     const c = S.users.find(u => u.id === id); if(!c) return;
@@ -1961,9 +2101,10 @@ const App = {
   libelleStatut(s){ return { attente: "En attente", confirmee: "Confirmée", refusee: "Refusée", annulee: "Annulée" }[s] || s; },
   pageDemandes(){
     const f = S.filtreDemandes;
-    const liste = S.demandes.filter(d => f === "toutes" || d.statut === f || (f === "confirmee" && d.statut === "confirmee"))
+    const ferme = d => d.statut === "refusee" || d.statut === "annulee";
+    const liste = S.demandes.filter(d => f === "toutes" || d.statut === f || (f === "fermees" && ferme(d)))
       .sort((a, b) => f === "attente" ? a.createdAt - b.createdAt : (a.date < b.date ? 1 : -1));
-    const puces = [["attente", "En attente"], ["confirmee", "Confirmées"], ["toutes", "Toutes"]];
+    const puces = [["attente", "En attente"], ["confirmee", "Confirmées"], ["fermees", "Refusées et annulées"], ["toutes", "Toutes"]];
     return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Demandes"))}</h2></div>
       <div class="puces">${puces.map(([k, l]) => `<button class="puce${f === k ? " on" : ""}" onclick="App.filtreD('${k}')">${esc(t(l))}</button>`).join("")}</div>
       ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(d => {
@@ -1971,9 +2112,52 @@ const App = {
         const j = joursDe(d);
         return `<button class="ligne" onclick="App.ouvrirDemande('${d.id}')"><span class="avatar">${esc(initiales(d.clientNom))}</span><span class="corps"><span class="t">${esc(plage(j))}${j.length > 1 ? " · " + esc(t("{n} jours", { n: j.length })) : ""}</span>
           <span class="s">${esc(typesDemande(d))} — ${esc(d.clientNom)}${d.lieu ? " — " + esc(d.lieu) : ""}</span></span><span class="etat ${k}">${esc(t(this.libelleStatut(d.statut)))}</span></button>`; }).join("")}</div></div>`
-        : `<div class="vide">${ico("boite")}<p>${esc(t("Aucune demande ici."))}</p></div>`}`;
+        : `<div class="vide">${ico("boite")}<p>${esc(t("Aucune demande ici."))}</p></div>`}
+      ${f === "fermees" && liste.length ? `<button class="btn btn-danger btn-bloc" onclick="App.supprimerDemandesFermees()">${ico("corbeille")} ${esc(t("Supprimer ces {n} demandes", { n: liste.length }))}</button>` : ""}`;
   },
   filtreD(k){ S.filtreDemandes = k; this.rendre(); },
+  // Dates d'une demande encore marquées « prises » alors qu'aucune réservation confirmée ne les garde.
+  datesALiberer(d){
+    const pris = S.agenda.datesPrises || [];
+    const gardees = new Set(S.demandes.filter(x => x.id !== d.id && x.statut === "confirmee").flatMap(x => joursDe(x).map(j => j.date)));
+    return joursDe(d).map(j => j.date).filter(x => pris.indexOf(x) >= 0 && !gardees.has(x));
+  },
+  async libererDates(dates){
+    if(!dates.length) return;
+    const reste = (S.agenda.datesPrises || []).filter(x => dates.indexOf(x) < 0).sort();
+    S.agenda = Object.assign({}, S.agenda, { datesPrises: reste });
+    await window.Cloud.put("_config", { id: "agenda", datesPrises: reste });
+  },
+  // Un client a annulé une réservation confirmée : ses dates redeviennent libres (côté Achref, seul autorisé à modifier l'agenda).
+  async libererAnnulations(){
+    if(!this.estAdmin() || this._liberation || !(this._charges && this._charges.demandes && this._charges.agenda)) return;
+    const aFaire = S.demandes.filter(d => d.statut === "annulee" && d.confirmeeAt && !d.datesLibereesAt);
+    if(!aFaire.length) return;
+    this._liberation = true;
+    try{
+      for(const d of aFaire){ await this.libererDates(this.datesALiberer(d)); await window.Cloud.patch("demandes", d.id, { datesLibereesAt: Date.now() }); }
+    }catch(e){ console.warn("dates libérées", e); }
+    this._liberation = false;
+  },
+  async libererDatesDemande(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    try{ await this.libererDates(this.datesALiberer(d)); await window.Cloud.patch("demandes", id, { datesLibereesAt: Date.now() }); this.fermer(); this.toast(t("Dates libérées dans le calendrier."), "ok"); }
+    catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async supprimerDemande(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const conf = d.statut === "confirmee";
+    if(!(await this.confirmer(t("Supprimer cette demande ?"), conf ? t("Cette réservation est confirmée : ses dates seront libérées dans le calendrier. Le client ne sera pas prévenu.") : t("Elle disparaîtra de votre liste et de celle du client."), t("Supprimer"), true))) return;
+    try{ await this.libererDates(this.datesALiberer(d)); await window.Cloud.del("demandes", id); this.toast(t("Demande supprimée."), "ok"); }
+    catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+  },
+  async supprimerDemandesFermees(){
+    const liste = S.demandes.filter(d => d.statut === "refusee" || d.statut === "annulee"); if(!liste.length) return;
+    if(!(await this.confirmer(t("Supprimer ces {n} demandes ?", { n: liste.length }), t("Les demandes refusées et annulées disparaîtront de votre liste et de celle des clients."), t("Supprimer"), true))) return;
+    try{ for(const d of liste) await this.libererDates(this.datesALiberer(d)); }catch(e){ console.warn(e); }
+    const r = await Promise.allSettled(liste.map(d => window.Cloud.del("demandes", d.id)));
+    this.toast(r.some(x => x.status === "rejected") ? t("Suppression incomplète. Vérifiez la connexion et réessayez.") : t("Demandes supprimées."), r.some(x => x.status === "rejected") ? "err" : "ok");
+  },
   apres_demandes(){ if(S.param){ const id = S.param; S.param = ""; history.replaceState(null, "", "#demandes"); this.ouvrirDemande(id); } },
   ouvrirDemande(id){
     const d = S.demandes.find(x => x.id === id); if(!d) return;
@@ -1987,16 +2171,19 @@ const App = {
       ${prises.length ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(prises.length > 1 || jours.length > 1 ? t("Attention : déjà marqué comme pris : {dates}.", { dates: prises.map(j => dateLongue(j.date)).join(", ") }) : t("Attention : cette date est déjà marquée comme prise."))}</b></div>` : ""}
       <div class="rangee" style="margin:12px 0">${d.clientTel ? `<a class="btn btn-petit" href="${telLien(d.clientTel)}">${ico("tel")} ${esc(t("Appeler"))}</a><a class="btn btn-petit" href="${waLien(d.clientTel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>` : ""}</div>
       <div class="champ"><label for="dm-note">${esc(t("Réponse au client (facultatif)"))}</label><textarea class="saisie" id="dm-note" placeholder="${esc(t("Par exemple : je vous appelle demain pour le devis."))}">${esc(d.noteAdmin || "")}</textarea></div>`;
-    const pied = d.statut === "annulee" ? `<p class="discret">${esc(t("Le client a annulé cette demande."))}</p>` :
+    const aLiberer = d.statut === "annulee" ? this.datesALiberer(d) : [];
+    const suppr = `<button class="btn btn-clair btn-bloc" style="margin-top:10px" onclick="App.supprimerDemande('${id}')">${ico("corbeille")} ${esc(t("Supprimer cette demande"))}</button>`;
+    const pied = d.statut === "annulee" ? `<p class="discret" style="margin-bottom:10px">${esc(t("Le client a annulé cette demande."))}</p>
+        ${aLiberer.length ? `<button class="btn btn-or btn-bloc" onclick="App.libererDatesDemande('${id}')">${esc(t("Libérer les dates dans le calendrier"))}</button>` : ""}${suppr}` :
       `<div class="rangee"><button class="btn btn-danger" onclick="App.repondreDemande('${id}','refusee')">${esc(t("Date indisponible"))}</button>
-        <button class="btn btn-or" onclick="App.repondreDemande('${id}','confirmee')">${ico("coche")} ${esc(t("Confirmer"))}</button></div>`;
+        <button class="btn btn-or" onclick="App.repondreDemande('${id}','confirmee')">${ico("coche")} ${esc(t("Confirmer"))}</button></div>${suppr}`;
     this.feuille(t("Demande de réservation"), corps, pied);
   },
   async repondreDemande(id, statut){
     const d = S.demandes.find(x => x.id === id); if(!d) return;
     const note = (document.getElementById("dm-note").value || "").trim();
     try{
-      await window.Cloud.patch("demandes", id, { statut, noteAdmin: note, updatedAt: Date.now() });
+      await window.Cloud.patch("demandes", id, Object.assign({ statut, noteAdmin: note, updatedAt: Date.now() }, statut === "confirmee" ? { confirmeeAt: d.confirmeeAt || Date.now(), datesLibereesAt: null } : {}));
       // Tous les jours de la demande sont pris (confirmée) ou libérés (si elle était confirmée).
       let dates = (S.agenda.datesPrises || []).slice();
       const jours = joursDe(d).map(j => j.date);
@@ -2285,6 +2472,19 @@ const Cloud = {
       await setDoc(nref, data);
       if(aMoi) await deleteDoc(oref);
     }catch(e){ console.warn("loginIndex numéro", e); }
+  },
+  // Achref change le numéro d'un client : l'annuaire suit (refus si le numéro appartient à un autre compte).
+  async adminMovePhone(ancienne, nouvelle, uid, email){
+    if(!db || !nouvelle || ancienne === nouvelle) return true;
+    const nref = doc(db, IDX, String(nouvelle)); const nd = await getDoc(nref);
+    if(nd.exists() && nd.data().uid !== uid) return false;
+    let mail = email;
+    if(ancienne){
+      const oref = doc(db, IDX, String(ancienne)); const od = await getDoc(oref);
+      if(od.exists() && od.data().uid === uid){ mail = od.data().email || mail; await setDoc(nref, Object.assign({}, od.data(), { ts: Date.now() })); await deleteDoc(oref); return true; }
+    }
+    if(mail) await setDoc(nref, { email: mail, uid, ts: Date.now() });
+    return true;
   },
   async removeLoginIndex(cle, uid){
     if(!db || !cle) return;
