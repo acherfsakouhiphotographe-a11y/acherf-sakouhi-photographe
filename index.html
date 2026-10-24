@@ -316,10 +316,19 @@ html[lang="ar"] .forfait .nom-f{font-style:normal}
 .mosaique img{width:100%;height:auto}
 .visionneuse{position:fixed;inset:0;z-index:80;background:rgba(14,4,8,.97);display:flex;flex-direction:column}
 .visionneuse .barre{display:flex;justify-content:space-between;align-items:center;padding:calc(10px + var(--sur-haut)) 12px 10px}
-.visionneuse .scene{flex:1;display:grid;place-items:center;overflow:hidden;touch-action:pan-y;position:relative}
-.visionneuse .scene img{max-width:100%;max-height:100%;object-fit:contain;transition:filter .4s}
+.visionneuse .scene{flex:1;display:grid;place-items:center;overflow:hidden;touch-action:none;position:relative}
+/* zoom : pincer, toucher deux fois, molette ou bouton loupe ; la photo zoomée se déplace au doigt */
+.visionneuse .scene img{max-width:100%;max-height:100%;object-fit:contain;transition:filter .4s,transform .28s cubic-bezier(.2,.8,.2,1);
+  transform-origin:50% 50%;will-change:transform;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none;cursor:zoom-in}
+.visionneuse .scene img.geste{transition:filter .4s}
+.visionneuse.zoome .scene img{cursor:grab}
+.visionneuse.zoome .nav{opacity:0;pointer-events:none}
+.visionneuse .nav{transition:opacity .2s}
+.visionneuse .outils{display:flex;gap:8px}
 .visionneuse .scene img.flou{filter:blur(10px)}
 .visionneuse .legende{padding:10px 18px calc(16px + var(--sur-bas));text-align:center;color:var(--ivoire-2);min-height:48px}
+.visionneuse .astuce{display:block;margin-top:4px;font-size:.8rem;color:var(--sourdine)}
+.visionneuse.zoome .astuce{visibility:hidden}
 .visionneuse .nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2}
 .visionneuse .nav.prec{inset-inline-start:8px}.visionneuse .nav.suiv{inset-inline-end:8px}
 html[lang="ar"] .visionneuse .nav svg{transform:scaleX(-1)}
@@ -759,7 +768,12 @@ const AR = {
   "Déjà prévu ces jours-là :":"مبرمج من قبل في هذه الأيام:",
   "Vous pouvez quand même confirmer, par exemple en envoyant votre équipe.":"يمكنك التأكيد رغم ذلك، مثلًا بإرسال فريقك.",
   "Vos jours de travail sont dans le Tableau, rubrique Agenda. Les clients peuvent demander toutes les dates : c'est vous qui confirmez. Pour une date prise en dehors de l'app, touchez le jour dans l'agenda.":"أيام عملك موجودة في لوحة القيادة، قسم الرزنامة. يمكن للحرفاء طلب كلّ التواريخ: أنت من يؤكّد. لتاريخ محجوز خارج التطبيق، اضغط على اليوم في الرزنامة.",
-  "Ouvrir l'agenda":"فتح الرزنامة"
+  "Ouvrir l'agenda":"فتح الرزنامة",
+  /* v1.3.1 : zoom sur les photos */
+  "Zoomer":"تكبير",
+  "Revenir à la taille normale":"العودة إلى الحجم العادي",
+  "Pincez ou touchez deux fois la photo pour zoomer.":"باعِدوا بين إصبعين أو اضغطوا مرّتين على الصورة للتكبير.",
+  "Molette ou double-clic pour zoomer.":"عجلة الفأرة أو نقرة مزدوجة للتكبير."
 };
 
 /* =====================================================================
@@ -771,7 +785,7 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.3.0";
+const APP_VERSION = "1.3.1";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -900,7 +914,9 @@ const ICONES = {
   info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.2"/>',
   horloge: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
   globe: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.5 3.5 5.3 3.5 8.5s-1.1 6-3.5 8.5c-2.4-2.5-3.5-5.3-3.5-8.5s1.1-6 3.5-8.5z"/>',
-  bouclier: '<path d="M12 3.5 19.5 6v6c0 4.5-3.2 7.6-7.5 9-4.3-1.4-7.5-4.5-7.5-9V6z"/>'
+  bouclier: '<path d="M12 3.5 19.5 6v6c0 4.5-3.2 7.6-7.5 9-4.3-1.4-7.5-4.5-7.5-9V6z"/>',
+  loupe: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20.5 20.5-5.2-5.2M7.5 10.5h6M10.5 7.5v6"/>',
+  loupeMoins: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20.5 20.5-5.2-5.2M7.5 10.5h6"/>'
 };
 const ico = (n, cls) => `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[n] || ""}</svg>`;
 const champMdp = (id, ph, ac) => `<div class="mdp"><input class="saisie" id="${id}" type="password" placeholder="${esc(t(ph))}" autocomplete="${ac}">
@@ -960,7 +976,15 @@ const App = {
       });
     }
     window.addEventListener("hashchange", () => this.surRoute());
-    document.addEventListener("keydown", e => { if(e.key === "Escape"){ if(this._visio) this.fermerVisionneuse(); else this.fermer(); } });
+    document.addEventListener("keydown", e => {
+      if(e.key === "Escape"){ if(this._visio) this.fermerVisionneuse(); else this.fermer(); return; }
+      if(!this._visio) return;                    // visionneuse ouverte : flèches, + − 0
+      if(e.key === "ArrowRight" || e.key === "ArrowLeft"){ this.pasVisionneuse((e.key === "ArrowRight" ? 1 : -1) * (LANG === "ar" ? -1 : 1)); }
+      else if(e.key === "+" || e.key === "="){ this.zoomVers(this._z.s * 1.5, 0, 0, true); }
+      else if(e.key === "-"){ this.zoomVers(this._z.s / 1.5, 0, 0, true); }
+      else if(e.key === "0"){ this.zoomReset(true); }
+    });
+    window.addEventListener("resize", () => { if(this._visio) this.zoomReset(false); });
     document.getElementById("app").addEventListener("input", e => { if(e.target.closest("#contenu") && e.target.type !== "file") this._edition = true; });
     // config.js rempli ?
     const fb = (window.APP_CONFIG || {}).firebase || {};
@@ -1693,22 +1717,102 @@ const App = {
     this._visio = { liste: this.photosFiltrees(), i };
     let v = document.getElementById("visio");
     if(!v){ v = document.createElement("div"); v.id = "visio"; v.className = "visionneuse"; document.body.appendChild(v); }
-    v.innerHTML = `<div class="barre"><span class="discret" id="vi-n"></span><button class="btn-icone" onclick="App.fermerVisionneuse()" aria-label="${esc(t("Fermer"))}">${ico("fermer")}</button></div>
+    v.innerHTML = `<div class="barre"><span class="discret" id="vi-n"></span><div class="outils">
+        <button class="btn-icone" id="vi-zoom" onclick="App.basculerZoom()" aria-label="${esc(t("Zoomer"))}" title="${esc(t("Zoomer"))}">${ico("loupe")}</button>
+        <button class="btn-icone" onclick="App.fermerVisionneuse()" aria-label="${esc(t("Fermer"))}">${ico("fermer")}</button></div></div>
       <div class="scene" id="vi-scene"><button class="btn-icone nav prec" onclick="App.pasVisionneuse(-1)" aria-label="${esc(t("Précédente"))}">${ico("gauche")}</button>
-        <img id="vi-img" alt=""><button class="btn-icone nav suiv" onclick="App.pasVisionneuse(1)" aria-label="${esc(t("Suivante"))}">${ico("droite")}</button></div>
+        <img id="vi-img" alt="" draggable="false"><button class="btn-icone nav suiv" onclick="App.pasVisionneuse(1)" aria-label="${esc(t("Suivante"))}">${ico("droite")}</button></div>
       <div class="legende" id="vi-leg"></div>`;
     v.hidden = false; document.body.style.overflow = "hidden";
-    const sc = document.getElementById("vi-scene"); let x0 = null;
-    sc.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
-    sc.addEventListener("touchend", e => { if(x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if(Math.abs(dx) > 50) this.pasVisionneuse((dx < 0 ? 1 : -1) * (LANG === "ar" ? -1 : 1)); });
+    // Astuce de zoom, montrée aux trois premières ouvertures.
+    const vues = lsGet("as_astuce_zoom", 0); this._astuceZoom = vues < 3; lsSet("as_astuce_zoom", vues + 1);
+    this.gestesVisionneuse(document.getElementById("vi-scene"));
     this.majVisionneuse();
   },
+  /* Gestes de la visionneuse (doigt, souris, stylet) :
+     1 doigt : glisser = photo suivante (ou déplacer la photo zoomée) ; toucher deux fois = zoom.
+     2 doigts : pincer pour zoomer. Molette (ordinateur) : zoom autour du curseur. */
+  gestesVisionneuse(sc){
+    const pts = new Map(); let geste = null, tap = null;
+    const pos = e => { const r = sc.getBoundingClientRect(); return { x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 }; };
+    const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y) || 1, milieu = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
+    sc.addEventListener("pointerdown", e => {
+      if(e.target.closest(".nav") || (e.pointerType === "mouse" && e.button !== 0)) return;
+      try{ sc.setPointerCapture(e.pointerId); }catch(x){}
+      pts.set(e.pointerId, pos(e)); const z = this._z;
+      if(pts.size >= 2){ const [a, b] = Array.from(pts.values()); geste = { type: "pince", s0: z.s, x0: z.x, y0: z.y, d0: dist(a, b), m0: milieu(a, b) }; }
+      else geste = { type: "un", p0: pos(e), x0: z.x, y0: z.y, bouge: false };
+    });
+    sc.addEventListener("pointermove", e => {
+      if(!pts.has(e.pointerId) || !geste) return;
+      pts.set(e.pointerId, pos(e)); const z = this._z;
+      if(geste.type === "pince" && pts.size >= 2){
+        const [a, b] = Array.from(pts.values()), m = milieu(a, b), s = Math.min(5, Math.max(1, geste.s0 * dist(a, b) / geste.d0));
+        z.x = m.x - (geste.m0.x - geste.x0) * s / geste.s0; z.y = m.y - (geste.m0.y - geste.y0) * s / geste.s0; z.s = s;
+        this.zoomBorner(); this.zoomAppliquer(false);
+      } else if(geste.type === "un"){
+        const p = pts.get(e.pointerId), dx = p.x - geste.p0.x, dy = p.y - geste.p0.y;
+        if(Math.abs(dx) > 8 || Math.abs(dy) > 8) geste.bouge = true;
+        if(z.s > 1){ z.x = geste.x0 + dx; z.y = geste.y0 + dy; this.zoomBorner(); this.zoomAppliquer(false); }
+      }
+    });
+    const fin = e => {
+      if(!pts.has(e.pointerId)) return;
+      const p = pts.get(e.pointerId); pts.delete(e.pointerId);
+      if(geste && geste.type === "pince"){
+        if(pts.size === 1){ const q = Array.from(pts.values())[0]; geste = { type: "un", p0: q, x0: this._z.x, y0: this._z.y, bouge: true }; }   // on continue avec le doigt restant
+        else geste = null;
+        if(this._z.s < 1.05) this.zoomReset(true);
+        return;
+      }
+      if(!geste || pts.size) return;
+      const dx = p.x - geste.p0.x;
+      if(this._z.s === 1 && geste.bouge && Math.abs(dx) > 50 && e.type === "pointerup") this.pasVisionneuse((dx < 0 ? 1 : -1) * (LANG === "ar" ? -1 : 1));
+      else if(!geste.bouge && e.type === "pointerup"){
+        const now = Date.now();
+        if(tap && now - tap.t < 330 && Math.hypot(p.x - tap.x, p.y - tap.y) < 40){ this.basculerZoom(p.x, p.y); tap = null; }
+        else tap = { t: now, x: p.x, y: p.y };
+      }
+      geste = null;
+    };
+    sc.addEventListener("pointerup", fin); sc.addEventListener("pointercancel", fin);
+    sc.addEventListener("wheel", e => { e.preventDefault(); const p = pos(e); this.zoomVers(this._z.s * Math.exp(-e.deltaY * 0.002), p.x, p.y, false); }, { passive: false });
+    sc.addEventListener("gesturestart", e => e.preventDefault());        // iPhone : pas de zoom de toute la page
+    sc.addEventListener("dblclick", e => e.preventDefault());
+  },
+  zoomReset(anime){ this._z = { s: 1, x: 0, y: 0 }; this.zoomAppliquer(anime); },
+  zoomAppliquer(anime){
+    const img = document.getElementById("vi-img"), z = this._z; if(!img || !z) return;
+    img.classList.toggle("geste", !anime);
+    img.style.transform = z.s === 1 ? "" : `translate(${z.x.toFixed(1)}px, ${z.y.toFixed(1)}px) scale(${z.s.toFixed(3)})`;
+    const v = document.getElementById("visio"); if(v) v.classList.toggle("zoome", z.s > 1);
+    const b = document.getElementById("vi-zoom");
+    if(b){ const l = t(z.s > 1 ? "Revenir à la taille normale" : "Zoomer"); b.innerHTML = ico(z.s > 1 ? "loupeMoins" : "loupe"); b.setAttribute("aria-label", l); b.title = l; }
+  },
+  // La photo zoomée ne quitte pas l'écran : ses bords s'arrêtent aux bords de la scène.
+  zoomBorner(){
+    const sc = document.getElementById("vi-scene"), img = document.getElementById("vi-img"), z = this._z; if(!sc || !img || !z) return;
+    const mx = Math.max(0, (img.offsetWidth * z.s - sc.clientWidth) / 2), my = Math.max(0, (img.offsetHeight * z.s - sc.clientHeight) / 2);
+    z.x = Math.min(mx, Math.max(-mx, z.x)); z.y = Math.min(my, Math.max(-my, z.y));
+  },
+  // Zoom vers l'échelle s en gardant immobile le point (px, py) (repère : centre de la scène).
+  zoomVers(s, px, py, anime){
+    const z = this._z; if(!z) return;
+    s = Math.min(5, Math.max(1, s));
+    z.x = px - (px - z.x) * s / z.s; z.y = py - (py - z.y) * s / z.s; z.s = s;
+    if(s < 1.02){ z.s = 1; z.x = 0; z.y = 0; }
+    this.zoomBorner(); this.zoomAppliquer(anime);
+  },
+  basculerZoom(px, py){ if(!this._z) return; if(this._z.s > 1) this.zoomReset(true); else this.zoomVers(2.5, px || 0, py || 0, true); },
   majVisionneuse(){
     const V = this._visio; if(!V) return; const p = V.liste[V.i]; if(!p) return;
+    this.zoomReset(false);
     const img = document.getElementById("vi-img"), plein = S.pleins[p.id];
     img.src = plein || S.thumbs[p.id] || PIXEL; img.classList.toggle("flou", !plein); img.alt = p.legende || t(p.cat);
     document.getElementById("vi-n").textContent = (V.i + 1) + " / " + V.liste.length;
-    document.getElementById("vi-leg").textContent = p.legende || t(p.cat);
+    const leg = document.getElementById("vi-leg"); leg.textContent = p.legende || t(p.cat);
+    if(this._astuceZoom){ const a = document.createElement("span"); a.className = "astuce";
+      a.textContent = t(matchMedia("(pointer: coarse)").matches ? "Pincez ou touchez deux fois la photo pour zoomer." : "Molette ou double-clic pour zoomer."); leg.appendChild(a); }
     document.querySelectorAll("#visio .nav").forEach(b => { b.style.visibility = V.liste.length > 1 ? "visible" : "hidden"; });
     const encore = () => this._visio && this._visio.liste[this._visio.i] === p;
     if(plein) return;
@@ -1716,7 +1820,7 @@ const App = {
     this.imagePleine(p.id).then(src => { if(encore()){ if(src) img.src = src; img.classList.remove("flou"); } });
   },
   pasVisionneuse(d){ const V = this._visio; if(!V) return; V.i = (V.i + d + V.liste.length) % V.liste.length; this.majVisionneuse(); },
-  fermerVisionneuse(){ const v = document.getElementById("visio"); if(v) v.hidden = true; this._visio = null; document.body.style.overflow = ""; },
+  fermerVisionneuse(){ const v = document.getElementById("visio"); if(v){ v.hidden = true; v.classList.remove("zoome"); } this._visio = null; this._z = null; document.body.style.overflow = ""; },
 
   /* ================================================= CLIENT : MES PHOTOS */
   joursRestants(l){ return ecartJours(aujourdHui(), l.expireLe || aujourdHui()); },
