@@ -22,5 +22,5 @@ window.APP_CONFIG = {
   // cloudName : Cloudinary → Settings → Product environment (ou en haut du Dashboard).
   // uploadPreset : nom du preset NON SIGNÉ créé dans Settings → Upload → Upload presets.
   // Ces deux valeurs ne sont pas secrètes. La clé secrète (API secret) va uniquement dans GitHub.
-  cloudinary: { cloudName: "", uploadPreset: "" }
+  cloudinary: { cloudName: "gdnknfv2", uploadPreset: "reels_achref" }
 };
