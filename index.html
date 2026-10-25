@@ -818,7 +818,7 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.4.0";
+const APP_VERSION = "1.4.1";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -1890,10 +1890,30 @@ const App = {
     return tete + `<div class="reels">${liste.map(r => this.vueReel(r, false)).join("")}</div>`;
   },
   apres_reels(){ this.lecteursReels(); },
-  // Une seule vidéo à la fois : lancer un reel met les autres en pause.
+  // Lecture automatique : le reel visible à l'écran démarre tout seul, et s'arrête quand on le fait défiler.
+  // Une seule vidéo à la fois. Le son est essayé d'abord ; si le navigateur l'interdit sans toucher
+  // (règle des navigateurs), la vidéo part sans le son : le haut-parleur des commandes le remet.
   lecteursReels(){
     const vids = Array.from(document.querySelectorAll("#contenu video.reel-video"));
-    vids.forEach(v => v.addEventListener("play", () => vids.forEach(o => { if(o !== v && !o.paused) o.pause(); })));
+    vids.forEach(v => {
+      v.addEventListener("play", () => vids.forEach(o => { if(o !== v && !o.paused) o.pause(); }));
+      // Son coupé ou remis à la main : gardé pour les reels suivants.
+      v.addEventListener("volumechange", () => { if(v._regle){ v._regle--; return; } this._sonReels = !v.muted; });
+    });
+    if(this._ioReels) this._ioReels.disconnect();
+    if(!vids.length || !("IntersectionObserver" in window)) return;
+    this._ioReels = new IntersectionObserver(entrees => entrees.forEach(e => {
+      if(e.isIntersecting && e.intersectionRatio >= 0.6) this.lancerReel(e.target);
+      else if(!e.target.paused) e.target.pause();
+    }), { threshold: [0, 0.6] });
+    vids.forEach(v => this._ioReels.observe(v));
+  },
+  lancerReel(v){
+    if(!document.body.contains(v)) return;
+    const muet = m => { if(v.muted !== m){ v._regle = (v._regle || 0) + 1; v.muted = m; } };
+    muet(this._sonReels === false);
+    const p = v.play();
+    if(p && p.catch) p.catch(() => { if(!document.body.contains(v) || v.muted) return; muet(true); v.play().catch(() => {}); });
   },
   pageAdminReels(){
     const liste = this.reelsTries(), cfg = this.cloudinary(), E = this._envoiReel;
