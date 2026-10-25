@@ -9,6 +9,8 @@
 #  À faire une seule fois : Settings → Secrets and variables → Actions →
 #  New repository secret → FIREBASE_SERVICE_ACCOUNT = contenu du fichier
 #  JSON de la clé de service Firebase (voir LISEZ-MOI.md).
+#  Reels : secret CLOUDINARY_URL (voir LISEZ-MOI.md, partie « Reels ») ;
+#  le robot efface alors chez Cloudinary les vidéos supprimées par Achref.
 # =====================================================================
 name: Notifications push
 
@@ -40,6 +42,7 @@ jobs:
         working-directory: scripts
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}
           APP_URL: ${{ vars.APP_URL }}
         run: |
           if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then echo "Secret FIREBASE_SERVICE_ACCOUNT pas encore ajouté : rien à faire."; exit 0; fi
