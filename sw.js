@@ -6,7 +6,7 @@
    • Notifications push : affichage et clic.
    Augmentez CACHE_VERSION à chaque mise à jour du site.
    ===================================================================== */
-const CACHE_VERSION = "achref-photo-v4";
+const CACHE_VERSION = "achref-photo-v5";
 const APP_SHELL = [
   "./", "./index.html", "./config.js", "./qrcode.js", "./manifest.webmanifest",
   "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./icon-monochrome-512.png", "./logo-mark.png",
@@ -35,7 +35,7 @@ self.addEventListener("fetch", (event) => {
     })));
     return;
   }
-  if (url.origin !== self.location.origin) return;     // Firestore, WeTransfer, etc. : jamais en cache
+  if (url.origin !== self.location.origin) return;     // Firestore, SwissTransfer, Cloudinary (reels), etc. : jamais en cache
 
   if (req.mode === "navigate" || url.pathname.endsWith("/config.js")) {
     const cle = req.mode === "navigate" ? "./index.html" : req;

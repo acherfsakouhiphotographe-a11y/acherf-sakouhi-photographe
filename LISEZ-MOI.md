@@ -2,8 +2,9 @@
 
 Application web installable (PWA) pour Achref Sakouhi, photographe de mariage :
 
-- **Clients** : création de compte (téléphone + e-mail), portfolio, réservation d'une date, réception des photos et vidéos par lien WeTransfer avec notification, avis, compte et suppression du compte.
-- **Achref (administrateur)** : envoi des liens aux clients, suivi (envoyé → vu → téléchargé), réponses aux demandes, portfolio, forfaits, avis, agenda des dates prises, réglages.
+- **Clients** : création de compte (téléphone + e-mail), portfolio, réservation d'une date, réception des photos et vidéos par lien SwissTransfer avec notification, avis, compte et suppression du compte.
+- **Achref (administrateur)** : envoi des liens aux clients, suivi (envoyé → vu → téléchargé), réponses aux demandes, portfolio, reels (vidéos), forfaits, avis, agenda des dates prises, réglages.
+- **Reels** : Achref publie des vidéos de 4 minutes au plus, visibles par tous les clients dans l'onglet **Reels** (hébergées chez Cloudinary, compte gratuit).
 - **Langues** : français et arabe (bouton en haut de l'écran).
 - **Plus tard** : publication sur Google Play (dossier `android/` déjà prêt).
 
@@ -14,7 +15,7 @@ Application web installable (PWA) pour Achref Sakouhi, photographe de mariage :
 | Fichier / dossier | Rôle |
 |---|---|
 | `index.html` | L'application complète |
-| `config.js` | Les clés Firebase et la clé des notifications (déjà remplies) |
+| `config.js` | Les clés Firebase et la clé des notifications (déjà remplies), le compte Cloudinary des reels |
 | `sw.js` | Mode hors ligne et réception des notifications |
 | `manifest.webmanifest`, `icon-*.png`, `logo-mark.png` | Installation sur le téléphone, icônes |
 | `fonts/`, `qrcode.js` | Polices et QR code (inclus, rien à télécharger) |
@@ -66,9 +67,10 @@ Les valeurs de `config.js` ne sont pas secrètes : elles identifient seulement l
 - [ ] « Mot de passe oublié ? » avec le numéro : l'e-mail arrive (regardez dans les spams).
 - [ ] Client : activer les notifications, puis **Réserver** une date.
 - [ ] Achref : la demande arrive (notification en 5 à 15 min) → **Confirmer** → le client est prévenu, la date apparaît barrée dans le calendrier.
-- [ ] Achref : **Envoyer des photos à un client** → coller un vrai lien WeTransfer → le client reçoit « Vos photos sont prêtes ».
+- [ ] Achref : **Envoyer des photos à un client** → coller un vrai lien SwissTransfer → le client reçoit « Vos photos sont prêtes ».
 - [ ] Client : ouvrir le lien, puis **J'ai tout téléchargé** → Achref voit « Téléchargée ».
 - [ ] Client : **Laisser un avis** → Achref le publie → il apparaît sur l'accueil.
+- [ ] Achref : **Plus → Reels → Ajouter un reel** → le client le voit dans l'onglet **Reels** ; Achref le supprime → il disparaît chez le client.
 
 ## Envoi immédiat des notifications (facultatif)
 
@@ -83,10 +85,34 @@ Le jeton reste sur ce téléphone et n'est jamais enregistré dans la base. Si l
 
 ## Au quotidien (Achref)
 
-1. Préparer le transfert sur **WeTransfer** et copier le lien.
-2. App → **Envoyer des photos à un client** → choisir le client → coller le lien des photos et celui de la vidéo → date d'expiration = celle de WeTransfer (3 jours pour un compte gratuit) → **Envoyer au client**.
+1. Préparer le transfert sur **SwissTransfer** et copier le lien.
+2. App → **Envoyer des photos à un client** → choisir le client → coller le lien des photos et celui de la vidéo → date d'expiration = celle de SwissTransfer (30 jours au plus) → **Envoyer au client**.
 3. Le client est prévenu tout de suite, puis **la veille de l'expiration** s'il n'a pas encore téléchargé.
 4. Lien expiré ? Le client touche « Demander un nouveau lien » → Achref est prévenu → **Livraisons → la livraison** → nouveau lien et nouvelle date → Enregistrer (case « Prévenir le client » cochée).
+
+## Reels (vidéos) — compte Cloudinary (10 min)
+
+Les vidéos sont trop lourdes pour Firebase (offre gratuite) : elles sont hébergées chez **Cloudinary**, gratuit et **sans carte bancaire**. Achref n'ouvre jamais Cloudinary au quotidien : il envoie et supprime ses reels depuis l'app.
+
+1. **Créer le compte** : https://cloudinary.com/users/register_free (n'importe quelle adresse e-mail, ou « Sign up with Google »). Aucune carte demandée.
+2. **Cloud name** : Console Cloudinary → ⚙️ **Settings → Product environment** (il est aussi affiché sur le Dashboard). Exemple : `dxk3abcde`.
+3. **Upload preset non signé** : ⚙️ **Settings → Upload → Upload presets → Add upload preset** :
+   - *Upload preset name* : `reels_achref`
+   - *Signing mode* : **Unsigned**
+   - *Asset folder* : `reels`
+   - (si le champ existe) *Allowed formats* : `mp4,mov,webm,m4v`
+   - **Save**.
+4. **`config.js`** (sur GitHub) → remplissez les deux valeurs, puis enregistrez :
+   `cloudinary: { cloudName: "dxk3abcde", uploadPreset: "reels_achref" }`
+   Ces deux valeurs ne sont pas secrètes.
+5. **Clé secrète pour le robot** (il efface chez Cloudinary les reels supprimés par Achref) : ⚙️ **Settings → API Keys** → notez l'*API Key* et l'*API Secret* (l'œil pour l'afficher).
+   GitHub → **Settings → Secrets and variables → Actions → New repository secret** :
+   - Nom : `CLOUDINARY_URL`
+   - Valeur : `cloudinary://API_KEY:API_SECRET@CLOUD_NAME` (par exemple `cloudinary://123456789012345:AbCdEf-GhIjKl@dxk3abcde`).
+   ⚠️ L'*API Secret* ne va **jamais** dans `config.js` ni dans le dépôt : uniquement dans ce secret GitHub.
+6. **Règles Firestore** : Firebase → Firestore Database → **Règles** → collez le nouveau `regles-firestore.txt` (version 1.4) → **Publier**.
+
+Au quotidien : **Plus → Reels → Ajouter un reel** → choisir la vidéo dans la galerie. L'app refuse une vidéo de plus de **4 minutes** ou de plus de **100 Mo** (limite de l'offre gratuite) : exportez-la en 1080p ou 720p (CapCut, InShot…), de préférence en **MP4**. Gardez l'app ouverte pendant l'envoi. Le bouton **Supprimer** retire le reel tout de suite pour les clients ; le fichier est effacé chez Cloudinary au passage suivant du robot (5 à 15 min).
 
 ## Mettre l'app à jour
 
@@ -106,7 +132,8 @@ Tout est prêt pour la méthode utilisée pour Animaux d'abord (voir le *Guide �
 
 - **Firebase Spark** : 50 000 lectures et 20 000 écritures par jour, 1 Go de données. Les photos du portfolio sont enregistrées dans la base (150 à 400 Ko chacune) : gardez-en moins de 200.
 - **GitHub** : gratuit pour un dépôt public, robots compris.
-- Les fichiers des mariages ne passent jamais par l'app : ils restent sur WeTransfer.
+- **Cloudinary (gratuit)** : 25 crédits par mois (1 crédit = 1 Go de vidéos stockées **ou** 1 Go de vidéos regardées), 100 Mo par vidéo. Suivi : Console Cloudinary → **Dashboard / Usage**. Sans carte bancaire, rien ne peut être facturé. Supprimez les anciens reels pour garder de la marge.
+- Les fichiers des mariages ne passent jamais par l'app : ils restent sur SwissTransfer.
 
 ---
 Conception et développement : Rahmeni Hamdi — rahmenihamdi@gmail.com — +216 95 063 068

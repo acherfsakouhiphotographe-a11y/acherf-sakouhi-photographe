@@ -118,6 +118,9 @@ html[lang="ar"] #btn-sortir svg{transform:scaleX(-1)}
 .onglets button.actif{color:var(--or-clair)}
 .onglets button.actif::before{content:"";position:absolute;top:-7px;width:26px;height:2px;background:var(--or);border-radius:2px}
 .onglets .pastille{top:0;inset-inline-end:calc(50% - 22px)}
+.onglets button>span:not(.pastille){white-space:nowrap}
+@media (max-width:389px){.onglets{padding-inline:2px}.onglets button{padding-inline:0}}
+@media (max-width:359px){.onglets button{font-size:.66rem}}
 
 /* ---------- boutons et champs ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:23px;
@@ -131,7 +134,7 @@ html[lang="ar"] #btn-sortir svg{transform:scaleX(-1)}
 .btn-danger{background:transparent;border-color:rgba(231,130,111,.5);color:var(--danger)}
 .btn-bloc{display:flex;width:100%}
 .btn-petit{min-height:36px;padding:0 14px;font-size:.88rem;border-radius:18px}
-.btn[disabled]{opacity:.55;pointer-events:none}
+.btn[disabled],.btn.desactive{opacity:.55;pointer-events:none}
 .lien{background:none;border:0;padding:4px 0;color:var(--or-clair);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:.92rem}
 .rangee{display:flex;gap:10px;flex-wrap:wrap}
 .rangee>.btn{flex:1}
@@ -422,6 +425,13 @@ html[lang="ar"] .feuille .tete h2{font-style:normal}
 .etapes-install li{grid-template-columns:34px 1fr;padding:10px 0}
 .etapes-install li::before{font-size:1.5rem}
 .bandeau-config{max-width:520px;margin:40px auto;padding:22px}
+/* reels (vidéos d'Achref) */
+.reels{display:flex;flex-direction:column;gap:18px}
+.reel{margin:0}
+.reel video{display:block;margin:0 auto;height:auto;max-width:100%;background:#000;border-radius:14px;border:1px solid var(--ligne);object-fit:contain}
+.reel-pied{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px}
+.progression{height:6px;border-radius:3px;background:var(--velours-3);overflow:hidden;margin:14px 0 6px}
+.progression span{display:block;height:100%;background:var(--or);transition:width .3s}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (min-width:700px){.mosaique{columns:3}}
 
@@ -506,10 +516,10 @@ const AR = {
   "Mes photos et vidéos":"صوري وفيديوهاتي","Rien pour l'instant":"لا شيء حاليًا",
   "Vos photos et vidéos apparaîtront ici dès qu'Achref vous les enverra. Vous recevrez une notification.":"ستظهر صوركم وفيديوهاتكم هنا فور إرسالها من أشرف، وسيصلكم إشعار.",
   "Comment télécharger vos fichiers":"كيف تحمّلون ملفاتكم","Connectez-vous au Wi-Fi : les fichiers d'un mariage sont lourds.":"اتصلوا بشبكة Wi-Fi: ملفات العرس كبيرة الحجم.",
-  "Touchez le bouton Photos ou Vidéo : la page WeTransfer s'ouvre.":"اضغطوا على زر الصور أو الفيديو: تُفتح صفحة WeTransfer.",
+  "Touchez le bouton Photos ou Vidéo : la page SwissTransfer s'ouvre.":"اضغطوا على زر الصور أو الفيديو: تُفتح صفحة SwissTransfer.",
   "Touchez « Télécharger ». Sur téléphone, le fichier .zip arrive dans « Téléchargements ».":"اضغطوا على «Télécharger». على الهاتف، يصل ملف ‎.zip إلى «التنزيلات».",
   "Ouvrez le .zip avec l'application Fichiers pour retrouver vos photos, puis gardez une copie sur un ordinateur ou un cloud.":"افتحوا ملف ‎.zip بتطبيق الملفات لإيجاد صوركم، واحتفظوا بنسخة على حاسوب أو في السحابة.",
-  "Les liens WeTransfer expirent : téléchargez avant la date indiquée sur la pochette.":"روابط WeTransfer تنتهي صلاحيتها: حمّلوا قبل التاريخ المكتوب على الظرف.",
+  "Les liens SwissTransfer expirent : téléchargez avant la date indiquée sur la pochette.":"روابط SwissTransfer تنتهي صلاحيتها: حمّلوا قبل التاريخ المكتوب على الظرف.",
   "Téléchargé":"تمّ التحميل","Expiré le":"انتهى في","Valable jusqu'au":"صالح إلى","Télécharger":"تحميل",
   "Nouveau lien demandé : Achref vous l'envoie bientôt.":"تمّ طلب رابط جديد: سيرسله أشرف قريبًا.","Ce lien a expiré. Demandez un nouveau lien à Achref.":"انتهت صلاحية هذا الرابط. اطلبوا رابطًا جديدًا من أشرف.",
   "Demander un nouveau lien":"طلب رابط جديد","Merci ! Fichiers bien reçus.":"شكرًا! تمّ استلام الملفات.","Laisser un avis":"ترك رأي","J'ai tout téléchargé":"حمّلت كل شيء",
@@ -546,12 +556,12 @@ const AR = {
   "lien(s) qui expirent dans moins de 24 h":"رابط (روابط) تنتهي خلال أقل من 24 ساعة","livraison(s) pas encore téléchargée(s)":"تسليم (تسليمات) لم تُحمَّل بعد","avis à valider":"آراء للمراجعة",
   "clients inscrits":"حرفاء مسجّلون","Prochains événements":"المناسبات القادمة","Aucun événement confirmé pour l'instant.":"لا توجد مناسبة مؤكّدة حاليًا.",
   "Téléchargée":"تمّ تحميلها","Nouveau lien demandé":"طلب رابط جديد","Expirée":"منتهية","Vue":"تمّت مشاهدتها","Envoyée":"مُرسلة","Livraisons":"التسليمات","Nouvelle":"جديدة",
-  "jusqu'au {d}":"إلى {d}","Aucune livraison ici":"لا يوجد تسليم هنا","Préparez votre lien WeTransfer, puis envoyez-le au client depuis ce bouton.":"حضّر رابط WeTransfer ثم أرسله إلى الحريف من هذا الزر.",
-  "Le client demande un nouveau lien.":"الحريف يطلب رابطًا جديدًا.","Collez le nouveau lien WeTransfer, changez la date d'expiration, puis enregistrez en prévenant le client.":"الصق رابط WeTransfer الجديد، غيّر تاريخ الانتهاء، ثم احفظ مع إعلام الحريف.",
+  "jusqu'au {d}":"إلى {d}","Aucune livraison ici":"لا يوجد تسليم هنا","Préparez votre lien SwissTransfer, puis envoyez-le au client depuis ce bouton.":"حضّر رابط SwissTransfer ثم أرسله إلى الحريف من هذا الزر.",
+  "Le client demande un nouveau lien.":"الحريف يطلب رابطًا جديدًا.","Collez le nouveau lien SwissTransfer, changez la date d'expiration, puis enregistrez en prévenant le client.":"الصق رابط SwissTransfer الجديد، غيّر تاريخ الانتهاء، ثم احفظ مع إعلام الحريف.",
   "Envoyée le {d}":"أُرسلت في {d}","vue le {d}":"شوهدت في {d}","téléchargée le {d}":"حُمّلت في {d}","Client":"الحريف","Titre":"العنوان",
   "Par exemple : Mariage de Sarra et Amine":"مثال: عرس سارة وأمين","Date de l'événement":"تاريخ المناسبة","Liens de téléchargement":"روابط التحميل","Ajouter un lien":"إضافة رابط",
-  "Collez les liens WeTransfer (ou Google Drive, Dropbox…). Ils doivent commencer par https://":"الصق روابط WeTransfer (أو Google Drive وDropbox…). يجب أن تبدأ بـ https://",
-  "Le lien expire le":"ينتهي الرابط في","Mettez la même date que sur WeTransfer (3 jours pour un compte gratuit). Le client est prévenu la veille.":"ضع نفس التاريخ الموجود في WeTransfer (3 أيام للحساب المجاني). يُنبَّه الحريف قبل يوم.",
+  "Collez les liens SwissTransfer (ou Google Drive, Dropbox…). Ils doivent commencer par https://":"الصق روابط SwissTransfer (أو Google Drive وDropbox…). يجب أن تبدأ بـ https://",
+  "Le lien expire le":"ينتهي الرابط في","Mettez la même date d'expiration que sur SwissTransfer. Le client est prévenu la veille.":"ضع نفس تاريخ الانتهاء الموجود في SwissTransfer. يُنبَّه الحريف قبل يوم.",
   "Message pour le client (facultatif)":"رسالة للحريف (اختياري)","Un petit mot avec la livraison…":"كلمة صغيرة مع التسليم…","Prévenir le client par notification":"إعلام الحريف بإشعار",
   "Envoyer au client":"إرسال إلى الحريف","Renvoyer la notification":"إعادة إرسال الإشعار","Supprimer":"حذف","Livraison":"التسليم","Nouvelle livraison":"تسليم جديد","Changer":"تغيير",
   "Rechercher un client (nom, numéro, e-mail)":"البحث عن حريف (الاسم، الرقم، البريد)","Aucun client trouvé.":"لم يُعثر على أي حريف.",
@@ -560,7 +570,7 @@ const AR = {
   "Fichiers":"الملفات","Donnez un titre à la livraison.":"أعطِ عنوانًا للتسليم.","Ajoutez au moins un lien.":"أضف رابطًا واحدًا على الأقل.",
   "Un lien n'est pas valide : il doit commencer par https://":"أحد الروابط غير صالح: يجب أن يبدأ بـ https://","Indiquez la date d'expiration du lien.":"حدّد تاريخ انتهاء الرابط.",
   "Envoyé à {nom}.":"أُرسل إلى {nom}.","le client":"الحريف","Livraison enregistrée.":"تمّ حفظ التسليم.","Notification renvoyée.":"أُعيد إرسال الإشعار.",
-  "Supprimer cette livraison ?":"حذف هذا التسليم؟","Le client ne verra plus ces liens dans l'app. Les fichiers restent sur WeTransfer jusqu'à leur expiration.":"لن يرى الحريف هذه الروابط في التطبيق. تبقى الملفات على WeTransfer حتى انتهاء صلاحيتها.",
+  "Supprimer cette livraison ?":"حذف هذا التسليم؟","Le client ne verra plus ces liens dans l'app. Les fichiers restent sur SwissTransfer jusqu'à leur expiration.":"لن يرى الحريف هذه الروابط في التطبيق. تبقى الملفات على SwissTransfer حتى انتهاء صلاحيتها.",
   "Livraison supprimée.":"تمّ حذف التسليم.","Suppression impossible. Vérifiez la connexion.":"تعذّر الحذف. تحقّق من الاتصال.","Clients":"الحرفاء","{n} livraison(s)":"{n} تسليم",
   "Les clients apparaîtront ici dès qu'ils auront créé leur compte dans l'app.":"سيظهر الحرفاء هنا فور إنشاء حساباتهم في التطبيق.","Aucune livraison.":"لا يوجد تسليم.","Demandes":"الطلبات",
   "Aucune demande.":"لا يوجد طلب.","Envoyer des photos à ce client":"إرسال صور إلى هذا الحريف","Supprimer ce client":"حذف هذا الحريف","Supprimer ce client ?":"حذف هذا الحريف؟",
@@ -576,7 +586,7 @@ const AR = {
   "Mettre en avant sur l'accueil":"إبراز في الصفحة الرئيسية","Photo enregistrée.":"تمّ حفظ الصورة.","Supprimer cette photo ?":"حذف هذه الصورة؟","Elle disparaîtra du portfolio.":"ستختفي من معرض الأعمال.",
   "Photo supprimée.":"تمّ حذف الصورة.","Nouveau":"جديد","Ajoutez vos forfaits : ils s'affichent sur l'accueil et dans le formulaire de réservation.":"أضف باقاتك: تظهر في الصفحة الرئيسية وفي استمارة الحجز.",
   "Modifier le forfait":"تعديل الباقة","Nouveau forfait":"باقة جديدة","Nom":"الاسم","Par exemple : Mariage complet":"مثال: عرس كامل","Prix":"السعر","Par exemple : à partir de 1 500 DT":"مثال: ابتداءً من 1500 د.ت",
-  "Description":"الوصف","Ce qui est inclus (une ligne par élément)":"ما تتضمّنه (سطر لكل عنصر)","Reportage photo de la journée\nFilm du mariage\nLivraison par lien WeTransfer":"تصوير اليوم كاملًا\nفيلم العرس\nالتسليم عبر رابط WeTransfer",
+  "Description":"الوصف","Ce qui est inclus (une ligne par élément)":"ما تتضمّنه (سطر لكل عنصر)","Reportage photo de la journée\nFilm du mariage\nLivraison par lien SwissTransfer":"تصوير اليوم كاملًا\nفيلم العرس\nالتسليم عبر رابط SwissTransfer",
   "Position dans la liste":"الترتيب في القائمة","Donnez un nom au forfait.":"أعطِ اسمًا للباقة.","Forfait enregistré.":"تمّ حفظ الباقة.","Supprimer ce forfait ?":"حذف هذه الباقة؟",
   "Il ne sera plus proposé aux clients.":"لن تُعرض بعد الآن على الحرفاء.","Forfait supprimé.":"تمّ حذف الباقة.","Avis des clients":"آراء الحرفاء","Masquer":"إخفاء","Publier":"نشر",
   "Les avis laissés par vos clients apparaîtront ici. Seuls ceux que vous publiez sont visibles.":"ستظهر هنا آراء حرفائك. وحدها الآراء التي تنشرها تكون مرئية.",
@@ -597,7 +607,7 @@ const AR = {
   "Achref a répondu à votre demande pour le {date}.":"ردّ أشرف على طلبكم ليوم {date}.","Compte client supprimé":"تمّ حذف حساب حريف","{nom} ({tel}) a supprimé son compte.":"حذف {nom} ({tel}) حسابه.",
   "Nom affiché":"الاسم المعروض","Métier":"المهنة","Phrase d'accueil":"جملة الترحيب","Ville ou région":"المدينة أو الجهة","Par exemple : Sousse et toute la Tunisie":"مثال: سوسة وكامل تراب الجمهورية",
   "Téléphone":"الهاتف","WhatsApp (si différent)":"واتساب (إن كان مختلفًا)","Votre numéro WhatsApp":"رقم واتساب","Compte Instagram":"حساب Instagram","nom_du_compte":"اسم_الحساب",
-  "E-mail de contact":"بريد التواصل","Durée des liens WeTransfer (jours)":"مدة روابط WeTransfer (بالأيام)","Choisissez un mot de passe":"اختر كلمة مرور","Votre mot de passe":"كلمة المرور الخاصة بك",
+  "E-mail de contact":"بريد التواصل","Durée des liens SwissTransfer (jours)":"مدة روابط SwissTransfer (بالأيام)","Choisissez un mot de passe":"اختر كلمة مرور","Votre mot de passe":"كلمة المرور الخاصة بك",
   "Retapez le mot de passe":"أعد كتابة كلمة المرور","Ajouter et trier vos photos":"إضافة صورك وترتيبها","Vos offres et leurs prix":"عروضك وأسعارها","Avis":"الآراء",
   "Valider les avis des clients":"مراجعة آراء الحرفاء","Coordonnées, agenda, notifications, sécurité":"معلومات التواصل، الرزنامة، الإشعارات، الأمان",
   "Tableau":"لوحة القيادة","Accueil":"الرئيسية","Mes photos":"صوري","Réserver":"الحجز","Compte":"الحساب",
@@ -773,19 +783,42 @@ const AR = {
   "Zoomer":"تكبير",
   "Revenir à la taille normale":"العودة إلى الحجم العادي",
   "Pincez ou touchez deux fois la photo pour zoomer.":"باعِدوا بين إصبعين أو اضغطوا مرّتين على الصورة للتكبير.",
-  "Molette ou double-clic pour zoomer.":"عجلة الفأرة أو نقرة مزدوجة للتكبير."
+  "Molette ou double-clic pour zoomer.":"عجلة الفأرة أو نقرة مزدوجة للتكبير.",
+  /* v1.4 : reels */
+  "Reels":"ريلز",
+  "Les reels arrivent bientôt":"الريلز قادمة قريبًا",
+  "Ajouter un reel":"إضافة ريل",
+  "Ajouter et supprimer vos vidéos":"إضافة فيديوهاتك وحذفها",
+  "4 minutes au plus et {n} Mo au plus, de préférence en MP4. Le reel est visible tout de suite par tous vos clients, dans l'onglet Reels.":"4 دقائق على الأكثر و{n} ميغابايت على الأكثر، ويُفضَّل بصيغة MP4. يظهر الريل فورًا لكلّ حرفائك في تبويب ريلز.",
+  "Reels pas encore configurés : ajoutez le compte Cloudinary dans config.js (voir LISEZ-MOI, partie Reels).":"الريلز غير مهيّأة بعد: أضف حساب Cloudinary في config.js (انظر LISEZ-MOI، قسم Reels).",
+  "Reels pas encore configurés.":"الريلز غير مهيّأة بعد.",
+  "Ajoutez vos reels : ils s'affichent pour tous vos clients dans l'onglet Reels.":"أضف الريلز الخاصة بك: تظهر لكلّ حرفائك في تبويب ريلز.",
+  "Un envoi est déjà en cours.":"هناك إرسال جارٍ بالفعل.",
+  "Choisissez une vidéo.":"اختر فيديو.",
+  "Cette vidéo pèse {n} Mo : {max} Mo au plus. Exportez-la en 1080p ou 720p, puis réessayez.":"حجم هذا الفيديو {n} ميغابايت: {max} ميغابايت على الأكثر. صدّره بدقّة 1080p أو 720p ثم أعد المحاولة.",
+  "Vidéo illisible sur ce téléphone. Exportez-la en MP4, puis réessayez.":"تعذّرت قراءة الفيديو على هذا الهاتف. صدّره بصيغة MP4 ثم أعد المحاولة.",
+  "Ce reel dure {d} : 4 minutes au plus.":"مدة هذا الريل {d}: 4 دقائق على الأكثر.",
+  "{m} min {s} s":"{m} د {s} ث","{s} s":"{s} ث",
+  "Vérification de la vidéo…":"جارٍ التحقق من الفيديو…",
+  "Envoi {p} % — gardez l'app ouverte.":"جارٍ الإرسال {p}% — أبقِ التطبيق مفتوحًا.",
+  "Reel ajouté : vos clients le voient maintenant.":"تمّت إضافة الريل: يراه حرفاؤك الآن.",
+  "Envoi refusé par Cloudinary : vérifiez cloudName et uploadPreset dans config.js.":"رفض Cloudinary الإرسال: تحقّق من cloudName وuploadPreset في config.js.",
+  "Envoi interrompu. Vérifiez la connexion, puis réessayez.":"انقطع الإرسال. تحقّق من الاتصال ثم أعد المحاولة.",
+  "Supprimer ce reel ?":"حذف هذا الريل؟",
+  "Il disparaîtra de l'app pour tous vos clients.":"سيختفي من التطبيق لدى كلّ حرفائك.",
+  "Reel supprimé.":"تمّ حذف الريل."
 };
 
 /* =====================================================================
    ACHREF SAKOUHI — PHOTOGRAPHE · application (client + administrateur)
    ---------------------------------------------------------------------
    • Les clients créent un compte, regardent le portfolio, demandent une
-     date et reçoivent leurs photos et vidéos (liens WeTransfer).
+     date et reçoivent leurs photos et vidéos (liens SwissTransfer).
    • Achref (rôle « admin ») envoie les liens, répond aux demandes et
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.3.1";
+const APP_VERSION = "1.4.0";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -796,6 +829,9 @@ const STUDIO_DEFAUT = {
 const TYPES_EVT = ["Mariage", "Wtiya", "Henné", "Fiançailles", "Contrat de mariage", "Séance couple", "Portrait", "Événement", "Autre"];
 const CATS = ["Mariage", "Wtiya", "Henné", "Fiançailles", "Couple", "Portrait", "Événement"];
 const MAX_JOURS = 7;          // jours au plus dans une même demande de réservation
+const REEL_MAX_S = 240;       // reels : 4 minutes au plus
+const REEL_MAX_MO = 100;      // et 100 Mo au plus (limite d'une vidéo sur l'offre gratuite de Cloudinary)
+const REEL_MORCEAU = 6 * 1024 * 1024;   // envoi par morceaux de 6 Mo : reprise possible si le réseau coupe
 
 /* ---------------------------------------------------------------- outils */
 const esc = s => (s == null ? "" : String(s)).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -916,7 +952,8 @@ const ICONES = {
   globe: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.5 3.5 5.3 3.5 8.5s-1.1 6-3.5 8.5c-2.4-2.5-3.5-5.3-3.5-8.5s1.1-6 3.5-8.5z"/>',
   bouclier: '<path d="M12 3.5 19.5 6v6c0 4.5-3.2 7.6-7.5 9-4.3-1.4-7.5-4.5-7.5-9V6z"/>',
   loupe: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20.5 20.5-5.2-5.2M7.5 10.5h6M10.5 7.5v6"/>',
-  loupeMoins: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20.5 20.5-5.2-5.2M7.5 10.5h6"/>'
+  loupeMoins: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m20.5 20.5-5.2-5.2M7.5 10.5h6"/>',
+  reel: '<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M3.5 8.5h17M8.5 3.7l2.6 4.6M14 3.7l2.6 4.6"/><path d="M10.2 11.6v5.3l4.6-2.65z"/>'
 };
 const ico = (n, cls) => `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[n] || ""}</svg>`;
 const champMdp = (id, ph, ac) => `<div class="mdp"><input class="saisie" id="${id}" type="password" placeholder="${esc(t(ph))}" autocomplete="${ac}">
@@ -943,7 +980,7 @@ function navigateur(){
 
 /* ---------------------------------------------------------------- état */
 const S = {
-  user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [],
+  user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [], reels: [],
   portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})),
   route: "", param: "", filtrePortfolio: "Tout", filtreLivraisons: "encours", filtreDemandes: "attente", rechercheClients: "",
   calMois: aujourdHui().slice(0, 7), agMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", modifDemande: null, brouillon: null,
@@ -1002,7 +1039,7 @@ const App = {
     const C = window.Cloud;
     if(!user){
       C.stopAll(); S.user = null; S.prof = null;
-      Object.assign(S, { users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [] });
+      Object.assign(S, { users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [], reels: [] });
       this.finBoot(); this.rendreAuth();
       // Coordonnées du studio (contenu public) : pour l'aide « mot de passe oublié » sur un nouveau téléphone.
       C.get("_config", "studio").then(d => { if(d){ S.studio = Object.assign({}, STUDIO_DEFAUT, d); lsSet("as_studio", d); } }).catch(() => {});
@@ -1058,7 +1095,7 @@ const App = {
     ];
     // Portfolio : un seul petit document « index » ; les photos se chargent à la demande (et restent en cache).
     spec.push({ cle: "portfolioIndex", doc: ["_config", "portfolio"] }, { cle: "forfaits", coll: "forfaits" },
-              { cle: "studio", doc: ["_config", "studio"] });
+              { cle: "studio", doc: ["_config", "studio"] }, { cle: "reels", coll: "reels" });
     window.Cloud.watch(spec, (cle, data) => this.surDonnees(cle, data));
   },
   surDonnees(cle, data){
@@ -1101,8 +1138,8 @@ const App = {
 
   /* ------------------------------------------------ navigation */
   routeAutorisee(r){
-    const client = ["accueil", "portfolio", "photos", "reserver", "compte", "apropos"];
-    const admin = ["tableau", "livraisons", "clients", "demandes", "plus", "a-portfolio", "a-forfaits", "a-avis", "reglages", "apropos", "portfolio"];
+    const client = ["accueil", "portfolio", "reels", "photos", "reserver", "compte", "apropos"];
+    const admin = ["tableau", "livraisons", "clients", "demandes", "plus", "a-portfolio", "a-reels", "a-forfaits", "a-avis", "reglages", "apropos", "portfolio"];
     return (this.estAdmin() ? admin : client).indexOf(r) >= 0;
   },
   aller(route){ if(("#" + route) === location.hash) this.surRoute(); else location.hash = "#" + route; },
@@ -1124,8 +1161,12 @@ const App = {
     document.getElementById("entete").innerHTML = this.vueEntete();
     document.getElementById("onglets").innerHTML = this.vueOnglets();
     if(auto && this._edition) return;          // ne pas effacer une saisie en cours
+    // Pages des reels : redessinées seulement si la liste change (une vidéo en lecture n'est pas coupée).
+    const cleReels = (S.route === "reels" || S.route === "a-reels") ? S.route + "|" + S.reels.map(r => r.id).sort().join(",") : "";
+    if(auto && cleReels && cleReels === this._cleReels) return;
+    this._cleReels = cleReels;
     const page = {
-      accueil: () => this.pageAccueil(), portfolio: () => this.pagePortfolio(), photos: () => this.pagePhotos(),
+      accueil: () => this.pageAccueil(), portfolio: () => this.pagePortfolio(), photos: () => this.pagePhotos(), reels: () => this.pageReels(), "a-reels": () => this.pageAdminReels(),
       reserver: () => this.pageReserver(), compte: () => this.pageCompte(), apropos: () => this.pageApropos(),
       tableau: () => this.pageTableau(), livraisons: () => this.pageLivraisons(), clients: () => this.pageClients(),
       demandes: () => this.pageDemandes(), plus: () => this.pagePlus(), "a-portfolio": () => this.pageAdminPortfolio(),
@@ -1147,7 +1188,7 @@ const App = {
   },
   vueOnglets(){
     const actif = r => {
-      const groupe = { apropos: this.estAdmin() ? "plus" : "compte", "a-portfolio": "plus", "a-forfaits": "plus", "a-avis": "plus", reglages: "plus", portfolio: this.estAdmin() ? "plus" : "portfolio" };
+      const groupe = { apropos: this.estAdmin() ? "plus" : "compte", "a-portfolio": "plus", "a-reels": "plus", "a-forfaits": "plus", "a-avis": "plus", reglages: "plus", portfolio: this.estAdmin() ? "plus" : "portfolio" };
       return (groupe[S.route] || S.route) === r ? " actif" : "";
     };
     const pastille = n => n ? `<span class="pastille">${n > 9 ? "9+" : n}</span>` : "";
@@ -1155,7 +1196,7 @@ const App = {
       ["tableau", "tableau", "Tableau", 0], ["livraisons", "envoyer", "Livraisons", 0], ["clients", "clients", "Clients", 0],
       ["demandes", "boite", "Demandes", S.demandes.filter(d => d.statut === "attente").length], ["plus", "plus3", "Plus", S.avis.filter(a => !a.publie).length]
     ] : [
-      ["accueil", "accueil", "Accueil", 0], ["portfolio", "grille", "Portfolio", 0],
+      ["accueil", "accueil", "Accueil", 0], ["portfolio", "grille", "Portfolio", 0], ["reels", "reel", "Reels", 0],
       ["photos", "image", "Mes photos", S.livraisons.filter(l => !l.vuAt).length], ["reserver", "calendrier", "Réserver", 0], ["compte", "personne", "Compte", 0]
     ];
     return items.map(([r, i, l, n]) => `<button class="${actif(r).trim()}" onclick="App.aller('${r}')">${ico(i)}<span>${esc(t(l))}</span>${pastille(n)}</button>`).join("");
@@ -1822,6 +1863,177 @@ const App = {
   pasVisionneuse(d){ const V = this._visio; if(!V) return; V.i = (V.i + d + V.liste.length) % V.liste.length; this.majVisionneuse(); },
   fermerVisionneuse(){ const v = document.getElementById("visio"); if(v){ v.hidden = true; v.classList.remove("zoome"); } this._visio = null; this._z = null; document.body.style.overflow = ""; },
 
+  /* ================================================= REELS (vidéos d'Achref, visibles par tous les clients) */
+  /* Les vidéos sont chez Cloudinary (compte gratuit) : l'app les y envoie directement avec un
+     « upload preset » non signé (config.js). Firestore garde la liste (collection reels).
+     Supprimer : le reel disparaît de l'app tout de suite ; le robot GitHub efface ensuite le
+     fichier chez Cloudinary (collection reelsSupprimes, clé secrète gardée dans GitHub). */
+  cloudinary(){
+    const c = (window.APP_CONFIG || {}).cloudinary || {}, n = String(c.cloudName || "").trim(), p = String(c.uploadPreset || "").trim();
+    return n && p && !/REMPLIR/i.test(n + p) ? { cloudName: n, uploadPreset: p } : null;
+  },
+  reelsTries(){ return S.reels.filter(r => r && r.url).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)); },
+  dureeTexte(s){ s = Math.round(s || 0); return s < 60 ? t("{s} s", { s }) : t("{m} min {s} s", { m: Math.floor(s / 60), s: s % 60 }); },
+  vueReel(r, admin){
+    const w = r.w || 9, h = r.h || 16;
+    return `<figure class="reel"><video class="reel-video" src="${esc(r.url)}"${r.poster ? ` poster="${esc(r.poster)}"` : ""} controls playsinline preload="${r.poster ? "none" : "metadata"}"
+        style="aspect-ratio:${w} / ${h};width:min(100%, calc(78vh * ${w} / ${h}))"></video>
+      ${admin ? `<figcaption class="reel-pied"><span class="discret">${esc(this.dureeTexte(r.duree))} · ${esc(depuis(r.createdAt))}</span>
+        <button class="btn btn-danger btn-petit" onclick="App.supprimerReel('${esc(r.id)}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button></figcaption>` : ""}</figure>`;
+  },
+  pageReels(){
+    const liste = this.reelsTries(), st = this.studio();
+    const tete = `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Reels"))}</h2></div>`;
+    if(!liste.length) return tete + `<div class="vide">${ico("reel")}<h3>${esc(t("Les reels arrivent bientôt"))}</h3>
+      <p>${esc(t("En attendant, retrouvez les derniers mariages sur Instagram."))}</p>
+      ${st.instagram ? `<a class="btn btn-or" href="https://www.instagram.com/${esc(st.instagram.replace(/^@/, ""))}/" target="_blank" rel="noopener">${ico("insta")} Instagram</a>` : ""}</div>`;
+    return tete + `<div class="reels">${liste.map(r => this.vueReel(r, false)).join("")}</div>`;
+  },
+  apres_reels(){ this.lecteursReels(); },
+  // Une seule vidéo à la fois : lancer un reel met les autres en pause.
+  lecteursReels(){
+    const vids = Array.from(document.querySelectorAll("#contenu video.reel-video"));
+    vids.forEach(v => v.addEventListener("play", () => vids.forEach(o => { if(o !== v && !o.paused) o.pause(); })));
+  },
+  pageAdminReels(){
+    const liste = this.reelsTries(), cfg = this.cloudinary(), E = this._envoiReel;
+    return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Reels"))}</h2><span class="discret">${liste.length}</span></div>
+      <div class="bloc">${cfg ? `
+        <label class="btn btn-or btn-bloc${E ? " desactive" : ""}" for="rl-fichier" id="rl-btn">${ico("ajout")} ${esc(t("Ajouter un reel"))}</label>
+        <input type="file" id="rl-fichier" accept="video/*" hidden onchange="App.ajouterReel(this.files)"${E ? " disabled" : ""}>
+        <div id="rl-envoi">${this.vueEnvoiReel()}</div>
+        <p class="aide">${esc(t("4 minutes au plus et {n} Mo au plus, de préférence en MP4. Le reel est visible tout de suite par tous vos clients, dans l'onglet Reels.", { n: REEL_MAX_MO }))}</p>`
+      : `<p class="doux" style="margin:0">${esc(t("Reels pas encore configurés : ajoutez le compte Cloudinary dans config.js (voir LISEZ-MOI, partie Reels)."))}</p>`}</div>
+      ${liste.length ? `<div class="reels">${liste.map(r => this.vueReel(r, true)).join("")}</div>`
+        : `<div class="vide">${ico("reel")}<p>${esc(t("Ajoutez vos reels : ils s'affichent pour tous vos clients dans l'onglet Reels."))}</p></div>`}`;
+  },
+  apres_a_reels(){ this.lecteursReels(); },
+  vueEnvoiReel(){
+    const E = this._envoiReel; if(!E) return "";
+    if(E.etape === "verif") return `<p class="discret" style="margin:12px 0 0">${esc(t("Vérification de la vidéo…"))}</p>`;
+    const p = Math.max(0, Math.min(100, Math.round(E.pct * 100)));
+    return `<div class="progression" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><span style="width:${p}%"></span></div>
+      <p class="discret" style="margin:0">${esc(t("Envoi {p} % — gardez l'app ouverte.", { p }))}</p>`;
+  },
+  majEnvoiReel(){
+    const z = document.getElementById("rl-envoi"); if(z) z.innerHTML = this.vueEnvoiReel();
+    const b = document.getElementById("rl-btn"), i = document.getElementById("rl-fichier");
+    if(b) b.classList.toggle("desactive", !!this._envoiReel); if(i) i.disabled = !!this._envoiReel;
+  },
+  // Durée, taille de l'image et aperçu (image tirée de la vidéo), lus sur le téléphone avant l'envoi.
+  lireVideo(fichier){
+    return new Promise((res, rej) => {
+      const url = URL.createObjectURL(fichier), v = document.createElement("video");
+      let fini = false, minuteur = null;
+      const finir = (err, val) => {
+        if(fini) return; fini = true; clearTimeout(minuteur);
+        try{ v.removeAttribute("src"); v.load(); }catch(e){}
+        URL.revokeObjectURL(url); err ? rej(err) : res(val);
+      };
+      minuteur = setTimeout(() => finir(new Error("delai")), 20000);
+      v.muted = true; v.playsInline = true; v.preload = "metadata";
+      v.onerror = () => finir(new Error("illisible"));
+      v.onloadedmetadata = () => {
+        const info = { duree: v.duration, w: v.videoWidth, h: v.videoHeight, poster: "" };
+        if(!isFinite(info.duree) || info.duree <= 0) return finir(new Error("duree"));
+        if(!info.w || !info.h) return finir(null, info);
+        v.onseeked = () => {
+          try{
+            const k = Math.min(1, 480 / info.w), c = document.createElement("canvas");
+            c.width = Math.round(info.w * k); c.height = Math.round(info.h * k);
+            c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
+            info.poster = c.toDataURL("image/jpeg", 0.72);
+          }catch(e){}
+          finir(null, info);
+        };
+        clearTimeout(minuteur); minuteur = setTimeout(() => finir(null, info), 8000);     // pas d'aperçu : la vidéo part quand même
+        try{ v.currentTime = Math.min(1, info.duree / 3); }catch(e){ finir(null, info); }
+      };
+      v.src = url;
+    });
+  },
+  // Envoi direct à Cloudinary, par morceaux (chaque morceau est réessayé si le réseau coupe).
+  async envoyerCloudinary(fichier, cfg, onPct){
+    const url = "https://api.cloudinary.com/v1_1/" + encodeURIComponent(cfg.cloudName) + "/video/upload";
+    const total = fichier.size, idEnvoi = nouvelId("u"), parMorceaux = total > REEL_MORCEAU;
+    let debut = 0, rep = null;
+    do{
+      const fin = Math.min(debut + REEL_MORCEAU, total);
+      const entetes = parMorceaux ? { "X-Unique-Upload-Id": idEnvoi, "Content-Range": "bytes " + debut + "-" + (fin - 1) + "/" + total } : {};
+      for(let essai = 1; ; essai++){
+        try{
+          const fd = new FormData();
+          fd.append("upload_preset", cfg.uploadPreset);
+          fd.append("file", parMorceaux ? fichier.slice(debut, fin) : fichier, fichier.name || "reel.mp4");
+          rep = await this._posterMorceau(url, fd, entetes, p => onPct((debut + p * (fin - debut)) / total));
+          break;
+        }catch(e){
+          if(e.refus || essai >= 3) throw e;                       // refus de Cloudinary : inutile de réessayer
+          await new Promise(r => setTimeout(r, essai * 2000));
+        }
+      }
+      debut = fin;
+    }while(debut < total);
+    if(!rep || !rep.secure_url || !rep.public_id) throw Object.assign(new Error("reponse"), { refus: true });
+    return rep;
+  },
+  _posterMorceau(url, fd, entetes, onP){
+    return new Promise((res, rej) => {
+      const x = new XMLHttpRequest();
+      x.open("POST", url); x.timeout = 180000;
+      Object.keys(entetes).forEach(k => x.setRequestHeader(k, entetes[k]));
+      x.upload.onprogress = e => { if(e.lengthComputable) onP(e.loaded / e.total); };
+      x.onload = () => {
+        let j = null; try{ j = JSON.parse(x.responseText); }catch(e){}
+        if(x.status >= 200 && x.status < 300) return res(j || {});
+        const err = new Error((j && j.error && j.error.message) || ("HTTP " + x.status));
+        err.refus = x.status >= 400 && x.status < 500; rej(err);
+      };
+      x.onerror = () => rej(new Error("reseau")); x.ontimeout = () => rej(new Error("delai"));
+      x.send(fd);
+    });
+  },
+  async ajouterReel(files){
+    const f = files && files[0], input = document.getElementById("rl-fichier");
+    if(input) input.value = "";
+    if(!f) return;
+    if(this._envoiReel) return this.toast(t("Un envoi est déjà en cours."), "err");
+    const cfg = this.cloudinary(); if(!cfg) return this.toast(t("Reels pas encore configurés."), "err");
+    if(f.type && f.type.indexOf("video/") !== 0) return this.toast(t("Choisissez une vidéo."), "err");
+    if(f.size > REEL_MAX_MO * 1024 * 1024) return this.toast(t("Cette vidéo pèse {n} Mo : {max} Mo au plus. Exportez-la en 1080p ou 720p, puis réessayez.", { n: Math.ceil(f.size / 1048576), max: REEL_MAX_MO }), "err");
+    this._envoiReel = { etape: "verif", pct: 0 }; this.majEnvoiReel();
+    const arreter = (msg) => { this._envoiReel = null; this.majEnvoiReel(); if(msg) this.toast(msg, "err"); };
+    let info;
+    try{ info = await this.lireVideo(f); }
+    catch(e){ return arreter(t("Vidéo illisible sur ce téléphone. Exportez-la en MP4, puis réessayez.")); }
+    if(info.duree > REEL_MAX_S + 0.5) return arreter(t("Ce reel dure {d} : 4 minutes au plus.", { d: this.dureeTexte(info.duree) }));
+    this._envoiReel = { etape: "envoi", pct: 0 }; this.majEnvoiReel();
+    try{
+      const r = await this.envoyerCloudinary(f, cfg, p => { if(this._envoiReel){ this._envoiReel.pct = p; this.majEnvoiReel(); } });
+      const reel = { id: nouvelId("r"), url: r.secure_url, publicId: r.public_id, duree: Math.round(r.duration || info.duree),
+        w: r.width || info.w || 0, h: r.height || info.h || 0, taille: r.bytes || f.size, poster: info.poster || "", createdAt: Date.now() };
+      await window.Cloud.put("reels", reel);
+      if(!S.reels.some(x => x.id === reel.id)) S.reels = S.reels.concat([reel]);
+      this._envoiReel = null;
+      this.toast(t("Reel ajouté : vos clients le voient maintenant."), "ok");
+    }catch(e){
+      console.warn("reel", e);
+      return arreter(e && e.refus ? t("Envoi refusé par Cloudinary : vérifiez cloudName et uploadPreset dans config.js.") : t("Envoi interrompu. Vérifiez la connexion, puis réessayez."));
+    }
+    if(S.route === "a-reels") this.rendre();
+  },
+  async supprimerReel(id){
+    const r = S.reels.find(x => x.id === id); if(!r) return;
+    if(!(await this.confirmer(t("Supprimer ce reel ?"), t("Il disparaîtra de l'app pour tous vos clients."), t("Supprimer"), true))) return;
+    try{
+      await window.Cloud.del("reels", id);
+      S.reels = S.reels.filter(x => x.id !== id);
+      this.toast(t("Reel supprimé."), "ok"); this.rendre();
+    }catch(e){ return this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+    // Le fichier chez Cloudinary est effacé par le robot GitHub (il a la clé secrète).
+    if(r.publicId) window.Cloud.put("reelsSupprimes", { id: r.id, publicId: r.publicId, ts: Date.now() }).catch(e => console.warn("reelsSupprimes", e));
+  },
+
   /* ================================================= CLIENT : MES PHOTOS */
   joursRestants(l){ return ecartJours(aujourdHui(), l.expireLe || aujourdHui()); },
   texteExpiration(l){
@@ -1840,10 +2052,10 @@ const App = {
     return tete + liste.map(l => this.vuePochette(l)).join("") + `
       <details class="conseils bloc"><summary>${esc(t("Comment télécharger vos fichiers"))}</summary>
         <ol><li>${esc(t("Connectez-vous au Wi-Fi : les fichiers d'un mariage sont lourds."))}</li>
-          <li>${esc(t("Touchez le bouton Photos ou Vidéo : la page WeTransfer s'ouvre."))}</li>
+          <li>${esc(t("Touchez le bouton Photos ou Vidéo : la page SwissTransfer s'ouvre."))}</li>
           <li>${esc(t("Touchez « Télécharger ». Sur téléphone, le fichier .zip arrive dans « Téléchargements »."))}</li>
           <li>${esc(t("Ouvrez le .zip avec l'application Fichiers pour retrouver vos photos, puis gardez une copie sur un ordinateur ou un cloud."))}</li></ol>
-        <p class="discret" style="margin-top:8px">${esc(t("Les liens WeTransfer expirent : téléchargez avant la date indiquée sur la pochette."))}</p></details>`;
+        <p class="discret" style="margin-top:8px">${esc(t("Les liens SwissTransfer expirent : téléchargez avant la date indiquée sur la pochette."))}</p></details>`;
   },
   vuePochette(l){
     const n = this.joursRestants(l), expire = n < 0, fait = !!l.telechargeAt, nouvelle = !l.vuAt;
@@ -2351,7 +2563,7 @@ const App = {
       ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(l => { const [c, e] = this.etatLivraison(l);
         return `<button class="ligne" onclick="App.ouvrirLivraison('${l.id}')"><span class="avatar">${esc(initiales(l.clientNom))}</span>
           <span class="corps"><span class="t">${esc(l.titre)}</span><span class="s">${esc(l.clientNom)} — ${esc(t("jusqu'au {d}", { d: dateCourte(l.expireLe) }))}</span></span><span class="etat ${c}">${esc(e)}</span></button>`; }).join("")}</div></div>`
-        : `<div class="vide">${ico("envoyer")}<h3>${esc(t("Aucune livraison ici"))}</h3><p>${esc(t("Préparez votre lien WeTransfer, puis envoyez-le au client depuis ce bouton."))}</p>
+        : `<div class="vide">${ico("envoyer")}<h3>${esc(t("Aucune livraison ici"))}</h3><p>${esc(t("Préparez votre lien SwissTransfer, puis envoyez-le au client depuis ce bouton."))}</p>
           <button class="btn btn-or" onclick="App.ouvrirLivraison()">${esc(t("Envoyer des photos à un client"))}</button></div>`}`;
   },
   filtreL(k){ S.filtreLivraisons = k; this.rendre(); },
@@ -2363,7 +2575,7 @@ const App = {
     this._liv = { id: l ? l.id : null, clientId: l ? l.clientId : (clientId || ""), liens: l ? JSON.parse(JSON.stringify(l.liens || [])) : [{ label: "Photos", url: "" }, { label: "Vidéo", url: "" }] };
     const c = S.users.find(u => u.id === this._liv.clientId);
     const corps = `
-      ${l && l.nouveauLienDemandeAt && !l.telechargeAt ? `<div class="encart alerte"><b>${esc(t("Le client demande un nouveau lien."))}</b><div class="discret">${esc(t("Collez le nouveau lien WeTransfer, changez la date d'expiration, puis enregistrez en prévenant le client."))}</div></div>` : ""}
+      ${l && l.nouveauLienDemandeAt && !l.telechargeAt ? `<div class="encart alerte"><b>${esc(t("Le client demande un nouveau lien."))}</b><div class="discret">${esc(t("Collez le nouveau lien SwissTransfer, changez la date d'expiration, puis enregistrez en prévenant le client."))}</div></div>` : ""}
       ${l ? `<div class="discret" style="margin-bottom:12px">${esc(t("Envoyée le {d}", { d: depuis(l.createdAt) }))}${l.vuAt ? " — " + esc(t("vue le {d}", { d: depuis(l.vuAt) })) : ""}${l.telechargeAt ? " — " + esc(t("téléchargée le {d}", { d: depuis(l.telechargeAt) })) : ""}</div>` : ""}
       <div class="champ"><span class="etiquette">${esc(t("Client"))}</span><div id="lv-client">${this.vueClientChoisi(c)}</div></div>
       <div class="champ"><label for="lv-titre">${esc(t("Titre"))}</label><input class="saisie" id="lv-titre" value="${esc(l ? l.titre : "")}" placeholder="${esc(t("Par exemple : Mariage de Sarra et Amine"))}"></div>
@@ -2371,9 +2583,9 @@ const App = {
         <div class="champ" style="flex:1"><label for="lv-date">${esc(t("Date de l'événement"))}</label><input class="saisie" id="lv-date" type="date" value="${esc(l ? l.dateEvt || "" : "")}"></div></div>
       <div class="champ"><span class="etiquette">${esc(t("Liens de téléchargement"))}</span><div id="lv-liens">${this.vueLiens()}</div>
         <button type="button" class="lien" onclick="App.ajouterLien()">${esc(t("Ajouter un lien"))}</button>
-        <div class="aide">${esc(t("Collez les liens WeTransfer (ou Google Drive, Dropbox…). Ils doivent commencer par https://"))}</div></div>
+        <div class="aide">${esc(t("Collez les liens SwissTransfer (ou Google Drive, Dropbox…). Ils doivent commencer par https://"))}</div></div>
       <div class="champ"><label for="lv-exp">${esc(t("Le lien expire le"))}</label><input class="saisie" id="lv-exp" type="date" value="${esc(l ? l.expireLe : plusJours(aujourdHui(), +st.dureeLien || 3))}">
-        <div class="aide">${esc(t("Mettez la même date que sur WeTransfer (3 jours pour un compte gratuit). Le client est prévenu la veille."))}</div></div>
+        <div class="aide">${esc(t("Mettez la même date d'expiration que sur SwissTransfer. Le client est prévenu la veille."))}</div></div>
       <div class="champ"><label for="lv-msg">${esc(t("Message pour le client (facultatif)"))}</label><textarea class="saisie" id="lv-msg" placeholder="${esc(t("Un petit mot avec la livraison…"))}">${esc(l ? l.message || "" : "")}</textarea></div>
       <label class="case"><input type="checkbox" id="lv-prev" ${!l || (l.nouveauLienDemandeAt && !l.telechargeAt) ? "checked" : ""}> ${esc(t("Prévenir le client par notification"))}</label>`;
     const pied = `<button class="btn btn-or btn-bloc" id="lv-go" onclick="App.enregistrerLivraison()">${ico("envoyer")} ${esc(l ? t("Enregistrer") : t("Envoyer au client"))}</button>
@@ -2402,7 +2614,7 @@ const App = {
   },
   vueLiens(){
     return this._liv.liens.map((x, i) => `<div class="lien-ligne"><input class="saisie" value="${esc(x.label)}" oninput="App._liv.liens[${i}].label=this.value" placeholder="${esc(t("Photos"))}" aria-label="${esc(t("Nom du lien"))}">
-      <input class="saisie" type="url" inputmode="url" value="${esc(x.url)}" oninput="App._liv.liens[${i}].url=this.value.trim()" placeholder="https://we.tl/…" aria-label="${esc(t("Adresse du lien"))}" autocapitalize="none" spellcheck="false">
+      <input class="saisie" type="url" inputmode="url" value="${esc(x.url)}" oninput="App._liv.liens[${i}].url=this.value.trim()" placeholder="https://www.swisstransfer.com/d/…" aria-label="${esc(t("Adresse du lien"))}" autocapitalize="none" spellcheck="false">
       ${this._liv.liens.length > 1 ? `<button type="button" class="btn-icone" style="flex:none" onclick="App.retirerLien(${i})" aria-label="${esc(t("Retirer ce lien"))}">${ico("fermer")}</button>` : ""}</div>`).join("");
   },
   ajouterLien(){ this._liv.liens.push({ label: "", url: "" }); document.getElementById("lv-liens").innerHTML = this.vueLiens(); },
@@ -2436,7 +2648,7 @@ const App = {
     this.toast(t("Notification renvoyée."), "ok");
   },
   async supprimerLivraison(id){
-    if(!(await this.confirmer(t("Supprimer cette livraison ?"), t("Le client ne verra plus ces liens dans l'app. Les fichiers restent sur WeTransfer jusqu'à leur expiration."), t("Supprimer"), true))) return;
+    if(!(await this.confirmer(t("Supprimer cette livraison ?"), t("Le client ne verra plus ces liens dans l'app. Les fichiers restent sur SwissTransfer jusqu'à leur expiration."), t("Supprimer"), true))) return;
     try{ await window.Cloud.del("livraisons", id); this.toast(t("Livraison supprimée."), "ok"); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
   },
 
@@ -2586,6 +2798,7 @@ const App = {
     return `<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Plus"))}</h2></div>
       <div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">
         ${l("a-portfolio", "grille", "Portfolio", "Ajouter et trier vos photos", 0)}
+        ${l("a-reels", "reel", "Reels", "Ajouter et supprimer vos vidéos", 0)}
         ${l("a-forfaits", "etiquette", "Forfaits", "Vos offres et leurs prix", 0)}
         ${l("a-avis", "etoile", "Avis", "Valider les avis des clients", S.avis.filter(a => !a.publie).length)}
         ${l("reglages", "reglages", "Réglages", "Coordonnées, agenda, notifications, sécurité", 0)}
@@ -2700,7 +2913,7 @@ const App = {
       <div class="champ"><label for="fo-nom">${esc(t("Nom"))}</label><input class="saisie" id="fo-nom" value="${esc(f ? f.nom : "")}" placeholder="${esc(t("Par exemple : Mariage complet"))}"></div>
       <div class="champ"><label for="fo-prix">${esc(t("Prix"))}</label><input class="saisie" id="fo-prix" value="${esc(f ? f.prix || "" : "")}" placeholder="${esc(t("Par exemple : à partir de 1 500 DT"))}"></div>
       <div class="champ"><label for="fo-desc">${esc(t("Description"))}</label><textarea class="saisie" id="fo-desc">${esc(f ? f.description || "" : "")}</textarea></div>
-      <div class="champ"><label for="fo-inc">${esc(t("Ce qui est inclus (une ligne par élément)"))}</label><textarea class="saisie" id="fo-inc" placeholder="${esc(t("Reportage photo de la journée\nFilm du mariage\nLivraison par lien WeTransfer"))}">${esc(f ? (f.inclus || []).join("\n") : "")}</textarea></div>
+      <div class="champ"><label for="fo-inc">${esc(t("Ce qui est inclus (une ligne par élément)"))}</label><textarea class="saisie" id="fo-inc" placeholder="${esc(t("Reportage photo de la journée\nFilm du mariage\nLivraison par lien SwissTransfer"))}">${esc(f ? (f.inclus || []).join("\n") : "")}</textarea></div>
       <div class="champ"><label for="fo-ord">${esc(t("Position dans la liste"))}</label><input class="saisie" id="fo-ord" type="number" inputmode="numeric" value="${f ? f.ord || 1 : S.forfaits.length + 1}"></div>`,
       `<div class="rangee">${f ? `<button class="btn btn-danger" onclick="App.supprimerForfait('${f.id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button>` : ""}
         <button class="btn btn-or" onclick="App.enregistrerForfait('${f ? f.id : ""}')">${esc(t("Enregistrer"))}</button></div>`);
@@ -2744,7 +2957,7 @@ const App = {
         ${ch("st-ville", "Ville ou région", st.ville, "Par exemple : Sousse et toute la Tunisie")}
         ${ch("st-tel", "Téléphone", st.tel, "Votre numéro de téléphone", "tel")}${ch("st-wa", "WhatsApp (si différent)", st.whatsapp, "Votre numéro WhatsApp", "tel")}
         ${ch("st-insta", "Compte Instagram", st.instagram, "nom_du_compte")}${ch("st-mail", "E-mail de contact", st.email, "Votre adresse e-mail", "email")}
-        ${ch("st-duree", "Durée des liens WeTransfer (jours)", st.dureeLien, "3", "number")}
+        ${ch("st-duree", "Durée des liens SwissTransfer (jours)", st.dureeLien, "3", "number")}
         <button class="btn btn-or btn-bloc">${esc(t("Enregistrer"))}</button></form>
       <div class="bloc"><h3>${esc(t("Agenda"))}</h3><p class="doux">${esc(t("Vos jours de travail sont dans le Tableau, rubrique Agenda. Les clients peuvent demander toutes les dates : c'est vous qui confirmez. Pour une date prise en dehors de l'app, touchez le jour dans l'agenda."))}</p>
         <button class="btn btn-petit" onclick="App.aller('tableau/agenda')">${ico("calendrier")} ${esc(t("Ouvrir l'agenda"))}</button></div>

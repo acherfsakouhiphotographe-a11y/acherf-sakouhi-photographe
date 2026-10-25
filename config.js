@@ -16,5 +16,11 @@ window.APP_CONFIG = {
     messagingSenderId: "69969887264",
     appId: "1:69969887264:web:99c574af8ef7bb2b497c45"
   },
-  vapidKey: "BDF4uJNjwNpK-SQKTecZ0ponGFY0t9_v6ToP1AgYBIM0i10pcJo5-CE_FUaHKIwvMEwGLbY2C6P4OkkBDC4ybww"
+  vapidKey: "BDF4uJNjwNpK-SQKTecZ0ponGFY0t9_v6ToP1AgYBIM0i10pcJo5-CE_FUaHKIwvMEwGLbY2C6P4OkkBDC4ybww",
+
+  // Reels (vidéos) : compte Cloudinary gratuit — voir LISEZ-MOI.md, partie « Reels ».
+  // cloudName : Cloudinary → Settings → Product environment (ou en haut du Dashboard).
+  // uploadPreset : nom du preset NON SIGNÉ créé dans Settings → Upload → Upload presets.
+  // Ces deux valeurs ne sont pas secrètes. La clé secrète (API secret) va uniquement dans GitHub.
+  cloudinary: { cloudName: "", uploadPreset: "" }
 };
