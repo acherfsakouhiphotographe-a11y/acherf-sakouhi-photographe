@@ -7,17 +7,20 @@
 
    À chaque passage (toutes les 5 à 15 minutes, ou tout de suite si Achref
    a enregistré un jeton GitHub dans l'app) :
-     1. la veille de l'expiration d'un lien WeTransfer non téléchargé,
+     1. la veille de l'expiration d'un lien SwissTransfer non téléchargé,
         il crée un rappel pour le client (une seule fois) ;
      2. il envoie toutes les notifications « en attente » aux téléphones
         du destinataire, dans sa langue (français ou arabe) ;
-     3. il supprime les jetons des téléphones qui n'existent plus.
+     3. il supprime les jetons des téléphones qui n'existent plus ;
+     4. il efface chez Cloudinary les reels supprimés par Achref
+        (secret GitHub CLOUDINARY_URL ; sans lui, cette étape est sautée).
 
    Test à blanc (n'envoie rien) :  DRY_RUN=1 node envoyer-notifications.mjs
    ===================================================================== */
 import { initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getMessaging } from "firebase-admin/messaging";
+import { createHash } from "node:crypto";
 
 const TZ = "Africa/Tunis";
 const DRY_RUN = process.env.DRY_RUN === "1";
@@ -102,3 +105,31 @@ for (const d of attente.docs) {
   await d.ref.update({ envoi: ok ? "fait" : "echec", envoyeAt: Date.now(), nbEnvois: ok });
 }
 console.log(`✓ Envoyés : ${envoyes} · échecs : ${echecs} · jetons supprimés : ${nettoyes}`);
+
+/* 4. Reels supprimés par Achref : la vidéo est aussi effacée chez Cloudinary ---- */
+// CLOUDINARY_URL = « API environment variable » de Cloudinary : cloudinary://CLÉ:SECRET@NOM
+const cld = (process.env.CLOUDINARY_URL || "").trim().replace(/^CLOUDINARY_URL=/, "").match(/^cloudinary:\/\/([^:]+):([^@]+)@([^/?\s]+)/);
+if(!cld){
+  console.log("• Reels : secret CLOUDINARY_URL absent, effacement chez Cloudinary sauté.");
+} else {
+  const [, cleApi, secret, nuage] = cld;
+  const aEffacer = await db.collection("reelsSupprimes").limit(50).get();
+  let effaces = 0, rates = 0;
+  for(const d of aEffacer.docs){
+    const r = d.data();
+    if(!r.publicId){ if(!DRY_RUN) await d.ref.delete(); continue; }
+    if(DRY_RUN){ console.log(`  (test) effacer ${r.publicId}`); continue; }
+    const ts = Math.floor(Date.now() / 1000);
+    // Signature Cloudinary : paramètres triés par nom, puis le secret, en SHA-1.
+    const signature = createHash("sha1").update(`invalidate=true&public_id=${r.publicId}&timestamp=${ts}${secret}`).digest("hex");
+    try{
+      const rep = await fetch(`https://api.cloudinary.com/v1_1/${nuage}/video/destroy`, {
+        method: "POST", body: new URLSearchParams({ public_id: r.publicId, invalidate: "true", timestamp: String(ts), api_key: cleApi, signature })
+      });
+      const j = await rep.json().catch(() => ({}));
+      if(j.result === "ok" || j.result === "not found"){ await d.ref.delete(); effaces++; }
+      else{ rates++; console.log(`  ✗ ${r.publicId} : ${JSON.stringify(j).slice(0, 200)}`); }
+    }catch(e){ rates++; console.log(`  ✗ ${r.publicId} : ${e.message}`); }
+  }
+  console.log(`• Reels effacés chez Cloudinary : ${effaces}${rates ? ` · ${rates} à réessayer au prochain passage` : ""}`);
+}
