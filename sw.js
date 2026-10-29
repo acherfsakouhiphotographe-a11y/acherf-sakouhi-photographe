@@ -6,7 +6,7 @@
    • Notifications push : affichage et clic.
    Augmentez CACHE_VERSION à chaque mise à jour du site.
    ===================================================================== */
-const CACHE_VERSION = "achref-photo-v6";
+const CACHE_VERSION = "achref-photo-v7";
 const APP_SHELL = [
   "./", "./index.html", "./config.js", "./qrcode.js", "./manifest.webmanifest",
   "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./icon-monochrome-512.png", "./logo-mark.png",
