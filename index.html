@@ -430,6 +430,14 @@ html[lang="ar"] .feuille .tete h2{font-style:normal}
 .total-ligne b{font-family:"Bodoni Moda",serif;font-weight:500;font-size:1.3rem;color:var(--or-clair);white-space:nowrap}
 html[lang="ar"] .total-ligne b{font-family:var(--f-texte);font-weight:700}
 .total-demande{margin-top:12px;padding:10px 14px;border-radius:12px;border:1px solid rgba(201,164,92,.35);background:rgba(201,164,92,.08)}
+/* agenda : fiche d'une réservation dans le jour touché */
+.carte-jour{padding:14px 14px 12px;margin-bottom:12px;border:1px solid var(--ligne-2);border-inline-start:3px solid var(--travail);border-radius:14px;background:var(--velours-3)}
+.carte-jour.attente{border-inline-start:3px dashed var(--alerte)}
+.carte-jour-tete{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.carte-jour-tete b{font-family:var(--f-titre);font-style:italic;font-weight:400;font-size:1.3rem;line-height:1.2}
+html[lang="ar"] .carte-jour-tete b{font-style:normal;font-weight:700}
+.carte-jour .kv dd{min-width:0;overflow-wrap:anywhere}
+.carte-jour .rangee>.btn{white-space:nowrap}
 .option-ligne{display:flex;gap:8px;align-items:center;margin-bottom:8px}
 .option-ligne>.saisie{flex:1;min-width:0}
 .prix-saisie{position:relative;flex:0 0 112px}
@@ -842,7 +850,20 @@ const AR = {
   "Événement supprimé.":"تمّ حذف المناسبة.","Gardez au moins un événement.":"احتفظ بمناسبة واحدة على الأقل.",
   "{n} DT":"{n} د.ت","DT":"د.ت","Total":"المجموع",
   "Total : {p}":"المجموع: {p}","Sous-total":"المجموع الجزئي","Total de la demande":"مجموع الطلب",
-  "Cochez les options souhaitées :":"اختر الخيارات التي تريدها:","Drone":"درون"
+  "Cochez les options souhaitées :":"اختر الخيارات التي تريدها:","Drone":"درون",
+  // 1.6 : options des forfaits, fiche du jour dans l'agenda, modification d'une réservation confirmée
+  "Options au choix":"خيارات حسب الاختيار","Options et prix (facultatif)":"الخيارات والأسعار (اختياري)",
+  "Aucune option : le forfait est proposé tel quel.":"لا توجد خيارات: تُعرض الباقة كما هي.",
+  "Avec des options, le client coche celles qu'il veut quand il réserve avec ce forfait et voit le total, sans pouvoir changer les prix.":"مع الخيارات، يختار الحريف ما يريده عند الحجز بهذه الباقة ويرى المجموع، دون أن يستطيع تغيير الأسعار.",
+  "{n} option(s)":"{n} خيار(ات)","Options":"الخيارات","Réservation":"الحجز","Voir la demande":"عرض الطلب",
+  "Modifier ma réservation":"تعديل حجزي","Modification de votre réservation confirmée":"تعديل حجزكم المؤكَّد",
+  "Changez les options, le lieu ou le message : votre réservation reste confirmée et Achref est prévenu. Si vous changez les dates, Achref devra les confirmer de nouveau.":"غيّروا الخيارات أو المكان أو الرسالة: يبقى حجزكم مؤكَّدًا ويتمّ إعلام أشرف. إذا غيّرتم التواريخ، على أشرف أن يؤكّدها من جديد.",
+  "Réservation modifiée":"حجز معدَّل","{nom} a modifié sa réservation confirmée : {details}.":"عدّل {nom} حجزه المؤكَّد: {details}.",
+  "Nouvelles dates à confirmer":"تواريخ جديدة للتأكيد",
+  "{nom} a changé les dates de sa réservation : {details}. Elle attend votre confirmation.":"غيّر {nom} تواريخ حجزه: {details}. الحجز في انتظار تأكيدك.",
+  "Réservation modifiée. Achref est prévenu.":"تمّ تعديل الحجز وإعلام أشرف.",
+  "Nouvelles dates envoyées : Achref doit les confirmer.":"أُرسلت التواريخ الجديدة: على أشرف أن يؤكّدها.",
+  "Modifiée par le client le {d}":"عدّلها الحريف في {d}"
 };
 
 /* =====================================================================
@@ -854,7 +875,7 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.5.0";
+const APP_VERSION = "1.6.0";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -938,7 +959,10 @@ const normType = x => ({ id: String((x && x.id) || slugType(x && x.nom)), nom: S
     .map((o, i) => ({ id: String(o.id || "o" + i), nom: String(o.nom).trim(), prix: Math.max(0, +o.prix || 0) })) });
 const optionsDe = j => (j && Array.isArray(j.options) ? j.options : []);
 const totalJour = j => optionsDe(j).reduce((s, o) => s + (+o.prix || 0), 0);
-const totalDemande = d => joursDe(d).reduce((s, j) => s + totalJour(j), 0);
+// Options du forfait choisi (facultatives, comme pour les événements) : copiées dans la demande.
+const forfaitOptionsDe = d => (d && Array.isArray(d.forfaitOptions) ? d.forfaitOptions : []);
+const totalDemande = d => joursDe(d).reduce((s, j) => s + totalJour(j), 0) + forfaitOptionsDe(d).reduce((s, o) => s + (+o.prix || 0), 0);
+const aDesOptions = d => joursDe(d).some(j => optionsDe(j).length > 0) || forfaitOptionsDe(d).length > 0;
 // Prix saisi par Achref : « 200 », « 1 500 » ou « 12,5 » (3 décimales au plus). null si invalide.
 const lirePrix = s => { const v = String(s == null ? "" : s).replace(/[\s  ]/g, "").replace(",", "."); return /^\d+(\.\d{1,3})?$/.test(v) ? Math.round(parseFloat(v) * 1000) / 1000 : null; };
 // « 1 500 DT » (chiffres latins dans les deux langues, comme le reste de l'app).
@@ -1037,7 +1061,7 @@ const S = {
   portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})),
   types: typesDefaut(),        // événements proposés et leurs options (réglés par Achref)
   route: "", param: "", filtrePortfolio: "Tout", filtreLivraisons: "encours", filtreDemandes: "attente", rechercheClients: "",
-  calMois: aujourdHui().slice(0, 7), agMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", modifDemande: null, brouillon: null,
+  calMois: aujourdHui().slice(0, 7), agMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", forfaitOpts: [], modifDemande: null, brouillon: null,
   thumbs: {}, pleins: {}       // miniatures et grandes photos du portfolio, chargées à la demande
 };
 
@@ -1728,12 +1752,15 @@ const App = {
     this.feuille(f.nom, `${f.prix ? `<p class="prix-offre">${esc(f.prix)}</p>` : ""}
       ${f.description ? `<p class="doux">${txt(f.description)}</p>` : ""}
       ${(f.inclus || []).length ? `<h3 style="margin:14px 0 6px">${esc(t("Ce qui est inclus"))}</h3><ul class="inclus">${f.inclus.map(x => `<li>${ico("coche")}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
+      ${this.optionsDuForfait(f).length ? `<h3 style="margin:14px 0 6px">${esc(t("Options au choix"))}</h3><ul class="inclus">${this.optionsDuForfait(f).map(o => `<li>${ico("ajout")}<span style="flex:1">${esc(t(o.nom))}</span><span class="doux" style="white-space:nowrap">${esc(prixTxt(o.prix))}</span></li>`).join("")}</ul>` : ""}
       ${this.estAdmin() ? `<p class="discret" style="margin-top:12px">${esc(t("Aperçu : c'est ce que voient vos clients."))}</p>` : ""}`,
       this.estAdmin() ? `<button class="btn btn-bloc" onclick="App.fermer()">${esc(t("Fermer"))}</button>`
         : `<button class="btn btn-or btn-bloc" onclick="App.reserverAvecOffre('${f.id}')">${ico("calendrier")} ${esc(t("Réserver avec cette offre"))}</button>`);
   },
+  // Options d'un forfait (facultatives) : { id, nom, prix }, vérifiées comme celles des événements.
+  optionsDuForfait(f){ return f ? normType({ id: f.id, nom: f.nom, options: f.options }).options : []; },
   reserverAvecOffre(id){
-    S.forfaitChoisi = id; this.fermer(); this.aller("reserver");
+    S.forfaitChoisi = id; S.forfaitOpts = []; this.fermer(); this.aller("reserver");
     setTimeout(() => this.toast(t("Offre choisie. Touchez maintenant vos jours dans le calendrier.")), 350);
   },
   vueAvis(a){
@@ -2184,8 +2211,11 @@ const App = {
     const mes = S.demandes.slice().sort((a, b) => b.createdAt - a.createdAt);
     const etat = d => ({ attente: ["", "En attente"], confirmee: ["ok", "Confirmée"], refusee: ["danger", "Indisponible"], annulee: ["", "Annulée"] }[d.statut] || ["", d.statut]);
     const fc = S.forfaits.find(f => f.id === S.forfaitChoisi), ed = S.modifDemande, br = S.brouillon || {};
-    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(ed ? t("Modifier ma demande") : t("Réserver une date"))}</h2></div>
-      ${ed ? `<div class="encart"><b>${esc(t("Modification de votre demande"))}</b><div class="doux" style="margin:4px 0 8px">${esc(t("Changez les jours, leur type, le lieu ou le message, puis enregistrez. Achref sera prévenu."))}</div>
+    const edConf = !!(ed && (S.demandes.find(x => x.id === ed) || {}).statut === "confirmee");
+    return `<div class="titre-section" style="margin-top:8px"><h2>${esc(ed ? t(edConf ? "Modifier ma réservation" : "Modifier ma demande") : t("Réserver une date"))}</h2></div>
+      ${ed ? `<div class="encart"><b>${esc(t(edConf ? "Modification de votre réservation confirmée" : "Modification de votre demande"))}</b><div class="doux" style="margin:4px 0 8px">${esc(edConf
+            ? t("Changez les options, le lieu ou le message : votre réservation reste confirmée et Achref est prévenu. Si vous changez les dates, Achref devra les confirmer de nouveau.")
+            : t("Changez les jours, leur type, le lieu ou le message, puis enregistrez. Achref sera prévenu."))}</div>
           <button class="lien" onclick="App.annulerModification()">${esc(t("Annuler la modification"))}</button></div>`
         : `<p class="doux">${esc(t("Touchez les jours de votre événement dans le calendrier. Vous pouvez en choisir plusieurs, par exemple le henné, la wtiya et le mariage."))}</p>`}
       ${fc ? `<div class="encart"><b>${esc(t("Offre choisie"))}</b><div class="doux">${esc(fc.nom)}${fc.prix ? " — " + esc(fc.prix) : ""}</div></div>` : ""}
@@ -2193,14 +2223,16 @@ const App = {
       <form class="bloc" onsubmit="event.preventDefault();App.envoyerDemande()">
         <div class="champ"><span class="etiquette">${esc(t("Vos jours"))}</span><div id="re-jours">${this.vueJoursChoisis()}</div></div>
         <div class="champ"><label for="re-lieu">${esc(t("Ville ou salle"))}</label><input class="saisie" id="re-lieu" value="${esc(br.lieu || "")}" placeholder="${esc(t("Par exemple : Sousse, salle des fêtes"))}"></div>
-        ${forfaits.length ? `<div class="champ"><label for="re-forfait">${esc(t("Forfait"))}</label><select class="saisie" id="re-forfait" onchange="App.choisirForfait(this.value)"><option value="">${esc(t("Je ne sais pas encore"))}</option>${forfaits.map(f => `<option value="${f.id}"${f.id === S.forfaitChoisi ? " selected" : ""}>${esc(f.nom)}${f.prix ? " — " + esc(f.prix) : ""}</option>`).join("")}</select></div>` : ""}
+        ${forfaits.length ? `<div class="champ"><label for="re-forfait">${esc(t("Forfait"))}</label><select class="saisie" id="re-forfait" onchange="App.choisirForfait(this.value)"><option value="">${esc(t("Je ne sais pas encore"))}</option>${forfaits.map(f => `<option value="${f.id}"${f.id === S.forfaitChoisi ? " selected" : ""}>${esc(f.nom)}${f.prix ? " — " + esc(f.prix) : ""}</option>`).join("")}</select>
+          <div id="re-forfait-opts">${this.vueOptionsForfait()}</div></div>` : ""}
         <div class="champ"><label for="re-msg">${esc(t("Message (facultatif)"))}</label><textarea class="saisie" id="re-msg" placeholder="${esc(t("Horaires, nombre d'invités, vidéo souhaitée…"))}">${esc(br.message || "")}</textarea></div>
+        <div id="re-total">${this.vueTotalDemande()}</div>
         <button class="btn btn-or btn-bloc" id="re-go">${esc(ed ? t("Enregistrer les modifications") : t("Envoyer la demande"))}</button>
       </form>
       ${mes.length ? `<div class="titre-section"><h2>${esc(t("Mes demandes"))}</h2></div><div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${mes.map(d => {
         const [c, l] = etat(d), j = joursDe(d);
         return `<div class="ligne" style="cursor:default;flex-wrap:wrap"><span class="corps"><span class="t">${esc(titreDemande(d))}</span>
-          ${j.length > 1 ? `<span class="s">${esc(resumeJours(j))}</span>` : ""}${d.lieu ? `<span class="s">${esc(d.lieu)}</span>` : ""}${d.forfaitNom ? `<span class="s">${esc(t("Forfait"))} : ${esc(d.forfaitNom)}</span>` : ""}
+          ${j.length > 1 ? `<span class="s">${esc(resumeJours(j))}</span>` : ""}${d.lieu ? `<span class="s">${esc(d.lieu)}</span>` : ""}${d.forfaitNom ? `<span class="s" style="white-space:normal">${esc(t("Forfait"))} : ${esc(d.forfaitNom)}${forfaitOptionsDe(d).length ? " — " + esc(this.listeOptions(forfaitOptionsDe(d))) : ""}</span>` : ""}
           ${this.vueOptionsDemande(d)}
           ${d.noteAdmin ? `<span class="doux" style="display:block;font-size:.92rem;margin-top:4px">${esc(d.noteAdmin)}</span>` : ""}</span>
           <span class="etat ${c}">${esc(t(l))}</span>${this.actionsDemandeClient(d)}</div>`;
@@ -2208,12 +2240,14 @@ const App = {
   },
   // Options choisies et total d'une demande (« Mes demandes » du client).
   vueOptionsDemande(d){
+    if(!aDesOptions(d)) return "";
     const j = joursDe(d), avec = j.filter(x => optionsDe(x).length);
-    if(!avec.length) return "";
-    const deuxPts = LANG === "ar" ? ": " : " : ", sep = LANG === "ar" ? "، " : ", ";
-    return avec.map(x => `<span class="s" style="white-space:normal">${j.length > 1 ? esc(t(x.type)) + deuxPts : ""}${esc(optionsDe(x).map(o => t(o.nom) + " " + prixTxt(o.prix)).join(sep))}</span>`).join("")
+    const deuxPts = LANG === "ar" ? ": " : " : ";
+    return avec.map(x => `<span class="s" style="white-space:normal">${j.length > 1 ? esc(t(x.type)) + deuxPts : ""}${esc(this.listeOptions(optionsDe(x)))}</span>`).join("")
       + `<span class="s" style="color:var(--or-clair);font-weight:500">${esc(t("Total : {p}", { p: prixTxt(totalDemande(d)) }))}</span>`;
   },
+  // « Photo 200 DT, Vidéo 400 DT »
+  listeOptions(opts, sep){ return (opts || []).map(o => t(o.nom) + " " + prixTxt(o.prix)).join(sep || (LANG === "ar" ? "، " : ", ")); },
   vueCalendrier(){
     const [y, m] = S.calMois.split("-").map(Number), premier = new Date(y, m - 1, 1), nb = new Date(y, m, 0).getDate();
     const decal = (premier.getDay() + 6) % 7, auj = aujourdHui();
@@ -2252,28 +2286,54 @@ const App = {
     const ty = this.typeParNom(j.type), ids = j.opts || [];
     return ty ? ty.options.filter(o => ids.indexOf(o.id) >= 0) : [];
   },
+  // Cases à cocher d'options + total (non modifiable) : pour un jour ou pour le forfait.
+  vueCasesOptions(opts, ids, action, libelleTotal){
+    const sous = opts.filter(o => ids.indexOf(o.id) >= 0).reduce((s, o) => s + o.prix, 0);
+    return `<span class="discret">${esc(t("Cochez les options souhaitées :"))}</span>
+      ${opts.map(o => `<label class="option-case"><input type="checkbox"${ids.indexOf(o.id) >= 0 ? " checked" : ""} onchange="${action}'${esc(o.id)}',this.checked)">
+        <span class="nom-o">${esc(t(o.nom))}</span><span class="prix-o">${esc(prixTxt(o.prix))}</span></label>`).join("")}
+      <div class="total-ligne" aria-live="polite"><span>${esc(t(libelleTotal))}</span><b>${esc(prixTxt(sous))}</b></div>`;
+  },
+  // Blocs de la demande : chaque jour, plus le forfait s'il a des options. À partir de 2 blocs,
+  // chaque bloc a un « Sous-total » et la demande un « Total de la demande » (s'il y a des options).
+  blocsDemande(){
+    const forfait = this.optionsDuForfait(this.forfaitChoisi()).length ? 1 : 0;
+    const avecPrix = S.joursChoisis.filter(j => { const ty = this.typeParNom(j.type); return ty && ty.options.length; }).length + forfait;
+    return { nb: S.joursChoisis.length + forfait, avecPrix };
+  },
+  blocsAvecOptions(){ return this.blocsDemande().nb; },
+  forfaitChoisi(){ return S.forfaits.find(f => f.id === S.forfaitChoisi) || null; },
+  optionsForfaitChoisies(){ const ids = S.forfaitOpts || []; return this.optionsDuForfait(this.forfaitChoisi()).filter(o => ids.indexOf(o.id) >= 0); },
   vueJoursChoisis(){
     const J = S.joursChoisis.slice().sort((a, b) => a.date < b.date ? -1 : 1);
     if(!J.length) return `<p class="discret" style="margin:0">${esc(t("Aucun jour choisi : touchez une date libre dans le calendrier."))}</p>`;
-    const plusieurs = J.length > 1;
-    let total = 0, avecOptions = 0;
-    const html = J.map(j => {
-      const ty = this.typeParNom(j.type), opts = ty ? ty.options : [], ids = j.opts || [];
-      const sous = this.optionsChoisies(j).reduce((s, o) => s + o.prix, 0);
-      if(opts.length){ total += sous; avecOptions++; }
+    const libelle = this.blocsAvecOptions() > 1 ? "Sous-total" : "Total";
+    return `<div class="jours">${J.map(j => {
+      const ty = this.typeParNom(j.type), opts = ty ? ty.options : [];
       return `<div class="jour-ligne"><span class="jour-date">${esc(dateAvecJour(j.date))}</span>
         <select class="saisie" aria-label="${esc(t("Événement"))} — ${esc(dateLongue(j.date))}" onchange="App.typeJour('${j.date}',this.value)">${this.optionsTypes(j.type)}</select>
         <button type="button" class="btn-icone" onclick="App.basculerJour('${j.date}')" aria-label="${esc(t("Retirer ce jour"))}" title="${esc(t("Retirer ce jour"))}">${ico("fermer")}</button>
-        ${opts.length ? `<div class="jour-options"><span class="discret">${esc(t("Cochez les options souhaitées :"))}</span>
-          ${opts.map(o => `<label class="option-case"><input type="checkbox"${ids.indexOf(o.id) >= 0 ? " checked" : ""} onchange="App.optionJour('${j.date}','${esc(o.id)}',this.checked)">
-            <span class="nom-o">${esc(t(o.nom))}</span><span class="prix-o">${esc(prixTxt(o.prix))}</span></label>`).join("")}
-          <div class="total-ligne" aria-live="polite"><span>${esc(t(plusieurs ? "Sous-total" : "Total"))}</span><b>${esc(prixTxt(sous))}</b></div></div>` : ""}</div>`;
-    }).join("");
-    return `<div class="jours">${html}</div>${plusieurs && avecOptions ? `<div class="total-ligne total-demande" aria-live="polite"><span>${esc(t("Total de la demande"))}</span><b>${esc(prixTxt(total))}</b></div>` : ""}`;
+        ${opts.length ? `<div class="jour-options">${this.vueCasesOptions(opts, j.opts || [], `App.optionJour('${j.date}',`, libelle)}</div>` : ""}</div>`;
+    }).join("")}</div>`;
+  },
+  vueOptionsForfait(){
+    const opts = this.optionsDuForfait(this.forfaitChoisi()); if(!opts.length) return "";
+    return `<div class="jour-options" style="margin-top:10px">${this.vueCasesOptions(opts, S.forfaitOpts || [], "App.optionForfait(", this.blocsAvecOptions() > 1 ? "Sous-total" : "Total")}</div>`;
+  },
+  // Total de toute la demande (jours + forfait), affiché dès qu'il y a au moins deux blocs, dont un avec des options.
+  vueTotalDemande(){
+    const b = this.blocsDemande(); if(b.nb < 2 || !b.avecPrix) return "";
+    const tot = S.joursChoisis.reduce((s, j) => s + this.optionsChoisies(j).reduce((a, o) => a + o.prix, 0), 0) + this.optionsForfaitChoisies().reduce((s, o) => s + o.prix, 0);
+    return `<div class="total-ligne total-demande" style="margin:0 0 14px" aria-live="polite"><span>${esc(t("Total de la demande"))}</span><b>${esc(prixTxt(tot))}</b></div>`;
+  },
+  // Jours, options du forfait et total redessinés ensemble (les sous-totaux dépendent du nombre de blocs).
+  majTotaux(){
+    const z = { "re-jours": () => this.vueJoursChoisis(), "re-forfait-opts": () => this.vueOptionsForfait(), "re-total": () => this.vueTotalDemande() };
+    Object.keys(z).forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = z[id](); });
   },
   majReserver(){
     const cal = document.getElementById("cal"); if(cal) cal.parentNode.innerHTML = this.vueCalendrier();
-    const jr = document.getElementById("re-jours"); if(jr) jr.innerHTML = this.vueJoursChoisis();
+    this.majTotaux();
   },
   changerMois(d){
     const [y, m] = S.calMois.split("-").map(Number), x = new Date(y, m - 1 + d, 1);
@@ -2295,35 +2355,42 @@ const App = {
   typeJour(iso, type){
     const j = S.joursChoisis.find(x => x.date === iso); if(!j) return;
     if(this.typeParNom(type) || type === j.type){ if(type !== j.type) j.opts = []; j.type = type; }
-    this._edition = true; this.majJoursChoisis();
+    this._edition = true; this.majTotaux();
   },
   optionJour(iso, id, coche){
     const j = S.joursChoisis.find(x => x.date === iso); if(!j) return;
     j.opts = (j.opts || []).filter(x => x !== id); if(coche) j.opts.push(id);
-    this._edition = true; this.majJoursChoisis();
+    this._edition = true; this.majTotaux();
   },
-  majJoursChoisis(){ const jr = document.getElementById("re-jours"); if(jr) jr.innerHTML = this.vueJoursChoisis(); },
-  choisirForfait(id){ S.forfaitChoisi = id || ""; },
+  // Autre forfait : ses options repartent de zéro.
+  choisirForfait(id){ if((id || "") !== S.forfaitChoisi) S.forfaitOpts = []; S.forfaitChoisi = id || ""; this._edition = true; this.majTotaux(); },
+  optionForfait(id, coche){
+    S.forfaitOpts = (S.forfaitOpts || []).filter(x => x !== id); if(coche) S.forfaitOpts.push(id);
+    this._edition = true; this.majTotaux();
+  },
+  // Le client peut modifier une demande en attente, ou une réservation confirmée qui n'a pas encore commencé.
+  peutModifier(d){ const j = joursDe(d); return !!d && (d.statut === "attente" || (d.statut === "confirmee" && j.length > 0 && j[0].date >= aujourdHui())); },
   // Boutons d'une demande dans « Mes demandes » (selon son état).
   actionsDemandeClient(d){
     const b = (f, l, danger) => `<button class="lien${danger ? " lien-danger" : ""}" onclick="App.${f}('${d.id}')">${esc(t(l))}</button>`;
     let a = [];
     if(d.statut === "attente") a = [b("modifierDemande", "Modifier"), b("annulerDemande", "Annuler la demande", true)];
-    else if(d.statut === "confirmee" && finDe(d) >= aujourdHui()) a = [b("annulerDemande", "Annuler la réservation", true)];
+    else if(d.statut === "confirmee" && finDe(d) >= aujourdHui()) a = (this.peutModifier(d) ? [b("modifierDemande", "Modifier")] : []).concat([b("annulerDemande", "Annuler la réservation", true)]);
     else if(d.statut === "annulee" || d.statut === "refusee") a = [b("supprimerDemandeClient", "Supprimer", true)];
     return a.length ? `<div class="actions-demande">${a.join("")}</div>` : "";
   },
   modifierDemande(id){
-    const d = S.demandes.find(x => x.id === id); if(!d || d.statut !== "attente") return;
+    const d = S.demandes.find(x => x.id === id); if(!this.peutModifier(d)) return;
     const j = joursDe(d);
     // Options déjà cochées : retrouvées par identifiant, sinon par nom (option renommée entre-temps).
-    const ids = x => { const ty = this.typeParNom(x.type); if(!ty) return [];
-      return optionsDe(x).map(o => (ty.options.find(p => p.id === o.id) || ty.options.find(p => p.nom === o.nom) || {}).id).filter(Boolean); };
+    const retrouver = (choisies, dispo) => choisies.map(o => (dispo.find(p => p.id === o.id) || dispo.find(p => p.nom === o.nom) || {}).id).filter(Boolean);
+    const ids = x => { const ty = this.typeParNom(x.type); return ty ? retrouver(optionsDe(x), ty.options) : []; };
     S.modifDemande = id; S.joursChoisis = j.map(x => ({ date: x.date, type: x.type, opts: ids(x) })); S.forfaitChoisi = d.forfaitId || "";
+    S.forfaitOpts = retrouver(forfaitOptionsDe(d), this.optionsDuForfait(this.forfaitChoisi()));
     S.brouillon = { lieu: d.lieu || "", message: d.message || "" }; if(j.length) S.calMois = j[0].date.slice(0, 7);
     this._edition = false; this.rendre(); window.scrollTo(0, 0);
   },
-  annulerModification(){ S.modifDemande = null; S.brouillon = null; S.joursChoisis = []; S.forfaitChoisi = ""; this._edition = false; this.rendre(); },
+  annulerModification(){ S.modifDemande = null; S.brouillon = null; S.joursChoisis = []; S.forfaitChoisi = ""; S.forfaitOpts = []; this._edition = false; this.rendre(); },
   async supprimerDemandeClient(id){
     if(!(await this.confirmer(t("Supprimer cette demande ?"), t("Elle disparaîtra de votre liste."), t("Supprimer"), true))) return;
     try{ await window.Cloud.del("demandes", id); this.toast(t("Demande supprimée."), "ok"); }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
@@ -2338,23 +2405,36 @@ const App = {
     });
     if(!jours.length) return this.toast(t("Choisissez au moins un jour dans le calendrier."), "err");
     if(jours.some(j => j.date < aujourdHui())) return this.toast(t("Cette date est passée."), "err");
-    const f = S.forfaits.find(x => x.id === fid), u = S.prof;
-    const d = { id: nouvelId("d"), clientId: u.id, clientNom: u.nom || "", clientTel: u.tel || "", clientEmail: u.email || "",
-      jours, date: jours[0].date, dateFin: jours[jours.length - 1].date, type: jours[0].type, total: jours.reduce((s, j) => s + j.total, 0),
-      lieu, forfaitId: f ? f.id : "", forfaitNom: f ? f.nom : "", message: msg, statut: "attente", noteAdmin: "", createdAt: Date.now(), updatedAt: Date.now() };
+    const f = S.forfaits.find(x => x.id === fid), u = S.prof, now = Date.now();
+    const forfaitOptions = f && f.id === S.forfaitChoisi ? this.optionsForfaitChoisies().map(o => ({ id: o.id, nom: o.nom, prix: o.prix })) : [];
+    // Contenu de la demande (le même pour une nouvelle demande et pour une modification).
+    const contenu = { jours, date: jours[0].date, dateFin: jours[jours.length - 1].date, type: jours[0].type,
+      total: jours.reduce((s, j) => s + j.total, 0) + forfaitOptions.reduce((s, o) => s + o.prix, 0),
+      lieu, forfaitId: f ? f.id : "", forfaitNom: f ? f.nom : "", forfaitOptions, message: msg, updatedAt: now };
     const btn = document.getElementById("re-go"); btn.disabled = true;
-    const ancienne = S.modifDemande ? S.demandes.find(x => x.id === S.modifDemande && x.statut === "attente") : null;
-    if(ancienne) d.createdAt = ancienne.createdAt || d.createdAt;
+    const ancienne = S.modifDemande ? S.demandes.find(x => x.id === S.modifDemande && this.peutModifier(x)) : null;
+    const vars = { nom: u.nom || t("Un client"), details: deuxLangues(l => resumeJours(jours, l)) };
     try{
-      // Une modification = la nouvelle version, puis l'ancienne est retirée.
-      await window.Cloud.put("demandes", d);
-      if(ancienne){ try{ await window.Cloud.del("demandes", ancienne.id); }catch(e){ console.warn("ancienne demande", e); } }
-      const vars = { nom: u.nom || t("Un client"), details: deuxLangues(l => resumeJours(jours, l)) };
-      if(ancienne) this.notifier("admin", "demande", "Demande modifiée", "{nom} a modifié sa demande : {details}.", vars, "demandes/" + d.id);
-      else this.notifier("admin", "demande", "Nouvelle demande", "{nom} : {details}.", vars, "demandes/" + d.id);
-      S.joursChoisis = []; S.forfaitChoisi = ""; S.modifDemande = null; S.brouillon = null; this._edition = false;
-      this.toast(ancienne ? t("Demande modifiée. Achref est prévenu.") : t("Demande envoyée. Achref vous répond très vite."), "ok"); this.rendre();
-    }catch(e){ btn.disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
+      if(ancienne){
+        // Modification de la même demande. Une réservation confirmée le reste si les dates ne changent pas
+        // (options, lieu, message…) ; avec d'autres dates, elle repasse « en attente » : Achref reconfirme.
+        const memesDates = joursDe(ancienne).map(j => j.date).join() === jours.map(j => j.date).join();
+        const confirmee = ancienne.statut === "confirmee", resteConfirmee = confirmee && memesDates;
+        await window.Cloud.patch("demandes", ancienne.id, Object.assign({}, contenu, { statut: resteConfirmee ? "confirmee" : "attente", modifieeAt: now }));
+        if(!confirmee) this.notifier("admin", "demande", "Demande modifiée", "{nom} a modifié sa demande : {details}.", vars, "demandes/" + ancienne.id);
+        else if(resteConfirmee) this.notifier("admin", "demande", "Réservation modifiée", "{nom} a modifié sa réservation confirmée : {details}.", vars, "demandes/" + ancienne.id);
+        else this.notifier("admin", "demande", "Nouvelles dates à confirmer", "{nom} a changé les dates de sa réservation : {details}. Elle attend votre confirmation.", vars, "demandes/" + ancienne.id);
+        this.toast(!confirmee ? t("Demande modifiée. Achref est prévenu.") : (resteConfirmee ? t("Réservation modifiée. Achref est prévenu.") : t("Nouvelles dates envoyées : Achref doit les confirmer.")), "ok");
+      } else {
+        const d = Object.assign({ id: nouvelId("d"), clientId: u.id, clientNom: u.nom || "", clientTel: u.tel || "", clientEmail: u.email || "",
+          statut: "attente", noteAdmin: "", createdAt: now }, contenu);
+        await window.Cloud.put("demandes", d);
+        this.notifier("admin", "demande", "Nouvelle demande", "{nom} : {details}.", vars, "demandes/" + d.id);
+        this.toast(t("Demande envoyée. Achref vous répond très vite."), "ok");
+      }
+      S.joursChoisis = []; S.forfaitChoisi = ""; S.forfaitOpts = []; S.modifDemande = null; S.brouillon = null; this._edition = false;
+      this.rendre();
+    }catch(e){ console.warn("demande", e); btn.disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
   },
   async annulerDemande(id){
     const d = S.demandes.find(x => x.id === id); if(!d) return;
@@ -2628,13 +2708,24 @@ const App = {
           <span class="corps"><span class="t">${esc(t(x.type))}${x.nom ? " — " + esc(x.nom) : ""}</span><span class="s">${esc(t("Ajouté à la main"))}</span></span>
           <span class="etat danger">${esc(t("Jour de travail"))}</span>
           <button type="button" class="btn-icone btn-suppr" onclick="App.supprimerEvenement('${x.e.id}','${iso}')" aria-label="${esc(t("Retirer de l'agenda"))}" title="${esc(t("Retirer de l'agenda"))}">${ico("corbeille")}</button></div>`;
-      const conf = x.genre === "confirmee";
-      return `<button type="button" class="ligne" onclick="App.fermer();setTimeout(()=>App.ouvrirDemande('${x.d.id}'),250)"><span class="avatar">${esc(initiales(x.nom))}</span>
-          <span class="corps"><span class="t">${esc(t(x.type))} — ${esc(x.nom || t("Client"))}</span><span class="s">${esc([x.lieu, x.d.forfaitNom].filter(Boolean).join(" · ") || plage(joursDe(x.d)))}</span></span>
-          <span class="etat ${conf ? "ok" : "alerte"}">${esc(t(conf ? "Confirmée" : "En attente"))}</span></button>`;
+      // Réservation : la fiche du client et de l'événement, directement dans le jour.
+      const d = x.d, conf = x.genre === "confirmee", c = S.users.find(u => u.id === d.clientId) || {};
+      const nom = c.nom || d.clientNom || t("Client"), tel = c.tel || d.clientTel || "", mail = c.email || d.clientEmail || "";
+      const J = joursDe(d), ceJour = J.find(j => j.date === iso) || {}, fo = forfaitOptionsDe(d);
+      return `<div class="carte-jour${conf ? "" : " attente"}">
+          <div class="carte-jour-tete"><b>${esc(t(x.type))}</b><span class="etat ${conf ? "ok" : "alerte"}">${esc(t(conf ? "Confirmée" : "En attente"))}</span></div>
+          <dl class="kv"><dt>${esc(t("Client"))}</dt><dd><b style="font-weight:500">${esc(nom)}</b>${tel ? `<br><bdi dir="ltr">${esc(telAffiche(tel))}</bdi>` : ""}${mail ? `<br><bdi dir="ltr" class="discret">${esc(mail)}</bdi>` : ""}</dd>
+            ${J.length > 1 ? `<dt>${esc(t("Réservation"))}</dt><dd>${esc(resumeJours(J))}</dd>` : ""}
+            ${d.lieu ? `<dt>${esc(t("Lieu"))}</dt><dd>${esc(d.lieu)}</dd>` : ""}
+            ${optionsDe(ceJour).length ? `<dt>${esc(t("Options"))}</dt><dd>${esc(this.listeOptions(optionsDe(ceJour)))}</dd>` : ""}
+            ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}${fo.length ? " — " + esc(this.listeOptions(fo)) : ""}</dd>` : ""}
+            ${aDesOptions(d) ? `<dt>${esc(t("Total"))}</dt><dd><b style="color:var(--or-clair);font-weight:600">${esc(prixTxt(totalDemande(d)))}</b></dd>` : ""}</dl>
+          ${d.message ? `<p class="mot" dir="auto" style="margin:12px 0 0;padding:10px 12px;border-inline-start:2px solid var(--or);background:rgba(201,164,92,.06)">${txt(d.message)}</p>` : ""}
+          <div class="rangee" style="margin-top:12px">${tel ? `<a class="btn btn-petit" href="${telLien(tel)}">${ico("tel")} ${esc(t("Appeler"))}</a><a class="btn btn-petit" href="${waLien(tel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>` : ""}
+            <button type="button" class="btn btn-petit btn-clair" onclick="App.fermer();setTimeout(()=>App.ouvrirDemande('${d.id}'),250)">${esc(t("Voir la demande"))}</button></div></div>`;
     };
     const corps = `${travail > 1 ? `<div class="encart alerte"><b>${esc(t("{n} événements ce jour : prévoyez votre équipe.", { n: travail }))}</b></div>` : ""}
-      ${ev.length ? `<div class="liste">${ev.map(item).join("")}</div>` : `<p class="doux">${esc(t("Aucun événement ce jour."))}</p>`}
+      ${ev.length ? `<div>${ev.map(item).join("")}</div>` : `<p class="doux">${esc(t("Aucun événement ce jour."))}</p>`}
       <h3 style="margin:18px 0 10px">${esc(t("Ajouter un événement ce jour"))}</h3>
       <div class="champ"><label for="ev-type">${esc(t("Événement"))}</label><select class="saisie" id="ev-type">${this.optionsTypes("")}</select></div>
       <div class="champ"><label for="ev-note">${esc(t("Note (facultatif)"))}</label><input class="saisie" id="ev-note" maxlength="140" placeholder="${esc(t("Par exemple : mariage pris par téléphone, salle Le Pacha"))}"></div>
@@ -2895,12 +2986,13 @@ const App = {
     // Ce qui est déjà prévu ces jours-là (autres réservations confirmées, événements ajoutés à la main, autres demandes).
     const autres = jours.flatMap(j => (A[j.date] || []).filter(x => !(x.d && x.d.id === d.id)));
     const statutAutre = x => x.genre === "confirmee" ? t("Confirmée") : (x.genre === "attente" ? t("En attente") : t("Ajouté à la main"));
-    const corps = `<dl class="kv"><dt>${esc(t("Client"))}</dt><dd>${esc(d.clientNom)}</dd>
+    const corps = `${d.modifieeAt ? `<div class="encart" style="padding:10px 14px"><b>${esc(t("Modifiée par le client le {d}", { d: depuis(d.modifieeAt) }))}</b></div>` : ""}
+      <dl class="kv"><dt>${esc(t("Client"))}</dt><dd>${esc(d.clientNom)}</dd>
         <dt>${esc(jours.length > 1 ? t("Jours") : t("Date"))}</dt><dd><ul class="jours-demande">${jours.map(j => `<li><b>${esc(t(j.type))}</b><span>${esc(dateAvecJour(j.date))}</span>
           ${optionsDe(j).length ? `<span class="opts">${esc(optionsDe(j).map(o => t(o.nom) + " " + prixTxt(o.prix)).join(" · "))}${jours.length > 1 ? " — " + esc(prixTxt(totalJour(j))) : ""}</span>` : ""}</li>`).join("")}</ul></dd>
         ${d.lieu ? `<dt>${esc(t("Lieu"))}</dt><dd>${esc(d.lieu)}</dd>` : ""}
-        ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}</dd>` : ""}
-        ${jours.some(j => optionsDe(j).length) ? `<dt>${esc(t("Total"))}</dt><dd><b style="color:var(--or-clair);font-weight:600">${esc(prixTxt(totalDemande(d)))}</b></dd>` : ""}<dt>${esc(t("Statut"))}</dt><dd>${esc(t(this.libelleStatut(d.statut)))}</dd></dl>
+        ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}${forfaitOptionsDe(d).length ? `<span style="display:block;color:var(--or-clair);font-size:.86rem">${esc(this.listeOptions(forfaitOptionsDe(d), " · "))}</span>` : ""}</dd>` : ""}
+        ${aDesOptions(d) ? `<dt>${esc(t("Total"))}</dt><dd><b style="color:var(--or-clair);font-weight:600">${esc(prixTxt(totalDemande(d)))}</b></dd>` : ""}<dt>${esc(t("Statut"))}</dt><dd>${esc(t(this.libelleStatut(d.statut)))}</dd></dl>
       ${d.message ? `<p class="mot" style="margin-top:12px;padding:10px 12px;border-inline-start:2px solid var(--or);background:rgba(201,164,92,.06)">${txt(d.message)}</p>` : ""}
       ${autres.length ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(t("Déjà prévu ces jours-là :"))}</b>
           <ul class="conseils-mail" style="margin:8px 0 6px">${autres.map(x => `<li>${esc(dateCourte(x.date))} — ${esc(t(x.type))}${x.nom ? " — " + esc(x.nom) : ""} (${esc(statutAutre(x))})</li>`).join("")}</ul>
@@ -3038,16 +3130,21 @@ const App = {
   pageAdminForfaits(){
     const liste = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
     return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Forfaits"))}</h2><button class="btn btn-or btn-petit" onclick="App.ouvrirForfait()">${ico("ajout")} ${esc(t("Nouveau"))}</button></div>
-      ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(f => `<button class="ligne" onclick="App.ouvrirForfait('${f.id}')"><span class="corps"><span class="t">${esc(f.nom)}</span><span class="s">${esc(f.prix || "")}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
+      ${liste.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${liste.map(f => { const n = this.optionsDuForfait(f).length;
+          return `<button class="ligne" onclick="App.ouvrirForfait('${f.id}')"><span class="corps"><span class="t">${esc(f.nom)}</span><span class="s">${esc([f.prix || "", n ? t("{n} option(s)", { n }) : ""].filter(Boolean).join(" · "))}</span></span>${ico("chevron", "chev")}</button>`; }).join("")}</div></div>`
         : `<div class="vide">${ico("etiquette")}<p>${esc(t("Ajoutez vos forfaits : ils s'affichent sur l'accueil et dans le formulaire de réservation."))}</p></div>`}`;
   },
   ouvrirForfait(id){
     const f = id ? S.forfaits.find(x => x.id === id) : null;
+    // Options du forfait (facultatives) : sans option, le forfait est proposé tel quel.
+    this._optEd = this.optionsDuForfait(f).map(o => ({ id: o.id, nom: o.nom, prix: nombre(o.prix) }));
     this.feuille(f ? t("Modifier le forfait") : t("Nouveau forfait"), `
       <div class="champ"><label for="fo-nom">${esc(t("Nom"))}</label><input class="saisie" id="fo-nom" value="${esc(f ? f.nom : "")}" placeholder="${esc(t("Par exemple : Mariage complet"))}"></div>
       <div class="champ"><label for="fo-prix">${esc(t("Prix"))}</label><input class="saisie" id="fo-prix" value="${esc(f ? f.prix || "" : "")}" placeholder="${esc(t("Par exemple : à partir de 1 500 DT"))}"></div>
       <div class="champ"><label for="fo-desc">${esc(t("Description"))}</label><textarea class="saisie" id="fo-desc">${esc(f ? f.description || "" : "")}</textarea></div>
       <div class="champ"><label for="fo-inc">${esc(t("Ce qui est inclus (une ligne par élément)"))}</label><textarea class="saisie" id="fo-inc" placeholder="${esc(t("Reportage photo de la journée\nFilm du mariage\nLivraison par lien SwissTransfer"))}">${esc(f ? (f.inclus || []).join("\n") : "")}</textarea></div>
+      <div class="champ"><span class="etiquette">${esc(t("Options et prix (facultatif)"))}</span>${this.editeurOptions("Aucune option : le forfait est proposé tel quel.")}
+        <div class="aide">${esc(t("Avec des options, le client coche celles qu'il veut quand il réserve avec ce forfait et voit le total, sans pouvoir changer les prix."))}</div></div>
       <div class="champ"><label for="fo-ord">${esc(t("Position dans la liste"))}</label><input class="saisie" id="fo-ord" type="number" inputmode="numeric" value="${f ? f.ord || 1 : S.forfaits.length + 1}"></div>`,
       `<div class="rangee">${f ? `<button class="btn btn-danger" onclick="App.supprimerForfait('${f.id}')">${ico("corbeille")} ${esc(t("Supprimer"))}</button>` : ""}
         <button class="btn btn-or" onclick="App.enregistrerForfait('${f ? f.id : ""}')">${esc(t("Enregistrer"))}</button></div>`);
@@ -3055,7 +3152,9 @@ const App = {
   async enregistrerForfait(id){
     const g = x => (document.getElementById(x).value || "").trim();
     const nom = g("fo-nom"); if(!nom) return this.toast(t("Donnez un nom au forfait."), "err");
-    const f = { id: id || nouvelId("f"), nom, prix: g("fo-prix"), description: g("fo-desc"), inclus: g("fo-inc").split("\n").map(x => x.trim()).filter(Boolean), ord: parseInt(g("fo-ord"), 10) || 1 };
+    const lu = this.lireOptionsEd(); if(lu.erreur) return this.toast(lu.erreur, "err");
+    const f = { id: id || nouvelId("f"), nom, prix: g("fo-prix"), description: g("fo-desc"), inclus: g("fo-inc").split("\n").map(x => x.trim()).filter(Boolean),
+      options: lu.options, ord: parseInt(g("fo-ord"), 10) || 1 };
     try{ await window.Cloud.put("forfaits", f); this.fermer(); this.toast(t("Forfait enregistré."), "ok"); }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   },
   async supprimerForfait(id){
@@ -3115,30 +3214,50 @@ const App = {
   },
   feuilleType(){
     const E = this._typeEd; if(!E) return;
+    this._optEd = E.options;
     this.feuille(E.id ? t("Modifier l'événement") : t("Nouvel événement"), `
       <div class="champ"><label for="ty-nom">${esc(t("Nom"))}</label><input class="saisie" id="ty-nom" value="${esc(E.nom)}" oninput="App._typeEd.nom=this.value" placeholder="${esc(t("Par exemple : Mariage"))}" maxlength="40"></div>
-      <div class="champ"><span class="etiquette">${esc(t("Options et prix"))}</span><div id="ty-opts">${this.vueOptionsType()}</div>
-        <button type="button" class="lien" onclick="App.ajouterOptionType()">${esc(t("Ajouter une option"))}</button>
+      <div class="champ"><span class="etiquette">${esc(t("Options et prix"))}</span>${this.editeurOptions("Aucune option : le client choisit seulement l'événement.")}
         <div class="aide">${esc(t("Par exemple : Photo 200, Vidéo 400, Drone 300. Le client coche les options qu'il veut et voit le total, sans pouvoir changer les prix."))}</div></div>`,
       `<div class="rangee">${E.id ? `<button class="btn btn-danger" onclick="App.supprimerType()">${ico("corbeille")} ${esc(t("Supprimer"))}</button>` : ""}
         <button class="btn btn-or" id="ty-go" onclick="App.enregistrerType()">${esc(t("Enregistrer"))}</button></div>`);
   },
-  vueOptionsType(){
-    const E = this._typeEd;
-    if(!E.options.length) return `<p class="discret" style="margin:0 0 6px">${esc(t("Aucune option : le client choisit seulement l'événement."))}</p>`;
-    return E.options.map((o, i) => `<div class="option-ligne">
-      <input class="saisie" value="${esc(o.nom)}" oninput="App._typeEd.options[${i}].nom=this.value" placeholder="${esc(t("Option (ex. Photo)"))}" aria-label="${esc(t("Nom de l'option"))}" maxlength="40">
-      <div class="prix-saisie"><input class="saisie" value="${esc(o.prix)}" inputmode="decimal" oninput="App._typeEd.options[${i}].prix=this.value" placeholder="0" aria-label="${esc(t("Prix en DT"))}"><span>${esc(t("DT"))}</span></div>
-      <button type="button" class="btn-icone" style="flex:none" onclick="App.retirerOptionType(${i})" aria-label="${esc(t("Retirer cette option"))}" title="${esc(t("Retirer cette option"))}">${ico("fermer")}</button></div>`).join("");
+  /* ---- Éditeur d'options (événements et forfaits) : nom + prix en DT, saisis par Achref ----
+     this._optEd : options en cours de modification ({ id, nom, prix }), affichées dans #ed-opts. */
+  editeurOptions(vide){
+    this._optVide = vide;
+    return `<div id="ed-opts">${this.vueOptionsEd()}</div><button type="button" class="lien" onclick="App.ajouterOptionEd()">${esc(t("Ajouter une option"))}</button>`;
   },
-  ajouterOptionType(){
-    const E = this._typeEd; if(!E) return;
-    E.options.push({ id: nouvelId("o"), nom: "", prix: "" });
-    const z = document.getElementById("ty-opts"); if(!z) return;
-    z.innerHTML = this.vueOptionsType();
+  vueOptionsEd(){
+    const L = this._optEd || [];
+    if(!L.length) return `<p class="discret" style="margin:0 0 6px">${esc(t(this._optVide || "Aucune option"))}</p>`;
+    return L.map((o, i) => `<div class="option-ligne">
+      <input class="saisie" value="${esc(o.nom)}" oninput="App._optEd[${i}].nom=this.value" placeholder="${esc(t("Option (ex. Photo)"))}" aria-label="${esc(t("Nom de l'option"))}" maxlength="40">
+      <div class="prix-saisie"><input class="saisie" value="${esc(o.prix)}" inputmode="decimal" oninput="App._optEd[${i}].prix=this.value" placeholder="0" aria-label="${esc(t("Prix en DT"))}"><span>${esc(t("DT"))}</span></div>
+      <button type="button" class="btn-icone" style="flex:none" onclick="App.retirerOptionEd(${i})" aria-label="${esc(t("Retirer cette option"))}" title="${esc(t("Retirer cette option"))}">${ico("fermer")}</button></div>`).join("");
+  },
+  ajouterOptionEd(){
+    if(!this._optEd) return;
+    this._optEd.push({ id: nouvelId("o"), nom: "", prix: "" });
+    const z = document.getElementById("ed-opts"); if(!z) return;
+    z.innerHTML = this.vueOptionsEd();
     const champs = z.querySelectorAll(".option-ligne > .saisie"); if(champs.length) champs[champs.length - 1].focus();
   },
-  retirerOptionType(i){ const E = this._typeEd; if(!E) return; E.options.splice(i, 1); const z = document.getElementById("ty-opts"); if(z) z.innerHTML = this.vueOptionsType(); },
+  retirerOptionEd(i){ if(!this._optEd) return; this._optEd.splice(i, 1); const z = document.getElementById("ed-opts"); if(z) z.innerHTML = this.vueOptionsEd(); },
+  // Options saisies, vérifiées : { options } ou { erreur } (message à afficher).
+  lireOptionsEd(){
+    const options = [];
+    for(const o of (this._optEd || [])){
+      const n = String(o.nom || "").trim(), p = String(o.prix == null ? "" : o.prix).trim();
+      if(!n && !p) continue;                                  // ligne vide : ignorée
+      if(!n) return { erreur: t("Donnez un nom à chaque option.") };
+      const prix = lirePrix(p);
+      if(prix == null) return { erreur: t("Prix invalide pour « {nom} » : indiquez un nombre, par exemple 200.", { nom: n }) };
+      if(options.some(x => x.nom.toLowerCase() === n.toLowerCase())) return { erreur: t("Deux options portent le même nom : « {nom} ».", { nom: n }) };
+      options.push({ id: o.id || nouvelId("o"), nom: n, prix });
+    }
+    return { options };
+  },
   async ecrireTypes(liste){
     liste = liste.map(normType);
     await window.Cloud.put("_config", { id: "types", liste, updatedAt: Date.now() });
@@ -3149,17 +3268,8 @@ const App = {
     const nom = String(E.nom || "").trim();
     if(!nom) return this.toast(t("Donnez un nom à l'événement."), "err");
     if(S.types.some(x => x.id !== E.id && x.nom.toLowerCase() === nom.toLowerCase())) return this.toast(t("Cet événement existe déjà."), "err");
-    const options = [];
-    for(const o of E.options){
-      const n = String(o.nom || "").trim(), p = String(o.prix == null ? "" : o.prix).trim();
-      if(!n && !p) continue;                                  // ligne vide : ignorée
-      if(!n) return this.toast(t("Donnez un nom à chaque option."), "err");
-      const prix = lirePrix(p);
-      if(prix == null) return this.toast(t("Prix invalide pour « {nom} » : indiquez un nombre, par exemple 200.", { nom: n }), "err");
-      if(options.some(x => x.nom.toLowerCase() === n.toLowerCase())) return this.toast(t("Deux options portent le même nom : « {nom} ».", { nom: n }), "err");
-      options.push({ id: o.id || nouvelId("o"), nom: n, prix });
-    }
-    const ty = { id: E.id || nouvelId("t"), nom, options };
+    const lu = this.lireOptionsEd(); if(lu.erreur) return this.toast(lu.erreur, "err");
+    const ty = { id: E.id || nouvelId("t"), nom, options: lu.options };
     const liste = E.id ? S.types.map(x => x.id === E.id ? ty : x) : S.types.concat([ty]);
     const btn = document.getElementById("ty-go"); if(btn) btn.disabled = true;
     try{ await this.ecrireTypes(liste); this._typeEd = null; this.fermer(); this.toast(t("Événement enregistré."), "ok"); }
