@@ -438,7 +438,56 @@ html[lang="ar"] .total-ligne b{font-family:var(--f-texte);font-weight:700}
 html[lang="ar"] .carte-jour-tete b{font-style:normal;font-weight:700}
 .carte-jour .kv dd{min-width:0;overflow-wrap:anywhere}
 .carte-jour .rangee>.btn{white-space:nowrap}
+/* 1.7 : compte à rebours du client */
+.rebours{display:flex;gap:16px;align-items:center}
+.rebours-n{flex:none;width:76px;height:76px;border-radius:50%;border:1.5px solid var(--or);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.rebours-n b{font-family:"Bodoni Moda",serif;font-weight:500;font-size:1.9rem;color:var(--or-clair)}
+.rebours-n span{font-size:.72rem;color:var(--ivoire-2);margin-top:3px}
+.rebours-t{flex:1;min-width:0}
+.actions-rebours{display:flex;gap:2px 18px;flex-wrap:wrap;margin-top:6px}
+/* 1.7 : paiement, RIB, reçus */
+.h-paie{margin:18px 0 8px;font-size:1.1rem}
+/* listes des nouvelles fenêtres : pas de marge héritée de « .feuille .corps » */
+.feuille .l-paie .corps,.feuille .recu-ligne .corps{padding:0}
+.kv-paie .reste{color:var(--or-clair);font-weight:600}
+.rib{padding:12px 14px;border-radius:12px;border:1px solid var(--ligne-2);background:var(--velours-3)}
+.rib-num{font-weight:600;letter-spacing:.04em;overflow-wrap:anywhere}
+.bloc-paie{margin-top:14px;padding:12px 14px;border-radius:14px;border:1px solid rgba(201,164,92,.35);background:rgba(201,164,92,.06)}
+.bloc-paie-tete{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.recu-ligne{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--ligne)}
+.recu-ligne .corps{flex:1;min-width:0}
+.recu-ligne .s{display:block;font-size:.86rem;color:var(--sourdine)}
+.recu-mini{flex:none;width:64px;height:64px;padding:0;border:1px solid var(--ligne-2);border-radius:8px;overflow:hidden;background:var(--velours-3);cursor:zoom-in}
+.recu-mini img{width:100%;height:100%;object-fit:cover}
+.recu-grand{width:100%;border-radius:8px;background:var(--velours-3);min-height:200px}
+.recu-apercu{margin-top:10px;max-height:260px;width:auto;max-width:100%;border-radius:8px;border:1px solid var(--ligne-2)}
+.champ>label.btn{display:flex;margin-bottom:0;font-size:.98rem;color:var(--ivoire)}   /* bouton « Choisir la photo du reçu » */
+/* 1.7 : programme du jour J, équipe */
+.pg-bloc{padding:8px 0;border-bottom:1px solid var(--ligne)}
+.pg-bloc:last-child{border-bottom:0}
+.pg-bloc b{display:block;font-weight:500;font-size:.88rem;color:var(--ivoire-2)}
+.pg-bloc p{margin:2px 0 0;white-space:pre-wrap}
+.programme{margin-top:12px;padding:8px 12px;border-radius:10px;border:1px solid var(--ligne-2)}
+.programme summary{cursor:pointer;color:var(--or-clair);font-size:.95rem}
+.cases-equipe{display:flex;flex-wrap:wrap;gap:10px 18px;padding:4px 0}
+/* 1.7 : statistiques (une seule série : barres or, valeur écrite) */
+.annee-nav{display:flex;align-items:center;gap:8px}
+.annee-nav b{font-weight:500;min-width:3.2em;text-align:center}
+.tuiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.tuile{padding:14px;border-radius:14px;border:1px solid var(--ligne);background:var(--velours-2);display:flex;flex-direction:column;gap:2px}
+.tuile b{font-family:"Bodoni Moda",serif;font-weight:500;font-size:1.45rem;color:var(--ivoire);line-height:1.15;overflow-wrap:anywhere}
+html[lang="ar"] .tuile b{font-family:var(--f-texte);font-weight:700}
+.tuile span{font-size:.84rem;color:var(--ivoire-2)}
+.barres{display:flex;flex-direction:column;gap:2px}
+.barre-stat{display:grid;grid-template-columns:minmax(52px,30%) 1fr auto;align-items:center;gap:10px;padding:5px 0;font-size:.9rem}
+.bs-l{color:var(--ivoire-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bs-l::first-letter{text-transform:uppercase}
+.bs-piste{height:10px;border-radius:5px;background:rgba(243,234,219,.06);overflow:hidden}
+.bs-val{display:block;height:100%;background:var(--or);border-start-end-radius:4px;border-end-end-radius:4px}
+.bs-n{color:var(--ivoire);white-space:nowrap;font-variant-numeric:tabular-nums;font-size:.86rem}
 .option-ligne{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.ligne-ajout{display:flex;gap:8px;align-items:center;margin-top:12px}
+.ligne-ajout>.saisie{flex:1;min-width:0}
 .option-ligne>.saisie{flex:1;min-width:0}
 .prix-saisie{position:relative;flex:0 0 112px}
 .prix-saisie .saisie{text-align:end;padding-inline-end:44px}
@@ -863,7 +912,91 @@ const AR = {
   "{nom} a changé les dates de sa réservation : {details}. Elle attend votre confirmation.":"غيّر {nom} تواريخ حجزه: {details}. الحجز في انتظار تأكيدك.",
   "Réservation modifiée. Achref est prévenu.":"تمّ تعديل الحجز وإعلام أشرف.",
   "Nouvelles dates envoyées : Achref doit les confirmer.":"أُرسلت التواريخ الجديدة: على أشرف أن يؤكّدها.",
-  "Modifiée par le client le {d}":"عدّلها الحريف في {d}"
+  "Modifiée par le client le {d}":"عدّلها الحريف في {d}",
+  // 1.7 : paiements et RIB
+  "Paiement":"الدفع","Paiements reçus":"الدفعات المستلمة","Prix convenu":"السعر المتّفق عليه","Prix convenu : {p}":"السعر المتّفق عليه: {p}",
+  "Payé : {p}":"المدفوع: {p}","Reste : {p}":"الباقي: {p}","Reste à payer":"الباقي للدفع","Reste à payer : {p}":"الباقي للدفع: {p}","Déjà payé":"المدفوع",
+  "Total des options":"مجموع الخيارات","À convenir avec Achref":"يُتّفق عليه مع أشرف","Réservation entièrement payée. Merci !":"تمّ دفع الحجز بالكامل. شكرًا!",
+  "Reçu de virement envoyé : en vérification.":"تمّ إرسال وصل التحويل: قيد التثبّت.",
+  "Titulaire":"صاحب الحساب","Banque":"البنك","RIB":"RIB","Copier le RIB":"نسخ الـRIB","RIB copié.":"تمّ نسخ الـRIB.",
+  "Payer par virement":"الدفع بتحويل بنكي","Faites votre virement sur ce compte, puis envoyez le reçu à Achref depuis l'app.":"قوموا بالتحويل إلى هذا الحساب، ثم أرسلوا الوصل إلى أشرف من التطبيق.",
+  "Pour le paiement, voyez directement avec Achref.":"بالنسبة للدفع، تواصلوا مباشرة مع أشرف.",
+  "Mes reçus envoyés":"الوصولات التي أرسلتها","En vérification":"قيد التثبّت","Validé":"مقبول","Refusé":"مرفوض","Reçu":"مستلَم",
+  "Retirer ce reçu":"سحب هذا الوصل","Retirer ce reçu ?":"سحب هذا الوصل؟","Achref ne le verra plus. Vous pourrez en envoyer un autre.":"لن يراه أشرف بعد الآن. يمكنكم إرسال وصل آخر.","Reçu retiré.":"تمّ سحب الوصل.",
+  "Envoyer un reçu de virement":"إرسال وصل تحويل","Envoyer le reçu":"إرسال الوصل","Retour":"رجوع",
+  "Après votre virement, envoyez une photo ou une capture d'écran du reçu : Achref le vérifie et enregistre votre paiement.":"بعد التحويل، أرسلوا صورة أو لقطة شاشة للوصل: يتثبّت منه أشرف ويسجّل دفعتكم.",
+  "Montant viré (DT)":"المبلغ المحوَّل (د.ت)","Photo du reçu":"صورة الوصل","Choisir la photo du reçu":"اختيار صورة الوصل","Changer de photo":"تغيير الصورة",
+  "Par exemple : virement fait depuis le compte de mon père":"مثلًا: تحويل من حساب والدي",
+  "Choisissez une photo (ou une capture d'écran) du reçu.":"اختاروا صورة (أو لقطة شاشة) للوصل.","Photo illisible. Essayez une capture d'écran du reçu.":"الصورة غير مقروءة. جرّبوا لقطة شاشة للوصل.",
+  "Indiquez le montant de votre virement.":"أدخلوا مبلغ التحويل.","Ajoutez la photo du reçu.":"أضيفوا صورة الوصل.","Reçu envoyé. Achref va le vérifier.":"تمّ إرسال الوصل. سيتثبّت منه أشرف.",
+  "Reçu de virement à vérifier":"وصل تحويل للتثبّت","{nom} a envoyé un reçu de virement de {montant} ({date}).":"أرسل {nom} وصل تحويل بمبلغ {montant} ({date}).",
+  "Gérer le paiement":"إدارة الدفع","{n} reçu(s) à vérifier":"{n} وصل(ات) للتثبّت","Reçus de virement du client":"وصولات تحويل الحريف","Voir le reçu":"عرض الوصل","Reçu de virement":"وصل التحويل",
+  "Valider":"قبول","Refuser":"رفض","Total des options : {p}. Laissez vide pour garder ce total.":"مجموع الخيارات: {p}. اتركه فارغًا للإبقاء على هذا المجموع.",
+  "Le prix négocié avec le client. Il voit ce prix et le reste à payer.":"السعر المتفاوض عليه مع الحريف. يرى هذا السعر والباقي للدفع.",
+  "Ajouter un paiement":"إضافة دفعة","Montant":"المبلغ","Mode":"الطريقة","Par exemple : acompte":"مثلًا: تسبقة","Ajouter le paiement":"إضافة الدفعة","Retour à la demande":"الرجوع إلى الطلب",
+  "Espèces":"نقدًا","Virement":"تحويل","Chèque":"صكّ",
+  "Paiement reçu":"تمّ استلام الدفعة","Achref a bien reçu {montant}. Reste à payer : {reste}.":"استلم أشرف {montant}. الباقي للدفع: {reste}.","Achref a bien reçu {montant}.":"استلم أشرف {montant}.",
+  "Indiquez le montant reçu.":"أدخل المبلغ المستلم.","Paiement enregistré.":"تمّ تسجيل الدفعة.","Supprimer ce paiement":"حذف هذه الدفعة","Supprimer ce paiement ?":"حذف هذه الدفعة؟",
+  "Le reste à payer sera recalculé. Le client ne sera pas prévenu.":"سيُعاد حساب الباقي للدفع. لن يُعلَم الحريف.","Paiement supprimé.":"تمّ حذف الدفعة.",
+  "Prix invalide : indiquez un nombre, par exemple 1 500.":"سعر غير صالح: أدخل رقمًا، مثلًا 1500.","Prix de votre réservation":"سعر حجزكم",
+  "Le prix convenu pour votre réservation du {date} est de {prix}.":"السعر المتّفق عليه لحجزكم ({date}) هو {prix}.",
+  "Prix convenu enregistré. Le client est prévenu.":"تمّ حفظ السعر المتّفق عليه وإعلام الحريف.","Prix convenu retiré : le total des options s'applique.":"تمّ حذف السعر المتّفق عليه: يُعتمد مجموع الخيارات.",
+  "Reçu validé : paiement enregistré. Le client est prévenu.":"تمّ قبول الوصل وتسجيل الدفعة وإعلام الحريف.",
+  "Refuser ce reçu":"رفض هذا الوصل","Raison (envoyée au client)":"السبب (يُرسَل إلى الحريف)","Par exemple : virement pas encore reçu sur le compte":"مثلًا: التحويل لم يصل بعد إلى الحساب","Refuser le reçu":"رفض الوصل",
+  "Reçu de virement refusé":"تمّ رفض وصل التحويل","Votre reçu de {montant} n'a pas été validé : {motif}":"لم يُقبل وصلكم بمبلغ {montant}: {motif}",
+  "Votre reçu de {montant} n'a pas été validé. Contactez Achref.":"لم يُقبل وصلكم بمبلغ {montant}. تواصلوا مع أشرف.","Reçu refusé. Le client est prévenu.":"تمّ رفض الوصل وإعلام الحريف.",
+  "Reçus de virement à vérifier":"وصولات تحويل للتثبّت","Aucun reçu à vérifier.":"لا توجد وصولات للتثبّت.","reçu(s) de virement à vérifier":"وصل(ات) تحويل للتثبّت",
+  "Virement bancaire (RIB)":"التحويل البنكي (RIB)",
+  "Si vous remplissez votre RIB, vos clients le voient dans le paiement de leur réservation et peuvent vous envoyer le reçu de leur virement. Laissez vide pour ne rien afficher.":"إذا أدخلت الـRIB، يراه حرفاؤك في دفع حجزهم ويمكنهم إرسال وصل التحويل إليك. اتركه فارغًا كي لا يظهر شيء.",
+  "Titulaire du compte":"صاحب الحساب","Par exemple : Achref Sakouhi":"مثلًا: Achref Sakouhi","Par exemple : BIAT, agence de Sousse":"مثلًا: BIAT، فرع سوسة",
+  "RIB (20 chiffres) ou IBAN":"الـRIB (20 رقمًا) أو IBAN","Par exemple : 08 123 0001234567890 12":"مثلًا: 08 123 0001234567890 12",
+  "Instructions pour le client (facultatif)":"تعليمات للحريف (اختياري)","Par exemple : indiquez votre nom dans le motif du virement":"مثلًا: اكتبوا اسمكم في سبب التحويل",
+  "Enregistrer le RIB":"حفظ الـRIB","RIB incomplet : vérifiez le numéro.":"الـRIB غير مكتمل: تحقّق من الرقم.",
+  "RIB enregistré : vos clients le voient dans le paiement.":"تمّ حفظ الـRIB: يراه حرفاؤك في الدفع.","RIB retiré : rien n'est affiché aux clients.":"تمّ حذف الـRIB: لا يظهر شيء للحرفاء.",
+  // 1.7 : programme du jour J, compte à rebours
+  "Programme du jour J":"برنامج اليوم الكبير","Aidez Achref à préparer votre journée. Vous pouvez compléter ce programme jusqu'au jour J.":"ساعدوا أشرف على التحضير ليومكم. يمكنكم إكمال هذا البرنامج حتى اليوم الكبير.",
+  "Enregistré le {d}":"حُفظ في {d}","Déroulé et horaires":"سير اليوم والمواعيد","Adresses":"العناوين","Personnes à photographier":"أشخاص يجب تصويرهم",
+  "Contact le jour J":"شخص للاتصال يوم الحفل","Demandes particulières":"طلبات خاصة",
+  "14 h : préparatifs de la mariée (maison)\n18 h : cortège\n20 h : arrivée à la salle":"14:00 : تحضيرات العروس (المنزل)\n18:00 : الموكب\n20:00 : الوصول إلى القاعة",
+  "Maison de la mariée : …\nMaison du marié : …\nSalle : …\nSéance photo : …":"منزل العروس: …\nمنزل العريس: …\nالقاعة: …\nجلسة التصوير: …",
+  "Parents, témoins, frères et sœurs, grands-parents…":"الوالدان، الشهود، الإخوة والأخوات، الأجداد…",
+  "Nom et numéro d'un proche à appeler le jour J":"اسم ورقم قريب يمكن الاتصال به يوم الحفل","Photos souhaitées, surprises, musique pour la vidéo…":"صور مرغوبة، مفاجآت، موسيقى للفيديو…",
+  "Enregistrer le programme":"حفظ البرنامج","Remplissez au moins une rubrique.":"املؤوا خانة واحدة على الأقل.",
+  "Programme du jour J reçu":"تمّ استلام برنامج اليوم الكبير","{nom} a rempli le programme du jour J ({date}).":"ملأ {nom} برنامج اليوم الكبير ({date}).",
+  "Programme du jour J modifié":"تمّ تعديل برنامج اليوم الكبير","{nom} a modifié le programme du jour J ({date}).":"عدّل {nom} برنامج اليوم الكبير ({date}).",
+  "Programme enregistré. Achref est prévenu.":"تمّ حفظ البرنامج وإعلام أشرف.","Le client n'a pas encore rempli le programme.":"لم يملأ الحريف البرنامج بعد.",
+  "Programme du jour J : pas encore rempli par le client.":"برنامج اليوم الكبير: لم يملأه الحريف بعد.",
+  "C'est le grand jour !":"إنّه اليوم الكبير!","C'est demain !":"إنّه غدًا!","aujourd'hui":"اليوم","Dans {n} jours":"بعد {n} يومًا",
+  "Remplir le programme du jour J":"ملء برنامج اليوم الكبير","Voir mon programme du jour J":"عرض برنامج يومي الكبير",
+  // 1.7 : reels, équipe, Google Agenda
+  "Prévenir tous les clients par notification":"إعلام كلّ الحرفاء بإشعار","Nouveau reel":"ريل جديد",
+  "{nom} a publié une nouvelle vidéo : regardez-la dans l'onglet Reels.":"نشر {nom} فيديو جديدًا: شاهدوه في تبويب ريلز.","Reel ajouté. {n} client(s) prévenu(s).":"تمّت إضافة الريل وإعلام {n} حريف(ا).",
+  "Équipe":"الفريق","Équipe : {p}":"الفريق: {p}","Personne n'est encore prévu":"لم يُحدَّد أحد بعد","Choisir":"اختيار","Note":"ملاحظة","Qui travaille ?":"من سيعمل؟",
+  "Visible par vous seul. Ajoutez des membres dans Réglages → Mon équipe.":"يظهر لك وحدك. أضف أعضاء من الإعدادات ← فريقي.","Équipe enregistrée.":"تمّ حفظ الفريق.",
+  "Mon équipe":"فريقي","Les personnes qui travaillent avec vous (vous compris). Dans l'agenda, choisissez qui travaille sur chaque événement : visible par vous seul.":"الأشخاص الذين يعملون معك (وأنت منهم). في الرزنامة، اختر من يعمل في كلّ مناسبة: يظهر لك وحدك.",
+  "Nom (par exemple : Karim, vidéaste)":"الاسم (مثلًا: كريم، مصوّر فيديو)","Écrivez le nom de la personne.":"اكتب اسم الشخص.","Cette personne est déjà dans l'équipe.":"هذا الشخص موجود بالفعل في الفريق.",
+  "{nom} ajouté(e) à l'équipe.":"تمّت إضافة {nom} إلى الفريق.","{nom} retiré(e) de l'équipe.":"تمّ حذف {nom} من الفريق.",
+  "Google Agenda":"Google Agenda","Ajouté à l'agenda":"أُضيف إلى الرزنامة","Ajouté à la main dans l'app":"أُضيف يدويًا في التطبيق","Message":"الرسالة",
+  "Le client est prévenu.":"تمّ إعلام الحريف.","Ajoutez ces jours à votre Google Agenda (un appui par jour) :":"أضف هذه الأيام إلى Google Agenda (لمسة لكلّ يوم):",
+  "Ajoutez cet événement à votre Google Agenda :":"أضف هذه المناسبة إلى Google Agenda:","Google Agenda s'ouvre avec l'événement déjà rempli : touchez « Enregistrer ».":"يُفتح Google Agenda والمناسبة معبّأة: المس «حفظ».",
+  "Exporter vers Google Agenda":"تصدير إلى Google Agenda",
+  "Un fichier avec tous vos jours de travail : réservations confirmées et événements ajoutés à la main ({n}).":"ملف بكلّ أيام عملك: الحجوزات المؤكَّدة والمناسبات المضافة يدويًا ({n}).",
+  "Touchez « Télécharger le fichier agenda » : le fichier achref-agenda.ics arrive dans vos téléchargements.":"المس «تنزيل ملف الرزنامة»: يصل الملف achref-agenda.ics إلى التنزيلات.",
+  "Sur ordinateur, ouvrez Google Agenda → Paramètres → Importer et exporter → Importer, puis choisissez ce fichier.":"على الحاسوب، افتح Google Agenda ← الإعدادات ← استيراد وتصدير ← استيراد، ثم اختر هذا الملف.",
+  "Sur téléphone, ouvrez le fichier avec l'application Agenda (Samsung) ; avec Google Agenda, utilisez le bouton « Google Agenda » de chaque jour.":"على الهاتف، افتح الملف بتطبيق الرزنامة (Samsung)؛ ومع Google Agenda استعمل زرّ «Google Agenda» لكلّ يوم.",
+  "Vous pouvez importer le fichier à nouveau après des changements : les événements déjà importés sont mis à jour.":"يمكنك استيراد الملف من جديد بعد التغييرات: تُحدَّث المناسبات المستوردة سابقًا.",
+  "Télécharger le fichier agenda":"تنزيل ملف الرزنامة","Aucun événement à exporter.":"لا توجد مناسبات للتصدير.","Fichier agenda téléchargé ({n} événements).":"تمّ تنزيل ملف الرزنامة ({n} مناسبة).",
+  // 1.7 : statistiques
+  "Statistiques":"الإحصائيات","Réservations, chiffre d'affaires, options":"الحجوزات، رقم المعاملات، الخيارات","Coordonnées, événements, RIB, équipe, agenda":"المعلومات، المناسبات، الـRIB، الفريق، الرزنامة",
+  "Année précédente":"السنة السابقة","Année suivante":"السنة التالية","Aucune réservation en {an} pour l'instant.":"لا توجد حجوزات في {an} حاليًا.",
+  "réservations confirmées":"حجوزات مؤكَّدة","jours de travail":"أيام عمل","chiffre d'affaires":"رقم المعاملات","encaissé":"المبالغ المحصَّلة",
+  "Reste à encaisser":"الباقي للتحصيل","Demandes reçues":"الطلبات الواردة","{a} confirmée(s), {b} en attente, {c} refusée(s) ou annulée(s)":"{a} مؤكَّدة، {b} في الانتظار، {c} مرفوضة أو ملغاة",
+  "Taux de confirmation":"نسبة التأكيد","Par mois":"حسب الشهر","Nombre de réservations confirmées (selon leur premier jour) et chiffre d'affaires du mois.":"عدد الحجوزات المؤكَّدة (حسب يومها الأول) ورقم معاملات الشهر.",
+  "Options les plus choisies":"الخيارات الأكثر طلبًا","Événements":"المناسبات","Nombre de jours réservés par type d'événement.":"عدد الأيام المحجوزة حسب نوع المناسبة.","Forfaits choisis":"الباقات المختارة",
+  "Chiffre d'affaires : prix convenu, sinon total des options, des réservations confirmées. Encaissé : paiements notés dans l'app.":"رقم المعاملات: السعر المتّفق عليه، وإلّا مجموع الخيارات، للحجوزات المؤكَّدة. المحصَّل: الدفعات المسجّلة في التطبيق.",
+  // 1.7 : suppression de compte
+  "Seront effacés : votre compte, vos demandes de réservation, vos avis, vos notifications, vos reçus de virement et vos liens de téléchargement. Pensez à télécharger vos photos avant.":"سيُحذف: حسابكم وطلبات الحجز وآراؤكم وإشعاراتكم ووصولات التحويل وروابط التحميل. لا تنسوا تحميل صوركم قبل ذلك.",
+  "Ses livraisons, demandes, avis, notifications et reçus de virement seront effacés. Il pourra recréer un compte s'il le souhaite.":"ستُحذف تسليماته وطلباته وآراؤه وإشعاراته ووصولات تحويله. يمكنه إنشاء حساب جديد إن أراد."
 };
 
 /* =====================================================================
@@ -875,7 +1008,7 @@ const AR = {
      gère le portfolio, les forfaits, les avis et les réglages.
    • Données : Firebase (voir cloud.js). Textes : français / arabe.
    ===================================================================== */
-const APP_VERSION = "1.6.0";
+const APP_VERSION = "1.7.0";
 const DEV_INFO = { nom: "Rahmeni Hamdi", mail: "rahmenihamdi@gmail.com", tel: "+216 95 063 068" };
 const STUDIO_DEFAUT = {
   nom: "Achref Sakouhi", metier: "Photographe",
@@ -887,6 +1020,7 @@ const STUDIO_DEFAUT = {
 // (liste enregistrée dans _config/types, avec les options et leurs prix).
 const TYPES_EVT = ["Mariage", "Wtiya", "Henné", "Fiançailles", "Contrat de mariage", "Séance couple", "Portrait", "Événement", "Autre"];
 const CATS = ["Mariage", "Wtiya", "Henné", "Fiançailles", "Couple", "Portrait", "Événement"];
+const MODES_PAIEMENT = ["Espèces", "Virement", "Chèque", "Autre"];       // paiements notés par Achref (1.7)
 const MAX_JOURS = 7;          // jours au plus dans une même demande de réservation
 const REEL_MAX_S = 240;       // reels : 4 minutes au plus
 const REEL_MAX_MO = 100;      // et 100 Mo au plus (limite d'une vidéo sur l'offre gratuite de Cloudinary)
@@ -963,6 +1097,17 @@ const totalJour = j => optionsDe(j).reduce((s, o) => s + (+o.prix || 0), 0);
 const forfaitOptionsDe = d => (d && Array.isArray(d.forfaitOptions) ? d.forfaitOptions : []);
 const totalDemande = d => joursDe(d).reduce((s, j) => s + totalJour(j), 0) + forfaitOptionsDe(d).reduce((s, o) => s + (+o.prix || 0), 0);
 const aDesOptions = d => joursDe(d).some(j => optionsDe(j).length > 0) || forfaitOptionsDe(d).length > 0;
+/* Paiements (1.7), saisis par Achref : prix convenu (facultatif, remplace le total des options)
+   et paiements reçus { id, montant, date, mode, note, recuId } ; le reste à payer en découle. */
+const paiementsDe = d => (d && Array.isArray(d.paiements) ? d.paiements : []);
+const payeDe = d => Math.round(paiementsDe(d).reduce((s, p) => s + (+p.montant || 0), 0) * 1000) / 1000;
+const aPrixConvenu = d => !!d && typeof d.prixConvenu === "number" && isFinite(d.prixConvenu);
+const prixDe = d => aPrixConvenu(d) ? d.prixConvenu : totalDemande(d);       // 0 : prix pas encore connu
+const resteDe = d => Math.max(0, Math.round((prixDe(d) - payeDe(d)) * 1000) / 1000);
+const premierJourDe = d => (joursDe(d)[0] || {}).date || "";
+// Programme du jour J (rempli par le client) : rempli si au moins un champ est saisi.
+const CHAMPS_PROGRAMME = ["deroule", "adresses", "personnes", "contact", "demandes"];
+const programmeRempli = d => !!(d && d.programme && CHAMPS_PROGRAMME.some(k => String(d.programme[k] || "").trim()));
 // Prix saisi par Achref : « 200 », « 1 500 » ou « 12,5 » (3 décimales au plus). null si invalide.
 const lirePrix = s => { const v = String(s == null ? "" : s).replace(/[\s  ]/g, "").replace(",", "."); return /^\d+(\.\d{1,3})?$/.test(v) ? Math.round(parseFloat(v) * 1000) / 1000 : null; };
 // « 1 500 DT » (chiffres latins dans les deux langues, comme le reste de l'app).
@@ -1060,6 +1205,7 @@ const S = {
   user: null, prof: null, users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [], reels: [],
   portfolio: [], forfaits: [], studio: Object.assign({}, STUDIO_DEFAUT, lsGet("as_studio", {})),
   types: typesDefaut(),        // événements proposés et leurs options (réglés par Achref)
+  recus: [], affectations: [], rib: null, equipe: null, statsAnnee: new Date().getFullYear(),
   route: "", param: "", filtrePortfolio: "Tout", filtreLivraisons: "encours", filtreDemandes: "attente", rechercheClients: "",
   calMois: aujourdHui().slice(0, 7), agMois: aujourdHui().slice(0, 7), joursChoisis: [], forfaitChoisi: "", forfaitOpts: [], modifDemande: null, brouillon: null,
   thumbs: {}, pleins: {}       // miniatures et grandes photos du portfolio, chargées à la demande
@@ -1117,7 +1263,7 @@ const App = {
     const C = window.Cloud;
     if(!user){
       C.stopAll(); S.user = null; S.prof = null;
-      Object.assign(S, { users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [], reels: [] });
+      Object.assign(S, { users: [], livraisons: [], demandes: [], avis: [], notifs: [], evenements: [], reels: [], recus: [], affectations: [], rib: null, equipe: null });
       this.finBoot(); this.rendreAuth();
       // Coordonnées du studio (contenu public) : pour l'aide « mot de passe oublié » sur un nouveau téléphone.
       C.get("_config", "studio").then(d => { if(d){ S.studio = Object.assign({}, STUDIO_DEFAUT, d); lsSet("as_studio", d); } }).catch(() => {});
@@ -1163,14 +1309,17 @@ const App = {
     const uid = S.prof.id, admin = this.estAdmin();
     const spec = admin ? [
       { cle: "users", coll: "users" }, { cle: "livraisons", coll: "livraisons" }, { cle: "demandes", coll: "demandes" },
-      { cle: "avis", coll: "avis" }, { cle: "notifs", coll: "notifs", ou: ["target", "admin"] }, { cle: "evenements", coll: "evenements" }
+      { cle: "avis", coll: "avis" }, { cle: "notifs", coll: "notifs", ou: ["target", "admin"] }, { cle: "evenements", coll: "evenements" },
+      // 1.7 : reçus de virement (sans l'image, chargée à la demande), équipe et affectations (visibles par Achref seul)
+      { cle: "recus", coll: "recus" }, { cle: "affectations", coll: "affectations" }, { cle: "equipe", doc: ["prive", "equipe"] }
     ] : [
       { cle: "prof", doc: ["users", uid] },
       { cle: "livraisons", coll: "livraisons", ou: ["clientId", uid] },
       { cle: "demandes", coll: "demandes", ou: ["clientId", uid] },
       { cle: "avis", coll: "avis", ou: ["publie", true] }, { cle: "avis", coll: "avis", ou: ["clientId", uid] },
-      { cle: "notifs", coll: "notifs", ou: ["target", uid] }
+      { cle: "notifs", coll: "notifs", ou: ["target", uid] }, { cle: "recus", coll: "recus", ou: ["clientId", uid] }
     ];
+    spec.push({ cle: "rib", doc: ["banque", "rib"] });      // coordonnées bancaires d'Achref (clients connectés)
     // Portfolio : un seul petit document « index » ; les photos se chargent à la demande (et restent en cache).
     spec.push({ cle: "portfolioIndex", doc: ["_config", "portfolio"] }, { cle: "forfaits", coll: "forfaits" },
               { cle: "studio", doc: ["_config", "studio"] }, { cle: "reels", coll: "reels" },
@@ -1201,6 +1350,8 @@ const App = {
         if(data.accroche === "Votre histoire, en images.") maj.accroche = STUDIO_DEFAUT.accroche;
         if(Object.keys(maj).length) window.Cloud.patch("_config", "studio", maj).catch(() => {});
       }
+    } else if(cle === "rib" || cle === "equipe"){
+      S[cle] = data || null;
     } else if(cle === "types"){
       // Pas encore réglé par Achref : la liste par défaut, sans options.
       const l = data && Array.isArray(data.liste) ? data.liste.map(normType).filter(x => x.nom) : [];
@@ -1222,7 +1373,7 @@ const App = {
   /* ------------------------------------------------ navigation */
   routeAutorisee(r){
     const client = ["accueil", "portfolio", "reels", "photos", "reserver", "compte", "apropos"];
-    const admin = ["tableau", "livraisons", "clients", "demandes", "plus", "a-portfolio", "a-reels", "a-forfaits", "a-avis", "reglages", "apropos", "portfolio"];
+    const admin = ["tableau", "livraisons", "clients", "demandes", "plus", "a-portfolio", "a-reels", "a-forfaits", "a-avis", "a-stats", "reglages", "apropos", "portfolio"];
     return (this.estAdmin() ? admin : client).indexOf(r) >= 0;
   },
   aller(route){ if(("#" + route) === location.hash) this.surRoute(); else location.hash = "#" + route; },
@@ -1253,7 +1404,7 @@ const App = {
       reserver: () => this.pageReserver(), compte: () => this.pageCompte(), apropos: () => this.pageApropos(),
       tableau: () => this.pageTableau(), livraisons: () => this.pageLivraisons(), clients: () => this.pageClients(),
       demandes: () => this.pageDemandes(), plus: () => this.pagePlus(), "a-portfolio": () => this.pageAdminPortfolio(),
-      "a-forfaits": () => this.pageAdminForfaits(), "a-avis": () => this.pageAdminAvis(), reglages: () => this.pageReglages()
+      "a-forfaits": () => this.pageAdminForfaits(), "a-avis": () => this.pageAdminAvis(), "a-stats": () => this.pageStats(), reglages: () => this.pageReglages()
     }[S.route];
     const c = document.getElementById("contenu");
     c.innerHTML = page ? page() : "";
@@ -1271,7 +1422,7 @@ const App = {
   },
   vueOnglets(){
     const actif = r => {
-      const groupe = { apropos: this.estAdmin() ? "plus" : "compte", "a-portfolio": "plus", "a-reels": "plus", "a-forfaits": "plus", "a-avis": "plus", reglages: "plus", portfolio: this.estAdmin() ? "plus" : "portfolio" };
+      const groupe = { apropos: this.estAdmin() ? "plus" : "compte", "a-portfolio": "plus", "a-reels": "plus", "a-forfaits": "plus", "a-avis": "plus", "a-stats": "plus", reglages: "plus", portfolio: this.estAdmin() ? "plus" : "portfolio" };
       return (groupe[S.route] || S.route) === r ? " actif" : "";
     };
     const pastille = n => n ? `<span class="pastille">${n > 9 ? "9+" : n}</span>` : "";
@@ -1538,6 +1689,17 @@ const App = {
       lien: lien || "", ts: Date.now(), lu: false, envoi: "attente" };
     try{ await window.Cloud.put("notifs", n); }catch(e){ console.warn("notif", e); }
   },
+  // Une notification pour chaque client (par petits paquets). Renvoie le nombre de clients prévenus.
+  async notifierClients(kind, titre, texte, vars, lien){
+    const C = this.clients(); let n = 0;
+    for(let i = 0; i < C.length; i += 25){
+      const r = await Promise.allSettled(C.slice(i, i + 25).map(c => window.Cloud.put("notifs", { id: nouvelId("n"), target: c.id, kind,
+        fr: { t: tl("fr", titre, vars), b: tl("fr", texte, vars) }, ar: { t: tl("ar", titre, vars), b: tl("ar", texte, vars) },
+        lien: lien || "", ts: Date.now(), lu: false, envoi: "attente" })));
+      n += r.filter(x => x.status === "fulfilled").length;
+    }
+    return n;
+  },
   _sonnerSiNouveau(){
     const n = S.notifs.filter(x => !x.lu).length;
     if(this._nbNonLues != null && n > this._nbNonLues){ const b = document.getElementById("btn-cloche"); if(b && b.animate) b.animate([{ transform: "rotate(0)" }, { transform: "rotate(14deg)" }, { transform: "rotate(-10deg)" }, { transform: "rotate(0)" }], { duration: 600 }); }
@@ -1709,7 +1871,7 @@ const App = {
   pageAccueil(){
     const st = this.studio(), u = S.prof;
     const prete = S.livraisons.filter(l => !l.telechargeAt && ecartJours(aujourdHui(), l.expireLe) >= 0).sort((a, b) => b.createdAt - a.createdAt)[0];
-    const prochaine = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= aujourdHui()).sort((a, b) => a.date < b.date ? -1 : 1)[0];
+    const prochaine = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= aujourdHui()).sort((a, b) => premierJourDe(a) < premierJourDe(b) ? -1 : 1)[0];
     const enAttente = S.demandes.filter(d => d.statut === "attente").length;
     const avisPub = S.avis.filter(a => a.publie).sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
     const forfaits = S.forfaits.slice().sort((a, b) => (a.ord || 0) - (b.ord || 0));
@@ -1721,7 +1883,7 @@ const App = {
           <span class="corps"><span class="t">${esc(t("Complétez votre profil"))}</span><span class="s" style="white-space:normal">${esc(t("Ajoutez votre nom et votre numéro pour qu'Achref vous retrouve."))}</span></span>${ico("chevron", "chev")}</button>` : ""}
       ${prete ? `<button class="encart ligne" style="cursor:pointer;margin-top:14px" onclick="App.aller('photos')">${ico("image", "chev")}
           <span class="corps"><span class="t">${esc(t("Vos photos sont prêtes"))}</span><span class="s">${esc(prete.titre)} — ${esc(this.texteExpiration(prete))}</span></span>${ico("chevron", "chev")}</button>` : ""}
-      ${prochaine ? `<div class="encart" style="margin-top:14px"><b>${esc(joursDe(prochaine).length > 1 ? t("Vos dates sont confirmées") : t("Votre date est confirmée"))}</b><div class="doux">${esc(resumeJours(joursDe(prochaine)))}${prochaine.lieu ? " — " + esc(prochaine.lieu) : ""}</div></div>`
+      ${prochaine ? this.vueRebours(prochaine)
         : (enAttente ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Demande envoyée"))}</b><div class="doux">${esc(t("Achref vous répond très vite. Suivez-la dans l'onglet Réserver."))}</div></div>` : "")}
       ${this.etatPush() === "default" ? `<div class="encart" style="margin-top:14px"><b>${esc(t("Ne ratez pas vos photos"))}</b>
           <div class="doux" style="margin:4px 0 10px">${esc(t("Activez les notifications pour être prévenu(e) dès que vos photos et vidéos sont prêtes."))}</div>
@@ -1734,6 +1896,24 @@ const App = {
       <p class="credit" style="margin-top:22px"><button class="lien" onclick="App.aller('apropos')">${esc(t("À propos de l'application"))}</button></p>`;
   },
   apres_accueil(){ this.demarrerDiaporama(); },
+  // Compte à rebours (1.7) : prochaine réservation confirmée, avec le reste à payer et le programme du jour J.
+  motJours(n){
+    if(LANG === "ar") return n === 1 ? "يوم" : (n === 2 ? "يومان" : (n >= 3 && n <= 10 ? "أيام" : "يومًا"));
+    return n === 1 ? "jour" : "jours";
+  },
+  vueRebours(d){
+    const J = joursDe(d), n = ecartJours(aujourdHui(), premierJourDe(d)), reste = resteDe(d), prix = prixDe(d);
+    const titre = n <= 0 ? t("C'est le grand jour !") : (n === 1 ? t("C'est demain !") : t(J.length > 1 ? "Vos dates sont confirmées" : "Votre date est confirmée"));
+    const liens = [`<button class="lien" onclick="App.ouvrirProgramme('${d.id}')">${esc(t(programmeRempli(d) ? "Voir mon programme du jour J" : "Remplir le programme du jour J"))}</button>`];
+    if(prix > 0 || payeDe(d) > 0 || this.ribAffiche()) liens.push(`<button class="lien" onclick="App.ouvrirPaiementClient('${d.id}')">${esc(t("Paiement"))}</button>`);
+    return `<div class="encart rebours" style="margin-top:14px">
+        <div class="rebours-n" aria-hidden="true"><b>${n > 0 ? n : "J"}</b><span>${esc(n > 0 ? this.motJours(n) : t("aujourd'hui"))}</span></div>
+        <div class="rebours-t"><b>${esc(titre)}</b>
+          <span class="sr">${esc(n > 0 ? t("Dans {n} jours", { n }) : t("Aujourd'hui"))}</span>
+          <div class="doux">${esc(resumeJours(J))}${d.lieu ? " — " + esc(d.lieu) : ""}</div>
+          ${prix > 0 ? `<div class="petit" style="margin-top:4px">${esc(reste > 0 ? t("Reste à payer : {p}", { p: prixTxt(reste) }) : t("Réservation entièrement payée. Merci !"))}</div>` : ""}
+          <div class="actions-rebours">${liens.join("")}</div></div></div>`;
+  },
   vueForfait(f){
     return `<button class="forfait" onclick="App.ouvrirOffre('${f.id}')"><span class="haut"><span class="nom-f">${esc(f.nom)}</span>${f.prix ? `<span class="prix">${esc(f.prix)}</span>` : ""}</span>
       ${f.description ? `<span class="doux desc">${txt(f.description)}</span>` : ""}
@@ -2005,6 +2185,7 @@ const App = {
     const liste = this.reelsTries(), cfg = this.cloudinary(), E = this._envoiReel;
     return `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Reels"))}</h2><span class="discret">${liste.length}</span></div>
       <div class="bloc">${cfg ? `
+        <label class="case" style="margin-bottom:12px"><input type="checkbox" id="rl-prev"${this._reelPrevenir === false ? "" : " checked"} onchange="App._reelPrevenir=this.checked"> ${esc(t("Prévenir tous les clients par notification"))}</label>
         <label class="btn btn-or btn-bloc${E ? " desactive" : ""}" for="rl-fichier" id="rl-btn">${ico("ajout")} ${esc(t("Ajouter un reel"))}</label>
         <input type="file" id="rl-fichier" accept="video/*" hidden onchange="App.ajouterReel(this.files)"${E ? " disabled" : ""}>
         <div id="rl-envoi">${this.vueEnvoiReel()}</div>
@@ -2106,6 +2287,7 @@ const App = {
     if(this._envoiReel) return this.toast(t("Un envoi est déjà en cours."), "err");
     const cfg = this.cloudinary(); if(!cfg) return this.toast(t("Reels pas encore configurés."), "err");
     if(f.type && f.type.indexOf("video/") !== 0) return this.toast(t("Choisissez une vidéo."), "err");
+    const prevenir = this._reelPrevenir !== false;
     if(f.size > REEL_MAX_MO * 1024 * 1024) return this.toast(t("Cette vidéo pèse {n} Mo : {max} Mo au plus. Exportez-la en 1080p ou 720p, puis réessayez.", { n: Math.ceil(f.size / 1048576), max: REEL_MAX_MO }), "err");
     this._envoiReel = { etape: "verif", pct: 0 }; this.majEnvoiReel();
     const arreter = (msg) => { this._envoiReel = null; this.majEnvoiReel(); if(msg) this.toast(msg, "err"); };
@@ -2121,7 +2303,11 @@ const App = {
       await window.Cloud.put("reels", reel);
       if(!S.reels.some(x => x.id === reel.id)) S.reels = S.reels.concat([reel]);
       this._envoiReel = null;
-      this.toast(t("Reel ajouté : vos clients le voient maintenant."), "ok");
+      // 1.7 : chaque client reçoit une notification « Nouveau reel » (case cochée par défaut).
+      if(prevenir){
+        const n = await this.notifierClients("reel", "Nouveau reel", "{nom} a publié une nouvelle vidéo : regardez-la dans l'onglet Reels.", { nom: this.studio().nom }, "reels");
+        this.toast(t("Reel ajouté. {n} client(s) prévenu(s).", { n }), "ok");
+      } else this.toast(t("Reel ajouté : vos clients le voient maintenant."), "ok");
     }catch(e){
       console.warn("reel", e);
       return arreter(e && e.refus ? t("Envoi refusé par Cloudinary : vérifiez cloudName et uploadPreset dans config.js.") : t("Envoi interrompu. Vérifiez la connexion, puis réessayez."));
@@ -2233,7 +2419,7 @@ const App = {
         const [c, l] = etat(d), j = joursDe(d);
         return `<div class="ligne" style="cursor:default;flex-wrap:wrap"><span class="corps"><span class="t">${esc(titreDemande(d))}</span>
           ${j.length > 1 ? `<span class="s">${esc(resumeJours(j))}</span>` : ""}${d.lieu ? `<span class="s">${esc(d.lieu)}</span>` : ""}${d.forfaitNom ? `<span class="s" style="white-space:normal">${esc(t("Forfait"))} : ${esc(d.forfaitNom)}${forfaitOptionsDe(d).length ? " — " + esc(this.listeOptions(forfaitOptionsDe(d))) : ""}</span>` : ""}
-          ${this.vueOptionsDemande(d)}
+          ${this.vueOptionsDemande(d)}${this.vuePaiementLigne(d)}
           ${d.noteAdmin ? `<span class="doux" style="display:block;font-size:.92rem;margin-top:4px">${esc(d.noteAdmin)}</span>` : ""}</span>
           <span class="etat ${c}">${esc(t(l))}</span>${this.actionsDemandeClient(d)}</div>`;
       }).join("")}</div></div>` : ""}`;
@@ -2248,6 +2434,153 @@ const App = {
   },
   // « Photo 200 DT, Vidéo 400 DT »
   listeOptions(opts, sep){ return (opts || []).map(o => t(o.nom) + " " + prixTxt(o.prix)).join(sep || (LANG === "ar" ? "، " : ", ")); },
+
+  /* ---- 1.7 : paiement d'une réservation (client) ---- */
+  // Prix convenu, déjà payé, reste : une ligne dans « Mes demandes ».
+  vuePaiementLigne(d){
+    const prix = prixDe(d), paye = payeDe(d), l = [];
+    if(aPrixConvenu(d)) l.push(t("Prix convenu : {p}", { p: prixTxt(d.prixConvenu) }));
+    if(paye > 0 || (d.statut === "confirmee" && prix > 0)) l.push(t("Payé : {p}", { p: prixTxt(paye) }) + (prix > 0 ? " · " + t("Reste : {p}", { p: prixTxt(resteDe(d)) }) : ""));
+    if(S.recus.some(r => r.demandeId === d.id && r.statut === "attente")) l.push(t("Reçu de virement envoyé : en vérification."));
+    return l.map(x => `<span class="s" style="white-space:normal;color:var(--or-clair)">${esc(x)}</span>`).join("");
+  },
+  ribAffiche(){ const r = S.rib; return r && String(r.rib || "").trim() ? r : null; },
+  vueRib(r){
+    return `<div class="rib"><dl class="kv">
+        ${r.titulaire ? `<dt>${esc(t("Titulaire"))}</dt><dd>${esc(r.titulaire)}</dd>` : ""}
+        ${r.banque ? `<dt>${esc(t("Banque"))}</dt><dd>${esc(r.banque)}</dd>` : ""}
+        <dt>${esc(t("RIB"))}</dt><dd><bdi dir="ltr" class="rib-num">${esc(r.rib)}</bdi></dd></dl>
+      ${r.note ? `<p class="discret" style="margin:8px 0 0">${txt(r.note)}</p>` : ""}
+      <button type="button" class="btn btn-clair btn-petit" style="margin-top:10px" onclick="App.copierRib()">${ico("lien")} ${esc(t("Copier le RIB"))}</button></div>`;
+  },
+  copierRib(){
+    const r = this.ribAffiche(); if(!r) return;
+    const v = String(r.rib).replace(/\s+/g, "");
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(() => this.toast(t("RIB copié."), "ok")).catch(() => this.toast(v));
+    else this.toast(v);
+  },
+  etatRecu(r){ return { attente: ["alerte", "En vérification"], valide: ["ok", "Validé"], refuse: ["danger", "Refusé"] }[r.statut] || ["", r.statut]; },
+  vuePaiementsRecus(d){
+    const P = paiementsDe(d).slice().sort((a, b) => (a.date || "") < (b.date || "") ? -1 : 1);
+    if(!P.length) return "";
+    return `<h3 class="h-paie">${esc(t("Paiements reçus"))}</h3><div class="liste l-paie">${P.map(p => `<div class="ligne" style="cursor:default"><span class="corps"><span class="t">${esc(prixTxt(p.montant))}</span>
+        <span class="s">${esc(dateLongue(p.date))}${p.mode ? " · " + esc(t(p.mode)) : ""}${p.note ? " · " + esc(p.note) : ""}</span></span>
+        ${this.estAdmin() ? `<button type="button" class="btn-icone btn-suppr" onclick="App.supprimerPaiement('${d.id}','${esc(p.id)}')" aria-label="${esc(t("Supprimer ce paiement"))}" title="${esc(t("Supprimer ce paiement"))}">${ico("corbeille")}</button>` : `<span class="etat ok">${esc(t("Reçu"))}</span>`}</div>`).join("")}</div>`;
+  },
+  vueResumePaiement(d){
+    const prix = prixDe(d), paye = payeDe(d);
+    return `<dl class="kv kv-paie">
+        ${this.estAdmin() && totalDemande(d) > 0 && aPrixConvenu(d) ? `<dt>${esc(t("Total des options"))}</dt><dd>${esc(prixTxt(totalDemande(d)))}</dd>` : ""}
+        <dt>${esc(t(aPrixConvenu(d) ? "Prix convenu" : "Prix"))}</dt><dd>${esc(prix > 0 ? prixTxt(prix) : t("À convenir avec Achref"))}</dd>
+        <dt>${esc(t("Déjà payé"))}</dt><dd>${esc(prixTxt(paye))}</dd>
+        ${prix > 0 ? `<dt>${esc(t("Reste à payer"))}</dt><dd><b class="reste">${esc(prixTxt(resteDe(d)))}</b></dd>` : ""}</dl>`;
+  },
+  ouvrirPaiementClient(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const rib = this.ribAffiche(), recus = S.recus.filter(r => r.demandeId === id).sort((a, b) => b.createdAt - a.createdAt);
+    const corps = `<p class="doux" style="margin-bottom:12px">${esc(titreDemande(d))}</p>
+      ${this.vueResumePaiement(d)}
+      ${this.vuePaiementsRecus(d)}
+      ${rib ? `<h3 class="h-paie">${esc(t("Payer par virement"))}</h3><p class="doux" style="margin-bottom:8px">${esc(t("Faites votre virement sur ce compte, puis envoyez le reçu à Achref depuis l'app."))}</p>${this.vueRib(rib)}`
+        : `<p class="discret" style="margin-top:14px">${esc(t("Pour le paiement, voyez directement avec Achref."))}</p>`}
+      ${recus.length ? `<h3 class="h-paie">${esc(t("Mes reçus envoyés"))}</h3><div class="liste l-paie">${recus.map(r => { const [c, l] = this.etatRecu(r);
+        return `<div class="ligne" style="cursor:default"><span class="corps"><span class="t">${esc(prixTxt(r.montant))}</span><span class="s">${esc(depuis(r.createdAt))}</span>
+          ${r.statut === "refuse" && r.motif ? `<span class="s" style="white-space:normal">${esc(r.motif)}</span>` : ""}</span><span class="etat ${c}">${esc(t(l))}</span>
+          ${r.statut === "attente" ? `<button type="button" class="btn-icone btn-suppr" onclick="App.supprimerRecuClient('${esc(r.id)}','${id}')" aria-label="${esc(t("Retirer ce reçu"))}" title="${esc(t("Retirer ce reçu"))}">${ico("corbeille")}</button>` : ""}</div>`; }).join("")}</div>` : ""}`;
+    this.feuille(t("Paiement"), corps, rib ? `<button class="btn btn-or btn-bloc" onclick="App.ouvrirEnvoiRecu('${id}')">${ico("envoyer")} ${esc(t("Envoyer un reçu de virement"))}</button>`
+      : `<button class="btn btn-bloc" onclick="App.fermer()">${esc(t("Fermer"))}</button>`);
+  },
+  ouvrirEnvoiRecu(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    this._recu = { demandeId: id, data: "" };
+    const reste = resteDe(d);
+    this.feuille(t("Envoyer un reçu de virement"), `<p class="doux">${esc(t("Après votre virement, envoyez une photo ou une capture d'écran du reçu : Achref le vérifie et enregistre votre paiement."))}</p>
+      <div class="champ"><label for="rc-montant">${esc(t("Montant viré (DT)"))}</label><div class="prix-saisie" style="flex:none"><input class="saisie" id="rc-montant" inputmode="decimal" value="${reste > 0 ? esc(nombre(reste)) : ""}" placeholder="0"><span>${esc(t("DT"))}</span></div></div>
+      <div class="champ"><span class="etiquette">${esc(t("Photo du reçu"))}</span>
+        <label class="btn btn-clair btn-bloc" for="rc-fichier" id="rc-btn">${ico("image")} ${esc(t("Choisir la photo du reçu"))}</label>
+        <input type="file" id="rc-fichier" accept="image/*" hidden onchange="App.apercuRecu(this.files)">
+        <img id="rc-apercu" class="recu-apercu" alt="" hidden></div>
+      <div class="champ"><label for="rc-note">${esc(t("Note (facultatif)"))}</label><input class="saisie" id="rc-note" maxlength="140" placeholder="${esc(t("Par exemple : virement fait depuis le compte de mon père"))}"></div>`,
+      `<div class="rangee"><button class="btn btn-clair" onclick="App.ouvrirPaiementClient('${id}')">${esc(t("Retour"))}</button>
+        <button class="btn btn-or" id="rc-go" onclick="App.envoyerRecu()">${esc(t("Envoyer le reçu"))}</button></div>`);
+  },
+  async apercuRecu(files){
+    const f = files && files[0]; if(!f || !this._recu) return;
+    if(f.type && f.type.indexOf("image/") !== 0) return this.toast(t("Choisissez une photo (ou une capture d'écran) du reçu."), "err");
+    const btn = document.getElementById("rc-btn"); if(btn) btn.classList.add("desactive");
+    try{
+      // Photo réduite (1400 px, moins de 700 Ko) : lisible pour Achref, légère pour la base gratuite.
+      let r = await this.reduireImage(f, 1400, 0.75);
+      if(r.data.length > 700000) r = await this.reduireImage(f, 1100, 0.65);
+      this._recu.data = r.data;
+      const img = document.getElementById("rc-apercu"); if(img){ img.src = r.data; img.hidden = false; }
+      if(btn){ btn.innerHTML = `${ico("image")} ${esc(t("Changer de photo"))}`; }
+    }catch(e){ this.toast(t("Photo illisible. Essayez une capture d'écran du reçu."), "err"); }
+    if(btn) btn.classList.remove("desactive");
+  },
+  async envoyerRecu(){
+    const R = this._recu; if(!R) return;
+    const d = S.demandes.find(x => x.id === R.demandeId); if(!d) return;
+    const montant = lirePrix((document.getElementById("rc-montant") || {}).value);
+    if(!montant) return this.toast(t("Indiquez le montant de votre virement."), "err");
+    if(!R.data) return this.toast(t("Ajoutez la photo du reçu."), "err");
+    const note = ((document.getElementById("rc-note") || {}).value || "").trim(), u = S.prof, id = nouvelId("rc"), now = Date.now();
+    const btn = document.getElementById("rc-go"); if(btn) btn.disabled = true;
+    try{
+      await window.Cloud.put("recusImages", { id, clientId: u.id, data: R.data });
+      await window.Cloud.put("recus", { id, demandeId: d.id, clientId: u.id, clientNom: u.nom || "", montant, note, statut: "attente", createdAt: now });
+      if(!S.recus.some(x => x.id === id)) S.recus = S.recus.concat([{ id, demandeId: d.id, clientId: u.id, montant, note, statut: "attente", createdAt: now }]);
+      this.notifier("admin", "recu", "Reçu de virement à vérifier", "{nom} a envoyé un reçu de virement de {montant} ({date}).",
+        { nom: u.nom || t("Un client"), montant: deuxLangues(l => prixTxt(montant, l)), date: deuxLangues(l => plage(joursDe(d), l)) }, "demandes/" + d.id);
+      this._recu = null;
+      this.toast(t("Reçu envoyé. Achref va le vérifier."), "ok"); this.ouvrirPaiementClient(d.id);
+    }catch(e){ console.warn("reçu", e); if(btn) btn.disabled = false; this.toast(t("Envoi impossible. Vérifiez la connexion."), "err"); }
+  },
+  async supprimerRecuClient(rid, id){
+    if(!(await this.confirmer(t("Retirer ce reçu ?"), t("Achref ne le verra plus. Vous pourrez en envoyer un autre."), t("Retirer"), true))) return this.ouvrirPaiementClient(id);
+    try{ await window.Cloud.del("recus", rid); await window.Cloud.del("recusImages", rid).catch(() => {}); S.recus = S.recus.filter(r => r.id !== rid); this.toast(t("Reçu retiré."), "ok"); }
+    catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+    this.ouvrirPaiementClient(id);
+  },
+
+  /* ---- 1.7 : programme du jour J (rempli par le client, lu par Achref) ---- */
+  ouvrirProgramme(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const p = d.programme || {}, modifiable = d.statut === "confirmee" && finDe(d) >= aujourdHui();
+    const zone = (k, lab, ph, ligne) => `<div class="champ"><label for="pg-${k}">${esc(t(lab))}</label>${ligne
+      ? `<input class="saisie" id="pg-${k}" maxlength="200" value="${esc(p[k] || "")}" placeholder="${esc(t(ph))}"${modifiable ? "" : " readonly"}>`
+      : `<textarea class="saisie" id="pg-${k}" maxlength="1500" placeholder="${esc(t(ph))}"${modifiable ? "" : " readonly"}>${esc(p[k] || "")}</textarea>`}</div>`;
+    this.feuille(t("Programme du jour J"), `<p class="doux">${esc(t("Aidez Achref à préparer votre journée. Vous pouvez compléter ce programme jusqu'au jour J."))}</p>
+      <p class="discret" style="margin-top:-4px">${esc(titreDemande(d))}${d.programmeAt ? " · " + esc(t("Enregistré le {d}", { d: depuis(d.programmeAt) })) : ""}</p>
+      ${zone("deroule", "Déroulé et horaires", "14 h : préparatifs de la mariée (maison)\n18 h : cortège\n20 h : arrivée à la salle")}
+      ${zone("adresses", "Adresses", "Maison de la mariée : …\nMaison du marié : …\nSalle : …\nSéance photo : …")}
+      ${zone("personnes", "Personnes à photographier", "Parents, témoins, frères et sœurs, grands-parents…")}
+      ${zone("contact", "Contact le jour J", "Nom et numéro d'un proche à appeler le jour J", true)}
+      ${zone("demandes", "Demandes particulières", "Photos souhaitées, surprises, musique pour la vidéo…")}`,
+      modifiable ? `<button class="btn btn-or btn-bloc" id="pg-go" onclick="App.enregistrerProgramme('${id}')">${esc(t("Enregistrer le programme"))}</button>`
+        : `<button class="btn btn-bloc" onclick="App.fermer()">${esc(t("Fermer"))}</button>`);
+  },
+  async enregistrerProgramme(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const programme = {}; CHAMPS_PROGRAMME.forEach(k => { programme[k] = ((document.getElementById("pg-" + k) || {}).value || "").trim(); });
+    if(!CHAMPS_PROGRAMME.some(k => programme[k])) return this.toast(t("Remplissez au moins une rubrique."), "err");
+    const premiere = !programmeRempli(d), now = Date.now();
+    const btn = document.getElementById("pg-go"); if(btn) btn.disabled = true;
+    try{
+      await window.Cloud.patch("demandes", id, { programme, programmeAt: now, updatedAt: now });
+      const vars = { nom: S.prof.nom || t("Un client"), date: deuxLangues(l => plage(joursDe(d), l)) };
+      if(premiere) this.notifier("admin", "programme", "Programme du jour J reçu", "{nom} a rempli le programme du jour J ({date}).", vars, "demandes/" + id);
+      else this.notifier("admin", "programme", "Programme du jour J modifié", "{nom} a modifié le programme du jour J ({date}).", vars, "demandes/" + id);
+      this.fermer(); this.toast(t("Programme enregistré. Achref est prévenu."), "ok");
+    }catch(e){ console.warn("programme", e); if(btn) btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  // Programme du jour J en lecture (Achref) : les rubriques remplies.
+  vueProgramme(d){
+    const p = d.programme || {};
+    const lib = { deroule: "Déroulé et horaires", adresses: "Adresses", personnes: "Personnes à photographier", contact: "Contact le jour J", demandes: "Demandes particulières" };
+    return CHAMPS_PROGRAMME.filter(k => String(p[k] || "").trim()).map(k => `<div class="pg-bloc"><b>${esc(t(lib[k]))}</b><p dir="auto">${txt(p[k])}</p></div>`).join("")
+      || `<p class="discret">${esc(t("Le client n'a pas encore rempli le programme."))}</p>`;
+  },
   vueCalendrier(){
     const [y, m] = S.calMois.split("-").map(Number), premier = new Date(y, m - 1, 1), nb = new Date(y, m, 0).getDate();
     const decal = (premier.getDay() + 6) % 7, auj = aujourdHui();
@@ -2375,7 +2708,9 @@ const App = {
     const b = (f, l, danger) => `<button class="lien${danger ? " lien-danger" : ""}" onclick="App.${f}('${d.id}')">${esc(t(l))}</button>`;
     let a = [];
     if(d.statut === "attente") a = [b("modifierDemande", "Modifier"), b("annulerDemande", "Annuler la demande", true)];
-    else if(d.statut === "confirmee" && finDe(d) >= aujourdHui()) a = (this.peutModifier(d) ? [b("modifierDemande", "Modifier")] : []).concat([b("annulerDemande", "Annuler la réservation", true)]);
+    else if(d.statut === "confirmee" && finDe(d) >= aujourdHui()) a = [b("ouvrirPaiementClient", "Paiement"), b("ouvrirProgramme", "Programme du jour J")]
+      .concat(this.peutModifier(d) ? [b("modifierDemande", "Modifier")] : []).concat([b("annulerDemande", "Annuler la réservation", true)]);
+    else if(d.statut === "confirmee" && paiementsDe(d).length) a = [b("ouvrirPaiementClient", "Paiement")];
     else if(d.statut === "annulee" || d.statut === "refusee") a = [b("supprimerDemandeClient", "Supprimer", true)];
     return a.length ? `<div class="actions-demande">${a.join("")}</div>` : "";
   },
@@ -2567,7 +2902,7 @@ const App = {
   },
   ouvrirSuppression(){
     this.feuille(t("Supprimer mon compte"), `<div class="encart alerte"><b>${esc(t("Cette action est définitive."))}</b></div>
-      <p class="doux">${esc(t("Seront effacés : votre compte, vos demandes de réservation, vos avis, vos notifications et vos liens de téléchargement. Pensez à télécharger vos photos avant."))}</p>
+      <p class="doux">${esc(t("Seront effacés : votre compte, vos demandes de réservation, vos avis, vos notifications, vos reçus de virement et vos liens de téléchargement. Pensez à télécharger vos photos avant."))}</p>
       <div class="champ"><label for="sup-pass">${esc(t("Mot de passe"))}</label>${champMdp("sup-pass", "Votre mot de passe", "current-password")}</div>`,
       `<button class="btn btn-danger btn-bloc" id="sup-go" onclick="App.supprimerCompte()">${esc(t("Supprimer définitivement mon compte"))}</button>`);
   },
@@ -2624,7 +2959,7 @@ const App = {
     const nonTel = S.livraisons.filter(l => !l.telechargeAt && ecartJours(auj, l.expireLe) >= 0).length;
     const bientot = S.livraisons.filter(l => !l.telechargeAt && ecartJours(auj, l.expireLe) >= 0 && ecartJours(auj, l.expireLe) <= 1).length;
     const nouveauLien = S.livraisons.filter(l => l.nouveauLienDemandeAt && !l.telechargeAt && ecartJours(auj, l.expireLe) < 0).length;
-    const aValider = S.avis.filter(a => !a.publie).length;
+    const aValider = S.avis.filter(a => !a.publie).length, recusAtt = S.recus.filter(r => r.statut === "attente").length;
     // Prochains jours de travail : réservations confirmées et événements ajoutés à la main.
     const prochains = S.demandes.filter(d => d.statut === "confirmee" && finDe(d) >= auj).map(d => ({ date: joursDe(d)[0].date, d }))
       .concat(S.evenements.filter(e => e.date >= auj).map(e => ({ date: e.date, e })))
@@ -2634,18 +2969,19 @@ const App = {
         `<button class="btn btn-or" onclick="App.ouvrirLivraison()">${ico("envoyer")} ${esc(t("Envoyer des photos à un client"))}</button>`, true)}
       <div class="bloc" style="padding-top:4px;padding-bottom:4px;margin-top:6px">
         ${ligne(attente, attente === 1 ? t("demande de réservation en attente") : t("demandes de réservation en attente"), "demandes")}
+        ${recusAtt ? `<button class="compteur" onclick="App.ouvrirRecusAttente()"><span class="n">${recusAtt}</span><span class="l">${esc(t("reçu(s) de virement à vérifier"))}</span>${ico("chevron", "chev")}</button>` : ""}
         ${nouveauLien ? ligne(nouveauLien, t("client(s) demandent un nouveau lien"), "livraisons") : ""}
         ${ligne(bientot, t("lien(s) qui expirent dans moins de 24 h"), "livraisons")}
         ${ligne(nonTel, t("livraison(s) pas encore téléchargée(s)"), "livraisons")}
         ${aValider ? ligne(aValider, t("avis à valider"), "a-avis") : ""}
         ${ligne(this.clients().length, t("clients inscrits"), "clients")}</div>
-      <div class="titre-section" id="agenda-titre"><h2>${esc(t("Agenda"))}</h2></div>
+      <div class="titre-section" id="agenda-titre"><h2>${esc(t("Agenda"))}</h2><button class="btn btn-petit" onclick="App.ouvrirExportAgenda()">${ico("calendrier")} ${esc(t("Google Agenda"))}</button></div>
       <div class="bloc" id="agenda">${this.vueAgenda()}</div>
       <div class="titre-section"><h2>${esc(t("Prochains événements"))}</h2></div>
       ${prochains.length ? `<div class="bloc" style="padding-top:4px;padding-bottom:4px"><div class="liste">${prochains.map(x => x.d ? `<button class="ligne" onclick="App.ouvrirDemande('${x.d.id}')">
-        <span class="avatar">${esc(initiales(x.d.clientNom))}</span><span class="corps"><span class="t">${esc(plage(joursDe(x.d)))}</span><span class="s">${esc(typesDemande(x.d))} — ${esc(x.d.clientNom)}${x.d.lieu ? " — " + esc(x.d.lieu) : ""}</span></span>${ico("chevron", "chev")}</button>`
+        <span class="avatar">${esc(initiales(x.d.clientNom))}</span><span class="corps"><span class="t">${esc(plage(joursDe(x.d)))}</span><span class="s">${esc(typesDemande(x.d))} — ${esc(x.d.clientNom)}${x.d.lieu ? " — " + esc(x.d.lieu) : ""}</span>${this.vueEquipeCourte(this.equipeDemande(x.d))}</span>${ico("chevron", "chev")}</button>`
         : `<button class="ligne" onclick="App.ouvrirJour('${x.e.date}')"><span class="avatar">${ico("calendrier")}</span><span class="corps"><span class="t">${esc(dateLongue(x.e.date))}</span>
-          <span class="s">${esc(t(x.e.type || "Événement"))}${x.e.note ? " — " + esc(x.e.note) : ""} · ${esc(t("Ajouté à la main"))}</span></span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
+          <span class="s">${esc(t(x.e.type || "Événement"))}${x.e.note ? " — " + esc(x.e.note) : ""} · ${esc(t("Ajouté à la main"))}</span>${this.vueEquipeCourte(this.personnesDe("e_" + x.e.id))}</span>${ico("chevron", "chev")}</button>`).join("")}</div></div>`
         : `<div class="vide"><p>${esc(t("Aucun événement confirmé pour l'instant."))}</p></div>`}
       ${this.etatPush() !== "granted" ? `<div style="margin-top:14px">${this.vueNotifs(false)}</div>` : ""}
       ${this.encartInstall()}`;
@@ -2703,15 +3039,23 @@ const App = {
     const ordre = { confirmee: 0, manuel: 1, attente: 2 };
     const ev = (this.agendaParDate()[iso] || []).slice().sort((a, b) => ordre[a.genre] - ordre[b.genre]);
     const travail = ev.filter(x => x.genre !== "attente").length;
+    // Équipe du jour (visible par Achref seul) : noms + bouton pour choisir.
+    const equipe = (cle, args) => { const P = this.personnesDe(cle);
+      return `<dt>${esc(t("Équipe"))}</dt><dd>${P.length ? esc(P.join(", ")) : `<span class="discret">${esc(t("Personne n'est encore prévu"))}</span>`}
+        <button type="button" class="lien" style="margin-inline-start:6px" onclick="App.ouvrirEquipe(${args})">${esc(t(P.length ? "Changer" : "Choisir"))}</button></dd>`; };
     const item = x => {
-      if(x.genre === "manuel") return `<div class="ligne" style="cursor:default"><span class="avatar">${ico("calendrier")}</span>
-          <span class="corps"><span class="t">${esc(t(x.type))}${x.nom ? " — " + esc(x.nom) : ""}</span><span class="s">${esc(t("Ajouté à la main"))}</span></span>
-          <span class="etat danger">${esc(t("Jour de travail"))}</span>
-          <button type="button" class="btn-icone btn-suppr" onclick="App.supprimerEvenement('${x.e.id}','${iso}')" aria-label="${esc(t("Retirer de l'agenda"))}" title="${esc(t("Retirer de l'agenda"))}">${ico("corbeille")}</button></div>`;
+      if(x.genre === "manuel"){
+        const cle = "e_" + x.e.id;
+        return `<div class="carte-jour">
+          <div class="carte-jour-tete"><b>${esc(t(x.type))}</b><span class="etat danger">${esc(t("Ajouté à la main"))}</span></div>
+          <dl class="kv">${x.nom ? `<dt>${esc(t("Note"))}</dt><dd>${esc(x.nom)}</dd>` : ""}${equipe(cle, `'${cle}','${iso}','','${x.e.id}'`)}</dl>
+          <div class="rangee" style="margin-top:12px"><a class="btn btn-petit" href="${esc(this.lienGoogleAgenda(this.evtAgenda(x)))}" target="_blank" rel="noopener">${ico("calendrier")} ${esc(t("Google Agenda"))}</a>
+            <button type="button" class="btn btn-petit btn-danger" onclick="App.supprimerEvenement('${x.e.id}','${iso}')">${ico("corbeille")} ${esc(t("Retirer"))}</button></div></div>`;
+      }
       // Réservation : la fiche du client et de l'événement, directement dans le jour.
       const d = x.d, conf = x.genre === "confirmee", c = S.users.find(u => u.id === d.clientId) || {};
       const nom = c.nom || d.clientNom || t("Client"), tel = c.tel || d.clientTel || "", mail = c.email || d.clientEmail || "";
-      const J = joursDe(d), ceJour = J.find(j => j.date === iso) || {}, fo = forfaitOptionsDe(d);
+      const J = joursDe(d), ceJour = J.find(j => j.date === iso) || {}, fo = forfaitOptionsDe(d), cle = "d_" + d.id + "_" + iso, prix = prixDe(d);
       return `<div class="carte-jour${conf ? "" : " attente"}">
           <div class="carte-jour-tete"><b>${esc(t(x.type))}</b><span class="etat ${conf ? "ok" : "alerte"}">${esc(t(conf ? "Confirmée" : "En attente"))}</span></div>
           <dl class="kv"><dt>${esc(t("Client"))}</dt><dd><b style="font-weight:500">${esc(nom)}</b>${tel ? `<br><bdi dir="ltr">${esc(telAffiche(tel))}</bdi>` : ""}${mail ? `<br><bdi dir="ltr" class="discret">${esc(mail)}</bdi>` : ""}</dd>
@@ -2719,16 +3063,23 @@ const App = {
             ${d.lieu ? `<dt>${esc(t("Lieu"))}</dt><dd>${esc(d.lieu)}</dd>` : ""}
             ${optionsDe(ceJour).length ? `<dt>${esc(t("Options"))}</dt><dd>${esc(this.listeOptions(optionsDe(ceJour)))}</dd>` : ""}
             ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}${fo.length ? " — " + esc(this.listeOptions(fo)) : ""}</dd>` : ""}
-            ${aDesOptions(d) ? `<dt>${esc(t("Total"))}</dt><dd><b style="color:var(--or-clair);font-weight:600">${esc(prixTxt(totalDemande(d)))}</b></dd>` : ""}</dl>
+            ${prix > 0 ? `<dt>${esc(t(aPrixConvenu(d) ? "Prix convenu" : "Total"))}</dt><dd><b style="color:var(--or-clair);font-weight:600">${esc(prixTxt(prix))}</b>
+              <span class="discret"> · ${esc(t("Payé : {p}", { p: prixTxt(payeDe(d)) }))} · ${esc(t("Reste : {p}", { p: prixTxt(resteDe(d)) }))}</span></dd>` : ""}
+            ${equipe(cle, `'${cle}','${iso}','${d.id}',''`)}</dl>
           ${d.message ? `<p class="mot" dir="auto" style="margin:12px 0 0;padding:10px 12px;border-inline-start:2px solid var(--or);background:rgba(201,164,92,.06)">${txt(d.message)}</p>` : ""}
+          ${programmeRempli(d) ? `<details class="programme"><summary>${esc(t("Programme du jour J"))}</summary>${this.vueProgramme(d)}</details>`
+            : (conf ? `<p class="discret" style="margin:10px 0 0">${esc(t("Programme du jour J : pas encore rempli par le client."))}</p>` : "")}
           <div class="rangee" style="margin-top:12px">${tel ? `<a class="btn btn-petit" href="${telLien(tel)}">${ico("tel")} ${esc(t("Appeler"))}</a><a class="btn btn-petit" href="${waLien(tel)}" target="_blank" rel="noopener">${ico("bulle")} WhatsApp</a>` : ""}
-            <button type="button" class="btn btn-petit btn-clair" onclick="App.fermer();setTimeout(()=>App.ouvrirDemande('${d.id}'),250)">${esc(t("Voir la demande"))}</button></div></div>`;
+            ${conf ? `<a class="btn btn-petit" href="${esc(this.lienGoogleAgenda(this.evtAgenda(x)))}" target="_blank" rel="noopener">${ico("calendrier")} ${esc(t("Google Agenda"))}</a>` : ""}
+            <button type="button" class="btn btn-petit btn-clair" onclick="App.ouvrirDemande('${d.id}')">${esc(t("Voir la demande"))}</button></div></div>`;
     };
+    const membres = this.membresEquipe();
     const corps = `${travail > 1 ? `<div class="encart alerte"><b>${esc(t("{n} événements ce jour : prévoyez votre équipe.", { n: travail }))}</b></div>` : ""}
       ${ev.length ? `<div>${ev.map(item).join("")}</div>` : `<p class="doux">${esc(t("Aucun événement ce jour."))}</p>`}
       <h3 style="margin:18px 0 10px">${esc(t("Ajouter un événement ce jour"))}</h3>
       <div class="champ"><label for="ev-type">${esc(t("Événement"))}</label><select class="saisie" id="ev-type">${this.optionsTypes("")}</select></div>
       <div class="champ"><label for="ev-note">${esc(t("Note (facultatif)"))}</label><input class="saisie" id="ev-note" maxlength="140" placeholder="${esc(t("Par exemple : mariage pris par téléphone, salle Le Pacha"))}"></div>
+      <div class="champ"><span class="etiquette">${esc(t("Qui travaille ?"))}</span><div class="cases-equipe">${membres.map((m, i) => `<label class="case"><input type="checkbox" name="ev-eq" value="${esc(m)}"${i === 0 ? " checked" : ""}> ${esc(m)}</label>`).join("")}</div></div>
       <p class="aide" style="margin-top:-6px">${esc(t("Visible par vous seul. Le jour apparaît en rouge dans votre agenda."))}</p>`;
     let titre = dateAvecJour(iso); titre = titre.charAt(0).toUpperCase() + titre.slice(1);
     this.feuille(titre, corps, `<button class="btn btn-or btn-bloc" id="ev-go" onclick="App.ajouterEvenement('${iso}')">${ico("ajout")} ${esc(t("Ajouter à l'agenda"))}</button>`);
@@ -2736,19 +3087,168 @@ const App = {
   majAgenda(){ const el = document.getElementById("agenda"); if(el) el.innerHTML = this.vueAgenda(); },
   async ajouterEvenement(iso){
     const type = document.getElementById("ev-type").value, note = (document.getElementById("ev-note").value || "").trim();
+    const personnes = Array.from(document.querySelectorAll("input[name=ev-eq]:checked")).map(x => x.value);
     const e = { id: nouvelId("e"), date: iso, type: type || "Événement", note, createdAt: Date.now() };
     const btn = document.getElementById("ev-go"); btn.disabled = true;
     try{
       await window.Cloud.put("evenements", e);
       if(!S.evenements.some(x => x.id === e.id)) S.evenements = S.evenements.concat([e]);
-      this.toast(t("Ajouté à l'agenda."), "ok"); this.majAgenda(); this.ouvrirJour(iso);
-    }catch(x){ btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+      if(personnes.length) await this.ecrireEquipe("e_" + e.id, { date: iso, evenementId: e.id, personnes });
+      this.toast(t("Ajouté à l'agenda."), "ok"); this.majAgenda();
+      // Proposé tout de suite : l'ajouter aussi à Google Agenda.
+      this.proposerGoogleAgenda([this.evtAgenda({ genre: "manuel", date: iso, type: e.type, nom: note, e })], t("Ajouté à l'agenda"), `App.ouvrirJour('${iso}')`);
+    }catch(x){ console.warn(x); btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   },
   async supprimerEvenement(id, iso){
     if(!(await this.confirmer(t("Retirer cet événement ?"), t("Il disparaîtra de votre agenda."), t("Retirer"), true))) return this.ouvrirJour(iso);
-    try{ await window.Cloud.del("evenements", id); S.evenements = S.evenements.filter(x => x.id !== id); this.toast(t("Retiré de l'agenda."), "ok"); }
-    catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+    try{
+      await window.Cloud.del("evenements", id); S.evenements = S.evenements.filter(x => x.id !== id);
+      window.Cloud.del("affectations", "e_" + id).catch(() => {}); S.affectations = S.affectations.filter(a => a.id !== "e_" + id);
+      this.toast(t("Retiré de l'agenda."), "ok");
+    }catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
     this.majAgenda(); this.ouvrirJour(iso);
+  },
+
+  /* ---- 1.7 : équipe (visible par Achref seul : collections prive et affectations) ---- */
+  membresEquipe(){
+    const m = S.equipe && Array.isArray(S.equipe.membres) ? S.equipe.membres.filter(Boolean) : [];
+    return m.length ? m : [((S.prof && S.prof.nom) || this.studio().nom || "Achref").split(" ")[0]];
+  },
+  personnesDe(cle){ const a = S.affectations.find(x => x.id === cle); return a && Array.isArray(a.personnes) ? a.personnes : []; },
+  // Toute l'équipe d'une réservation (tous ses jours), sans doublon.
+  equipeDemande(d){ return Array.from(new Set(joursDe(d).flatMap(j => this.personnesDe("d_" + d.id + "_" + j.date)))); },
+  vueEquipeCourte(P){ return P && P.length ? `<span class="s">${esc(t("Équipe : {p}", { p: P.join(", ") }))}</span>` : ""; },
+  ouvrirEquipe(cle, iso, demandeId, evenementId){
+    const P = this.personnesDe(cle), noms = Array.from(new Set(this.membresEquipe().concat(P)));
+    this.feuille(t("Qui travaille ?"), `<p class="doux">${esc(dateAvecJour(iso))}</p>
+      <div class="cases-equipe">${noms.map(m => `<label class="case"><input type="checkbox" name="eq-p" value="${esc(m)}"${P.indexOf(m) >= 0 ? " checked" : ""}> ${esc(m)}</label>`).join("")}</div>
+      <p class="aide">${esc(t("Visible par vous seul. Ajoutez des membres dans Réglages → Mon équipe."))}</p>`,
+      `<div class="rangee"><button class="btn btn-clair" onclick="App.ouvrirJour('${iso}')">${esc(t("Annuler"))}</button>
+        <button class="btn btn-or" id="eq-go" onclick="App.enregistrerEquipeJour('${esc(cle)}','${iso}','${esc(demandeId || "")}','${esc(evenementId || "")}')">${esc(t("Enregistrer"))}</button></div>`);
+  },
+  async ecrireEquipe(cle, champs){
+    const a = Object.assign({ id: cle, updatedAt: Date.now() }, champs);
+    await window.Cloud.put("affectations", a);
+    S.affectations = S.affectations.filter(x => x.id !== cle).concat([a]);
+  },
+  async enregistrerEquipeJour(cle, iso, demandeId, evenementId){
+    const personnes = Array.from(document.querySelectorAll("input[name=eq-p]:checked")).map(x => x.value);
+    const btn = document.getElementById("eq-go"); if(btn) btn.disabled = true;
+    try{ await this.ecrireEquipe(cle, { date: iso, demandeId: demandeId || "", evenementId: evenementId || "", personnes }); this.toast(t("Équipe enregistrée."), "ok"); this.ouvrirJour(iso); }
+    catch(e){ if(btn) btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  vueEquipeReglages(){
+    const M = this.membresEquipe();
+    return `<div class="bloc" id="bloc-equipe"><h3>${esc(t("Mon équipe"))}</h3>
+      <p class="doux">${esc(t("Les personnes qui travaillent avec vous (vous compris). Dans l'agenda, choisissez qui travaille sur chaque événement : visible par vous seul."))}</p>
+      <div class="liste">${M.map((m, i) => `<div class="ligne" style="cursor:default"><span class="avatar">${esc(initiales(m))}</span><span class="corps"><span class="t">${esc(m)}</span></span>
+        ${M.length > 1 ? `<button type="button" class="btn-icone btn-suppr" onclick="App.retirerMembre(${i})" aria-label="${esc(t("Retirer"))} ${esc(m)}" title="${esc(t("Retirer"))}">${ico("corbeille")}</button>` : ""}</div>`).join("")}</div>
+      <div class="ligne-ajout"><input class="saisie" id="eq-nom" maxlength="40" placeholder="${esc(t("Nom (par exemple : Karim, vidéaste)"))}" onkeydown="if(event.key==='Enter'){event.preventDefault();App.ajouterMembre();}">
+        <button type="button" class="btn btn-petit" onclick="App.ajouterMembre()">${ico("ajout")} ${esc(t("Ajouter"))}</button></div></div>`;
+  },
+  majBlocEquipe(){ const b = document.getElementById("bloc-equipe"); if(b) b.outerHTML = this.vueEquipeReglages(); },
+  async ecrireMembres(liste){
+    await window.Cloud.put("prive", { id: "equipe", membres: liste, updatedAt: Date.now() });
+    S.equipe = { id: "equipe", membres: liste }; this.majBlocEquipe();
+  },
+  async ajouterMembre(){
+    const el = document.getElementById("eq-nom"), nom = ((el && el.value) || "").trim().replace(/\s+/g, " ");
+    if(!nom) return this.toast(t("Écrivez le nom de la personne."), "err");
+    const M = this.membresEquipe();
+    if(M.some(m => m.toLowerCase() === nom.toLowerCase())) return this.toast(t("Cette personne est déjà dans l'équipe."), "err");
+    try{ await this.ecrireMembres(M.concat([nom])); this.toast(t("{nom} ajouté(e) à l'équipe.", { nom }), "ok"); }
+    catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async retirerMembre(i){
+    const M = this.membresEquipe(); if(!M[i] || M.length <= 1) return;
+    try{ await this.ecrireMembres(M.filter((_, k) => k !== i)); this.toast(t("{nom} retiré(e) de l'équipe.", { nom: M[i] }), "ok"); }
+    catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ---- 1.7 : Google Agenda ----
+     Un événement : lien « Ajouter à Google Agenda » (le formulaire de Google s'ouvre, déjà rempli).
+     Tout l'agenda : fichier .ics (réservations confirmées + événements ajoutés à la main). */
+  evtAgenda(x){
+    const L = [];
+    if(x.d){
+      const d = x.d, c = S.users.find(u => u.id === d.clientId) || {}, nom = c.nom || d.clientNom || "", tel = c.tel || d.clientTel || "";
+      const J = joursDe(d), ceJour = J.find(j => j.date === x.date) || {}, P = this.personnesDe("d_" + d.id + "_" + x.date), prix = prixDe(d);
+      L.push(t("Client") + " : " + nom + (tel ? " — " + telAffiche(tel) : ""));
+      if(J.length > 1) L.push(t("Réservation") + " : " + resumeJours(J));
+      if(optionsDe(ceJour).length) L.push(t("Options") + " : " + this.listeOptions(optionsDe(ceJour)));
+      if(d.forfaitNom) L.push(t("Forfait") + " : " + d.forfaitNom + (forfaitOptionsDe(d).length ? " — " + this.listeOptions(forfaitOptionsDe(d)) : ""));
+      if(prix > 0) L.push(t(aPrixConvenu(d) ? "Prix convenu" : "Total") + " : " + prixTxt(prix) + " — " + t("Payé : {p}", { p: prixTxt(payeDe(d)) }) + " — " + t("Reste : {p}", { p: prixTxt(resteDe(d)) }));
+      if(P.length) L.push(t("Équipe : {p}", { p: P.join(", ") }));
+      if(d.message) L.push(t("Message") + " : " + d.message);
+      if(programmeRempli(d)){
+        const p = d.programme, lib = { deroule: "Déroulé et horaires", adresses: "Adresses", personnes: "Personnes à photographier", contact: "Contact le jour J", demandes: "Demandes particulières" };
+        L.push("", t("Programme du jour J"));
+        CHAMPS_PROGRAMME.forEach(k => { if(String(p[k] || "").trim()) L.push(t(lib[k]) + " : " + String(p[k]).trim().slice(0, 400)); });
+      }
+      return { uid: d.id + "-" + x.date, date: x.date, titre: t(x.type) + (nom ? " — " + nom : ""), lieu: d.lieu || "", details: L.join("\n").replace(/\u00a0|\u202f/g, " ") };
+    }
+    const e = x.e, P = this.personnesDe("e_" + e.id);
+    if(P.length) L.push(t("Équipe : {p}", { p: P.join(", ") }));
+    L.push(t("Ajouté à la main dans l'app"));
+    return { uid: e.id, date: x.date, titre: t(x.type) + (x.nom ? " — " + x.nom : ""), lieu: "", details: L.join("\n").replace(/\u00a0|\u202f/g, " ") };
+  },
+  lienGoogleAgenda(ev){
+    const debut = ev.date.replace(/-/g, ""), fin = plusJours(ev.date, 1).replace(/-/g, "");
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(ev.titre) + "&dates=" + debut + "/" + fin
+      + "&details=" + encodeURIComponent(ev.details.slice(0, 1800)) + (ev.lieu ? "&location=" + encodeURIComponent(ev.lieu) : "") + "&ctz=Africa%2FTunis";
+  },
+  // Jours de travail à exporter : chaque jour d'une réservation confirmée, et les événements ajoutés à la main.
+  evtsAgendaTous(){
+    const L = [];
+    S.demandes.filter(d => d.statut === "confirmee").forEach(d => joursDe(d).forEach(j => L.push(this.evtAgenda({ genre: "confirmee", date: j.date, type: j.type, d }))));
+    S.evenements.filter(e => e && e.date).forEach(e => L.push(this.evtAgenda({ genre: "manuel", date: e.date, type: e.type || "Événement", nom: e.note || "", e })));
+    return L.sort((a, b) => a.date < b.date ? -1 : (a.date > b.date ? 1 : 0));
+  },
+  googleDemande(id, apresConfirmation){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const evts = joursDe(d).map(j => this.evtAgenda({ genre: "confirmee", date: j.date, type: j.type, d }));
+    this.proposerGoogleAgenda(evts, apresConfirmation ? t("Date confirmée") : t("Google Agenda"), apresConfirmation ? "" : `App.ouvrirDemande('${id}')`, apresConfirmation);
+  },
+  proposerGoogleAgenda(evts, titre, retour, confirme){
+    this.feuille(titre, `${confirme ? `<div class="encart"><b>${esc(t("Le client est prévenu."))}</b></div>` : ""}
+      <p class="doux">${esc(t(evts.length > 1 ? "Ajoutez ces jours à votre Google Agenda (un appui par jour) :" : "Ajoutez cet événement à votre Google Agenda :"))}</p>
+      <div class="liste l-paie">${evts.map(ev => `<a class="ligne" href="${esc(this.lienGoogleAgenda(ev))}" target="_blank" rel="noopener"><span class="avatar">${ico("calendrier")}</span>
+        <span class="corps"><span class="t">${esc(ev.titre)}</span><span class="s">${esc(dateLongue(ev.date))}</span></span><span class="etat or">${esc(t("Ajouter"))}</span></a>`).join("")}</div>
+      <p class="aide">${esc(t("Google Agenda s'ouvre avec l'événement déjà rempli : touchez « Enregistrer »."))}</p>`,
+      `<button class="btn btn-bloc" onclick="${retour || "App.fermer()"}">${esc(t(retour ? "Retour" : "Plus tard"))}</button>`);
+  },
+  ouvrirExportAgenda(){
+    const n = this.evtsAgendaTous().length;
+    this.feuille(t("Exporter vers Google Agenda"), `<p class="doux">${esc(t("Un fichier avec tous vos jours de travail : réservations confirmées et événements ajoutés à la main ({n}).", { n }))}</p>
+      <ol class="etapes etapes-install">
+        <li><span>${esc(t("Touchez « Télécharger le fichier agenda » : le fichier achref-agenda.ics arrive dans vos téléchargements."))}</span></li>
+        <li><span>${esc(t("Sur ordinateur, ouvrez Google Agenda → Paramètres → Importer et exporter → Importer, puis choisissez ce fichier."))}</span></li>
+        <li><span>${esc(t("Sur téléphone, ouvrez le fichier avec l'application Agenda (Samsung) ; avec Google Agenda, utilisez le bouton « Google Agenda » de chaque jour."))}</span></li></ol>
+      <p class="aide">${esc(t("Vous pouvez importer le fichier à nouveau après des changements : les événements déjà importés sont mis à jour."))}</p>`,
+      `<button class="btn btn-or btn-bloc" onclick="App.telechargerAgenda()"${n ? "" : " disabled"}>${ico("telecharger")} ${esc(t("Télécharger le fichier agenda"))}</button>`);
+  },
+  fichierIcs(evts){
+    const echap = s => String(s || "").replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+    // Lignes de 75 octets au plus (norme iCalendar), sans couper un caractère.
+    const plier = ligne => { const enc = new TextEncoder(); let out = "", cur = "", n = 0;
+      for(const ch of ligne){ const b = enc.encode(ch).length; if(n + b > (out ? 74 : 75)){ out += (out ? "\r\n " : "") + cur; cur = ""; n = 0; } cur += ch; n += b; }
+      return out + (out ? "\r\n " : "") + cur; };
+    const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
+    const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Achref Sakouhi Photographe//Agenda//FR", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+      "X-WR-CALNAME:" + echap(this.studio().nom + " — " + t("Agenda")), "X-WR-TIMEZONE:Africa/Tunis"];
+    evts.forEach(ev => { L.push("BEGIN:VEVENT", "UID:" + ev.uid + "@achref-sakouhi", "DTSTAMP:" + stamp, "DTSTART;VALUE=DATE:" + ev.date.replace(/-/g, ""),
+      "DTEND;VALUE=DATE:" + plusJours(ev.date, 1).replace(/-/g, ""), "SUMMARY:" + echap(ev.titre));
+      if(ev.lieu) L.push("LOCATION:" + echap(ev.lieu));
+      L.push("DESCRIPTION:" + echap(ev.details), "TRANSP:OPAQUE", "END:VEVENT"); });
+    L.push("END:VCALENDAR");
+    return L.map(plier).join("\r\n") + "\r\n";
+  },
+  telechargerAgenda(){
+    const evts = this.evtsAgendaTous(); if(!evts.length) return this.toast(t("Aucun événement à exporter."), "err");
+    const url = URL.createObjectURL(new Blob([this.fichierIcs(evts)], { type: "text/calendar;charset=utf-8" }));
+    const a = document.createElement("a"); a.href = url; a.download = "achref-agenda.ics"; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    this.toast(t("Fichier agenda téléchargé ({n} événements).", { n: evts.length }), "ok");
   },
   // Version 1.3 : les anciennes « dates déjà prises » ajoutées à la main deviennent des événements de l'agenda.
   async migrerAgenda(){
@@ -2931,13 +3431,16 @@ const App = {
   },
   async supprimerClient(id){
     const c = S.users.find(u => u.id === id); if(!c) return;
-    if(!(await this.confirmer(t("Supprimer ce client ?"), t("Ses livraisons, demandes, avis et notifications seront effacés. Il pourra recréer un compte s'il le souhaite."), t("Supprimer"), true))) return;
+    if(!(await this.confirmer(t("Supprimer ce client ?"), t("Ses livraisons, demandes, avis, notifications et reçus de virement seront effacés. Il pourra recréer un compte s'il le souhaite."), t("Supprimer"), true))) return;
     const C = window.Cloud;
     try{
       // Marque « supprimé » : à sa prochaine connexion, l'app du client ferme aussi son compte de connexion
       // (sinon il retomberait sur un profil vide et ne pourrait pas recréer de compte avec la même adresse).
       await C.put("comptesSupprimes", { id, ts: Date.now() });
-      for(const [coll, champ] of [["livraisons", "clientId"], ["demandes", "clientId"], ["avis", "clientId"], ["notifs", "target"]]){
+      // Équipe prévue sur ses réservations (visible par Achref seul) : effacée aussi.
+      const sesDemandes = new Set(S.demandes.filter(d => d.clientId === id).map(d => d.id));
+      await Promise.allSettled(S.affectations.filter(a => a.demandeId && sesDemandes.has(a.demandeId)).map(a => C.del("affectations", a.id)));
+      for(const [coll, champ] of [["livraisons", "clientId"], ["demandes", "clientId"], ["avis", "clientId"], ["notifs", "target"], ["recus", "clientId"], ["recusImages", "clientId"]]){
         const docs = await C.listWhere(coll, champ, id); await Promise.allSettled(docs.map(d => C.del(coll, d.id)));
       }
       await C.removeLoginIndex(cleTel(c.tel), id);
@@ -2994,6 +3497,7 @@ const App = {
         ${d.forfaitNom ? `<dt>${esc(t("Forfait"))}</dt><dd>${esc(d.forfaitNom)}${forfaitOptionsDe(d).length ? `<span style="display:block;color:var(--or-clair);font-size:.86rem">${esc(this.listeOptions(forfaitOptionsDe(d), " · "))}</span>` : ""}</dd>` : ""}
         ${aDesOptions(d) ? `<dt>${esc(t("Total"))}</dt><dd><b style="color:var(--or-clair);font-weight:600">${esc(prixTxt(totalDemande(d)))}</b></dd>` : ""}<dt>${esc(t("Statut"))}</dt><dd>${esc(t(this.libelleStatut(d.statut)))}</dd></dl>
       ${d.message ? `<p class="mot" style="margin-top:12px;padding:10px 12px;border-inline-start:2px solid var(--or);background:rgba(201,164,92,.06)">${txt(d.message)}</p>` : ""}
+      ${this.vueBlocPaiementAdmin(d)}
       ${autres.length ? `<div class="encart alerte" style="margin-top:12px"><b>${esc(t("Déjà prévu ces jours-là :"))}</b>
           <ul class="conseils-mail" style="margin:8px 0 6px">${autres.map(x => `<li>${esc(dateCourte(x.date))} — ${esc(t(x.type))}${x.nom ? " — " + esc(x.nom) : ""} (${esc(statutAutre(x))})</li>`).join("")}</ul>
           <div class="discret">${esc(t("Vous pouvez quand même confirmer, par exemple en envoyant votre équipe."))}</div></div>` : ""}
@@ -3014,8 +3518,138 @@ const App = {
       const vars = { date: deuxLangues(l => plage(joursDe(d), l)) };
       if(statut === "confirmee") await this.notifier(d.clientId, "demande", "Date confirmée", "Votre demande du {date} est confirmée.", vars, "reserver");
       else await this.notifier(d.clientId, "demande", "Réponse à votre demande", "Achref a répondu à votre demande du {date}.", vars, "reserver");
-      this.fermer(); this.toast(statut === "confirmee" ? t("Date confirmée. Le client est prévenu.") : t("Réponse envoyée au client."), "ok");
+      this.toast(statut === "confirmee" ? t("Date confirmée. Le client est prévenu.") : t("Réponse envoyée au client."), "ok");
+      // Réservation confirmée : Achref peut l'ajouter tout de suite à son Google Agenda.
+      if(statut === "confirmee") this.googleDemande(id, true);
+      else this.fermer();
     }catch(e){ console.warn(e); this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+
+  /* ---- 1.7 : paiement d'une réservation (Achref) ---- */
+  vueBlocPaiementAdmin(d){
+    const att = S.recus.filter(r => r.demandeId === d.id && r.statut === "attente").length;
+    return `<div class="bloc-paie"><div class="bloc-paie-tete"><b>${esc(t("Paiement"))}</b>${att ? `<span class="etat alerte">${esc(t("{n} reçu(s) à vérifier", { n: att }))}</span>` : ""}</div>
+      ${this.vueResumePaiement(d)}
+      <div class="rangee" style="margin-top:10px"><button type="button" class="btn btn-petit btn-or" onclick="App.ouvrirPaiementAdmin('${d.id}')">${esc(t("Gérer le paiement"))}</button>
+        ${programmeRempli(d) ? `<button type="button" class="btn btn-petit" onclick="App.voirProgramme('${d.id}')">${esc(t("Programme du jour J"))}</button>` : ""}
+        ${d.statut === "confirmee" ? `<button type="button" class="btn btn-petit" onclick="App.googleDemande('${d.id}')">${ico("calendrier")} ${esc(t("Google Agenda"))}</button>` : ""}</div></div>`;
+  },
+  ouvrirPaiementAdmin(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const recus = S.recus.filter(r => r.demandeId === id).sort((a, b) => (a.statut === "attente") === (b.statut === "attente") ? b.createdAt - a.createdAt : (a.statut === "attente" ? -1 : 1));
+    const total = totalDemande(d);
+    const corps = `<p class="doux" style="margin-bottom:12px">${esc(d.clientNom || t("Client"))} — ${esc(titreDemande(d))}</p>
+      ${this.vueResumePaiement(d)}
+      ${recus.length ? `<h3 class="h-paie">${esc(t("Reçus de virement du client"))}</h3>${recus.map(r => { const [c, l] = this.etatRecu(r);
+        return `<div class="recu-ligne"><button type="button" class="recu-mini" onclick="App.voirRecu('${esc(r.id)}','${id}')" aria-label="${esc(t("Voir le reçu"))}"><img data-recu="${esc(r.id)}" alt=""></button>
+          <div class="corps"><b>${esc(prixTxt(r.montant))}</b> <span class="etat ${c}">${esc(t(l))}</span><span class="s">${esc(depuis(r.createdAt))}${r.note ? " · " + esc(r.note) : ""}</span>
+            ${r.statut === "attente" ? `<div class="actions-demande" style="justify-content:flex-start;margin-top:6px"><button type="button" class="lien" onclick="App.validerRecu('${esc(r.id)}')">${esc(t("Valider"))}</button>
+              <button type="button" class="lien lien-danger" onclick="App.ouvrirRefusRecu('${esc(r.id)}')">${esc(t("Refuser"))}</button></div>` : ""}</div></div>`; }).join("")}` : ""}
+      ${this.vuePaiementsRecus(d)}
+      <h3 class="h-paie">${esc(t("Prix convenu"))}</h3>
+      <div class="option-ligne"><div class="prix-saisie" style="flex:1"><input class="saisie" id="pa-prix" inputmode="decimal" value="${aPrixConvenu(d) ? esc(nombre(d.prixConvenu)) : ""}" placeholder="${esc(total > 0 ? nombre(total) : "0")}" aria-label="${esc(t("Prix convenu"))}"><span>${esc(t("DT"))}</span></div>
+        <button type="button" class="btn btn-petit" onclick="App.enregistrerPrixConvenu('${id}')">${esc(t("Enregistrer"))}</button></div>
+      <p class="aide">${esc(total > 0 ? t("Total des options : {p}. Laissez vide pour garder ce total.", { p: prixTxt(total) }) : t("Le prix négocié avec le client. Il voit ce prix et le reste à payer."))}</p>
+      <h3 class="h-paie">${esc(t("Ajouter un paiement"))}</h3>
+      <div class="rangee"><div class="champ" style="flex:1;min-width:130px"><label for="pa-montant">${esc(t("Montant"))}</label><div class="prix-saisie" style="flex:none"><input class="saisie" id="pa-montant" inputmode="decimal" placeholder="0"><span>${esc(t("DT"))}</span></div></div>
+        <div class="champ" style="flex:1;min-width:130px"><label for="pa-date">${esc(t("Date"))}</label><input class="saisie" id="pa-date" type="date" value="${aujourdHui()}"></div></div>
+      <div class="rangee"><div class="champ" style="flex:1;min-width:130px"><label for="pa-mode">${esc(t("Mode"))}</label><select class="saisie" id="pa-mode">${MODES_PAIEMENT.map(m => `<option value="${esc(m)}">${esc(t(m))}</option>`).join("")}</select></div>
+        <div class="champ" style="flex:1;min-width:130px"><label for="pa-note">${esc(t("Note (facultatif)"))}</label><input class="saisie" id="pa-note" maxlength="80" placeholder="${esc(t("Par exemple : acompte"))}"></div></div>
+      <label class="case" style="margin-bottom:12px"><input type="checkbox" id="pa-prev" checked> ${esc(t("Prévenir le client par notification"))}</label>
+      <button type="button" class="btn btn-or btn-bloc" id="pa-go" onclick="App.ajouterPaiement('${id}')">${ico("ajout")} ${esc(t("Ajouter le paiement"))}</button>`;
+    this.feuille(t("Paiement"), corps, `<button class="btn btn-bloc" onclick="App.ouvrirDemande('${id}')">${esc(t("Retour à la demande"))}</button>`);
+    // Miniatures des reçus : chargées à part (images lourdes, jamais dans la liste en temps réel).
+    document.querySelectorAll("img[data-recu]").forEach(img => window.Cloud.getCache("recusImages", img.dataset.recu).then(x => { if(x && x.data) img.src = x.data; }).catch(() => {}));
+  },
+  async voirRecu(rid, id){
+    const r = S.recus.find(x => x.id === rid); if(!r) return;
+    this.feuille(t("Reçu de virement"), `<p class="doux">${esc(r.clientNom || "")} — ${esc(prixTxt(r.montant))} — ${esc(depuis(r.createdAt))}</p>
+      ${r.note ? `<p class="discret">${esc(r.note)}</p>` : ""}<img id="vr-img" class="recu-grand" alt="${esc(t("Reçu de virement"))}">`,
+      `<button class="btn btn-bloc" onclick="App.ouvrirPaiementAdmin('${id}')">${esc(t("Retour"))}</button>`);
+    try{ const x = await window.Cloud.getCache("recusImages", rid); const img = document.getElementById("vr-img"); if(img && x && x.data) img.src = x.data; }catch(e){}
+  },
+  // Nouveau paiement : la liste complète est réécrite (Achref seul écrit les paiements).
+  async ecrirePaiements(d, liste){ await window.Cloud.patch("demandes", d.id, { paiements: liste, updatedAt: Date.now() }); d.paiements = liste; },
+  notifierPaiement(d, montant){
+    const reste = Math.max(0, prixDe(d) - payeDe(d));
+    const vars = { montant: deuxLangues(l => prixTxt(montant, l)), reste: deuxLangues(l => prixTxt(reste, l)) };
+    if(prixDe(d) > 0) this.notifier(d.clientId, "paiement", "Paiement reçu", "Achref a bien reçu {montant}. Reste à payer : {reste}.", vars, "reserver");
+    else this.notifier(d.clientId, "paiement", "Paiement reçu", "Achref a bien reçu {montant}.", vars, "reserver");
+  },
+  async ajouterPaiement(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const montant = lirePrix(document.getElementById("pa-montant").value), date = document.getElementById("pa-date").value || aujourdHui();
+    if(!montant) return this.toast(t("Indiquez le montant reçu."), "err");
+    const p = { id: nouvelId("pay"), montant, date, mode: document.getElementById("pa-mode").value, note: (document.getElementById("pa-note").value || "").trim() };
+    const prevenir = document.getElementById("pa-prev").checked, btn = document.getElementById("pa-go"); btn.disabled = true;
+    try{
+      await this.ecrirePaiements(d, paiementsDe(d).concat([p]));
+      if(prevenir) this.notifierPaiement(d, montant);
+      this.toast(t("Paiement enregistré."), "ok"); this.ouvrirPaiementAdmin(id);
+    }catch(e){ console.warn(e); btn.disabled = false; this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  async supprimerPaiement(id, pid){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    if(!(await this.confirmer(t("Supprimer ce paiement ?"), t("Le reste à payer sera recalculé. Le client ne sera pas prévenu."), t("Supprimer"), true))) return this.ouvrirPaiementAdmin(id);
+    try{ await this.ecrirePaiements(d, paiementsDe(d).filter(p => p.id !== pid)); this.toast(t("Paiement supprimé."), "ok"); }
+    catch(e){ this.toast(t("Suppression impossible. Vérifiez la connexion."), "err"); }
+    this.ouvrirPaiementAdmin(id);
+  },
+  async enregistrerPrixConvenu(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    const brut = (document.getElementById("pa-prix").value || "").trim(), prix = brut ? lirePrix(brut) : null;
+    if(brut && prix == null) return this.toast(t("Prix invalide : indiquez un nombre, par exemple 1 500."), "err");
+    if(prix === (aPrixConvenu(d) ? d.prixConvenu : null)) return this.toast(t("Aucune modification."));
+    try{
+      await window.Cloud.patch("demandes", id, { prixConvenu: prix, updatedAt: Date.now() }); d.prixConvenu = prix;
+      if(prix != null) this.notifier(d.clientId, "paiement", "Prix de votre réservation", "Le prix convenu pour votre réservation du {date} est de {prix}.",
+        { date: deuxLangues(l => plage(joursDe(d), l)), prix: deuxLangues(l => prixTxt(prix, l)) }, "reserver");
+      this.toast(prix != null ? t("Prix convenu enregistré. Le client est prévenu.") : t("Prix convenu retiré : le total des options s'applique."), "ok");
+      this.ouvrirPaiementAdmin(id);
+    }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+  },
+  // Reçu valide : il devient un paiement « Virement » et le client est prévenu.
+  async validerRecu(rid){
+    const r = S.recus.find(x => x.id === rid), d = r && S.demandes.find(x => x.id === r.demandeId); if(!r || !d) return;
+    try{
+      await this.ecrirePaiements(d, paiementsDe(d).concat([{ id: nouvelId("pay"), montant: r.montant, date: aujourdHui(), mode: "Virement", note: r.note || "", recuId: r.id }]));
+      await window.Cloud.patch("recus", rid, { statut: "valide", traiteAt: Date.now() }); r.statut = "valide";
+      this.notifierPaiement(d, r.montant);
+      this.toast(t("Reçu validé : paiement enregistré. Le client est prévenu."), "ok");
+    }catch(e){ console.warn(e); this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+    this.ouvrirPaiementAdmin(d.id);
+  },
+  ouvrirRefusRecu(rid){
+    const r = S.recus.find(x => x.id === rid); if(!r) return;
+    this.feuille(t("Refuser ce reçu"), `<p class="doux">${esc(r.clientNom || "")} — ${esc(prixTxt(r.montant))}</p>
+      <div class="champ"><label for="rf-motif">${esc(t("Raison (envoyée au client)"))}</label><input class="saisie" id="rf-motif" maxlength="160" placeholder="${esc(t("Par exemple : virement pas encore reçu sur le compte"))}"></div>`,
+      `<div class="rangee"><button class="btn btn-clair" onclick="App.ouvrirPaiementAdmin('${r.demandeId}')">${esc(t("Annuler"))}</button>
+        <button class="btn btn-danger" onclick="App.refuserRecu('${esc(rid)}')">${esc(t("Refuser le reçu"))}</button></div>`);
+  },
+  async refuserRecu(rid){
+    const r = S.recus.find(x => x.id === rid); if(!r) return;
+    const motif = (document.getElementById("rf-motif").value || "").trim();
+    try{
+      await window.Cloud.patch("recus", rid, { statut: "refuse", motif, traiteAt: Date.now() }); r.statut = "refuse"; r.motif = motif;
+      const vars = { montant: deuxLangues(l => prixTxt(r.montant, l)), motif };
+      if(motif) this.notifier(r.clientId, "paiement", "Reçu de virement refusé", "Votre reçu de {montant} n'a pas été validé : {motif}", vars, "reserver");
+      else this.notifier(r.clientId, "paiement", "Reçu de virement refusé", "Votre reçu de {montant} n'a pas été validé. Contactez Achref.", vars, "reserver");
+      this.toast(t("Reçu refusé. Le client est prévenu."), "ok");
+    }catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
+    this.ouvrirPaiementAdmin(r.demandeId);
+  },
+  // Tableau : tous les reçus de virement à vérifier.
+  ouvrirRecusAttente(){
+    const L = S.recus.filter(r => r.statut === "attente").sort((a, b) => a.createdAt - b.createdAt);
+    this.feuille(t("Reçus de virement à vérifier"), L.length ? `<div class="liste l-paie">${L.map(r => { const d = S.demandes.find(x => x.id === r.demandeId);
+      return `<button type="button" class="ligne" onclick="App.ouvrirPaiementAdmin('${esc(r.demandeId)}')"><span class="avatar">${esc(initiales(r.clientNom))}</span>
+        <span class="corps"><span class="t">${esc(r.clientNom || t("Client"))} — ${esc(prixTxt(r.montant))}</span><span class="s">${esc(d ? titreDemande(d) : "")} · ${esc(depuis(r.createdAt))}</span></span>${ico("chevron", "chev")}</button>`; }).join("")}</div>`
+      : `<p class="doux">${esc(t("Aucun reçu à vérifier."))}</p>`, `<button class="btn btn-bloc" onclick="App.fermer()">${esc(t("Fermer"))}</button>`);
+  },
+  voirProgramme(id){
+    const d = S.demandes.find(x => x.id === id); if(!d) return;
+    this.feuille(t("Programme du jour J"), `<p class="doux">${esc(d.clientNom || "")} — ${esc(titreDemande(d))}</p>${d.programmeAt ? `<p class="discret" style="margin-top:-6px">${esc(t("Enregistré le {d}", { d: depuis(d.programmeAt) }))}</p>` : ""}${this.vueProgramme(d)}`,
+      `<button class="btn btn-bloc" onclick="App.ouvrirDemande('${id}')">${esc(t("Retour à la demande"))}</button>`);
   },
 
   /* ================================================= ADMIN : PLUS */
@@ -3027,7 +3661,8 @@ const App = {
         ${l("a-reels", "reel", "Reels", "Ajouter et supprimer vos vidéos", 0)}
         ${l("a-forfaits", "etiquette", "Forfaits", "Vos offres et leurs prix", 0)}
         ${l("a-avis", "etoile", "Avis", "Valider les avis des clients", S.avis.filter(a => !a.publie).length)}
-        ${l("reglages", "reglages", "Réglages", "Coordonnées, agenda, notifications, sécurité", 0)}
+        ${l("a-stats", "tableau", "Statistiques", "Réservations, chiffre d'affaires, options", 0)}
+        ${l("reglages", "reglages", "Réglages", "Coordonnées, événements, RIB, équipe, agenda", 0)}
         ${l("apropos", "info", "À propos", "Ce que voient les clients", 0)}</div></div>
       ${estInstallee() ? "" : `<div style="margin-bottom:12px">${this.boutonInstaller("btn-or btn-bloc")}</div>`}
       <button class="btn btn-clair btn-bloc" onclick="App.deconnecter()">${ico("sortir")} ${esc(t("Se déconnecter"))}</button>`;
@@ -3193,10 +3828,73 @@ const App = {
         ${ch("st-duree", "Durée des liens SwissTransfer (jours)", st.dureeLien, "3", "number")}
         <button class="btn btn-or btn-bloc">${esc(t("Enregistrer"))}</button></form>
       ${this.vueTypesReglages()}
+      ${this.vueRibReglages()}
+      ${this.vueEquipeReglages()}
       <div class="bloc"><h3>${esc(t("Agenda"))}</h3><p class="doux">${esc(t("Vos jours de travail sont dans le Tableau, rubrique Agenda. Les clients peuvent demander toutes les dates : c'est vous qui confirmez. Pour une date prise en dehors de l'app, touchez le jour dans l'agenda."))}</p>
-        <button class="btn btn-petit" onclick="App.aller('tableau/agenda')">${ico("calendrier")} ${esc(t("Ouvrir l'agenda"))}</button></div>
+        <div class="rangee"><button class="btn btn-petit" onclick="App.aller('tableau/agenda')">${ico("calendrier")} ${esc(t("Ouvrir l'agenda"))}</button>
+          <button class="btn btn-petit" onclick="App.ouvrirExportAgenda()">${ico("telecharger")} ${esc(t("Exporter vers Google Agenda"))}</button></div></div>
       ${this.vueNotifs(false)}
       ${this.pageCompteAdmin()}`;
+  },
+  /* ================================================= ADMIN : STATISTIQUES (1.7) */
+  /* Réservations confirmées dont le premier jour tombe dans l'année choisie. Chiffre d'affaires :
+     prix convenu, sinon total des options. Encaissé : paiements notés par Achref. */
+  pageStats(){
+    const an = String(S.statsAnnee), dansAn = iso => !!iso && iso.slice(0, 4) === an;
+    const D = S.demandes.filter(d => dansAn(premierJourDe(d))), conf = D.filter(d => d.statut === "confirmee");
+    const attente = D.filter(d => d.statut === "attente").length, fermees = D.filter(d => d.statut === "refusee" || d.statut === "annulee").length;
+    const ca = conf.reduce((s, d) => s + prixDe(d), 0), enc = conf.reduce((s, d) => s + payeDe(d), 0), reste = conf.reduce((s, d) => s + resteDe(d), 0);
+    const jours = new Set(conf.flatMap(d => joursDe(d).map(j => j.date)).concat(S.evenements.filter(e => e && dansAn(e.date)).map(e => e.date))).size;
+    const mois = Array.from({ length: 12 }, () => ({ n: 0, ca: 0 }));
+    conf.forEach(d => { const m = +premierJourDe(d).slice(5, 7) - 1; if(mois[m]){ mois[m].n++; mois[m].ca += prixDe(d); } });
+    const compter = (liste) => { const c = {}; liste.forEach(k => { if(k) c[k] = (c[k] || 0) + 1; }); return Object.keys(c).map(k => [k, c[k]]).sort((a, b) => b[1] - a[1]); };
+    const options = compter(conf.flatMap(d => joursDe(d).flatMap(j => optionsDe(j).map(o => o.nom)).concat(forfaitOptionsDe(d).map(o => o.nom)))).slice(0, 8);
+    const types = compter(conf.flatMap(d => joursDe(d).map(j => j.type)));
+    const forfaits = compter(conf.map(d => d.forfaitNom));
+    const nomMois = i => { try{ return new Intl.DateTimeFormat(loc(), { month: "short" }).format(new Date(+an, i, 1)); }catch(e){ return String(i + 1); } };
+    // Barres horizontales : une seule série (or), valeur écrite à côté de chaque barre.
+    const barres = (rows, max) => `<div class="barres">${rows.map(([lab, v, texte]) => `<div class="barre-stat" title="${esc(lab)} : ${esc(texte)}">
+        <span class="bs-l">${esc(lab)}</span><span class="bs-piste"><span class="bs-val" style="width:${max ? Math.max(v ? 3 : 0, Math.round(v / max * 100)) : 0}%"></span></span><span class="bs-n">${esc(texte)}</span></div>`).join("")}</div>`;
+    const annees = S.demandes.map(d => +premierJourDe(d).slice(0, 4)).filter(Boolean), min = Math.min(new Date().getFullYear(), ...annees), max = new Date().getFullYear() + 2;
+    const tuile = (v, l) => `<div class="tuile"><b>${esc(v)}</b><span>${esc(t(l))}</span></div>`;
+    const tete = `${this.retour("plus", "Plus")}<div class="titre-section" style="margin-top:8px"><h2>${esc(t("Statistiques"))}</h2>
+        <div class="annee-nav"><button type="button" class="btn-icone" ${+an > min ? "" : "disabled style=\"opacity:.3\""} onclick="App.changerAnneeStats(-1)" aria-label="${esc(t("Année précédente"))}">${ico(LANG === "ar" ? "droite" : "gauche")}</button>
+          <b>${an}</b><button type="button" class="btn-icone" ${+an < max ? "" : "disabled style=\"opacity:.3\""} onclick="App.changerAnneeStats(1)" aria-label="${esc(t("Année suivante"))}">${ico(LANG === "ar" ? "gauche" : "droite")}</button></div></div>`;
+    if(!D.length && !jours) return tete + `<div class="vide">${ico("tableau")}<p>${esc(t("Aucune réservation en {an} pour l'instant.", { an }))}</p></div>`;
+    const maxMois = Math.max(...mois.map(m => m.n));
+    return tete + `<div class="tuiles">${tuile(String(conf.length), "réservations confirmées")}${tuile(String(jours), "jours de travail")}
+        ${tuile(prixTxt(ca), "chiffre d'affaires")}${tuile(prixTxt(enc), "encaissé")}</div>
+      <div class="bloc"><dl class="kv"><dt>${esc(t("Reste à encaisser"))}</dt><dd><b style="color:var(--or-clair)">${esc(prixTxt(reste))}</b></dd>
+        <dt>${esc(t("Demandes reçues"))}</dt><dd>${D.length} — ${esc(t("{a} confirmée(s), {b} en attente, {c} refusée(s) ou annulée(s)", { a: conf.length, b: attente, c: fermees }))}</dd>
+        ${D.length ? `<dt>${esc(t("Taux de confirmation"))}</dt><dd>${Math.round(conf.length / D.length * 100)} %</dd>` : ""}</dl></div>
+      <div class="titre-section"><h2>${esc(t("Par mois"))}</h2></div>
+      <div class="bloc">${barres(mois.map((m, i) => [nomMois(i), m.n, m.n ? m.n + (m.ca ? " · " + prixTxt(m.ca) : "") : "—"]), maxMois)}
+        <p class="aide">${esc(t("Nombre de réservations confirmées (selon leur premier jour) et chiffre d'affaires du mois."))}</p></div>
+      ${options.length ? `<div class="titre-section"><h2>${esc(t("Options les plus choisies"))}</h2></div><div class="bloc">${barres(options.map(([k, v]) => [t(k), v, String(v)]), options[0][1])}</div>` : ""}
+      ${types.length ? `<div class="titre-section"><h2>${esc(t("Événements"))}</h2></div><div class="bloc">${barres(types.map(([k, v]) => [t(k), v, String(v)]), types[0][1])}
+        <p class="aide">${esc(t("Nombre de jours réservés par type d'événement."))}</p></div>` : ""}
+      ${forfaits.length ? `<div class="titre-section"><h2>${esc(t("Forfaits choisis"))}</h2></div><div class="bloc">${barres(forfaits.map(([k, v]) => [k, v, String(v)]), forfaits[0][1])}</div>` : ""}
+      <p class="aide">${esc(t("Chiffre d'affaires : prix convenu, sinon total des options, des réservations confirmées. Encaissé : paiements notés dans l'app."))}</p>`;
+  },
+  changerAnneeStats(d){ S.statsAnnee = +S.statsAnnee + d; this.rendre(); window.scrollTo(0, 0); },
+
+  /* ---- Réglages : RIB (1.7), affiché aux clients seulement s'il est rempli ---- */
+  vueRibReglages(){
+    const r = S.rib || {};
+    const ch = (id, lab, val, ph, ltr) => `<div class="champ"><label for="${id}">${esc(t(lab))}</label><input class="saisie" id="${id}" value="${esc(val || "")}" placeholder="${esc(t(ph))}" maxlength="80"${ltr ? ` dir="ltr" autocapitalize="characters" spellcheck="false"` : ""}></div>`;
+    return `<form class="bloc" id="bloc-rib" onsubmit="event.preventDefault();App.enregistrerRib()"><h3>${esc(t("Virement bancaire (RIB)"))}</h3>
+      <p class="doux">${esc(t("Si vous remplissez votre RIB, vos clients le voient dans le paiement de leur réservation et peuvent vous envoyer le reçu de leur virement. Laissez vide pour ne rien afficher."))}</p>
+      ${ch("rb-titulaire", "Titulaire du compte", r.titulaire, "Par exemple : Achref Sakouhi")}${ch("rb-banque", "Banque", r.banque, "Par exemple : BIAT, agence de Sousse")}
+      ${ch("rb-rib", "RIB (20 chiffres) ou IBAN", r.rib, "Par exemple : 08 123 0001234567890 12", true)}
+      <div class="champ"><label for="rb-note">${esc(t("Instructions pour le client (facultatif)"))}</label><input class="saisie" id="rb-note" maxlength="200" value="${esc(r.note || "")}" placeholder="${esc(t("Par exemple : indiquez votre nom dans le motif du virement"))}"></div>
+      <button class="btn btn-or btn-bloc">${esc(t("Enregistrer le RIB"))}</button></form>`;
+  },
+  async enregistrerRib(){
+    const g = id => (document.getElementById(id).value || "").trim();
+    const r = { id: "rib", titulaire: g("rb-titulaire"), banque: g("rb-banque"), rib: g("rb-rib").replace(/\s+/g, " "), note: g("rb-note"), updatedAt: Date.now() };
+    if(r.rib && r.rib.replace(/[^0-9A-Za-z]/g, "").length < 10) return this.toast(t("RIB incomplet : vérifiez le numéro."), "err");
+    try{ await window.Cloud.put("banque", r); S.rib = r; this._edition = false; this.toast(r.rib ? t("RIB enregistré : vos clients le voient dans le paiement.") : t("RIB retiré : rien n'est affiché aux clients."), "ok"); }
+    catch(e){ this.toast(t("Enregistrement impossible. Vérifiez la connexion."), "err"); }
   },
   /* ---- Réglages : événements proposés aux clients, leurs options et leurs prix ---- */
   vueTypesReglages(){
@@ -3488,7 +4186,7 @@ const Cloud = {
     const u = auth.currentUser; if(!u || !db) throw new Error("aucun-compte");
     await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, pass));
     const uid = u.uid; let echecs = 0;
-    const PROPRIO = [["livraisons", "clientId"], ["demandes", "clientId"], ["avis", "clientId"], ["notifs", "target"]];
+    const PROPRIO = [["livraisons", "clientId"], ["demandes", "clientId"], ["avis", "clientId"], ["notifs", "target"], ["recus", "clientId"], ["recusImages", "clientId"]];
     for(const [coll, champ] of PROPRIO){
       try{
         const snap = await getDocs(query(collection(db, coll), where(champ, "==", uid)));
